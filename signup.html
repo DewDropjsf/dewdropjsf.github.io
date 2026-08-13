@@ -46,18 +46,22 @@
                 <button type="button" id="sendOtpBtn" class="btn-submit">OTP ইমেইলে পাঠান</button>
             </div>
 
-            <!-- ধাপ ২: OTP ও পাসওয়ার্ড (প্রথমে লুকানো থাকবে) -->
-            <div id="step2" class="hidden">
-                <div class="form-group">
-                    <label>ইমেইল OTP কোড</label>
-                    <input type="text" name="otp" placeholder="৬ ডিজিটের OTP কোড দিন">
-                </div>
-                <div class="form-group">
-                    <label>পাসওয়ার্ড</label>
-                    <input type="password" name="password" placeholder="নতুন পাসওয়ার্ড দিন">
-                </div>
-                <button type="submit" id="finalSignupBtn" class="btn-submit">সাইন আপ সম্পন্ন করুন</button>
-            </div>
+           <!-- ধাপ ২: OTP ও পাসওয়ার্ড (প্রথমে লুকানো থাকবে) -->
+<div id="step2" class="hidden">
+    <div class="form-group">
+        <label>ইমেইল OTP কোড</label>
+        <input type="text" name="otp" placeholder="৬ ডিজিটের OTP কোড দিন" required>
+    </div>
+    <div class="form-group">
+        <label>নতুন পাসওয়ার্ড</label>
+        <input type="password" name="password" id="pass" placeholder="নতুন পাসওয়ার্ড দিন" required>
+    </div>
+    <div class="form-group">
+        <label>পাসওয়ার্ড নিশ্চিত করুন</label>
+        <input type="password" id="confirm_pass" placeholder="পাসওয়ার্ড পুনরায় লিখুন" required>
+    </div>
+    <button type="submit" id="finalSignupBtn" class="btn-submit">সাইন আপ সম্পন্ন করুন</button>
+</div>
         </form>
 
         <div class="extra-links">
@@ -121,28 +125,37 @@
         }
 
         // ২. চূড়ান্ত সাইন আপ ইভেন্ট
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            
-            let formData = new FormData(form);
-            formData.append('action', 'signup');
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    
+    const pass = document.getElementById('pass').value;
+    const confirmPass = document.getElementById('confirm_pass').value;
 
-            fetch(scriptURL, { method: 'POST', body: formData })
-            .then(response => response.text())
-            .then(data => {
-                let result = data.trim();
-                if(result === 'Success') {
-                    alert('আলহামদুলিল্লাহ! আপনার অ্যাকাউন্ট সফলভাবে ভেরিফাইড এবং রেজিস্টার্ড হয়েছে।');
-                    form.reset();
-                    location.reload();
-                } else if(result.includes('Invalid OTP')) {
-                    alert('ভুল OTP কোড! আবার সঠিকভাবে চেষ্টা করুন।');
-                } else {
-                    alert('রেজিস্ট্রেশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
-                }
-            })
-            .catch(error => alert('নেটওয়ার্ক সমস্যা!'));
-        });
+    // পাসওয়ার্ড দুটি এক কি না তা মিলিয়ে দেখা
+    if (pass !== confirmPass) {
+        alert('দুটি পাসওয়ার্ড মেলেনি! অনুগ্রহ করে আবার পাসওয়ার্ড পরীক্ষা করুন।');
+        return;
+    }
+    
+    let formData = new FormData(form);
+    formData.append('action', 'signup');
+
+    fetch(scriptURL, { method: 'POST', body: formData })
+    .then(response => response.text())
+    .then(data => {
+        let result = data.trim();
+        if(result === 'Success') {
+            alert('আলহামদুলিল্লাহ! আপনার অ্যাকাউন্ট সফলভাবে ভেরিফাইড এবং রেজিস্টার্ড হয়েছে।');
+            form.reset();
+            location.reload();
+        } else if(result.includes('Invalid OTP')) {
+            alert('ভুল OTP কোড! আবার সঠিকভাবে চেষ্টা করুন।');
+        } else {
+            alert('রেজিস্ট্রেশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
+        }
+    })
+    .catch(error => alert('নেটওয়ার্ক সমস্যা!'));
+});
     </script>
 
 </body>
