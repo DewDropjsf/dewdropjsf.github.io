@@ -5,44 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DewDrop Joint Savings Fund</title>
     <style>
+        html {
+            scroll-behavior: smooth; /* স্মুথ স্ক্রোলিং */
+        }
         body {
             font-family: 'Comic Sans MS', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #215967;
+            background-color: #f4f7f6;
             color: #333;
         }
         header {
-            background-color: #CCC0DA;
+            background-color: #2a9d8f;
             color: white;
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        /* লোগো এবং নামের পাত্র (Container) */
         .logo-container {
             display: flex;
-            align-items: center; /* লোগো এবং লেখা মাঝখানে সারিবদ্ধ */
+            align-items: center;
         }
         .logo-image {
-            height: 50px; /* লোগোর উচ্চতা */
-            width: auto;  /* প্রস্থ স্বয়ংক্রিয় */
-            margin-right: 15px; /* লোগো এবং নামের মধ্যে দূরত্ব */
-            border-radius: 50%; /* গোল লোগো যদি চান */
+            height: 45px;
+            width: auto;
+            margin-right: 12px;
+            border-radius: 50%;
         }
         header h1 {
             margin: 0;
-            font-size: 24px;
+            font-size: 22px;
         }
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 12px;
             font-weight: bold;
         }
         nav a:hover {
-            color: #94d2bd;
+            color: #e9d8a6;
         }
         .hero {
             background-color: #e9d8a6;
@@ -50,24 +56,26 @@
             padding: 60px 20px;
         }
         .hero h2 {
-            font-size: 36px;
+            font-size: 34px;
             color: #001219;
             margin-bottom: 10px;
         }
         .hero p {
             font-size: 18px;
             color: #333;
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto 20px auto;
+            line-height: 1.6;
         }
         .btn {
             background-color: #0a9396;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 22px;
             text-decoration: none;
             font-size: 16px;
             border-radius: 5px;
             font-weight: bold;
+            display: inline-block;
         }
         .btn:hover {
             background-color: #005f73;
@@ -77,25 +85,72 @@
             justify-content: space-around;
             padding: 40px 20px;
             background-color: white;
+            flex-wrap: wrap;
         }
         .feature-box {
             text-align: center;
-            width: 30%;
+            width: 28%;
+            min-width: 250px;
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
             border-radius: 8px;
             background-color: #f9f9f9;
+            margin-bottom: 15px;
         }
         .feature-box h3 {
             color: #005f73;
         }
+
+        /* আমাদের সম্পর্কে সেকশনের স্টাইল */
+        .about-section {
+            background-color: #ffffff;
+            padding: 50px 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+        .about-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background-color: #fcfcfc;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-left: 5px solid #2a9d8f;
+        }
+        .about-section h2 {
+            text-align: center;
+            color: #005f73;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+        .about-section p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #444;
+            text-align: justify;
+            margin-bottom: 18px;
+        }
+        .contact-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            background-color: #f0f7f7;
+            padding: 15px 20px;
+            border-radius: 6px;
+        }
+        .contact-info h4 {
+            margin: 0 0 10px 0;
+            color: #005f73;
+        }
+        .contact-info p {
+            margin: 5px 0;
+            font-size: 15px;
+        }
+
         footer {
             background-color: #001219;
             color: white;
             text-align: center;
-            padding: 15px 0;
-            position: relative;
-            bottom: 0;
+            padding: 18px 0;
             width: 100%;
         }
     </style>
@@ -105,13 +160,12 @@
     <!-- Header & Navigation -->
     <header>
         <div class="logo-container">
-            <!-- -->
-            <img src="logo.png" alt="Logo" class="logo-image">
+            <img src="logo.png" alt="logo" class="logo-image">
             <h1>DewDrop Joint Savings Fund</h1>
         </div>
         <nav>
             <a href="#">হোম</a>
-            <a href="#">আমাদের সম্পর্কে</a>
+            <a href="#about">আমাদের সম্পর্কে</a>
             <a href="#">নিয়মাবলি</a>
             <a href="#">লগইন</a>
             <a href="#">সাইন আপ</a>
@@ -140,6 +194,27 @@
             <p>যেকোনো সময় নিজেদের ফান্ডের বর্তমান অবস্থা ও রিপোর্ট দেখে নেওয়ার সুবিধা।</p>
         </div>
     </div>
+
+    <!-- About Us Section -->
+    <section id="about" class="about-section">
+        <div class="about-container">
+            <h2>আমাদের সম্পর্কে</h2>
+            <p>
+                আমরা, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund)-এর প্রতিষ্ঠাতা সদস্যবৃন্দ, পারস্পরিক সহযোগিতা, সুদৃঢ় ঐক্য এবং একটি সঞ্চয়ী মনোভাব গড়ে তোলার লক্ষ্যে সর্বসম্মতিক্রমে এই সমিতি গঠন করছি। আমাদের মূল উদ্দেশ্য- পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা, যা ভবিষ্যতে আমাদের যেকোনো বড় ধরনের লাভজনক খাতে যৌথ বিনিয়োগের পথ সুগম করবে এবং আমাদের আর্থিক ও সামাজিক নিরাপত্তাকে জোরদার করবে।
+            </p>
+            <p>
+                পরিশেষে বলা যায়, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund) কেবল একটি আর্থিক সঞ্চয়ের মাধ্যম নয়; এটি আমাদের পারস্পরিক আস্থা, বিশ্বাস এবং যৌথ সফলতার একটি স্মারক। আমরা দৃঢ়ভাবে বিশ্বাস করি, এই নীতিমালার প্রতিটি ধারা অক্ষরে অক্ষরে পালনের মাধ্যমে আমাদের তহবিলের শৃঙ্খলা বজায় থাকবে। দীর্ঘ ৩ বছরের এই পথচলায় যেকোনো সাময়িক প্রতিকূলতা বা মতপার্থক্য আমরা সকলে মিলে আন্তরিকতা, পারস্পরিক সৌহার্দ্য এবং আলোচনার মাধ্যমে সমাধান করব, ইনশাআল্লাহ। এই যৌথ প্রচেষ্টা আমাদের সকলের জন্য কল্যাণময়, বরকতময় এবং একটি উজ্জ্বল ভবিষ্যৎ বিনির্মানের হাতিয়ার হোক, আমীন।
+            </p>
+
+            <!-- যোগাযোগের তথ্য -->
+            <div class="contact-info">
+                <h4>DewDrop Joint Savings Fund</h4>
+                <p>📍 ৬৭ নয়া পল্টন, ঢাকা।</p>
+                <p>📞 মোবাইল: 01977885122</p>
+                <p>✉️ ইমেইল: dewdropjsf@gmail.com</p>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
