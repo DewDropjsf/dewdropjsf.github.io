@@ -13,8 +13,11 @@
         .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px; }
         .btn-submit { width: 100%; background-color: #2a9d8f; color: white; border: none; padding: 12px; font-size: 16px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
         .btn-submit:hover { background-color: #005f73; }
+        .btn-secondary { background-color: #e76f51; }
+        .btn-secondary:hover { background-color: #d62828; }
         .extra-links { margin-top: 15px; text-align: center; font-size: 14px; }
         .extra-links a { color: #2a9d8f; text-decoration: none; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
@@ -22,28 +25,41 @@
     <div class="signup-card">
         <h2>নতুন সদস্য নিবন্ধন</h2>
         <form id="signupForm">
-            <div class="form-group">
-                <label>মেম্বার আইডি</label>
-                <input type="text" name="member_id" placeholder="আপনার কাগজের মেম্বার আইডি দিন" required>
+            <!-- ধাপ ১: প্রাথমিক তথ্য -->
+            <div id="step1">
+                <div class="form-group">
+                    <label>মেম্বার আইডি</label>
+                    <input type="text" id="member_id" name="member_id" placeholder="আপনার কাগজের মেম্বার আইডি দিন" required>
+                </div>
+                <div class="form-group">
+                    <label>পূর্ণ নাম</label>
+                    <input type="text" name="name" placeholder="আপনার পুরো নাম লিখুন" required>
+                </div>
+                <div class="form-group">
+                    <label>মোবাইল নম্বর</label>
+                    <input type="tel" name="mobile" placeholder="017XXXXXXXX" required>
+                </div>
+                <div class="form-group">
+                    <label>ইমেইল ঠিকানা</label>
+                    <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+                </div>
+                <button type="button" id="sendOtpBtn" class="btn-submit">OTP ইমেইলে পাঠান</button>
             </div>
-            <div class="form-group">
-                <label>পূর্ণ নাম</label>
-                <input type="text" name="name" placeholder="আপনার পুরো নাম লিখুন" required>
+
+            <!-- ধাপ ২: OTP ও পাসওয়ার্ড (প্রথমে লুকানো থাকবে) -->
+            <div id="step2" class="hidden">
+                <div class="form-group">
+                    <label>ইমেইল OTP কোড</label>
+                    <input type="text" name="otp" placeholder="৬ ডিজিটের OTP কোড দিন">
+                </div>
+                <div class="form-group">
+                    <label>পাসওয়ার্ড</label>
+                    <input type="password" name="password" placeholder="নতুন পাসওয়ার্ড দিন">
+                </div>
+                <button type="submit" id="finalSignupBtn" class="btn-submit">সাইন আপ সম্পন্ন করুন</button>
             </div>
-            <div class="form-group">
-                <label>মোবাইল নম্বর</label>
-                <input type="tel" name="mobile" placeholder="017XXXXXXXX" required>
-            </div>
-            <div class="form-group">
-                <label>ইমেইল ঠিকানা</label>
-                <input type="email" name="email" placeholder="example@gmail.com" required>
-            </div>
-            <div class="form-group">
-                <label>পাসওয়ার্ড</label>
-                <input type="password" name="password" placeholder="নতুন পাসওয়ার্ড দিন" required>
-            </div>
-            <button type="submit" class="btn-submit">সাইন আপ করুন</button>
         </form>
+
         <div class="extra-links">
             <p>ইতোমধ্যে অ্যাকাউন্ট আছে? <a href="login.html">লগইন করুন</a></p>
             <p><a href="index.html">← হোম পেজে ফিরে যান</a></p>
@@ -51,32 +67,81 @@
     </div>
 
     <script>
-        // এখানে আপনার Apps Script-এর Web App URL টি বসান
+        // আপনার Web App URL এখানে বসান
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxD99zvyQzbdS_GwGKelNVXS1k0K3U2xPke8Rbo9pYk4ON3hsbUd2tocL_QMWccOn_g/exec'; 
         const form = document.getElementById('signupForm');
+        const sendOtpBtn = document.getElementById('sendOtpBtn');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
 
+        // ১. OTP পাঠানোর বাটন ইভেন্ট
+        sendOtpBtn.addEventListener('click', () => {
+            const memberId = document.getElementById('member_id').value;
+            const email = document.getElementById('email').value;
+
+            if(!memberId || !email) {
+                alert('অনুগ্রহ করে মেম্বার আইডি এবং ইমেইল সঠিকভাবে পূরণ করুন।');
+                return;
+            }
+
+            sendOtpBtn.innerText = 'OTP পাঠানো হচ্ছে...';
+            sendOtpBtn.disabled = true;
+
+            let formData = new FormData(form);
+            formData.append('action', 'sendOTP');
+
+            fetch(scriptURL, { method: 'POST', body: formData })
+            .then(response => response.text())
+            .then(data => {
+                let result = data.trim();
+                if(result === 'OTP_Sent') {
+                    alert('আপনার ইমেইলে ৬ ডিজিটের OTP পাঠানো হয়েছে। দয়া করে ইমেইল ইনবক্স/স্প্যাম ফোল্ডার চেক করুন।');
+                    step2.classList.remove('hidden'); // OTP এবং পাসওয়ার্ড অপশন চালু
+                    sendOtpBtn.classList.add('hidden'); // OTP বাটন হাইড
+                } else if(result.includes('Invalid ID')) {
+                    alert('ভুল মেম্বার আইডি!');
+                    resetOtpBtn();
+                } else if(result.includes('Already Registered')) {
+                    alert('এই মেম্বার আইডি দিয়ে ইতিমধ্যেই অ্যাকাউন্ট খোলা হয়ে গেছে!');
+                    resetOtpBtn();
+                } else {
+                    alert('ইমেইল পাঠাতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
+                    resetOtpBtn();
+                }
+            })
+            .catch(error => {
+                alert('নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।');
+                resetOtpBtn();
+            });
+        });
+
+        function resetOtpBtn() {
+            sendOtpBtn.innerText = 'OTP ইমেইলে পাঠান';
+            sendOtpBtn.disabled = false;
+        }
+
+        // ২. চূড়ান্ত সাইন আপ ইভেন্ট
         form.addEventListener('submit', e => {
             e.preventDefault();
             
-            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            let formData = new FormData(form);
+            formData.append('action', 'signup');
+
+            fetch(scriptURL, { method: 'POST', body: formData })
             .then(response => response.text())
             .then(data => {
                 let result = data.trim();
                 if(result === 'Success') {
-                    alert('আলহামদুলিল্লাহ! আপনার রেজিস্ট্রেশন সফলভাবে সম্পন্ন হয়েছে।');
+                    alert('আলহামদুলিল্লাহ! আপনার অ্যাকাউন্ট সফলভাবে ভেরিফাইড এবং রেজিস্টার্ড হয়েছে।');
                     form.reset();
-                } else if(result.includes('Invalid ID')) {
-                    alert('ভুল মেম্বার আইডি! আপনার কাগজের মেম্বার আইডিটি সঠিকভাবে দিন।');
-                } else if(result.includes('Already Registered')) {
-                    alert('এই মেম্বার আইডি দিয়ে ইতিমধ্যেই অ্যাকাউন্ট খোলা হয়ে গেছে!');
+                    location.reload();
+                } else if(result.includes('Invalid OTP')) {
+                    alert('ভুল OTP কোড! আবার সঠিকভাবে চেষ্টা করুন।');
                 } else {
-                    alert('একটি সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
+                    alert('রেজিস্ট্রেশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
                 }
             })
-            .catch(error => {
-                console.error('Error!', error.message);
-                alert('নেটওয়ার্ক সমস্যা! অনুগ্রহ করে আবার চেষ্টা করুন।');
-            });
+            .catch(error => alert('নেটওয়ার্ক সমস্যা!'));
         });
     </script>
 
