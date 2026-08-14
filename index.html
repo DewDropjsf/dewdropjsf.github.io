@@ -80,13 +80,14 @@
         .btn:hover {
             background-color: #005f73;
         }
+/* --- Features Section (Desktop & Mobile Responsive) --- */
 .features {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* ৩টি বক্সকে সবসময় ১ লাইনে রাখবে */
+    grid-template-columns: repeat(3, 1fr); /* কম্পিউটারে ৩টি বক্স পাশাপাশি থাকবে */
     gap: 20px;
-    padding: 40px 20px;
-    background-color: white;
-    max-width: 1200px;
+    padding: 30px 20px;
+    background-color: #ffffff;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
@@ -123,93 +124,12 @@
 .btn-report:hover {
     background-color: #0a9396;
 }
-        
-        /* আমাদের সম্পর্কে সেকশনের স্টাইল */
-        .about-section {
-            background-color: #ffffff;
-            padding: 50px 20px;
-            border-top: 2px solid #e0e0e0;
-        }
-        .about-container {
-            max-width: 850px;
-            margin: 0 auto;
-            background-color: #fcfcfc;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border-left: 5px solid #2a9d8f;
-        }
-        .about-section h2 {
-            text-align: center;
-            color: #005f73;
-            font-size: 28px;
-            margin-bottom: 25px;
-        }
-        .about-section p {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #444;
-            text-align: justify;
-            margin-bottom: 18px;
-        }
-        .contact-info {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px dashed #ccc;
-            background-color: #f0f7f7;
-            padding: 15px 20px;
-            border-radius: 6px;
-        }
-        .contact-info h4 {
-            margin: 0 0 10px 0;
-            color: #005f73;
-        }
-        .contact-info p {
-            margin: 5px 0;
-            font-size: 15px;
-        }
 
-        footer {
-            background-color: #001219;
-            color: white;
-            text-align: center;
-            padding: 18px 0;
-            width: 100%;
-        }
-        .developer-footer {
-    text-align: center;
-    margin-top: 25px;
-    padding-top: 15px;
-    border-top: 1px dashed #ccc;
-    font-size: 13px;
-    color: #555;
-    font-family: 'Times New Roman', Times, serif;
-}
-
-.developer-footer a {
-    color: #005f73;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.developer-footer a:hover {
-    text-decoration: underline;
-}
-.btn-report {
-    display: inline-block;
-    background-color: #005f73;
-    color: #ffffff;
-    padding: 8px 18px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    margin-top: 15px;
-    transition: background-color 0.3s ease;
-}
-
-.btn-report:hover {
-    background-color: #0a9396;
+/* মোবাইলের জন্য ম্যাজিক কোড (Mobile Responsive) */
+@media (max-width: 768px) {
+    .features {
+        grid-template-columns: 1fr; /* মোবাইলে স্ক্রিন ছোট হলে ৩টি বক্স একের নিচে এক সুন্দরভাবে সাজিয়ে যাবে */
+    }
 }
         
     </style>
