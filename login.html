@@ -5,94 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>লগইন - DewDrop Joint Savings Fund</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .login-card {
-            background: white;
-            padding: 30px 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 380px;
-        }
-        .login-card h2 {
-            color: #005f73;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        .form-group {
-            margin-bottom: 18px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            color: #444;
-            font-weight: bold;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-size: 15px;
-        }
-        .btn-submit {
-            width: 100%;
-            background-color: #2a9d8f;
-            color: white;
-            border: none;
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .btn-submit:hover {
-            background-color: #005f73;
-        }
-        .extra-links {
-            margin-top: 15px;
-            text-align: center;
-            font-size: 14px;
-        }
-        .extra-links a {
-            color: #2a9d8f;
-            text-decoration: none;
-        }
-        .extra-links a:hover {
-            text-decoration: underline;
-        }
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .login-card { background: white; padding: 30px 40px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 380px; }
+        .login-card h2 { color: #005f73; text-align: center; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: #444; font-weight: bold; font-size: 14px; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px; }
+        .btn-submit { width: 100%; background-color: #005f73; color: white; border: none; padding: 12px; font-size: 16px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .btn-submit:hover { background-color: #0a9396; }
+        .extra-links { margin-top: 15px; text-align: center; font-size: 14px; }
+        .extra-links a { color: #2a9d8f; text-decoration: none; }
     </style>
 </head>
 <body>
 
     <div class="login-card">
         <h2>সদস্য লগইন</h2>
-        <form>
+        <form id="loginForm">
             <div class="form-group">
-                <label>মোবাইল / ইমেইল</label>
-                <input type="text" placeholder="আপনার তথ্য দিন" required>
+                <label>মেম্বার আইডি অথবা ইমেইল</label>
+                <input type="text" name="login_input" placeholder="মেম্বার আইডি বা ইমেইল দিন" required>
             </div>
             <div class="form-group">
                 <label>পাসওয়ার্ড</label>
-                <input type="password" placeholder="পাসওয়ার্ড লিখুন" required>
+                <input type="password" name="password" placeholder="আপনার পাসওয়ার্ড দিন" required>
             </div>
-            <button type="submit" class="btn-submit">লগইন করুন</button>
+            <button type="submit" id="loginBtn" class="btn-submit">লগইন করুন</button>
         </form>
+
         <div class="extra-links">
-            <p><a href="#">পাসওয়ার্ড ভুলে গেছেন? (রিসেট)</a></p>
-            <p>নতুন সদস্য? <a href="signup.html">সাইন আপ করুন</a></p>
+            <p>অ্যাকাউন্ট নেই? <a href="signup.html">সাইন আপ করুন</a></p>
             <p><a href="index.html">← হোম পেজে ফিরে যান</a></p>
         </div>
     </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxD99zvyQzbdS_GwGKelNVXS1k0K3U2xPke8Rbo9pYk4ON3hsbUd2tocL_QMWccOn_g/exec';
+        const form = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            
+            loginBtn.innerText = 'যাচাই করা হচ্ছে...';
+            loginBtn.disabled = true;
+
+            const params = new URLSearchParams(new FormData(form));
+            params.append('action', 'login');
+
+            fetch(scriptURL, { method: 'POST', body: params })
+            .then(response => response.text())
+            .then(data => {
+                loginBtn.innerText = 'লগইন করুন';
+                loginBtn.disabled = false;
+
+                try {
+                    let result = JSON.parse(data);
+                    if (result.status === 'Success') {
+                        // ব্রাউজারে ইউজার ডাটা সেভ রাখা
+                        localStorage.setItem('loggedInUser', JSON.stringify(result.user));
+                        alert('লগইন সফল হয়েছে! স্বাগতম ' + result.user.name);
+                        window.location.href = 'dashboard.html'; // ড্যাশবোর্ডে পাঠাবে
+                    } else {
+                        alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
+                    }
+                } catch(err) {
+                    alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
+                }
+            })
+            .catch(error => {
+                loginBtn.innerText = 'লগইন করুন';
+                loginBtn.disabled = false;
+                alert('নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।');
+            });
+        });
+    </script>
 
 </body>
 </html>
