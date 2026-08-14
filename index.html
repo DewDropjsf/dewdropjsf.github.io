@@ -80,24 +80,22 @@
         .btn:hover {
             background-color: #005f73;
         }
-        .features {
-    display: flex;
-    justify-content: space-between;
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* ৩টি বক্সকে সবসময় ১ লাইনে রাখবে */
     gap: 20px;
     padding: 40px 20px;
     background-color: white;
-    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .feature-box {
     text-align: center;
-    flex: 1;
-    min-width: 250px;
-    padding: 20px;
+    padding: 25px 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     background-color: #f9f9f9;
-    margin-bottom: 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -106,6 +104,7 @@
 
 .feature-box h3 {
     color: #005f73;
+    margin-top: 0;
 }
 
 .btn-report {
@@ -124,7 +123,7 @@
 .btn-report:hover {
     background-color: #0a9396;
 }
-
+        
         /* আমাদের সম্পর্কে সেকশনের স্টাইল */
         .about-section {
             background-color: #ffffff;
