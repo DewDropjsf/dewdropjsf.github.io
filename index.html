@@ -4,154 +4,229 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DewDrop Joint Savings Fund</title>
+
     <style>
-        html {
-            scroll-behavior: smooth; /* স্মুথ স্ক্রোলিং */
-        }
-        body {
-            font-family: 'Comic Sans MS', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f7f6;
-            color: #333;
-        }
-        header {
-            background-color: #2a9d8f;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-        .logo-image {
-            height: 45px;
-            width: auto;
-            margin-right: 12px;
-            border-radius: 50%;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 22px;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 12px;
-            font-weight: bold;
-        }
-        nav a:hover {
-            color: #e9d8a6;
-        }
-        .hero {
-            background-color: #e9d8a6;
-            text-align: center;
-            padding: 60px 20px;
-        }
-        .hero h2 {
-            font-size: 34px;
-            color: #001219;
-            margin-bottom: 10px;
-        }
-        .hero p {
-            font-size: 18px;
-            color: #333;
-            max-width: 650px;
-            margin: 0 auto 20px auto;
-            line-height: 1.6;
-        }
-        .btn {
-            background-color: #0a9396;
-            color: white;
-            padding: 10px 22px;
-            text-decoration: none;
-            font-size: 16px;
-            border-radius: 5px;
-            font-weight: bold;
-            display: inline-block;
-        }
-        .btn:hover {
-            background-color: #005f73;
-        }
-/* --- Features Section (Desktop & Mobile Responsive) --- */
-.features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* কম্পিউটারে ৩টি বক্স পাশাপাশি থাকবে */
-    gap: 20px;
-    padding: 30px 20px;
-    background-color: #ffffff;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-.feature-box {
-    text-align: center;
-    padding: 25px 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.feature-box h3 {
-    color: #005f73;
-    margin-top: 0;
-}
-
-.btn-report {
-    display: inline-block;
-    background-color: #005f73;
-    color: #ffffff;
-    padding: 8px 16px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    margin-top: 15px;
-    transition: background-color 0.3s ease;
-}
-
-.btn-report:hover {
-    background-color: #0a9396;
-}
-        .features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 40px 20px;
-    background-color: white;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-
-
-/* মোবাইলের জন্য ম্যাজিক কোড (Mobile Responsive) */
-@media (max-width: 768px) {
-    .features {
-        grid-template-columns: 1fr; /* মোবাইলে স্ক্রিন ছোট হলে ৩টি বক্স একের নিচে এক সুন্দরভাবে সাজিয়ে যাবে */
+    /* --- General Reset & Page Setup --- */
+    html {
+        scroll-behavior: smooth; /* স্মুথ স্ক্রোলিং */
     }
-}
-/* আমাদের সম্পর্কে সেকশন যেন নিচে আলাদা জায়গায় থাকে */
-.about-section {
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 20px;
-    clear: both;
-}
-        
-        
-    </style>
+    body {
+        font-family: 'Comic Sans MS', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f7f6;
+        color: #333;
+    }
+
+    /* --- Header & Navigation --- */
+    header {
+        background-color: #2a9d8f;
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .logo-container {
+        display: flex;
+        align-items: center;
+    }
+    .logo-image {
+        height: 45px;
+        width: auto;
+        margin-right: 12px;
+        border-radius: 50%;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 22px;
+    }
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 12px;
+        font-weight: bold;
+    }
+    nav a:hover {
+        color: #e9d8a6;
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+        background-color: #e9d8a6;
+        text-align: center;
+        padding: 60px 20px;
+    }
+    .hero h2 {
+        font-size: 34px;
+        color: #001219;
+        margin-bottom: 10px;
+    }
+    .hero p {
+        font-size: 18px;
+        color: #333;
+        max-width: 650px;
+        margin: 0 auto 20px auto;
+        line-height: 1.6;
+    }
+    .btn {
+        background-color: #0a9396;
+        color: white;
+        padding: 10px 22px;
+        text-decoration: none;
+        font-size: 16px;
+        border-radius: 5px;
+        font-weight: bold;
+        display: inline-block;
+    }
+    .btn:hover {
+        background-color: #005f73;
+    }
+
+    /* --- Features Section --- */
+    .features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* কম্পিউটারে ৩টি বক্স পাশাপাশি থাকবে */
+        gap: 20px;
+        padding: 40px 20px;
+        background-color: #ffffff;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .feature-box {
+        text-align: center;
+        padding: 25px 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .feature-box h3 {
+        color: #005f73;
+        margin-top: 0;
+    }
+
+    .btn-report {
+        display: inline-block;
+        background-color: #005f73;
+        color: #ffffff;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 15px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-report:hover {
+        background-color: #0a9396;
+    }
+
+    /* --- About Us Section --- */
+    .about-section {
+        max-width: 1100px;
+        margin: 50px auto 30px auto;
+        padding: 0 20px;
+        color: #333333;
+        line-height: 1.8;
+        clear: both;
+    }
+
+    .about-section h2 {
+        color: #005f73;
+        font-size: 24px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #005f73;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    .about-section p {
+        margin-bottom: 15px;
+        font-size: 15px;
+        text-align: justify;
+    }
+
+    /* --- Contact Info Section --- */
+    .contact-info {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px dashed #cccccc;
+    }
+
+    .contact-info h4 {
+        color: #005f73;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    .contact-info p {
+        margin: 6px 0;
+        font-size: 15px;
+    }
+
+    .contact-info a {
+        color: #005f73;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .contact-info a:hover {
+        text-decoration: underline;
+    }
+
+    /* --- Footer (Developer & Copyright) --- */
+    .site-footer {
+        background-color: #002b36;
+        color: #ffffff;
+        margin-top: 60px;
+        padding-top: 25px;
+        text-align: center;
+    }
+
+    .developer-footer {
+        font-size: 13px;
+        color: #d3d3d3;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+
+    .developer-footer a {
+        color: #4ea8de;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .developer-footer a:hover {
+        text-decoration: underline;
+    }
+
+    .copyright-bar {
+        background-color: #001f28;
+        padding: 12px 20px;
+        font-size: 13px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #b0bec5;
+    }
+
+    /* --- Mobile Responsiveness --- */
+    @media (max-width: 768px) {
+        .features {
+            grid-template-columns: 1fr; /* মোবাইলে ৩টি বক্স একের নিচে এক দেখাবে */
+        }
+    }
+</style>
+    
 </head>
 <body>
 
@@ -195,38 +270,38 @@
         <a href="dashboard.html" class="btn-report">রিপোর্ট দেখুন</a>
     </div>
 </div>
-    <!-- About Us Section -->
-    <section id="about" class="about-section">
-        <div class="about-section">
-            <h2>আমাদের সম্পর্কে</h2>
-            <p>
-                আমরা, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund)-এর প্রতিষ্ঠাতা সদস্যবৃন্দ, পারস্পরিক সহযোগিতা, সুদৃঢ় ঐক্য এবং একটি সঞ্চয়ী মনোভাব গড়ে তোলার লক্ষ্যে সর্বসম্মতিক্রমে এই সমিতি গঠন করছি। আমাদের মূল উদ্দেশ্য- পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা, যা ভবিষ্যতে আমাদের যেকোনো বড় ধরনের লাভজনক খাতে যৌথ বিনিয়োগের পথ সুগম করবে এবং আমাদের আর্থিক ও সামাজিক নিরাপত্তাকে জোরদার করবে।
-            </p>
-            <p>
-                পরিশেষে বলা যায়, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund) কেবল একটি আর্থিক সঞ্চয়ের মাধ্যম নয়; এটি আমাদের পারস্পরিক আস্থা, বিশ্বাস এবং যৌথ সফলতার একটি স্মারক। আমরা দৃঢ়ভাবে বিশ্বাস করি, এই নীতিমালার প্রতিটি ধারা অক্ষরে অক্ষরে পালনের মাধ্যমে আমাদের তহবিলের শৃঙ্খলা বজায় থাকবে। দীর্ঘ ৩ বছরের এই পথচলায় যেকোনো সাময়িক প্রতিকূলতা বা মতপার্থক্য আমরা সকলে মিলে আন্তরিকতা, পারস্পরিক সৌহার্দ্য এবং আলোচনার মাধ্যমে সমাধান করব, ইনশাআল্লাহ। এই যৌথ প্রচেষ্টা আমাদের সকলের জন্য কল্যাণময়, বরকতময় এবং একটি উজ্জ্বল ভবিষ্যৎ বিনির্মানের হাতিয়ার হোক, আমীন।
-            </p>
-</div>
-            <!-- যোগাযোগের তথ্য -->
-<div class="contact-info">
-    <h4>DewDrop Joint Savings Fund</h4>
-    <p>📍 ৬৭ নয়া পল্টন, ঢাকা।</p>
-    <p>📞 মোবাইল: <a href="tel:01977885122">01977885122</a></p>
-    <p>✉️ ইমেইল: <a href="mailto:dewdropjsf@gmail.com">dewdropjsf@gmail.com</a></p>
-</div>
-           
-        </div>
-         <div class="developer-footer">
-    Website Developed by:<br>
-    <strong>Md Tanjim Islam</strong><br>
-    <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
-</div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        
+   <!-- ৩. আমাদের সম্পর্কে ও যোগাযোগের সেকশন -->
+<div class="about-section">
+    <h2>আমাদের সম্পর্কে</h2>
+    <p>
+        আমরা, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund)-এর প্রতিষ্ঠাতা সদস্যবৃন্দ, পারস্পরিক সহযোগিতা, সুদৃঢ় ঐক্য এবং একটি সঞ্চয়ী মনোভাব গড়ে তোলার লক্ষ্যে সর্বসম্মতিক্রমে এই সমিতি গঠন করছি। আমাদের মূল উদ্দেশ্য- পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা, যা ভবিষ্যতে আমাদের যেকোনো বড় ধরনের লাভজনক খাতে যৌথ বিনিয়োগের পথ সুগম করবে এবং আমাদের আর্থিক ও সামাজিক নিরাপত্তাকে জোরদার করবে।
+    </p>
+    <p>
+        পরিশেষে বলা যায়, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund) কেবল একটি আর্থিক সঞ্চয়ের মাধ্যম নয়; এটি আমাদের পারস্পরিক আস্থা, বিশ্বাস এবং যৌথ সফলতার একটি স্মারক। আমরা দৃঢ়ভাবে বিশ্বাস করি, এই নীতিমালার প্রতিটি ধারা অক্ষরে অক্ষরে পালনের মাধ্যমে আমাদের তহবিলের শৃঙ্খলা বজায় থাকবে। দীর্ঘ ৩ বছরের এই পথচলায় যেকোনো সাময়িক প্রতিকূলতা বা মতপার্থক্য আমরা সকলে মিলে আন্তরিকতা, পারস্পরিক সৌহার্দ্য এবং আলোচনার মাধ্যমে সমাধান করব, ইনশাআল্লাহ। এই যৌথ প্রচেষ্টা আমাদের সকলের জন্য কল্যাণময়, বরকতময় এবং একটি উজ্জ্বল ভবিষ্যৎ বিনির্মাণের হাতিয়ার হোক, আমীন।
+    </p>
+
+    <!-- যোগাযোগের তথ্য -->
+    <div class="contact-info">
+        <h4>DewDrop Joint Savings Fund</h4>
+        <p>📍 ৬৭ নয়া পল্টন, ঢাকা।</p>
+        <p>📞 মোবাইল: <a href="tel:01977885122">01977885122</a></p>
+        <p>✉️ ইমেইল: <a href="mailto:dewdropjsf@gmail.com">dewdropjsf@gmail.com</a></p>
+    </div>
+</div>
+
+<!-- ৪. সাইট ফুটার (ডেভেলপার তথ্য ও কপিরাইট বার) -->
+<footer class="site-footer">
+    <div class="developer-footer">
+        Website Developed by:<br>
+        <strong>Md Tanjim Islam</strong><br>
+        <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
+    </div>
+    
+    <div class="copyright-bar">
         &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
-    </footer>
+    </div>
+</footer>
 
 </body>
 </html>
