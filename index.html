@@ -226,6 +226,47 @@
             grid-template-columns: 1fr; /* মোবাইলে ৩টি বক্স একের নিচে এক দেখাবে */
         }
     }
+/* ড্রপডাউন কন্টেইনার */
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+/* ড্রপডাউন মেনু (ডিফল্টভাবে লুকানো থাকবে) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #064e3b; /* আপনার নেভবারের কালার অনুযায়ী এটি অ্যাডজাস্ট করতে পারেন */
+    min-width: 180px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border-radius: 6px;
+    top: 100%;
+    left: 0;
+    overflow: hidden;
+}
+
+/* ড্রপডাউনের ভেতরের লিংকগুলো */
+.dropdown-content a {
+    color: #ffffff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-size: 15px;
+    transition: background-color 0.2s ease;
+}
+
+/* মাউস হোভার করলে কালার চেঞ্জ */
+.dropdown-content a:hover {
+    background-color: #04382a;
+}
+
+/* মাউস "আমাদের সম্পর্কে" এর ওপর আনলে ড্রপডাউন শো করবে */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+        
 </style>
     
 </head>
@@ -239,7 +280,14 @@
         </div>
         <nav>
             <a href="#">হোম</a>
-            <a href="#about-section">আমাদের সম্পর্কে</a>
+<div class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">আমাদের সম্পর্কে ▾</a>
+    <div class="dropdown-content">
+        <a href="#about-section">ডিউড্রপ সম্পর্কে</a>
+        <a href="board.html">পরিচালনা পর্ষদ</a>
+    </div>
+</div>
+            
             <a href="rules.html">নিয়মাবলি</a>
             <a href="login.html">লগইন</a>
             <a href="signup.html">সাইন আপ</a>
