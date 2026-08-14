@@ -5,39 +5,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ড্যাশবোর্ড - DewDrop Joint Savings Fund</title>
     <style>
-        body { font-family: Comic Sans Ms, Times new roman, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
-        .dashboard-card { background: white; max-width: 450px; margin: 40px auto; padding: 25px 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .dashboard-header { border-bottom: 2px solid #005f73; padding-bottom: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .dashboard-header h2 { color: #005f73; margin: 0; font-size: 20px; }
-        .user-info { font-size: 15px; line-height: 1.6; color: #333; }
-        .welcome-msg { font-size: 18px; color: #2a9d8f; font-weight: bold; margin-bottom: 15px; }
-        .info-item { background: #e0f2f1; padding: 12px 15px; margin-bottom: 10px; border-radius: 6px; border-left: 4px solid #2a9d8f; }
-        .info-item strong { color: #005f73; }
-        .btn-logout { background-color: #e76f51; color: white; border: none; padding: 8px 16px; font-size: 14px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .btn-logout:hover { background-color: #d62828; }
+        body { 
+            font-family: 'SolaimanLipi', Arial, sans-serif; 
+            background-color: #f4f7f6; 
+            margin: 0; 
+            padding: 20px; 
+        }
+        .dashboard-card { 
+            background: white; 
+            max-width: 480px; 
+            margin: 40px auto; 
+            padding: 25px 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            position: relative;
+        }
+        .dashboard-header { 
+            border-bottom: 2px solid #005f73; 
+            padding-bottom: 12px; 
+            margin-bottom: 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start; 
+        }
+        .dashboard-title {
+            color: #000;
+            margin: 0;
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 1.35;
+        }
+        /* ফন্ট স্টাইলসমূহ */
+        .font-dewdrop {
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+            font-weight: bold;
+        }
+        .font-english {
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .user-info { 
+            font-size: 15px; 
+            line-height: 1.6; 
+            color: #333; 
+        }
+        .welcome-msg { 
+            font-size: 18px; 
+            color: #005f73; 
+            font-weight: bold; 
+            margin-bottom: 15px; 
+        }
+        .info-item { 
+            background: #e0f2f1; 
+            padding: 12px 15px; 
+            margin-bottom: 10px; 
+            border-radius: 6px; 
+            border-left: 4px solid #2a9d8f; 
+        }
+        .info-item strong { 
+            color: #005f73; 
+        }
+        .btn-logout { 
+            background-color: #c0392b; 
+            color: white; 
+            border: none; 
+            padding: 8px 16px; 
+            font-size: 14px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            white-space: nowrap;
+        }
+        .btn-logout:hover { 
+            background-color: #a93226; 
+        }
+        /* নিচে বামপাশের হোম বাটন */
+        .footer-actions {
+            margin-top: 25px;
+            display: flex;
+            justify-content: flex-start;
+        }
+        .btn-home {
+            display: inline-block;
+            background-color: #2a9d8f;
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .btn-home:hover {
+            background-color: #21867a;
+        }
     </style>
 </head>
 <body>
 
     <div class="dashboard-card">
         <div class="dashboard-header">
-            <h2>DewDrop Joint Savings Fund>
-                সদস্য ড্যাশবোর্ডে</h2>
+            <div class="dashboard-title">
+                <span class="font-dewdrop">DewDrop</span>> সদস্য<br>ড্যাশবোর্ডে
+            </div>
             <button class="btn-logout" id="logoutBtn">লগআউট</button>
         </div>
         
         <div class="user-info">
-            <div class="welcome-msg">স্বাগতম, <span id="userName">...</span>!</div>
+            <div class="welcome-msg">
+                স্বাগতম, <span id="userName" class="font-english">...</span>!
+            </div>
             
             <div class="info-item">
-                <strong>মেম্বার আইডি:</strong> <span id="memberId">...</span>
+                <strong>মেম্বার আইডি:</strong> <span id="memberId" class="font-english">...</span>
             </div>
             <div class="info-item">
-                <strong>ইমেইল:</strong> <span id="userEmail">...</span>
+                <strong>ইমেইল:</strong> <span id="userEmail" class="font-english">...</span>
             </div>
             <div class="info-item">
-                <strong>মোবাইল নম্বর:</strong> <span id="userMobile">...</span>
+                <strong>মোবাইল নম্বর:</strong> <span id="userMobile" class="font-english">...</span>
             </div>
+        </div>
+
+        <!-- নিচে বামপাশে হোম পেজে ফিরে যাওয়ার বাটন -->
+        <div class="footer-actions">
+            <a href="index.html" class="btn-home">← হোম পেজে ফিরে যান</a>
         </div>
     </div>
 
