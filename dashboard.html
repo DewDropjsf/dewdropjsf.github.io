@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ড্যাশবোর্ড - DewDrop Joint Savings Fund</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
+        .dashboard-card { background: white; max-width: 450px; margin: 40px auto; padding: 25px 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .dashboard-header { border-bottom: 2px solid #005f73; padding-bottom: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .dashboard-header h2 { color: #005f73; margin: 0; font-size: 20px; }
+        .user-info { font-size: 15px; line-height: 1.6; color: #333; }
+        .welcome-msg { font-size: 18px; color: #2a9d8f; font-weight: bold; margin-bottom: 15px; }
+        .info-item { background: #e0f2f1; padding: 12px 15px; margin-bottom: 10px; border-radius: 6px; border-left: 4px solid #2a9d8f; }
+        .info-item strong { color: #005f73; }
+        .btn-logout { background-color: #e76f51; color: white; border: none; padding: 8px 16px; font-size: 14px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-logout:hover { background-color: #d62828; }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-card">
+        <div class="dashboard-header">
+            <h2>সদস্য ড্যাশবোর্ড</h2>
+            <button class="btn-logout" id="logoutBtn">লগআউট</button>
+        </div>
+        
+        <div class="user-info">
+            <div class="welcome-msg">স্বাগতম, <span id="userName">...</span>!</div>
+            
+            <div class="info-item">
+                <strong>মেম্বার আইডি:</strong> <span id="memberId">...</span>
+            </div>
+            <div class="info-item">
+                <strong>ইমেইল:</strong> <span id="userEmail">...</span>
+            </div>
+            <div class="info-item">
+                <strong>মোবাইল নম্বর:</strong> <span id="userMobile">...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ব্রাউজার লোকাল স্টোরেজ থেকে ইউজার ডাটা চেক করা
+        const userData = JSON.parse(localStorage.getItem('loggedInUser'));
+
+        // ইউজার লগইন করা না থাকলে লগইন পেজে পাঠিয়ে দেবে
+        if (!userData) {
+            alert('অনুগ্রহ করে প্রথমে লগইন করুন।');
+            window.location.href = 'login.html';
+        } else {
+            // ইউজার ডাটা ড্যাশবোর্ডে দেখানো
+            document.getElementById('userName').innerText = userData.name || 'সদস্য';
+            document.getElementById('memberId').innerText = userData.member_id || 'N/A';
+            document.getElementById('userEmail').innerText = userData.email || 'N/A';
+            document.getElementById('userMobile').innerText = userData.mobile || 'N/A';
+        }
+
+        // লগআউট বাটন লজিক
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('loggedInUser');
+            alert('সফলভাবে লগআউট করা হয়েছে।');
+            window.location.href = 'login.html';
+        });
+    </script>
+
+</body>
+</html>
