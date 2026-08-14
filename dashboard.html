@@ -16,16 +16,15 @@
             background: white; 
             max-width: 480px; 
             margin: 30px auto; 
-            padding: 25px 30px 65px 30px; 
+            padding: 25px 30px 25px 30px; 
             border-radius: 12px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
             position: relative;
         }
 
-        /* DewDrop Joint Savings Fund - Comic Sans MS & Cyan Color */
         .fund-title {
             font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-            color: #00bcd4; /* Cyan Color */
+            color: #00bcd4;
             text-align: center;
             font-size: 24px;
             font-weight: bold;
@@ -97,11 +96,14 @@
             background-color: #d62828; 
         }
 
-        /* নিচে বামে হোম পেজ বাটন */
+        .action-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
         .btn-home {
-            position: absolute;
-            bottom: 20px;
-            left: 30px;
             background-color: #005f73;
             color: white;
             border: none;
@@ -118,12 +120,33 @@
         .btn-home:hover {
             background-color: #0a9396;
         }
+
+        /* ডেভেলপার ক্রেডিটের স্টাইল */
+        .developer-footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px dashed #cccccc;
+            font-size: 13px;
+            color: #555555;
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.5;
+        }
+
+        .developer-footer a {
+            color: #005f73;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .developer-footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
     <div class="dashboard-card">
-        <!-- Comic Sans MS এবং Cyan রঙের হেডার -->
         <h1 class="fund-title">DewDrop Joint Savings Fund</h1>
 
         <div class="dashboard-header">
@@ -145,27 +168,31 @@
             </div>
         </div>
 
-        <!-- নিচে বামে হোম পেজ বাটন -->
-        <a href="index.html" class="btn-home">হোম পেজ</a>
+        <div class="action-area">
+            <a href="index.html" class="btn-home">হোম পেজ</a>
+        </div>
+
+        <!-- ডেভেলপার ক্রেডিট ফুটার -->
+        <div class="developer-footer">
+            Website Developed by:<br>
+            <strong>Md Tanjim Islam</strong><br>
+            <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
+        </div>
     </div>
 
     <script>
-        // ব্রাউজার লোকাল স্টোরেজ থেকে ইউজার ডাটা চেক করা
         const userData = JSON.parse(localStorage.getItem('loggedInUser'));
 
-        // ইউজার লগইন করা না থাকলে লগইন পেজে পাঠিয়ে দেবে
         if (!userData) {
             alert('অনুগ্রহ করে প্রথমে লগইন করুন।');
             window.location.href = 'login.html';
         } else {
-            // ইউজার ডাটা ড্যাশবোর্ডে দেখানো
             document.getElementById('userName').innerText = userData.name || 'সদস্য';
             document.getElementById('memberId').innerText = userData.member_id || 'N/A';
             document.getElementById('userEmail').innerText = userData.email || 'N/A';
             document.getElementById('userMobile').innerText = userData.mobile || 'N/A';
         }
 
-        // লগআউট বাটন লজিক
         document.getElementById('logoutBtn').addEventListener('click', () => {
             localStorage.removeItem('loggedInUser');
             alert('সফলভাবে লগআউট করা হয়েছে।');
