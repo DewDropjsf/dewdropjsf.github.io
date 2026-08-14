@@ -6,66 +6,83 @@
     <title>ড্যাশবোর্ড - DewDrop Joint Savings Fund</title>
     <style>
         body { 
-            font-family: 'SolaimanLipi', Arial, sans-serif; 
+            font-family: 'Times New Roman', Times, serif; 
             background-color: #f4f7f6; 
             margin: 0; 
             padding: 20px; 
         }
+
         .dashboard-card { 
             background: white; 
             max-width: 480px; 
-            margin: 40px auto; 
-            padding: 25px 30px; 
-            border-radius: 10px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            margin: 30px auto; 
+            padding: 25px 30px 65px 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
             position: relative;
         }
+
+        /* DewDrop Joint Savings Fund - Comic Sans MS & Cyan Color */
+        .fund-title {
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+            color: #00bcd4; /* Cyan Color */
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-shadow: 0px 1px 2px rgba(0,0,0,0.1);
+        }
+
         .dashboard-header { 
             border-bottom: 2px solid #005f73; 
             padding-bottom: 12px; 
             margin-bottom: 20px; 
             display: flex; 
             justify-content: space-between; 
-            align-items: flex-start; 
+            align-items: center; 
         }
-        .dashboard-title {
-            color: #000;
-            margin: 0;
-            font-size: 20px;
-            font-weight: bold;
-            line-height: 1.35;
+
+        .dashboard-header h2 { 
+            color: #005f73; 
+            margin: 0; 
+            font-size: 22px; 
+            font-family: 'Times New Roman', Arial, sans-serif;
         }
-        /* ফন্ট স্টাইলসমূহ */
-        .font-dewdrop {
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-            font-weight: bold;
-        }
-        .font-english {
-            font-family: 'Times New Roman', Times, serif;
-        }
+
         .user-info { 
-            font-size: 15px; 
+            font-size: 16px; 
             line-height: 1.6; 
             color: #333; 
         }
+
         .welcome-msg { 
             font-size: 18px; 
-            color: #005f73; 
+            color: #2a9d8f; 
             font-weight: bold; 
             margin-bottom: 15px; 
+            font-family: 'Times New Roman', Times, serif;
         }
+
         .info-item { 
             background: #e0f2f1; 
             padding: 12px 15px; 
-            margin-bottom: 10px; 
+            margin-bottom: 12px; 
             border-radius: 6px; 
             border-left: 4px solid #2a9d8f; 
+            font-family: 'Times New Roman', Times, serif;
         }
+
         .info-item strong { 
             color: #005f73; 
         }
+
+        .info-value {
+            font-family: 'Times New Roman', Times, serif;
+        }
+
         .btn-logout { 
-            background-color: #c0392b; 
+            background-color: #e76f51; 
             color: white; 
             border: none; 
             padding: 8px 16px; 
@@ -73,63 +90,63 @@
             border-radius: 5px; 
             cursor: pointer; 
             font-weight: bold; 
-            white-space: nowrap;
+            font-family: 'Times New Roman', Times, serif;
         }
+
         .btn-logout:hover { 
-            background-color: #a93226; 
+            background-color: #d62828; 
         }
-        /* নিচে বামপাশের হোম বাটন */
-        .footer-actions {
-            margin-top: 25px;
-            display: flex;
-            justify-content: flex-start;
-        }
+
+        /* নিচে বামে হোম পেজ বাটন */
         .btn-home {
-            display: inline-block;
-            background-color: #2a9d8f;
+            position: absolute;
+            bottom: 20px;
+            left: 30px;
+            background-color: #005f73;
             color: white;
-            text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            border: none;
+            padding: 8px 18px;
             font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
             font-weight: bold;
-            transition: background-color 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Times New Roman', Times, serif;
         }
+
         .btn-home:hover {
-            background-color: #21867a;
+            background-color: #0a9396;
         }
     </style>
 </head>
 <body>
 
     <div class="dashboard-card">
+        <!-- Comic Sans MS এবং Cyan রঙের হেডার -->
+        <h1 class="fund-title">DewDrop Joint Savings Fund</h1>
+
         <div class="dashboard-header">
-            <div class="dashboard-title">
-                <span class="font-dewdrop">DewDrop</span>> সদস্য<br>ড্যাশবোর্ডে
-            </div>
+            <h2>সদস্য ড্যাশবোর্ড</h2>
             <button class="btn-logout" id="logoutBtn">লগআউট</button>
         </div>
         
         <div class="user-info">
-            <div class="welcome-msg">
-                স্বাগতম, <span id="userName" class="font-english">...</span>!
-            </div>
+            <div class="welcome-msg">স্বাগতম, <span id="userName" class="info-value">...</span>!</div>
             
             <div class="info-item">
-                <strong>মেম্বার আইডি:</strong> <span id="memberId" class="font-english">...</span>
+                <strong>মেম্বার আইডি:</strong> <span id="memberId" class="info-value">...</span>
             </div>
             <div class="info-item">
-                <strong>ইমেইল:</strong> <span id="userEmail" class="font-english">...</span>
+                <strong>ইমেইল:</strong> <span id="userEmail" class="info-value">...</span>
             </div>
             <div class="info-item">
-                <strong>মোবাইল নম্বর:</strong> <span id="userMobile" class="font-english">...</span>
+                <strong>মোবাইল নম্বর:</strong> <span id="userMobile" class="info-value">...</span>
             </div>
         </div>
 
-        <!-- নিচে বামপাশে হোম পেজে ফিরে যাওয়ার বাটন -->
-        <div class="footer-actions">
-            <a href="index.html" class="btn-home">← হোম পেজে ফিরে যান</a>
-        </div>
+        <!-- নিচে বামে হোম পেজ বাটন -->
+        <a href="index.html" class="btn-home">হোম পেজ</a>
     </div>
 
     <script>
