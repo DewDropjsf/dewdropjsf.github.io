@@ -81,25 +81,49 @@
             background-color: #005f73;
         }
         .features {
-            display: flex;
-            justify-content: space-around;
-            padding: 40px 20px;
-            background-color: white;
-            flex-wrap: wrap;
-        }
-        .feature-box {
-            text-align: center;
-            width: 28%;
-            min-width: 250px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            margin-bottom: 15px;
-        }
-        .feature-box h3 {
-            color: #005f73;
-        }
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 40px 20px;
+    background-color: white;
+    flex-wrap: wrap;
+}
+
+.feature-box {
+    text-align: center;
+    flex: 1;
+    min-width: 250px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.feature-box h3 {
+    color: #005f73;
+}
+
+.btn-report {
+    display: inline-block;
+    background-color: #005f73;
+    color: #ffffff;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-report:hover {
+    background-color: #0a9396;
+}
 
         /* আমাদের সম্পর্কে সেকশনের স্টাইল */
         .about-section {
@@ -217,23 +241,23 @@
 
     <!-- Features Section -->
     <div class="features">
-        <div class="feature-box">
-            <h3>স্বচ্ছ হিসাব-নিকাশ</h3>
-            <p>ফান্ডের প্রতিটি আয়-ব্যয় এবং সদস্যপদের হিসাব রাখা হয় সম্পূর্ণ স্বচ্ছতার সাথে।</p>
-        </div>
-        <div class="feature-box">
-            <h3>নিরাপদ সঞ্চয়</h3>
-            <p>সবার সম্মিলিত প্রচেষ্টায় একটি নির্ভরযোগ্য ও সুরক্ষিত আর্থিক ভিত্তি তৈরি করা।</p>
-        </div>
-        <div class="feature-card">
-    <h3>সহজ পরিচালনা</h3>
-    <p>যেকোনো সময় নিজেদের ফান্ডের বর্তমান অবস্থা ও রিপোর্ট দেখে নেওয়ার সুবিধা।</p>
-    
-    <!-- নতুন যুক্ত করা বাটন -->
-    <a href="dashboard.html" class="btn-report">রিপোর্ট দেখুন</a>
-</div>
+        <div class="features">
+    <div class="feature-card">
+        <h3>স্বচ্ছ হিসাব-নিকাশ</h3>
+        <p>ফান্ডের প্রতিটি আয়-ব্যয় এবং সদস্যদের হিসাব রাখা হয় সম্পূর্ণ স্বচ্ছতার সাথে।</p>
     </div>
 
+    <div class="feature-card">
+        <h3>নিরাপদ সঞ্চয়</h3>
+        <p>সবার সম্মিলিত প্রচেষ্টায় একটি নির্ভরযোগ্য ও সুরক্ষিত আর্থিক ভিত্তি তৈরি করা।</p>
+    </div>
+
+    <div class="feature-box">
+        <h3>সহজ পরিচালনা</h3>
+        <p>যেকোনো সময় নিজেদের ফান্ডের বর্তমান অবস্থা ও রিপোর্ট দেখে নেওয়ার সুবিধা।</p>
+        <a href="dashboard.html" class="btn-report">রিপোর্ট দেখুন</a>
+    </div>
+</div>
     <!-- About Us Section -->
     <section id="about" class="about-section">
         <div class="about-container">
