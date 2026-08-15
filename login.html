@@ -39,46 +39,27 @@
         </div>
     </div>
 
+    <!-- ৪. জাভাস্ক্রিপ্ট (আসল লগইন কী 'loggedInUser' চেক) -->
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxD99zvyQzbdS_GwGKelNVXS1k0K3U2xPke8Rbo9pYk4ON3hsbUd2tocL_QMWccOn_g/exec';
-        const form = document.getElementById('loginForm');
-        const loginBtn = document.getElementById('loginBtn');
+        function toggleMember(elementId) {
+            // ১. আপনার login.html এ ব্যবহৃত আসল কী 'loggedInUser' চেক করা
+            const loggedInUser = localStorage.getItem("loggedInUser");
 
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            
-            loginBtn.innerText = 'যাচাই করা হচ্ছে...';
-            loginBtn.disabled = true;
+            // ২. যদি ইউজার লগইন না করে থাকে (loggedInUser খালি থাকে)
+            if (!loggedInUser) {
+                alert("পরিচালনা পর্ষদের ব্যক্তিবর্গের তথ্য দেখতে অনুগ্রহ করে প্রথমে লগইন করুন।");
+                window.location.href = "login.html"; // লগইন পেজে পাঠাবে
+                return;
+            }
 
-            const params = new URLSearchParams(new FormData(form));
-            params.append('action', 'login');
-
-            fetch(scriptURL, { method: 'POST', body: params })
-            .then(response => response.text())
-            .then(data => {
-                loginBtn.innerText = 'লগইন করুন';
-                loginBtn.disabled = false;
-
-                try {
-                    let result = JSON.parse(data);
-                    if (result.status === 'Success') {
-                        // ব্রাউজারে ইউজার ডাটা সেভ রাখা
-                        localStorage.setItem('loggedInUser', JSON.stringify(result.user));
-                        alert('লগইন সফল হয়েছে! স্বাগতম ' + result.user.name);
-                        window.location.href = 'dashboard.html'; // ড্যাশবোর্ডে পাঠাবে
-                    } else {
-                        alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
-                    }
-                } catch(err) {
-                    alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
-                }
-            })
-            .catch(error => {
-                loginBtn.innerText = 'লগইন করুন';
-                loginBtn.disabled = false;
-                alert('নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।');
-            });
-        });
+            // ৩. ইউজার লগইন করা থাকলে ছবি ও তথ্য বক্সটি খোলা/বন্ধ (Toggle) হবে
+            const targetElement = document.getElementById(elementId);
+            if (targetElement.style.display === "block") {
+                targetElement.style.display = "none";
+            } else {
+                targetElement.style.display = "block";
+            }
+        }
     </script>
 
 </body>
