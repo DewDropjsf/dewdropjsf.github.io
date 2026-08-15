@@ -40,25 +40,55 @@
     </div>
 
     <!-- ৪. জাভাস্ক্রিপ্ট (আসল লগইন কী 'loggedInUser' চেক) -->
+    <!-- ৮. জাভাস্ক্রিপ্ট (লগইন লজিক) -->
     <script>
-        function toggleMember(elementId) {
-            // ১. আপনার login.html এ ব্যবহৃত আসল কী 'loggedInUser' চেক করা
-            const loggedInUser = localStorage.getItem("loggedInUser");
+        // ফর্ম সাবমিট হ্যান্ডলার
+        const loginForm = document.getElementById('loginForm');
+        
+        if (loginForm) {
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
 
-            // ২. যদি ইউজার লগইন না করে থাকে (loggedInUser খালি থাকে)
-            if (!loggedInUser) {
-                alert("পরিচালনা পর্ষদের ব্যক্তিবর্গের তথ্য দেখতে অনুগ্রহ করে প্রথমে লগইন করুন।");
-                window.location.href = "login.html"; // লগইন পেজে পাঠাবে
-                return;
-            }
+                const loginBtn = document.getElementById('loginBtn') || document.querySelector("button[type='submit']");
+                if (loginBtn) {
+                    loginBtn.innerText = 'অপেক্ষা করুন...';
+                    loginBtn.disabled = true;
+                }
 
-            // ৩. ইউজার লগইন করা থাকলে ছবি ও তথ্য বক্সটি খোলা/বন্ধ (Toggle) হবে
-            const targetElement = document.getElementById(elementId);
-            if (targetElement.style.display === "block") {
-                targetElement.style.display = "none";
-            } else {
-                targetElement.style.display = "block";
-            }
+                // ইউজার ইনপুট (আপনার ইনপুট ID অনুযায়ী মিলিয়ে নেবেন)
+                const usernameInput = document.getElementById('username')?.value.trim();
+                const passwordInput = document.getElementById('password')?.value.trim();
+
+                // আপনার গুগল অ্যাপস স্ক্রিপ্ট Web App URL
+                const scriptURL = 'YOUR_APPS_SCRIPT_URL_HERE'; 
+
+                fetch(`${scriptURL}?action=login&id=${encodeURIComponent(usernameInput)}&password=${encodeURIComponent(passwordInput)}`)
+                .then(response => response.text())
+                .then(data => {
+                    try {
+                        let result = JSON.parse(data);
+                        if (result.status === 'Success') {
+                            // ব্রাউজারে ইউজার ডাটা সেভ রাখা
+                            localStorage.setItem('loggedInUser', JSON.stringify(result.user));
+                            alert('লগইন সফল হয়েছে! স্বাগতম ' + (result.user.name || ''));
+                            window.location.href = 'dashboard.html'; // ড্যাশবোর্ডে পাঠাবে
+                        } else {
+                            alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
+                        }
+                    } catch(err) {
+                        alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
+                    }
+                })
+                .catch(error => {
+                    alert('নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।');
+                })
+                .finally(() => {
+                    if (loginBtn) {
+                        loginBtn.innerText = 'লগইন করুন';
+                        loginBtn.disabled = false;
+                    }
+                });
+            });
         }
     </script>
 
