@@ -541,32 +541,29 @@
 
     <!-- ৪. জাভাস্ক্রিপ্ট (বাটন লজিক ও লগইন চেক) -->
     <!-- ৪. জাভাস্ক্রিপ্ট (আপডেট করা বাটন ও লগইন লজিক) -->
+   <!-- ৪. জাভাস্ক্রিপ্ট (নির্ভুল লগইন চেক ও টগল লজিক) -->
     <script>
         function toggleMember(elementId) {
-            // ১. সম্ভাব্য সব ধরনের লগইন কি (Key) ও স্টোরেজ চেক করা
-            const isLoggedIn = 
-                localStorage.getItem("isLoggedIn") === "true" ||
-                sessionStorage.getItem("isLoggedIn") === "true" ||
-                localStorage.getItem("currentUser") !== null ||
-                sessionStorage.getItem("currentUser") !== null ||
-                localStorage.getItem("user") !== null ||
-                sessionStorage.getItem("user") !== null ||
-                localStorage.getItem("loggedIn") === "true" ||
-                sessionStorage.getItem("loggedIn") === "true";
+            // ১. ব্রাউজারে সেভ থাকা ইউজার ডাটা পড়া
+            const userSession = localStorage.getItem("loggedInUser");
 
-            // ২. যদি লগইন করা না থাকে
-            if (!isLoggedIn) {
+            // ২. যদি ইউজার লগইন না করা থাকে (বা ফাঁকা থাকে)
+            if (!userSession || userSession === "null" || userSession === "undefined") {
                 alert("পরিচালনা পর্ষদের ব্যক্তিবর্গের তথ্য দেখতে অনুগ্রহ করে প্রথমে লগইন করুন।");
-                window.location.href = "login.html"; // লগইন না থাকলে লগইন পেজে নিয়ে যাবে
+                window.location.href = "login.html";
                 return;
             }
 
-            // ৩. লগইন করা থাকলে তথ্য বক্সটি টগল (খোলা/বন্ধ) হবে
+            // ৩. ইউজার লগইন করা থাকলে কার্ড খোলা বা বন্ধ (Toggle) করা
             const targetElement = document.getElementById(elementId);
-            if (targetElement.style.display === "block") {
-                targetElement.style.display = "none";
-            } else {
-                targetElement.style.display = "block";
+            if (targetElement) {
+                // বর্তমানে খোলা আছে না বন্ধ আছে তা চেক করা
+                const isHidden = window.getComputedStyle(targetElement).display === "none";
+                if (isHidden) {
+                    targetElement.style.display = "block";
+                } else {
+                    targetElement.style.display = "none";
+                }
             }
         }
     </script>
