@@ -86,121 +86,186 @@
             display: block;
         }
 
-        /* মূল কন্টেইনার */
-        .main-container {
-            max-width: 1100px;
-            margin: 40px auto;
+        /* মূল দুই কলামের লেআউট */
+        .page-wrapper {
+            max-width: 1250px;
+            margin: 30px auto;
             padding: 0 20px;
         }
 
-        /* শীর্ষ বিবরণী বক্স */
+        .board-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        /* কলামের সাইজ */
+        .left-column {
+            flex: 1 1 55%;
+            min-width: 320px;
+        }
+
+        .right-column {
+            flex: 1 1 40%;
+            min-width: 320px;
+        }
+
+        /* শিরোনাম স্টাইল */
+        .column-header {
+            font-size: 22px;
+            color: #005f73;
+            border-bottom: 3px solid #005f73;
+            padding-bottom: 8px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        /* বাম পাসের কার্ডগুলো */
         .intro-card {
             background-color: #d8f3dc;
             border-left: 6px solid #2d6a4f;
-            padding: 20px 25px;
+            padding: 20px;
             border-radius: 8px;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        .intro-card h2 {
+        .intro-card h3 {
             margin-top: 0;
             color: #1b4332;
-            font-size: 24px;
-        }
-        .intro-card p {
-            line-height: 1.7;
-            color: #2d6a4f;
-            font-size: 15px;
         }
         .committee-list {
-            margin-top: 15px;
+            margin-top: 10px;
             padding-left: 20px;
             color: #1b4332;
             font-weight: 600;
         }
         .committee-list li {
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
 
-        /* সেকশন হেডিং */
-        .section-title {
-            font-size: 22px;
-            color: #005f73;
-            border-bottom: 3px solid #005f73;
-            padding-bottom: 8px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* পদভিত্তিক কার্ড লেআউট */
         .role-card {
             background: #ffffff;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
             border: 1px solid #e0e0e0;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .role-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
         }
         .role-title {
             margin: 0 0 10px 0;
             color: #1d3557;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .role-badge {
-            background-color: #e63946;
-            color: white;
-            font-size: 13px;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-weight: normal;
-        }
-        .role-subtitle {
-            font-size: 15px;
-            color: #457b9d;
-            font-weight: 600;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed #e0e0e0;
+            font-size: 18px;
         }
         .main-role-box {
             background-color: #f8f9fa;
             border-left: 4px solid #457b9d;
-            padding: 10px 15px;
-            margin-bottom: 15px;
+            padding: 8px 12px;
+            margin-bottom: 12px;
             border-radius: 4px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        .main-role-box strong {
-            color: #1d3557;
+            font-size: 13.5px;
         }
         .duties-title {
             font-weight: bold;
             color: #2b2d42;
-            margin-top: 15px;
-            margin-bottom: 10px;
-            font-size: 15px;
+            margin-bottom: 8px;
+            font-size: 14px;
         }
         .duties-list {
-            padding-left: 20px;
+            padding-left: 18px;
             margin: 0;
         }
         .duties-list li {
-            margin-bottom: 10px;
-            line-height: 1.6;
+            margin-bottom: 8px;
+            line-height: 1.5;
             color: #4a4e69;
-            font-size: 14.5px;
+            font-size: 13.5px;
+        }
+
+        /* ডান পাশের ব্যক্তিবর্গের প্রোফাইল কার্ড */
+        .member-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .member-position-title {
+            background-color: #0d9488;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        /* ছবির বক্স */
+        .photo-box {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 15px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #2a9d8f;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* প্লেসহোল্ডার ডেমো আইকন (যদি ছবি না থাকে) */
+        .photo-placeholder {
+            font-size: 50px;
+            color: #adb5bd;
+        }
+
+        /* পরিচয় বক্স */
+        .identity-box {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .identity-box h4 {
+            margin: 0 0 5px 0;
+            color: #0f172a;
+            font-size: 17px;
+            text-align: center;
+        }
+
+        .identity-box .designation {
+            text-align: center;
+            color: #0284c7;
+            font-size: 13.5px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+
+        .info-item {
+            font-size: 13.5px;
+            color: #334155;
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .info-item strong {
+            color: #1e293b;
         }
 
         /* ফুটার */
@@ -255,107 +320,169 @@
         </nav>
     </header>
 
-    <!-- ২. মূল কন্টেন্ট -->
-    <div class="main-container">
+    <!-- ২. মূল লেআউট (দুই কলাম) -->
+    <div class="page-wrapper">
+        <div class="board-grid">
 
-        <!-- পরিচালনা পর্ষদের ওভারভিউ বক্স -->
-        <div class="intro-card">
-            <h2>পরিচালনা পর্ষদ</h2>
-            <p>"DewDrop Joint Savings Fund"- এর পূর্ব ঘোষিত নীতি (স্বচ্ছতা, নিরাপত্তা ও যৌথ সমৃদ্ধি) বজায় রেখে পরিচালনা পর্ষদের কাঠামো, পদের নাম এবং দায়িত্ব নিম্নে উল্লেখ করা হলো (যার মেয়াদ ০১ এক বছর):</p>
-            <ol class="committee-list">
-                <li>সভাপতি (President / Chairman)</li>
-                <li>সাধারণ সম্পাদক (General Secretary)</li>
-                <li>সাংগঠনিক সম্পাদক (Organizing Secretary)</li>
-                <li>কোষাধ্যক্ষ (Treasurer / Accounts Officer)</li>
-            </ol>
-        </div>
+            <!-- ================= বাম কলাম: পরিচালনা পর্ষদের নীতিমালা ও দায়িত্ব ================= -->
+            <div class="left-column">
+                <h2 class="column-header">📌 পরিচালনা পর্ষদ ও নীতিমালা</h2>
 
-        <div class="section-title">
-            📋 <span>পদভিত্তিক সুনির্দিষ্ট দায়িত্বাবলী</span>
-        </div>
+                <div class="intro-card">
+                    <h3>কাঠামো ও মেয়াদী বিবরণী</h3>
+                    <p>"DewDrop Joint Savings Fund"- এর পূর্ব ঘোষিত নীতি (স্বচ্ছতা, নিরাপত্তা ও যৌথ সমৃদ্ধি) বজায় রেখে পরিচালনা পর্ষদের কাঠামো, পদের নাম এবং দায়িত্ব নিম্নে উল্লেখ করা হলো (যার মেয়াদ ০১ এক বছর):</p>
+                    <ol class="committee-list">
+                        <li>সভাপতি (President / Chairman)</li>
+                        <li>সাধারণ সম্পাদক (General Secretary)</li>
+                        <li>সাংগঠনিক সম্পাদক (Organizing Secretary)</li>
+                        <li>কোষাধ্যক্ষ (Treasurer / Accounts Officer)</li>
+                    </ol>
+                </div>
 
-        <!-- ১. সভাপতি -->
-        <div class="role-card">
-            <h3 class="role-title">
-                ১. সভাপতি (President)
-                <span class="role-badge">অভিভাবক ও নীতি নির্ধারক</span>
-            </h3>
-            
-            <div class="main-role-box">
-                <strong>মূল ভূমিকা:</strong> ফান্ডের মূল লক্ষ্য, আদর্শ ও নীতি যেন সঠিকভাবে বজায় থাকে তা তদারকি করা।
+                <!-- ১. সভাপতি -->
+                <div class="role-card">
+                    <h3 class="role-title">১. সভাপতি (President)</h3>
+                    <div class="main-role-box">
+                        <strong>মূল ভূমিকা:</strong> ফান্ডের মূল লক্ষ্য, আদর্শ ও নীতি যেন সঠিকভাবে বজায় থাকে তা তদারকি করা।
+                    </div>
+                    <div class="duties-title">প্রধান দায়িত্বাবলী:</div>
+                    <ul class="duties-list">
+                        <li>ফান্ডের যেকোনো অফিশিয়াল, মাসিক বা জরুরি মিটিং আহ্বান করা এবং সভায় সভাপতিত্ব করা।</li>
+                        <li>কোনো বিষয়ে সাধারণ সদস্যদের মধ্যে মতবিরোধ তৈরি হলে নিরপেক্ষভাবে তা মীমাংসা করা।</li>
+                        <li>পরিচালনা পর্ষদের বাকি সদস্যদের কাজের সমন্বয় ও তদারকি করা।</li>
+                        <li>সভায় কোনো সিদ্ধান্তে সমতা (টাই) দেখা দিলে কাস্টিং ভোট প্রদানের মাধ্যমে সিদ্ধান্ত গ্রহণ করা।</li>
+                    </ul>
+                </div>
+
+                <!-- ২. সাধারণ সম্পাদক -->
+                <div class="role-card">
+                    <h3 class="role-title">২. সাধারণ সম্পাদক (General Secretary)</h3>
+                    <div class="main-role-box">
+                        <strong>মূল ভূমিকা:</strong> ফান্ডের যাবতীয় অফিশিয়াল নথিপত্র সংরক্ষণ এবং সদস্যদের সাথে মূল যোগাযোগ রক্ষা করা।
+                    </div>
+                    <div class="duties-title">প্রধান দায়িত্বাবলী:</div>
+                    <ul class="duties-list">
+                        <li>ব্যাংক হিসাব ও উত্তোলন ফরমে ১ম যৌথ স্বাক্ষরকারী (First Joint Signatory) হিসেবে দায়িত্ব পালন।</li>
+                        <li>প্রতি মাসের শুরুতে সদস্যদের কাছ থেকে সঞ্চয়ের চাঁদা সংগ্রহ ও মানি রিসিট প্রদান।</li>
+                        <li>ফান্ডের মূল এক্সেল ফাইলের ক্যাশ বুক ও ড্যাশবোর্ডে ট্রানজেকশন এন্ট্রি করা।</li>
+                        <li>অফিশিয়াল হোয়াটসঅ্যাপ গ্রুপ পরিচালনা ও প্রয়োজনীয় নোটিশ প্রকাশ করা।</li>
+                    </ul>
+                </div>
+
+                <!-- ৩. সাংগঠনিক সম্পাদক -->
+                <div class="role-card">
+                    <h3 class="role-title">৩. সাংগঠনিক সম্পাদক (Organizing Secretary)</h3>
+                    <div class="main-role-box">
+                        <strong>মূল ভূমিকা:</strong> ফান্ডের অভ্যন্তরীণ সাংগঠনিক ভিত্তি মজবুত করা এবং সভার কার্যক্রম পরিচালনা করা।
+                    </div>
+                    <div class="duties-title">প্রধান দায়িত্বাবলী:</div>
+                    <ul class="duties-list">
+                        <li>সভাপতি অনুপস্থিতিতে সভাপতির পক্ষে দায়িত্বসমূহ পালন করা।</li>
+                        <li>মিটিংয়ের এজেন্ডা তৈরি এবং সভার সিদ্ধান্তগুলো 'মিনিটস বুক' বা রেজুলেশনে লিখে রাখা।</li>
+                        <li>ব্যাংক হিসাব উত্তোলন ফরমে ৩য় যৌথ স্বাক্ষরকারী (Third Joint Signatory) হিসেবে কাজ করা।</li>
+                    </ul>
+                </div>
+
+                <!-- ৪. কোষাধ্যক্ষ -->
+                <div class="role-card">
+                    <h3 class="role-title">৪. কোষাধ্যক্ষ (Treasurer / Accounts Officer)</h3>
+                    <div class="main-role-box">
+                        <strong>মূল ভূমিকা:</strong> ফান্ডের আর্থিক নিরাপত্তা নিশ্চিত করা এবং ক্যাশ বুক হালনাগাদ রাখা।
+                    </div>
+                    <div class="duties-title">প্রধান দায়িত্বাবলী:</div>
+                    <ul class="duties-list">
+                        <li>ব্যাংক উত্তোলন ফরমে ২য় যৌথ স্বাক্ষরকারী (Second Joint Signatory) হিসেবে দায়িত্ব পালন।</li>
+                        <li>সংগৃহীত টাকা জমা নেওয়া এবং অফিশিয়াল মানি রিসিট বা লেজারে স্বাক্ষর করা।</li>
+                        <li>ক্যাশ বই ও ভাউচার অডিট এবং হিসাব মেলাতে সাহায্য করা।</li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="duties-title">প্রধান দায়িত্বাবলী:</div>
-            <ul class="duties-list">
-                <li>ফান্ডের যেকোনো অফিশিয়াল, মাসিক বা জরুরি মিটিং আহ্বান করা এবং সভায় সভাপতিত্ব করা।</li>
-                <li>কোনো বিষয়ে সাধারণ সদস্যদের মধ্যে মতবিরোধ বা ভুল বোঝাবুঝি তৈরি হলে নিরপেক্ষভাবে তা মীমাংসা করা।</li>
-                <li>পরিচালনা পর্ষদের বাকি সদস্যদের (সাধারণ সম্পাদক, সাংগঠনিক সম্পাদক ও কোষাধ্যক্ষ) কাজের সমন্বয় ও তদারকি করা।</li>
-                <li>সভায় কোনো সিদ্ধান্তে সমতা (টাই) দেখা দিলে চূড়ান্ত বা কাস্টিং ভোট প্রদানের মাধ্যমে সিদ্ধান্ত গ্রহণ করা।</li>
-            </ul>
-        </div>
+            <!-- ================= ডান কলাম: পরিচালনা পর্ষদে অধিষ্ঠিত ব্যক্তিবর্গ ================= -->
+            <div class="right-column">
+                <h2 class="column-header">👥 পরিচালনা পর্ষদে অধিষ্ঠিত ব্যক্তিবর্গ</h2>
 
-        <!-- ২. সাধারণ সম্পাদক -->
-        <div class="role-card">
-            <h3 class="role-title">
-                ২. সাধারণ সম্পাদক (General Secretary)
-                <span class="role-badge">যোগাযোগ ও নথিপত্র রক্ষক</span>
-            </h3>
+                <!-- ১. সভাপতি প্রোফাইল -->
+                <div class="member-card">
+                    <div class="member-position-title">১. সভাপতি (President / Chairman)</div>
+                    
+                    <!-- ছবি (president.jpg ফাইলের নাম বসাবেন) -->
+                    <div class="photo-box">
+                        <!-- ছবি যুক্ত করতে চাইলে নিচের লাইন ব্যবহার করবেন: <img src="president.jpg" alt="President"> -->
+                        <span class="photo-placeholder">👤</span>
+                    </div>
 
-            <div class="main-role-box">
-                <strong>মূল ভূমিকা:</strong> ফান্ডের যাবতীয় অফিশিয়াল নথিপত্র (ডকুমেন্টেশন) সংরক্ষণ এবং সদস্যদের সাথে মূল যোগাযোগ রক্ষা করা।
+                    <!-- পরিচয় বক্স -->
+                    <div class="identity-box">
+                        <h4>সদস্যের নাম লিখুন</h4>
+                        <div class="designation">সভাপতি, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
+                        <div class="info-item"><strong>ইউনিক আইডি:</strong> DSF-01</div>
+                        <div class="info-item"><strong>মোবাইল:</strong> +8801XXXXXXXXX</div>
+                        <div class="info-item"><strong>ইমেইল:</strong> example@gmail.com</div>
+                        <div class="info-item"><strong>পেশা:</strong> পেশা সম্পর্কিত তথ্য</div>
+                    </div>
+                </div>
+
+                <!-- ২. সাধারণ সম্পাদক প্রোফাইল -->
+                <div class="member-card">
+                    <div class="member-position-title">২. সাধারণ সম্পাদক (General Secretary)</div>
+                    
+                    <div class="photo-box">
+                        <!-- <img src="secretary.jpg" alt="General Secretary"> -->
+                        <span class="photo-placeholder">👤</span>
+                    </div>
+
+                    <div class="identity-box">
+                        <h4>সদস্যের নাম লিখুন</h4>
+                        <div class="designation">সাধারণ সম্পাদক, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
+                        <div class="info-item"><strong>ইউনিক আইডি:</strong> DSF-02</div>
+                        <div class="info-item"><strong>মোবাইল:</strong> +8801XXXXXXXXX</div>
+                        <div class="info-item"><strong>ইমেইল:</strong> example@gmail.com</div>
+                        <div class="info-item"><strong>পেশা:</strong> পেশা সম্পর্কিত তথ্য</div>
+                    </div>
+                </div>
+
+                <!-- ৩. সাংগঠনিক সম্পাদক প্রোফাইল -->
+                <div class="member-card">
+                    <div class="member-position-title">৩. সাংগঠনিক সম্পাদক (Organizing Secretary)</div>
+                    
+                    <div class="photo-box">
+                        <!-- <img src="organizer.jpg" alt="Organizing Secretary"> -->
+                        <span class="photo-placeholder">👤</span>
+                    </div>
+
+                    <div class="identity-box">
+                        <h4>সদস্যের নাম লিখুন</h4>
+                        <div class="designation">সাংগঠনিক সম্পাদক, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
+                        <div class="info-item"><strong>ইউনিক আইডি:</strong> DSF-03</div>
+                        <div class="info-item"><strong>মোবাইল:</strong> +8801XXXXXXXXX</div>
+                        <div class="info-item"><strong>ইমেইল:</strong> example@gmail.com</div>
+                        <div class="info-item"><strong>পেশা:</strong> পেশা সম্পর্কিত তথ্য</div>
+                    </div>
+                </div>
+
+                <!-- ৪. কোষাধ্যক্ষ প্রোফাইল -->
+                <div class="member-card">
+                    <div class="member-position-title">৪. কোষাধ্যক্ষ (Treasurer / Accounts Officer)</div>
+                    
+                    <div class="photo-box">
+                        <!-- <img src="treasurer.jpg" alt="Treasurer"> -->
+                        <span class="photo-placeholder">👤</span>
+                    </div>
+
+                    <div class="identity-box">
+                        <h4>সদস্যের নাম লিখুন</h4>
+                        <div class="designation">কোষাধ্যক্ষ, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
+                        <div class="info-item"><strong>ইউনিক আইডি:</strong> DSF-04</div>
+                        <div class="info-item"><strong>মোবাইল:</strong> +8801XXXXXXXXX</div>
+                        <div class="info-item"><strong>ইমেইল:</strong> example@gmail.com</div>
+                        <div class="info-item"><strong>পেশা:</strong> পেশা সম্পর্কিত তথ্য</div>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="duties-title">প্রধান দায়িত্বাবলী:</div>
-            <ul class="duties-list">
-                <li>ব্যাংক অ্যাকাউন্ট খোলার ক্ষেত্রে এবং পরবর্তীতে ব্যাংক থেকে যেকোনো অর্থ উত্তোলনের ফরমে ১ম যৌথ স্বাক্ষরকারী (First Joint Signatory) হিসেবে দায়িত্ব পালন করা।</li>
-                <li>প্রতি মাসের শুরুতে সদস্যদের কাছ থেকে সঞ্চয়ের চাঁদা সংগ্রহ করা।</li>
-                <li>টাকা পাওয়ার সাথে সাথে মেম্বারকে ফান্ডের অফিশিয়াল ইউনিক আইডিযুক্ত ডিজিটাল মানি রিসিট (Money Receipt) পূরণ করে প্রদান করা।</li>
-                <li>ফান্ডের মূল এক্সেল ফাইল (Main CashBook ও ড্যাশবোর্ড)-এ প্রতিটা ট্রানজেকশন নির্ভুলভাবে এন্ট্রি বা লিপিবদ্ধ করা।</li>
-                <li>অফিশিয়াল হোয়াটসঅ্যাপ গ্রুপ পরিচালনা করা এবং গুরুত্বপূর্ণ নোটিশ বা ঘোষণা সময়মতো মেম্বারদের জানানো।</li>
-                <li>কোনো নতুন মেম্বার যুক্ত হতে চাইলে বা কেউ ফান্ড ছাড়তে চাইলে তার অফিশিয়াল নথিপত্র ও ফরমের কাজ সম্পন্ন করা।</li>
-                <li>সদস্যদের যেকোনো যৌক্তিক মতামত বা অভিযোগ সভাপতির নজরে আনা।</li>
-            </ul>
         </div>
-
-        <!-- ৩. সাংগঠনিক সম্পাদক -->
-        <div class="role-card">
-            <h3 class="role-title">
-                ৩. সাংগঠনিক সম্পাদক (Organizing Secretary)
-                <span class="role-badge">শৃঙ্খলা ও সভার সমন্বয়কারী</span>
-            </h3>
-
-            <div class="main-role-box">
-                <strong>মূল ভূমিকা:</strong> ফান্ডের অভ্যন্তরীণ সাংগঠনিক ভিত্তি মজবুত করা এবং সভাপতির অনুপস্থিতিতে কার্য পরিচালনা করা।
-            </div>
-
-            <div class="duties-title">প্রধান দায়িত্বাবলী:</div>
-            <ul class="duties-list">
-                <li>সভাপতি অনুপস্থিতিতে বা বিশেষ প্রয়োজনে সভাপতির পক্ষে গুরুত্বপূর্ণ সিদ্ধান্ত নেওয়া বা দায়িত্বসমূহ পালন করা।</li>
-                <li>ফান্ডের প্রতিটা মিটিংয়ের আলোচ্যসূচি (Agenda) তৈরি করা এবং সভার সিদ্ধান্তগুলো 'মিনিটস বুক' বা রেজুলেশন খাতায় নির্ভুলভাবে লিখে রাখা।</li>
-                <li>ব্যাংক অ্যাকাউন্ট খোলার ক্ষেত্রে এবং পরবর্তীতে ব্যাংক থেকে অর্থ উত্তোলনের ফরমে ৩য় যৌথ স্বাক্ষরকারী (Third Joint Signatory) হিসেবে কাজ করা।</li>
-                <li>নতুন সদস্যদের অন্তর্ভুক্তি এবং সদস্যদের নিয়মিত উপস্থিতি নিশ্চিত করতে মাঠপর্যায়ে কাজ করা।</li>
-            </ul>
-        </div>
-
-        <!-- ৪. কোষাধ্যক্ষ -->
-        <div class="role-card">
-            <h3 class="role-title">
-                ৪. কোষাধ্যক্ষ (Treasurer / Accounts Officer)
-                <span class="role-badge">অর্থ ও ক্যাশ বুক তত্ত্বাবধায়ক</span>
-            </h3>
-
-            <div class="main-role-box">
-                <strong>মূল ভূমিকা:</strong> ফান্ডের আর্থিক নিরাপত্তা নিশ্চিত করা এবং ক্যাশ বুক হালনাগাদ রাখা।
-            </div>
-
-            <div class="duties-title">প্রধান দায়িত্বাবলী:</div>
-            <ul class="duties-list">
-                <li>ব্যাংক অ্যাকাউন্ট খোলার ক্ষেত্রে এবং পরবর্তীতে ব্যাংক থেকে অর্থ উত্তোলনের ফরমে ২য় যৌথ স্বাক্ষরকারী (Second Joint Signatory) হিসেবে দায়িত্ব পালন করা।</li>
-                <li>সাধারণ সম্পাদকের সংগৃহীত টাকা জমা নেওয়া এবং অফিশিয়াল মানি রিসিট বা লেজারে স্বাক্ষর (দস্তখত) করা।</li>
-                <li>ক্যাশ বই ও ভাউচার নিয়মিত অডিট এবং হিসাব মেলাতে সাধারণ সম্পাদককে সাহায্য করা।</li>
-            </ul>
-        </div>
-
     </div>
 
     <!-- ৩. ফুটার -->
