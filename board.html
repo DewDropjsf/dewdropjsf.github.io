@@ -121,7 +121,7 @@
             margin-bottom: 20px;
         }
 
-        /* বাম পাসের কার্ডগুলো */
+        /* বাম পাশের কার্ডগুলো */
         .intro-card {
             background-color: #d8f3dc;
             border-left: 6px solid #2d6a4f;
@@ -186,22 +186,46 @@
         .member-card {
             background: #ffffff;
             border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 25px;
+            padding: 15px;
+            margin-bottom: 20px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             border: 1px solid #e2e8f0;
             text-align: center;
         }
 
-        .member-position-title {
-            background-color: #0d9488;
+        /* Cyan (সায়ান) রঙের ক্লিকেবল বাটন স্টাইল */
+        .member-btn {
+            background-color: #0d9488; /* Cyan / Teal Color */
             color: white;
-            padding: 8px 15px;
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
             border-radius: 6px;
             font-size: 16px;
             font-weight: bold;
-            margin-bottom: 15px;
-            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .member-btn:hover {
+            background-color: #0f766e;
+            transform: translateY(-1px);
+        }
+
+        /* তথ্য বক্স (ডিফল্টভাবে বন্ধ থাকবে) */
+        .member-details {
+            display: none; /* বাটনে চাপ দিলে এটি ডাইনামিকালি খুলবে */
+            margin-top: 15px;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* ছবির বক্স */
@@ -225,7 +249,6 @@
             object-fit: cover;
         }
 
-        /* প্লেসহোল্ডার ডেমো আইকন (যদি ছবি না থাকে) */
         .photo-placeholder {
             font-size: 50px;
             color: #adb5bd;
@@ -243,7 +266,7 @@
         .identity-box h4 {
             margin: 0 0 5px 0;
             color: #0f172a;
-            font-size: 17px;
+            font-size: 18px;
             text-align: center;
         }
 
@@ -402,81 +425,99 @@
             <div class="right-column">
                 <h2 class="column-header">👥 পরিচালনা পর্ষদে অধিষ্ঠিত ব্যক্তিবর্গ</h2>
 
-                <!-- ১. সভাপতি প্রোফাইল -->
+                <!-- ১. সভাপতি বাটন ও প্রোফাইল -->
                 <div class="member-card">
-                    <div class="member-position-title">১. সভাপতি (President / Chairman)</div>
+                    <button class="member-btn" onclick="toggleMember('president-details')">
+                        <span>১. সভাপতি (President / Chairman)</span>
+                        <span>▾</span>
+                    </button>
                     
-                    <!-- ছবি (president.jpg ফাইলের নাম বসাবেন) -->
-                    <div class="photo-box">
-                        <!-- ছবি যুক্ত করতে চাইলে নিচের লাইন ব্যবহার করবেন: <img src="president.jpeg" alt="President"> -->
-                        <img src="president.jpeg" alt="President">
-                    </div>
+                    <div id="president-details" class="member-details">
+                        <div class="photo-box">
+                            <img src="president.jpg" alt="President" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                            <span class="photo-placeholder" style="display:none;">👤</span>
+                        </div>
 
-                    <!-- পরিচয় বক্স -->
-                    <div class="identity-box">
-                        <h4>Gias Uddin</h4>
-                        <div class="designation">সভাপতি, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
-                        <div class="info-item"><strong>ইউনিক আইডি:</strong> GU3942</div>
-                        <div class="info-item"><strong>মোবাইল:</strong> +8801713443942</div>
-                        <div class="info-item"><strong>ইমেইল:</strong> example@gmail.com</div>
-                        <div class="info-item"><strong>পেশা:</strong> Anlima Group</div>
+                        <div class="identity-box">
+                            <h4>Gias Uddin</h4>
+                            <div class="designation">সভাপতি, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
+                            <div class="info-item"><strong>ইউনিক আইডি:</strong> GU3942</div>
+                            <div class="info-item"><strong>মোবাইল:</strong> +8801713443942</div>
+                            <div class="info-item"><strong>ইমেইল:</strong> example@gmail.com</div>
+                            <div class="info-item"><strong>পেশা:</strong> Anlima Group</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- ২. সাধারণ সম্পাদক প্রোফাইল -->
+                <!-- ২. সাধারণ সম্পাদক বাটন ও প্রোফাইল -->
                 <div class="member-card">
-                    <div class="member-position-title">২. সাধারণ সম্পাদক (General Secretary)</div>
+                    <button class="member-btn" onclick="toggleMember('secretary-details')">
+                        <span>২. সাধারণ সম্পাদক (General Secretary)</span>
+                        <span>▾</span>
+                    </button>
                     
-                    <div class="photo-box">
-                        <!-- <img src="secretary.jpg" alt="General Secretary"> -->
-                        <img src="secretary.jpeg" alt="General Secretary">
-                    </div>
+                    <div id="secretary-details" class="member-details">
+                        <div class="photo-box">
+                            <img src="secretary.jpg" alt="General Secretary" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                            <span class="photo-placeholder" style="display:none;">👤</span>
+                        </div>
 
-                    <div class="identity-box">
-                        <h4>Md Tanjim Islam</h4>
-                        <div class="designation">সাধারণ সম্পাদক, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
-                        <div class="info-item"><strong>ইউনিক আইডি:</strong> MTI5122</div>
-                        <div class="info-item"><strong>মোবাইল:</strong> +8801977885122</div>
-                        <div class="info-item"><strong>ইমেইল:</strong> tanjimtoru@gmail.com</div>
-                        <div class="info-item"><strong>পেশা:</strong> Anlima Group</div>
+                        <div class="identity-box">
+                            <h4>সদস্যের নাম লিখুন</h4>
+                            <div class="designation">সাধারণ সম্পাদক, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
+                            <div class="info-item"><strong>ইউনিক আইডি:</strong> DSF-02</div>
+                            <div class="info-item"><strong>মোবাইল:</strong> +8801XXXXXXXXX</div>
+                            <div class="info-item"><strong>ইমেইল:</strong> example@gmail.com</div>
+                            <div class="info-item"><strong>পেশা:</strong> পেশা সম্পর্কিত তথ্য</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- ৩. সাংগঠনিক সম্পাদক প্রোফাইল -->
+                <!-- ৩. সাংগঠনিক সম্পাদক বাটন ও প্রোফাইল -->
                 <div class="member-card">
-                    <div class="member-position-title">৩. সাংগঠনিক সম্পাদক (Organizing Secretary)</div>
+                    <button class="member-btn" onclick="toggleMember('organizer-details')">
+                        <span>৩. সাংগঠনিক সম্পাদক (Organizing Secretary)</span>
+                        <span>▾</span>
+                    </button>
                     
-                    <div class="photo-box">
-                        <!-- <img src="organizer.jpg" alt="Organizing Secretary"> -->
-                        <img src="organizer.jpeg" alt="Organizing Secretary">
-                    </div>
+                    <div id="organizer-details" class="member-details">
+                        <div class="photo-box">
+                            <img src="organizer.jpg" alt="Organizing Secretary" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                            <span class="photo-placeholder" style="display:none;">👤</span>
+                        </div>
 
-                    <div class="identity-box">
-                        <h4>Md Mizanur Rahman</h4>
-                        <div class="designation">সাংগঠনিক সম্পাদক, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
-                        <div class="info-item"><strong>ইউনিক আইডি:</strong> MMR8543</div>
-                        <div class="info-item"><strong>মোবাইল:</strong> +8801684158543</div>
-                        <div class="info-item"><strong>ইমেইল:</strong> afrina25021980@gmail.com</div>
-                        <div class="info-item"><strong>পেশা:</strong> Anlima Group</div>
+                        <div class="identity-box">
+                            <h4>Md Mizanur Rahman</h4>
+                            <div class="designation">সাংগঠনিক সম্পাদক, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
+                            <div class="info-item"><strong>ইউনিক আইডি:</strong> MMR8543</div>
+                            <div class="info-item"><strong>মোবাইল:</strong> +8801684158543</div>
+                            <div class="info-item"><strong>ইমেইল:</strong> afrina25021980@gmail.com</div>
+                            <div class="info-item"><strong>পেশা:</strong> Anlima Group</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- ৪. কোষাধ্যক্ষ প্রোফাইল -->
+                <!-- ৪. কোষাধ্যক্ষ বাটন ও প্রোফাইল -->
                 <div class="member-card">
-                    <div class="member-position-title">৪. কোষাধ্যক্ষ (Treasurer / Accounts Officer)</div>
+                    <button class="member-btn" onclick="toggleMember('treasurer-details')">
+                        <span>৪. কোষাধ্যক্ষ (Treasurer / Accounts Officer)</span>
+                        <span>▾</span>
+                    </button>
                     
-                    <div class="photo-box">
-                        <!-- <img src="treasurer.jpg" alt="Treasurer"> -->
-                        <img src="treasurer.jpeg" alt="Treasurer">
-                    </div>
+                    <div id="treasurer-details" class="member-details">
+                        <div class="photo-box">
+                            <img src="treasurer.jpg" alt="Treasurer" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                            <span class="photo-placeholder" style="display:none;">👤</span>
+                        </div>
 
-                    <div class="identity-box">
-                        <h4>Omar Md Faroq</h4>
-                        <div class="designation">কোষাধ্যক্ষ, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
-                        <div class="info-item"><strong>ইউনিক আইডি:</strong> OMF0056</div>
-                        <div class="info-item"><strong>মোবাইল:</strong> +8801827270056</div>
-                        <div class="info-item"><strong>ইমেইল:</strong> omar.mdfaruk@gmail.com</div>
-                        <div class="info-item"><strong>পেশা:</strong> Anlima Group</div>
+                        <div class="identity-box">
+                            <h4>সদস্যের নাম লিখুন</h4>
+                            <div class="designation">কোষাধ্যক্ষ, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
+                            <div class="info-item"><strong>ইউনিক আইডি:</strong> DSF-04</div>
+                            <div class="info-item"><strong>মোবাইল:</strong> +8801XXXXXXXXX</div>
+                            <div class="info-item"><strong>ইমেইল:</strong> example@gmail.com</div>
+                            <div class="info-item"><strong>পেশা:</strong> পেশা সম্পর্কিত তথ্য</div>
+                        </div>
                     </div>
                 </div>
 
@@ -497,6 +538,28 @@
             &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
         </div>
     </footer>
+
+    <!-- ৪. জাভাস্ক্রিপ্ট (বাটন লজিক ও লগইন চেক) -->
+    <script>
+        function toggleMember(elementId) {
+            // ১. ব্যবহারকারী লগইন করা আছে কিনা তা চেক করা
+            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+            if (!isLoggedIn) {
+                alert("পরিচালনা পর্ষদের ব্যক্তিবর্গের তথ্য দেখতে অনুগ্রহ করে প্রথমে লগইন করুন।");
+                window.location.href = "login.html"; // লগইন না থাকলে লগইন পেজে নিয়ে যাবে
+                return;
+            }
+
+            // ২. লগইন করা থাকলে তথ্য বক্সটি দেখানো বা লুকানো (Toggle)
+            const targetElement = document.getElementById(elementId);
+            if (targetElement.style.display === "block") {
+                targetElement.style.display = "none";
+            } else {
+                targetElement.style.display = "block";
+            }
+        }
+    </script>
 
 </body>
 </html>
