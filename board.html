@@ -540,18 +540,28 @@
     </footer>
 
     <!-- ৪. জাভাস্ক্রিপ্ট (বাটন লজিক ও লগইন চেক) -->
+    <!-- ৪. জাভাস্ক্রিপ্ট (আপডেট করা বাটন ও লগইন লজিক) -->
     <script>
         function toggleMember(elementId) {
-            // ১. ব্যবহারকারী লগইন করা আছে কিনা তা চেক করা
-            const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+            // ১. সম্ভাব্য সব ধরনের লগইন কি (Key) ও স্টোরেজ চেক করা
+            const isLoggedIn = 
+                localStorage.getItem("isLoggedIn") === "true" ||
+                sessionStorage.getItem("isLoggedIn") === "true" ||
+                localStorage.getItem("currentUser") !== null ||
+                sessionStorage.getItem("currentUser") !== null ||
+                localStorage.getItem("user") !== null ||
+                sessionStorage.getItem("user") !== null ||
+                localStorage.getItem("loggedIn") === "true" ||
+                sessionStorage.getItem("loggedIn") === "true";
 
+            // ২. যদি লগইন করা না থাকে
             if (!isLoggedIn) {
                 alert("পরিচালনা পর্ষদের ব্যক্তিবর্গের তথ্য দেখতে অনুগ্রহ করে প্রথমে লগইন করুন।");
                 window.location.href = "login.html"; // লগইন না থাকলে লগইন পেজে নিয়ে যাবে
                 return;
             }
 
-            // ২. লগইন করা থাকলে তথ্য বক্সটি দেখানো বা লুকানো (Toggle)
+            // ৩. লগইন করা থাকলে তথ্য বক্সটি টগল (খোলা/বন্ধ) হবে
             const targetElement = document.getElementById(elementId);
             if (targetElement.style.display === "block") {
                 targetElement.style.display = "none";
