@@ -351,6 +351,42 @@
         &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
     </div>
 </footer>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const loggedInUserData = localStorage.getItem("loggedInUser");
+        const navAuthBtn = document.getElementById("navAuthBtn");
+        const headerUserAvatar = document.getElementById("headerUserAvatar");
 
+        if (loggedInUserData) {
+            try {
+                const user = JSON.parse(loggedInUserData);
+
+                // ১. "লগইন" লেখা বদলে "লগআউট" করা
+                if (navAuthBtn) {
+                    navAuthBtn.innerText = "লগআউট";
+                    navAuthBtn.href = "javascript:void(0)";
+                    navAuthBtn.onclick = function() {
+                        if (confirm("আপনি কি নিশ্চিত যে লগআউট করতে চান?")) {
+                            localStorage.removeItem("loggedInUser");
+                            alert("লগআউট সফল হয়েছে।");
+                            window.location.href = "index.html";
+                        }
+                    };
+                }
+
+                // ২. "হোম" এর সামনে ইউজারের ছোট বৃত্তাকার ছবি দেখানো
+                if (headerUserAvatar) {
+                    // ইউজার অবজেক্টে ছবি থাকলে সেটি দেখাবে, না থাকলে ডিফল্ট ডেমো ছবি দেখাবে
+                    headerUserAvatar.src = user.photoUrl || user.image || "president.jpg"; 
+                    headerUserAvatar.style.display = "inline-block";
+                    headerUserAvatar.title = user.name || "প্রোফাইল";
+                }
+            } catch (e) {
+                console.error("User session parsing error:", e);
+            }
+        }
+    });
+</script>
+    
 </body>
 </html>
