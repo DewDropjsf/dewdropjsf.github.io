@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <!-- ১. CSS (rules.html এর <head> ট্যাগের ভেতরে বসাবেন) -->
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>নিয়মাবলি - DewDrop Joint Savings Fund</title>
+
+    <style>
+    /* --- General Reset & Page Setup --- */
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        font-family: 'Comic Sans MS', Tahoma, Geneva, Verdana, sans-serif, Arial;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f7f6;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    /* --- Header & Navigation --- */
     header {
         background-color: #2a9d8f;
         color: white;
-        padding: 12px 20px;
+        padding: 15px 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -20,14 +37,14 @@
         align-items: center;
     }
     .logo-image {
-        height: 40px;
+        height: 45px;
         width: auto;
         margin-right: 12px;
         border-radius: 50%;
     }
     header h1 {
         margin: 0;
-        font-size: 20px;
+        font-size: 22px;
     }
     nav {
         display: flex;
@@ -36,23 +53,22 @@
     nav a {
         color: white;
         text-decoration: none;
-        margin: 0 10px;
+        margin: 0 12px;
         font-weight: bold;
-        font-size: 15px;
     }
     nav a:hover {
         color: #e9d8a6;
     }
-    
-    /* প্রোফাইল ছবি */
+
+    /* প্রোফাইল ছবি / ডেমো আইকন */
     .user-avatar {
-        width: 35px;
-        height: 35px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
         border: 2px solid #ffffff;
         object-fit: cover;
-        display: none; /* ডিফল্টভাবে লুকানো থাকবে */
-        margin-right: 5px;
+        margin-right: 8px;
+        cursor: pointer;
     }
 
     /* ড্রপডাউন */
@@ -64,131 +80,209 @@
         display: none;
         position: absolute;
         background-color: #064e3b;
-        min-width: 170px;
+        min-width: 180px;
         box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
         z-index: 1000;
         border-radius: 6px;
         top: 100%;
         left: 0;
+        overflow: hidden;
     }
     .dropdown-content a {
         color: white;
-        padding: 10px 14px;
+        padding: 12px 16px;
         display: block;
-        font-size: 14px;
+        text-decoration: none;
+        text-align: left;
+        font-size: 15px;
+        transition: background-color 0.2s ease;
+    }
+    .dropdown-content a:hover {
+        background-color: #04382a;
     }
     .dropdown:hover .dropdown-content {
         display: block;
     }
-</style>
 
-<!-- ২. হেডার HTML (<body> ট্যাগের ঠিক শুরুতেই বসাবেন) -->
-    <meta charset="UTF-8">
-    <title>নিয়মাবলি - DewDrop Joint Savings Fund</title>
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; background-color: #f4f7f6; }
-        .content { max-width: 800px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; }
-        h1 { color: #005f73; text-align: center; }
-        .back-link { display: block; margin-top: 20px; color: #2a9d8f; text-decoration: none; font-weight: bold; }
+    /* --- Page Content Styling --- */
+    .content {
+        max-width: 900px;
+        margin: 30px auto;
+        background: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .content h1 {
+        color: #005f73;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .back-link {
+        display: inline-block;
+        margin-top: 30px;
+        color: #2a9d8f;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .back-link:hover {
+        text-decoration: underline;
+    }
+
+    /* --- Footer --- */
+    .site-footer {
+        background-color: #002b36;
+        color: #ffffff;
+        margin-top: 60px;
+        padding-top: 25px;
+        text-align: center;
+    }
+
+    .developer-footer {
+        font-size: 13px;
+        color: #d3d3d3;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+
+    .copyright-bar {
+        background-color: #001f28;
+        padding: 12px 20px;
+        font-size: 13px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #b0bec5;
+    }
     </style>
-    
-<header>
-    <div class="logo-container">
-        <img src="gldlogo.png" alt="logo" class="logo-image">
-        <h1>DewDrop Joint Savings Fund</h1>
-    </div>
-    <nav>
-        <!-- ৩. ইউজার প্রোফাইল ছবি (হোম এর সামনে) -->
-        <img id="headerUserAvatar" src="" alt="User" class="user-avatar">
-        
-        <a href="index.html">হোম</a>
-        
-        <div class="dropdown">
-            <a href="javascript:void(0)">আমাদের সম্পর্কে ▾</a>
-            <div class="dropdown-content">
-                <a href="index.html#about-section">ডিউড্রপ সম্পর্কে</a>
-                <a href="board.html">পরিচালনা পর্ষদ</a>
-            </div>
-        </div>
-
-        <a href="rules.html">নিয়মাবলি</a>
-        
-        <!-- ২. ডায়নামিক লগইন / লগআউট বাটন -->
-        <a href="login.html" id="navAuthBtn">লগইন</a>
-    </nav>
-</header>
 </head>
 <body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="logo-container">
+            <img src="gldlogo.png" alt="logo" class="logo-image">
+            <h1>DewDrop Joint Savings Fund</h1>
+        </div>
+        <nav>
+            <img id="headerUserAvatar" src="prflogo.jpeg" alt="User Avatar" class="user-avatar">
+            
+            <a href="index.html">হোম</a>
+            
+            <div class="dropdown">
+                <a href="javascript:void(0)">আমাদের সম্পর্কে ▾</a>
+                <div class="dropdown-content">
+                    <a href="index.html#about-section">ডিউড্রপ সম্পর্কে</a>
+                    <a href="board.html">পরিচালনা পর্ষদ</a>
+                </div>
+            </div>
+
+            <a href="rules.html">নিয়মাবলি</a>
+            
+            <a href="login.html" id="navAuthBtn">লগইন</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
     <div class="content">
         <h1>আমাদের নিয়মাবলি</h1>
-        <p>
-            <!--  -->
-            <!-- নিয়মাবলি কনটেন্ট শুরু -->
-    <div style="line-height: 1.8; text-align: justify; color: #333;">
         
-        <!-- আদর্শ ও আর্থিক ঘোষণা -->
-        <div style="background-color: #e8f5e9; border-left: 4px solid #2a9d8f; padding: 15px; margin-bottom: 25px; border-radius: 5px;">
-            <h3 style="margin-top: 0; color: #005f73;">আদর্শ ও আর্থিক ঘোষণা</h3>
-            <p style="margin-bottom: 0;">এই তহবিলটি সম্পূর্ণ সুদবিহীন (Interest-free) নীতিতে পরিচালিত হবে। ব্যাংকিং লেনদেনের ক্ষেত্রে ইসলামী শরীয়াহ্ মোতাবেক 'মুদারাবা' (Mudaraba) নিয়মে যৌথ সঞ্চয়ী হিসাব (Savings Account) পরিচালনা করা হবে, যাতে করে তহবিলের প্রতিটি টাকা এবং এর থেকে অর্জিত মুনাফা সম্পূর্ণ হালাল ও স্বচ্ছ থাকে। এই তহবিলের সার্বিক স্বচ্ছতা, শৃঙ্খলা এবং স্থায়িত্ব নিশ্চিত করার কল্পে আমরা অকপট চিত্তে এবং স্বেচ্ছায় নিম্নোক্ত মূলনীতি ও কার্যপ্রণালীসমূহ গ্রহণ, ঘোষণা ও বাস্তবায়ন করছি:</p>
+        <div style="line-height: 1.8; text-align: justify; color: #333;">
+            
+            <!-- আদর্শ ও আর্থিক ঘোষণা -->
+            <div style="background-color: #e8f5e9; border-left: 4px solid #2a9d8f; padding: 15px; margin-bottom: 25px; border-radius: 5px;">
+                <h3 style="margin-top: 0; color: #005f73;">আদর্শ ও আর্থিক ঘোষণা</h3>
+                <p style="margin-bottom: 0;">এই তহবিলটি সম্পূর্ণ সুদবিহীন (Interest-free) নীতিতে পরিচালিত হবে। ব্যাংকিং লেনদেনের ক্ষেত্রে ইসলামী শরীয়াহ্ মোতাবেক 'মুদারাবা' (Mudaraba) নিয়মে যৌথ সঞ্চয়ী হিসাব (Savings Account) পরিচালনা করা হবে, যাতে করে তহবিলের প্রতিটি টাকা এবং এর থেকে অর্জিত মুনাফা সম্পূর্ণ হালাল ও স্বচ্ছ থাকে। এই তহবিলের সার্বিক স্বচ্ছতা, শৃঙ্খলা এবং স্থায়িত্ব নিশ্চিত করার কল্পে আমরা অকপট চিত্তে এবং স্বেচ্ছায় নিম্নোক্ত মূলনীতি ও কার্যপ্রণালীসমূহ গ্রহণ, ঘোষণা ও বাস্তবায়ন করছি:</p>
+            </div>
+
+            <!-- ১. সদস্যপদ -->
+            <h3 style="color: #005f73; border-bottom: 2px solid #e0e0e0; padding-bottom: 5px;">১. সদস্যপদ (Membership)</h3>
+            <p><strong>১.১) সদস্য যোগ্যতা:</strong> এই সমিতি প্রাথমিকভাবে অফিসের কর্মকর্তা ও কর্মচারীদের সমন্বয়ে গঠিত হবে। তবে, পরিচালনা পর্ষদের অনুমোদন সাপেক্ষে বাইরের পরিচিত ও বিশ্বস্ত ব্যক্তিদেরও সদস্যপদ প্রদান করা যেতে পারে।</p>
+            <p><strong>১.২) প্রাথমিক সদস্যপদ ফি:</strong> সমিতিতে নতুন সদস্যপদ গ্রহণের সময় প্রত্যেক সদস্যকে এককালীন ২০০ (দুইশত) টাকা প্রাথমিক সদস্যপদ ফি (Initial Membership Fee) প্রদান করতে হবে। এই অর্থ অফেরতযোগ্য এবং এটি সমিতির প্রাথমিক প্রাতিষ্ঠানিক খরচ (রিসিট বই, খাতা, কলম ও ফাইল ইত্যাদি) বাবদ ব্যয় হবে।</p>
+            <p><strong>১.৩) সদস্যপদ পরিবর্তন ও হস্তান্তর:</strong> কোনো সদস্য চাইলে তার সদস্যপদ অন্য কারো কাছে সরাসরি হস্তান্তর করতে পারবেন না। তবে বিশেষ পরিস্থিতিতে পরিচালনা পর্ষদের পূর্বানুমতি সাপেক্ষে এবং নতুন সদস্যের প্রয়োজনীয় নথিপত্র জমা সাপেক্ষে সদস্যপদ পরিবর্তন বা হস্তান্তর করা যেতে পারে।</p>
+            <p><strong>১.৪) সদস্যপদ বাতিল:</strong> কোনো সদস্যের সদস্যপদ নিচের কারণসমূহে বাতিল বলে গণ্য হবে:</p>
+            <ul style="margin-left: 20px;">
+                <li>টানা ০৩ (তিন) মাস মাসিক চাঁদা পরিশোধে ব্যর্থ হলে,</li>
+                <li>সমিতির শৃঙ্খলা ও স্বার্থবিরোধী কোনো কার্যকলাপের সাথে লিপ্ত হলে,</li>
+                <li>কোনো সদস্য দেউলিয়া বা মানসিক ভারসাম্যহীন ঘোষিত হলে।</li>
+            </ul>
+            <p><strong>১.৫) সদস্যপদ বাতিলের পর তহবিল ফেরত প্রক্রিয়া:</strong></p>
+            <p style="margin-left: 15px;"><strong>ক)</strong> পরিচালনা পর্ষদ কর্তৃক কোনো সদস্যের সদস্যপদ বাতিল করা হলে, উক্ত সিদ্ধান্ত কার্যকরের দিন হতে পরবর্তী ০৩ (তিন) মাস পর তার জমাকৃত মোট সঞ্চয় (প্রযোজ্য ক্ষেত্রে বকেয়া চাঁদা বা জরিমানা কর্তন সাপেক্ষে) ফেরত দেওয়া হবে।</p>
+            <p style="margin-left: 15px;"><strong>খ)</strong> কোনো সদস্য দেউলিয়া বা মানসিক ভারসাম্যহীন ঘোষিত হলে তার মনোনীত ব্যক্তিকে পরিচালনা পর্ষদ বরাবর লিখিত আবেদন করতে হবে এবং উক্ত আবেদন পরিচালনা পর্ষদ কর্তৃক অনুমোদিত হওয়ার তারিখ হতে পরবর্তী ০৩ (তিন) মাস পর তার যাবতীয় পাওনা (প্রযোজ্য ক্ষেত্রে বকেয়া চাঁদা বা জরিমানা কর্তন সাপেক্ষে) বুঝিয়ে দেওয়া হবে।</p>
+
+            <!-- ২. মাসিক সঞ্চয় ও সময়সীমা -->
+            <h3 style="color: #005f73; border-bottom: 2px solid #e0e0e0; padding-bottom: 5px; margin-top: 30px;">২. মাসিক সঞ্চয় ও সময়সীমা (Savings & Timeline)</h3>
+            <p><strong>২.১) মাসিক চাঁদা ও প্রদানের সময়:</strong> প্রতি মাসের ০৫ তারিখ হতে ১৫ তারিখের মধ্যে চলমান মাসের ১,০০০ (এক হাজার) টাকা চাঁদা অবশ্যই পরিশোধ করতে হবে।</p>
+            <p><strong>২.২) বিলম্ব ফি বা জরিমানা:</strong> প্রতি মাসের ১৫ তারিখের মধ্যে চাঁদা জমা দিতে ব্যর্থ হলে, ১৬ তারিখ থেকে ৫০ টাকা জরিমানা (Delay Fine) প্রযোজ্য হবে।</p>
+            <p><strong>২.৩) চাঁদার পরিমাণ পরিবর্তন:</strong> বর্তমানে নির্ধারিত চাঁদার পরিমাণ পরবর্তী সময়ে সকল সদস্যের সর্বসম্মত সিদ্ধান্ত এবং পরিচালনা পর্ষদের অনুমোদনক্রমে বাড়ানো বা কমানো (পরিবর্তন/ পরিবর্ধন) যাবে।</p>
+            <p><strong>২.৪) কার্য পরিচালনা ও মিটিং ব্যয়:</strong> সমিতির নিয়মিত কার্য পরিচালনা, ব্যাংকিং খরচ এবং মাসিক মিটিংয়ের আনুষঙ্গিক ব্যয় সমূহ সদস্যদের কাছ থেকে আদায়কৃত বিলম্ব ফি বা জরিমানার (Delay Fine) অর্থ থেকে মেটানো হবে। মূল সঞ্চয়ের তহবিল থেকে কোনো প্রশাসনিক খরচ করা হবে না।</p>
+            <p><strong>২.৫) তহবিলের মেয়াদ:</strong> এই সঞ্চয় তহবিলের প্রাথমিক মেয়াদ হবে ৩ (তিন) বছর। এই মেয়াদের মধ্যে মূল তহবিল থেকে কোনো টাকা উত্তোলন করা যাবে না। প্রয়োজনে এই মেয়াদ পরবর্তী সময়ে সকল সদস্যের সর্বসম্মত সিদ্ধান্ত এবং পরিচালনা পর্ষদের অনুমোদনক্রমে বাড়ানো বা কমানো (পরিবর্তন/ পরিবর্ধন) যাবে।</p>
+            <p><strong>২.৬) এককালীন বিশেষ তহবিল গঠন ও বার্ষিক প্রবৃদ্ধি (Annual Lump-sum Deposit):</strong><br>
+            <em>"তহবিলের আর্থিক সক্ষমতা দ্রুত বৃদ্ধি এবং মূল পুঁজিকে শক্তিশালী করার লক্ষ্যে প্রতি বছর একটি বড় অংকের অর্থ এককালীন (Lump-sum Amount) জমা করা হবে। এই এককালীন অর্থ সকল সদস্য সমপরিমাণে প্রতি বছর সূচনালগ্নে (বছরের শুরুতে) অথবা প্রান্তিককালে (বছরের শেষে) ফান্ডে জমা করতে বাধ্য থাকবেন। এই এককালীন জমার সঠিক সময় ও পরিমাণ প্রতি বছর পরিচালনা পর্ষদ ও সাধারণ সদস্যদের যৌথ সর্বসম্মত সিদ্ধান্তের ভিত্তিতে পুনর্বিনর্ধারণ করা হবে। এই অর্থ ফান্ডের মূল সঞ্চয়ের অংশ হিসেবে জমা থাকবে এবং ২.৫ উপধারা অনুযায়ী তহবিলের নির্ধারিত মেয়াদ পূর্ণ হওয়ার পূর্বে কোনো অবস্থাতেই উত্তোলন করা যাবে না।"</em></p>
+
+            <!-- ৩. বহির্গমন নীতি -->
+            <h3 style="color: #005f73; border-bottom: 2px solid #e0e0e0; padding-bottom: 5px; margin-top: 30px;">৩. বহির্গমন নীতি (Exit Policy)</h3>
+            <p><strong>৩.১) চাকরি পরিবর্তন:</strong> কোনো সদস্য চাকরি পরিবর্তন বা চাকরিচ্যুত হলে, তিনি চাইলে সমিতি থেকে আনুষ্ঠানিকভাবে অব্যাহতি পাবেন অথবা নিয়মিত চাঁদা প্রদান সাপেক্ষে সদস্যপদ বহাল রেখে সমিতি চালিয়ে যেতে পারবেন। যদি তিনি অব্যাহতি নেন, তবে আবেদন করার ০৩ (তিন) মাস পর তার জমাকৃত মোট সঞ্চয় ফেরত দেওয়া হবে।</p>
+            <p><strong>৩.২) স্বেচ্ছায় বহির্গমন:</strong> কোনো সদস্য মেয়াদের মাঝেই স্বেচ্ছায় সমিতি থেকে বের হয়ে যেতে চাইলে পরিচালনা পর্ষদ বরাবর লিখিত আবেদন করতে হবে এবং আবেদন অনুমোদনের ০৩ (তিন) মাস পর তার যাবতীয় পাওনা বুঝিয়ে দেওয়া হবে।</p>
+
+            <!-- ৪. প্রয়োজনীয় নথিপত্রসমূহ -->
+            <h3 style="color: #005f73; border-bottom: 2px solid #e0e0e0; padding-bottom: 5px; margin-top: 30px;">৪. প্রয়োজনীয় নথিপত্রসমূহ (Required Documents)</h3>
+            <p>সমিতির স্বচ্ছতা ও আইনি সুরক্ষার জন্য প্রত্যেক সদস্যকে সদস্যপদ গ্রহণের সময় নিম্নোক্ত নথিপত্রসমূহ জমা দিতে হবে:</p>
+            <ul style="margin-left: 20px;">
+                <li>৪.১) সদস্যের ০১ কপি পাসপোর্ট সাইজের রঙিন ছবি,</li>
+                <li>৪.২) অফিস আইডি কার্ডের ফটোকপি (প্রযোজ্য ক্ষেত্রে),</li>
+                <li>৪.৩) জাতীয় পরিচয়পত্রের (NID) স্পষ্ট ফটোকপি,</li>
+                <li>৪.৪) মনোনীত নমিনির ১ কপি পাসপোর্ট সাইজের ছবি এবং জাতীয় পরিচয়পত্রের (NID) স্পষ্ট ফটোকপি।</li>
+            </ul>
+
         </div>
 
-        <!-- ১. সদস্যপদ -->
-        <h3 style="color: #005f73; border-bottom: 2px solid #e0e0e0; padding-bottom: 5px;">১. সদস্যপদ (Membership)</h3>
-        <p><strong>১.১) সদস্য যোগ্যতা:</strong> এই সমিতি প্রাথমিকভাবে অফিসের কর্মকর্তা ও কর্মচারীদের সমন্বয়ে গঠিত হবে। তবে, পরিচালনা পর্ষদের অনুমোদন সাপেক্ষে বাইরের পরিচিত ও বিশ্বস্ত ব্যক্তিদেরও সদস্যপদ প্রদান করা যেতে পারে।</p>
-        <p><strong>১.২) প্রাথমিক সদস্যপদ ফি:</strong> সমিতিতে নতুন সদস্যপদ গ্রহণের সময় প্রত্যেক সদস্যকে এককালীন ২০০ (দুইশত) টাকা প্রাথমিক সদস্যপদ ফি (Initial Membership Fee) প্রদান করতে হবে। এই অর্থ অফেরতযোগ্য এবং এটি সমিতির প্রাথমিক প্রাতিষ্ঠানিক খরচ (রিসিট বই, খাতা, কলম ও ফাইল ইত্যাদি) বাবদ ব্যয় হবে।</p>
-        <p><strong>১.৩) সদস্যপদ পরিবর্তন ও হস্তান্তর:</strong> কোনো সদস্য চাইলে তার সদস্যপদ অন্য কারো কাছে সরাসরি হস্তান্তর করতে পারবেন না। তবে বিশেষ পরিস্থিতিতে পরিচালনা পর্ষদের পূর্বানুমতি সাপেক্ষে এবং নতুন সদস্যের প্রয়োজনীয় নথিপত্র জমা সাপেক্ষে সদস্যপদ পরিবর্তন বা হস্তান্তর করা যেতে পারে।</p>
-        <p><strong>১.৪) সদস্যপদ বাতিল:</strong> কোনো সদস্যের সদস্যপদ নিচের কারণসমূহে বাতিল বলে গণ্য হবে:</p>
-        <ul style="margin-left: 20px;">
-            <li>টানা ০৩ (তিন) মাস মাসিক চাঁদা পরিশোধে ব্যর্থ হলে,</li>
-            <li>সমিতির শৃঙ্খলা ও স্বার্থবিরোধী কোনো কার্যকলাপের সাথে লিপ্ত হলে,</li>
-            <li>কোনো সদস্য দেউলিয়া বা মানসিক ভারসাম্যহীন ঘোষিত হলে।</li>
-        </ul>
-        <p><strong>১.৫) সদস্যপদ বাতিলের পর তহবিল ফেরত প্রক্রিয়া:</strong></p>
-        <p style="margin-left: 15px;"><strong>ক)</strong> পরিচালনা পর্ষদ কর্তৃক কোনো সদস্যের সদস্যপদ বাতিল করা হলে, উক্ত সিদ্ধান্ত কার্যকরের দিন হতে পরবর্তী ০৩ (তিন) মাস পর তার জমাকৃত মোট সঞ্চয় (প্রযোজ্য ক্ষেত্রে বকেয়া চাঁদা বা জরিমানা কর্তন সাপেক্ষে) ফেরত দেওয়া হবে।</p>
-        <p style="margin-left: 15px;"><strong>খ)</strong> কোনো সদস্য দেউলিয়া বা মানসিক ভারসাম্যহীন ঘোষিত হলে তার মনোনীত ব্যক্তিকে পরিচালনা পর্ষদ বরাবর লিখিত আবেদন করতে হবে এবং উক্ত আবেদন পরিচালনা পর্ষদ কর্তৃক অনুমোদিত হওয়ার তারিখ হতে পরবর্তী ০৩ (তিন) মাস পর তার যাবতীয় পাওনা (প্রযোজ্য ক্ষেত্রে বকেয়া চাঁদা বা জরিমানা কর্তন সাপেক্ষে) বুঝিয়ে দেওয়া হবে।</p>
-
-        <!-- ২. মাসিক সঞ্চয় ও সময়সীমা -->
-        <h3 style="color: #005f73; border-bottom: 2px solid #e0e0e0; padding-bottom: 5px; margin-top: 30px;">২. মাসিক সঞ্চয় ও সময়সীমা (Savings & Timeline)</h3>
-        <p><strong>২.১) মাসিক চাঁদা ও প্রদানের সময়:</strong> প্রতি মাসের ০৫ তারিখ হতে ১৫ তারিখের মধ্যে চলমান মাসের ১,০০০ (এক হাজার) টাকা চাঁদা অবশ্যই পরিশোধ করতে হবে।</p>
-        <p><strong>২.২) বিলম্ব ফি বা জরিমানা:</strong> প্রতি মাসের ১৫ তারিখের মধ্যে চাঁদা জমা দিতে ব্যর্থ হলে, ১৬ তারিখ থেকে ৫০ টাকা জরিমানা (Delay Fine) প্রযোজ্য হবে।</p>
-        <p><strong>২.৩) চাঁদার পরিমাণ পরিবর্তন:</strong> বর্তমানে নির্ধারিত চাঁদার পরিমাণ পরবর্তী সময়ে সকল সদস্যের সর্বসম্মত সিদ্ধান্ত এবং পরিচালনা পর্ষদের অনুমোদনক্রমে বাড়ানো বা কমানো (পরিবর্তন/ পরিবর্ধন) যাবে।</p>
-        <p><strong>২.৪) কার্য পরিচালনা ও মিটিং ব্যয়:</strong> সমিতির নিয়মিত কার্য পরিচালনা, ব্যাংকিং খরচ এবং মাসিক মিটিংয়ের আনুষঙ্গিক ব্যয় সমূহ সদস্যদের কাছ থেকে আদায়কৃত বিলম্ব ফি বা জরিমানার (Delay Fine) অর্থ থেকে মেটানো হবে। মূল সঞ্চয়ের তহবিল থেকে কোনো প্রশাসনিক খরচ করা হবে না।</p>
-        <p><strong>২.৫) তহবিলের মেয়াদ:</strong> এই সঞ্চয় তহবিলের প্রাথমিক মেয়াদ হবে ৩ (তিন) বছর। এই মেয়াদের মধ্যে মূল তহবিল থেকে কোনো টাকা উত্তোলন করা যাবে না। প্রয়োজনে এই মেয়াদ পরবর্তী সময়ে সকল সদস্যের সর্বসম্মত সিদ্ধান্ত এবং পরিচালনা পর্ষদের অনুমোদনক্রমে বাড়ানো বা কমানো (পরিবর্তন/ পরিবর্ধন) যাবে।</p>
-        <p><strong>২.৬) এককালীন বিশেষ তহবিল গঠন ও বার্ষিক প্রবৃদ্ধি (Annual Lump-sum Deposit):</strong><br>
-        <em>"তহবিলের আর্থিক সক্ষমতা দ্রুত বৃদ্ধি এবং মূল পুঁজিকে শক্তিশালী করার লক্ষ্যে প্রতি বছর একটি বড় অংকের অর্থ এককালীন (Lump-sum Amount) জমা করা হবে। এই এককালীন অর্থ সকল সদস্য সমপরিমাণে প্রতি বছর সূচনালগ্নে (বছরের শুরুতে) অথবা প্রান্তিককালে (বছরের শেষে) ফান্ডে জমা করতে বাধ্য থাকবেন। এই এককালীন জমার সঠিক সময় ও পরিমাণ প্রতি বছর পরিচালনা পর্ষদ ও সাধারণ সদস্যদের যৌথ সর্বসম্মত সিদ্ধান্তের ভিত্তিতে পুনর্বিনর্ধারণ করা হবে। এই অর্থ ফান্ডের মূল সঞ্চয়ের অংশ হিসেবে জমা থাকবে এবং ২.৫ উপধারা অনুযায়ী তহবিলের নির্ধারিত মেয়াদ পূর্ণ হওয়ার পূর্বে কোনো অবস্থাতেই উত্তোলন করা যাবে না।"</em></p>
-
-        <!-- ৩. বহির্গমন নীতি -->
-        <h3 style="color: #005f73; border-bottom: 2px solid #e0e0e0; padding-bottom: 5px; margin-top: 30px;">৩. বহির্গমন নীতি (Exit Policy)</h3>
-        <p><strong>৩.১) চাকরি পরিবর্তন:</strong> কোনো সদস্য চাকরি পরিবর্তন বা চাকরিচ্যুত হলে, তিনি চাইলে সমিতি থেকে আনুষ্ঠানিকভাবে অব্যাহতি পাবেন অথবা নিয়মিত চাঁদা প্রদান সাপেক্ষে সদস্যপদ বহাল রেখে সমিতি চালিয়ে যেতে পারবেন। যদি তিনি অব্যাহতি নেন, তবে আবেদন করার ০৩ (তিন) মাস পর তার জমাকৃত মোট সঞ্চয় ফেরত দেওয়া হবে।</p>
-        <p><strong>৩.২) স্বেচ্ছায় বহির্গমন:</strong> কোনো সদস্য মেয়াদের মাঝেই স্বেচ্ছায় সমিতি থেকে বের হয়ে যেতে চাইলে পরিচালনা পর্ষদ বরাবর লিখিত আবেদন করতে হবে এবং আবেদন অনুমোদনের ০৩ (তিন) মাস পর তার যাবতীয় পাওনা বুঝিয়ে দেওয়া হবে।</p>
-
-        <!-- ৪. প্রয়োজনীয় নথিপত্রসমূহ -->
-        <h3 style="color: #005f73; border-bottom: 2px solid #e0e0e0; padding-bottom: 5px; margin-top: 30px;">৪. প্রয়োজনীয় নথিপত্রসমূহ (Required Documents)</h3>
-        <p>সমিতির স্বচ্ছতা ও আইনি সুরক্ষার জন্য প্রত্যেক সদস্যকে সদস্যপদ গ্রহণের সময় নিম্নোক্ত নথিপত্রসমূহ জমা দিতে হবে:</p>
-        <ul style="margin-left: 20px;">
-            <li>৪.১) সদস্যের ০১ কপি পাসপোর্ট সাইজের রঙিন ছবি,</li>
-            <li>৪.২) অফিস আইডি কার্ডের ফটোকপি (প্রযোজ্য ক্ষেত্রে),</li>
-            <li>৪.৩) জাতীয় পরিচয়পত্রের (NID) স্পষ্ট ফটোকপি,</li>
-            <li>৪.৪) মনোনীত নমিনির ১ কপি পাসপোর্ট সাইজের ছবি এবং জাতীয় পরিচয়পত্রের (NID) স্পষ্ট ফটোকপি।</li>
-        </ul>
-
-    </div>
-    <!-- নিয়মাবলি কনটেন্ট শেষ -->
-        </p>
         <a href="index.html" class="back-link">← হোম পেজে ফিরে যান</a>
     </div>
 
+    <!-- সাইট ফুটার -->
+    <footer class="site-footer">
+        <div class="developer-footer">
+            Website Developed by:<br>
+            <strong>Md Tanjim Islam</strong><br>
+            <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a>
+        </div>
+        
+        <div class="copyright-bar">
+            &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
+        </div>
+    </footer>
+
+    <!-- সেশন ও প্রোফাইল জাভাস্ক্রিপ্ট -->
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const loggedInUserData = localStorage.getItem("loggedInUser");
-        const navAuthBtn = document.getElementById("navAuthBtn");
-        const headerUserAvatar = document.getElementById("headerUserAvatar");
+        document.addEventListener("DOMContentLoaded", function() {
+            const rawData = localStorage.getItem("loggedInUser");
+            const navAuthBtn = document.getElementById("navAuthBtn");
+            const headerUserAvatar = document.getElementById("headerUserAvatar");
 
-        if (loggedInUserData) {
-            try {
-                const user = JSON.parse(loggedInUserData);
+            let user = null;
+            let isLoggedIn = false;
 
-                // ১. "লগইন" লেখা বদলে "লগআউট" করা
+            if (rawData && rawData !== "null" && rawData !== "undefined") {
+                try {
+                    user = JSON.parse(rawData);
+                    if (user && typeof user === 'object' && Object.keys(user).length > 0) {
+                        isLoggedIn = true;
+                    }
+                } catch (e) {
+                    isLoggedIn = false;
+                }
+            }
+
+            if (isLoggedIn && user) {
+                // ১. লগইন অবস্থায়: ইউজারের নিজস্ব ছবি (না থাকলে prflogo.jpeg)
+                if (headerUserAvatar) {
+                    headerUserAvatar.src = user.photoUrl || user.image || "prflogo.jpeg";
+                    headerUserAvatar.onerror = function() {
+                        this.src = "prflogo.jpeg";
+                    };
+                    headerUserAvatar.title = user.name || "প্রোফাইল";
+                }
+
+                // ২. লগইন বাটন পরিবর্তন করে "লগআউট" করা
                 if (navAuthBtn) {
                     navAuthBtn.innerText = "লগআউট";
                     navAuthBtn.href = "javascript:void(0)";
@@ -196,29 +290,24 @@
                         if (confirm("আপনি কি নিশ্চিত যে লগআউট করতে চান?")) {
                             localStorage.removeItem("loggedInUser");
                             alert("লগআউট সফল হয়েছে।");
-                            window.location.href = "index.html";
+                            window.location.reload();
                         }
                     };
                 }
-
-                // ২. ইউজারের নিজস্ব ছবি থাকলে সেটি দেখাবে, না থাকলে plbaby.jpg দেখাবে
+            } else {
+                // ৩. লগইন না থাকলে: prflogo.jpeg ছবি দেখাবে এবং "লগইন" বাটন থাকবে
                 if (headerUserAvatar) {
-                    headerUserAvatar.src = user.photoUrl || user.image || "proflogo.jpeg";
-                    
-                    // কোনো কারণে ছবি লোড না হলে proflogo.jpeg দেখাবে
-                    headerUserAvatar.onerror = function() {
-                        this.src = "proflogo.jpeg";
-                    };
-
-                    headerUserAvatar.style.display = "inline-block";
-                    headerUserAvatar.title = user.name || "প্রোফাইল";
+                    headerUserAvatar.src = "prflogo.jpeg";
+                    headerUserAvatar.title = "গেস্ট প্রোফাইল";
                 }
-            } catch (e) {
-                console.error("User session parsing error:", e);
+                if (navAuthBtn) {
+                    navAuthBtn.innerText = "লগইন";
+                    navAuthBtn.href = "login.html";
+                    navAuthBtn.onclick = null;
+                }
             }
-        }
-    });
-</script>
-    
+        });
+    </script>
+
 </body>
 </html>
