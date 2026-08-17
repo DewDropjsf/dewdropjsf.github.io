@@ -96,7 +96,7 @@
     <!-- ১. হেডার ও নেভিগেশন বার -->
     <header id="top">
         <div class="logo-container">
-            <img src="logo.png" alt="logo" class="logo-image">
+            <img src="gldlogo.png" alt="logo" class="logo-image">
             <h1>DewDrop Joint Savings Fund</h1>
         </div>
         <nav>
@@ -365,11 +365,11 @@
 
                 // ২. ইউজারের নিজস্ব ছবি থাকলে সেটি দেখাবে, না থাকলে plbaby.jpg দেখাবে
                 if (headerUserAvatar) {
-                    headerUserAvatar.src = user.photoUrl || user.image || "plbaby.jpg";
+                    headerUserAvatar.src = user.photoUrl || user.image || "prflogo.jpeg";
                     
-                    // কোনো কারণে ছবি লোড না হলে plbaby.jpg দেখাবে
+                    // কোনো কারণে ছবি লোড না হলে prflogo.jpeg দেখাবে
                     headerUserAvatar.onerror = function() {
-                        this.src = "plbaby.jpg";
+                        this.src = "prflogo.jpeg";
                     };
 
                     headerUserAvatar.style.display = "inline-block";
