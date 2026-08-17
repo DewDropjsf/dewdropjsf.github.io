@@ -5,63 +5,144 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>সাইন আপ - DewDrop Joint Savings Fund</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px 0; }
-        .signup-card { background: white; padding: 30px 40px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        .signup-card h2 { color: #005f73; text-align: center; margin-bottom: 20px; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; color: #444; font-weight: bold; font-size: 14px; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px; }
-        .btn-submit { width: 100%; background-color: #2a9d8f; color: white; border: none; padding: 12px; font-size: 16px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
-        .btn-submit:hover { background-color: #005f73; }
-        .btn-secondary { background-color: #e76f51; }
-        .btn-secondary:hover { background-color: #d62828; }
-        .extra-links { margin-top: 15px; text-align: center; font-size: 14px; }
-        .extra-links a { color: #2a9d8f; text-decoration: none; }
-        .hidden { display: none; }
+        * {
+            box-sizing: border-box;
+        }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Arial; 
+            background-color: #f4f7f6; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 20px; 
+        }
+        .signup-card { 
+            background: #ffffff; 
+            padding: 35px 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+            width: 100%; 
+            max-width: 420px; 
+        }
+        .signup-card h2 { 
+            color: #005f73; 
+            text-align: center; 
+            margin-top: 0;
+            margin-bottom: 25px; 
+            font-size: 22px;
+        }
+        .form-group { 
+            margin-bottom: 16px; 
+        }
+        .form-group label { 
+            display: block; 
+            margin-bottom: 6px; 
+            color: #333; 
+            font-weight: 600; 
+            font-size: 14px; 
+        }
+        .form-group input { 
+            width: 100%; 
+            padding: 11px 13px; 
+            border: 1px solid #cccccc; 
+            border-radius: 6px; 
+            font-size: 14px; 
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        .form-group input:focus {
+            border-color: #2a9d8f;
+        }
+        .form-group input[readonly] {
+            background-color: #e9ecef;
+            color: #495057;
+            cursor: not-allowed;
+        }
+        .btn-submit { 
+            width: 100%; 
+            background-color: #2a9d8f; 
+            color: white; 
+            border: none; 
+            padding: 12px; 
+            font-size: 16px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            margin-top: 10px; 
+            transition: background-color 0.2s ease;
+        }
+        .btn-submit:hover { 
+            background-color: #005f73; 
+        }
+        .btn-submit:disabled {
+            background-color: #94d2bd;
+            cursor: not-allowed;
+        }
+        .extra-links { 
+            margin-top: 20px; 
+            text-align: center; 
+            font-size: 14px; 
+            border-top: 1px solid #eeeeee;
+            padding-top: 15px;
+        }
+        .extra-links a { 
+            color: #2a9d8f; 
+            text-decoration: none; 
+            font-weight: 600;
+        }
+        .extra-links a:hover {
+            text-decoration: underline;
+        }
+        .hidden { 
+            display: none; 
+        }
     </style>
 </head>
 <body>
 
     <div class="signup-card">
         <h2>নতুন সদস্য নিবন্ধন</h2>
+        
         <form id="signupForm">
             <!-- ধাপ ১: প্রাথমিক তথ্য -->
             <div id="step1">
                 <div class="form-group">
-                    <label>মেম্বার আইডি</label>
+                    <label for="member_id">মেম্বার আইডি</label>
                     <input type="text" id="member_id" name="member_id" placeholder="আপনার কাগজের মেম্বার আইডি দিন" required>
                 </div>
                 <div class="form-group">
-                    <label>পূর্ণ নাম</label>
-                    <input type="text" name="name" placeholder="আপনার পুরো নাম লিখুন" required>
+                    <label for="name">পূর্ণ নাম</label>
+                    <input type="text" id="name" name="name" placeholder="আপনার পুরো নাম লিখুন" required>
                 </div>
                 <div class="form-group">
-                    <label>মোবাইল নম্বর</label>
-                    <input type="tel" name="mobile" placeholder="017XXXXXXXX" required>
+                    <label for="mobile">মোবাইল নম্বর</label>
+                    <input type="tel" id="mobile" name="mobile" placeholder="017XXXXXXXX" required>
                 </div>
                 <div class="form-group">
-                    <label>ইমেইল ঠিকানা</label>
+                    <label for="email">ইমেইল ঠিকানা</label>
                     <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
                 </div>
                 <button type="button" id="sendOtpBtn" class="btn-submit">OTP ইমেইলে পাঠান</button>
             </div>
 
-           <!-- ধাপ ২: OTP ও পাসওয়ার্ড (প্রথমে লুকানো থাকবে) -->
-<div id="step2" class="hidden">
-    <div class="form-group">
-        <label>ইমেইল OTP কোড</label>
-        <input type="text" name="otp" placeholder="৬ ডিজিটের OTP কোড দিন" required>
-    </div>
-    <div class="form-group">
-        <label>নতুন পাসওয়ার্ড</label>
-        <input type="password" name="password" id="pass" placeholder="নতুন পাসওয়ার্ড দিন" required>
-    </div>
-    <div class="form-group">
-        <label>পাসওয়ার্ড নিশ্চিত করুন</label>
-        <input type="password" id="confirm_pass" placeholder="পাসওয়ার্ড পুনরায় লিখুন" required>
-    </div>
-    <button type="submit" id="finalSignupBtn" class="btn-submit">সাইন আপ সম্পন্ন করুন</button>
-</div>
+            <!-- ধাপ ২: OTP ও পাসওয়ার্ড (প্রথমে লুকানো থাকবে) -->
+            <div id="step2" class="hidden">
+                <div class="form-group">
+                    <label for="otp">ইমেইল OTP কোড</label>
+                    <input type="text" id="otp" name="otp" placeholder="৬ ডিজিটের OTP কোড দিন" required>
+                </div>
+                <div class="form-group">
+                    <label for="pass">নতুন পাসওয়ার্ড</label>
+                    <input type="password" id="pass" name="password" placeholder="নতুন পাসওয়ার্ড দিন" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label for="confirm_pass">পাসওয়ার্ড নিশ্চিত করুন</label>
+                    <input type="password" id="confirm_pass" placeholder="পাসওয়ার্ড পুনরায় লিখুন" required minlength="6">
+                </div>
+                <button type="submit" id="finalSignupBtn" class="btn-submit">সাইন আপ সম্পন্ন করুন</button>
+            </div>
         </form>
 
         <div class="extra-links">
@@ -71,92 +152,131 @@
     </div>
 
     <script>
-    // আপনার Web App URL এখানে বসান
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxD99zvyQzbdS_GwGKelNVXS1k0K3U2xPke8Rbo9pYk4ON3hsbUd2tocL_QMWccOn_g/exec'; 
-    const form = document.getElementById('signupForm');
-    const sendOtpBtn = document.getElementById('sendOtpBtn');
-    const step1 = document.getElementById('step1');
-    const step2 = document.getElementById('step2');
+        // Google Apps Script Web App URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxD99zvyQzbdS_GwGKelNVXS1k0K3U2xPke8Rbo9pYk4ON3hsbUd2tocL_QMWccOn_g/exec'; 
+        
+        const form = document.getElementById('signupForm');
+        const sendOtpBtn = document.getElementById('sendOtpBtn');
+        const finalSignupBtn = document.getElementById('finalSignupBtn');
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
 
-    // ১. OTP পাঠানোর ইভেন্ট
-    sendOtpBtn.addEventListener('click', () => {
-        const memberId = document.getElementById('member_id').value;
-        const email = document.getElementById('email').value;
+        // ১. OTP পাঠানোর ইভেন্ট
+        sendOtpBtn.addEventListener('click', () => {
+            const memberId = document.getElementById('member_id').value.trim();
+            const name = document.getElementById('name').value.trim();
+            const mobile = document.getElementById('mobile').value.trim();
+            const email = document.getElementById('email').value.trim();
 
-        if(!memberId || !email) {
-            alert('অনুগ্রহ করে মেম্বার আইডি এবং ইমেইল সঠিকভাবে পূরণ করুন।');
-            return;
-        }
-
-        sendOtpBtn.innerText = 'OTP পাঠানো হচ্ছে...';
-        sendOtpBtn.disabled = true;
-
-        const params = new URLSearchParams(new FormData(form));
-        params.append('action', 'sendOTP');
-
-        fetch(scriptURL, { method: 'POST', body: params })
-        .then(response => response.text())
-        .then(data => {
-            let result = data.trim();
-            if(result === 'OTP_Sent') {
-                alert('আপনার ইমেইলে ৬ ডিজিটের OTP পাঠানো হয়েছে। দয়া করে ইমেইল ইনবক্স/স্প্যাম ফোল্ডার চেক করুন।');
-                step2.classList.remove('hidden');
-                sendOtpBtn.classList.add('hidden');
-            } else if(result.includes('Invalid ID')) {
-                alert('ভুল মেম্বার আইডি!');
-                resetOtpBtn();
-            } else if(result.includes('Already Registered')) {
-                alert('এই মেম্বার আইডি দিয়ে ইতিমধ্যেই অ্যাকাউন্ট খোলা হয়ে গেছে!');
-                resetOtpBtn();
-            } else {
-                alert('ইমেইল পাঠাতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
-                resetOtpBtn();
+            // সকল প্রাথমিক ইনপুট চেক করা
+            if (!memberId || !name || !mobile || !email) {
+                alert('অনুগ্রহ করে প্রথম ধাপের সকল তথ্য (মেম্বার আইডি, নাম, মোবাইল ও ইমেইল) সঠিকভাবে পূরণ করুন।');
+                return;
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।');
-            resetOtpBtn();
+
+            // বাটনের টেক্সট পরিবর্তন ও ডিসেবল করা
+            sendOtpBtn.innerText = 'OTP পাঠানো হচ্ছে...';
+            sendOtpBtn.disabled = true;
+
+            const params = new URLSearchParams(new FormData(form));
+            params.append('action', 'sendOTP');
+
+            fetch(scriptURL, { method: 'POST', body: params })
+            .then(response => response.text())
+            .then(data => {
+                let result = data.trim();
+                if (result === 'OTP_Sent') {
+                    alert('আপনার ইমেইলে ৬ ডিজিটের OTP পাঠানো হয়েছে। দয়া করে ইমেইল ইনবক্স/স্প্যাম ফোল্ডার চেক করুন।');
+                    
+                    // ১ম ধাপের ইনপুটগুলো Readonly করে দেওয়া
+                    document.getElementById('member_id').readOnly = true;
+                    document.getElementById('name').readOnly = true;
+                    document.getElementById('mobile').readOnly = true;
+                    document.getElementById('email').readOnly = true;
+
+                    // ২য় ধাপ দেখানো এবং ২য় বোতাম হাইড করা
+                    step2.classList.remove('hidden');
+                    sendOtpBtn.classList.add('hidden');
+                } else if (result.includes('Invalid ID')) {
+                    alert('ভুল মেম্বার আইডি! অনুগ্রহ করে সঠিক মেম্বার আইডি দিন।');
+                    resetOtpBtn();
+                } else if (result.includes('Already Registered')) {
+                    alert('এই মেম্বার আইডি দিয়ে ইতিমধ্যেই অ্যাকাউন্ট খোলা হয়ে গেছে!');
+                    resetOtpBtn();
+                } else {
+                    alert('ইমেইল পাঠাতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
+                    resetOtpBtn();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।');
+                resetOtpBtn();
+            });
         });
-    });
 
-    function resetOtpBtn() {
-        sendOtpBtn.innerText = 'OTP ইমেইলে পাঠান';
-        sendOtpBtn.disabled = false;
-    }
-
-    // ২. চূড়ান্ত সাইন আপ ইভেন্ট
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        
-        const pass = document.getElementById('pass').value;
-        const confirmPass = document.getElementById('confirm_pass').value;
-
-        if (pass !== confirmPass) {
-            alert('দুটি পাসওয়ার্ড মেলেনি! অনুগ্রহ করে আবার পাসওয়ার্ড পরীক্ষা করুন।');
-            return;
+        function resetOtpBtn() {
+            sendOtpBtn.innerText = 'OTP ইমেইলে পাঠান';
+            sendOtpBtn.disabled = false;
         }
-        
-        const params = new URLSearchParams(new FormData(form));
-        params.append('action', 'signup');
 
-        fetch(scriptURL, { method: 'POST', body: params })
-        .then(response => response.text())
-        .then(data => {
-            let result = data.trim();
-            if(result === 'Success') {
-                alert('আলহামদুলিল্লাহ! আপনার অ্যাকাউন্ট সফলভাবে ভেরিফাইড এবং রেজিস্টার্ড হয়েছে।');
-                form.reset();
-                location.reload();
-            } else if(result.includes('Invalid OTP')) {
-                alert('ভুল OTP কোড! আবার সঠিকভাবে চেষ্টা করুন।');
-            } else {
-                alert('রেজিস্ট্রেশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
+        // ২. চূড়ান্ত সাইন আপ ইভেন্ট
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            
+            const otp = document.getElementById('otp').value.trim();
+            const pass = document.getElementById('pass').value;
+            const confirmPass = document.getElementById('confirm_pass').value;
+
+            if (!otp) {
+                alert('অনুগ্রহ করে ইমেইলে প্রাপ্ত OTP কোডটি লিখুন।');
+                return;
             }
-        })
-        .catch(error => alert('নেটওয়ার্ক সমস্যা!'));
-    });
-</script>
+
+            if (pass !== confirmPass) {
+                alert('দুটি পাসওয়ার্ড মেলেনি! অনুগ্রহ করে আবার পাসওয়ার্ড পরীক্ষা করুন।');
+                return;
+            }
+
+            if (pass.length < 6) {
+                alert('পাসওয়ার্ড ন্যূনতম ৬ অক্ষরের হতে হবে।');
+                return;
+            }
+
+            finalSignupBtn.innerText = 'প্রসেস করা হচ্ছে...';
+            finalSignupBtn.disabled = true;
+
+            const params = new URLSearchParams(new FormData(form));
+            params.append('action', 'signup');
+
+            fetch(scriptURL, { method: 'POST', body: params })
+            .then(response => response.text())
+            .then(data => {
+                let result = data.trim();
+                if (result === 'Success') {
+                    alert('আলহামদুলিল্লাহ! আপনার অ্যাকাউন্ট সফলভাবে ভেরিফাইড এবং রেজিস্টার্ড হয়েছে। এখন লগইন করুন।');
+                    form.reset();
+                    window.location.href = 'login.html'; // সাইন আপ সফল হলে সরাসরি লগইন পেজে নিয়ে যাবে
+                } else if (result.includes('Invalid OTP')) {
+                    alert('ভুল OTP কোড! আবার সঠিকভাবে চেষ্টা করুন।');
+                    resetFinalBtn();
+                } else {
+                    alert('রেজিস্ট্রেশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।');
+                    resetFinalBtn();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।');
+                resetFinalBtn();
+            });
+        });
+
+        function resetFinalBtn() {
+            finalSignupBtn.innerText = 'সাইন আপ সম্পন্ন করুন';
+            finalSignupBtn.disabled = false;
+        }
+    </script>
 
 </body>
 </html>
