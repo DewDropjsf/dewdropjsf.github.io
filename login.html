@@ -5,16 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>লগইন - DewDrop Joint Savings Fund</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .login-card { background: white; padding: 30px 40px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 100%; max-width: 380px; }
-        .login-card h2 { color: #005f73; text-align: center; margin-bottom: 20px; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; color: #444; font-weight: bold; font-size: 14px; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px; }
-        .btn-submit { width: 100%; background-color: #005f73; color: white; border: none; padding: 12px; font-size: 16px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
-        .btn-submit:hover { background-color: #0a9396; }
-        .extra-links { margin-top: 15px; text-align: center; font-size: 14px; }
-        .extra-links a { color: #2a9d8f; text-decoration: none; }
+        * {
+            box-sizing: border-box;
+        }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Arial; 
+            background-color: #f4f7f6; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 20px; 
+        }
+        .login-card { 
+            background: #ffffff; 
+            padding: 35px 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+            width: 100%; 
+            max-width: 400px; 
+        }
+        .login-card h2 { 
+            color: #005f73; 
+            text-align: center; 
+            margin-top: 0;
+            margin-bottom: 25px; 
+            font-size: 22px;
+        }
+        .form-group { 
+            margin-bottom: 18px; 
+        }
+        .form-group label { 
+            display: block; 
+            margin-bottom: 6px; 
+            color: #333; 
+            font-weight: 600; 
+            font-size: 14px; 
+        }
+        .form-group input { 
+            width: 100%; 
+            padding: 11px 13px; 
+            border: 1px solid #cccccc; 
+            border-radius: 6px; 
+            font-size: 14px; 
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        .form-group input:focus {
+            border-color: #005f73;
+        }
+        .btn-submit { 
+            width: 100%; 
+            background-color: #005f73; 
+            color: white; 
+            border: none; 
+            padding: 12px; 
+            font-size: 16px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            margin-top: 10px; 
+            transition: background-color 0.2s ease;
+        }
+        .btn-submit:hover { 
+            background-color: #0a9396; 
+        }
+        .btn-submit:disabled {
+            background-color: #94d2bd;
+            cursor: not-allowed;
+        }
+        .extra-links { 
+            margin-top: 20px; 
+            text-align: center; 
+            font-size: 14px; 
+            border-top: 1px solid #eeeeee;
+            padding-top: 15px;
+        }
+        .extra-links p {
+            margin: 8px 0;
+        }
+        .extra-links a { 
+            color: #2a9d8f; 
+            text-decoration: none; 
+            font-weight: 600;
+        }
+        .extra-links a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -23,12 +101,12 @@
         <h2>সদস্য লগইন</h2>
         <form id="loginForm">
             <div class="form-group">
-                <label>মেম্বার আইডি অথবা ইমেইল</label>
-                <input type="text" name="login_input" placeholder="মেম্বার আইডি বা ইমেইল দিন" required>
+                <label for="login_input">মেম্বার আইডি অথবা ইমেইল</label>
+                <input type="text" id="login_input" name="login_input" placeholder="মেম্বার আইডি বা ইমেইল দিন" required>
             </div>
             <div class="form-group">
-                <label>পাসওয়ার্ড</label>
-                <input type="password" name="password" placeholder="আপনার পাসওয়ার্ড দিন" required>
+                <label for="password">পাসওয়ার্ড</label>
+                <input type="password" id="password" name="password" placeholder="আপনার পাসওয়ার্ড দিন" required>
             </div>
             <button type="submit" id="loginBtn" class="btn-submit">লগইন করুন</button>
         </form>
@@ -39,56 +117,79 @@
         </div>
     </div>
 
-    <!-- ৪. জাভাস্ক্রিপ্ট (আসল লগইন কী 'loggedInUser' চেক) -->
-    <!-- ৮. জাভাস্ক্রিপ্ট (লগইন লজিক) -->
+    <!-- জাভাস্ক্রিপ্ট (লগইন ভ্যালিডেশন ও সেশন হ্যান্ডলিং) -->
     <script>
-        // ফর্ম সাবমিট হ্যান্ডলার
+        // Google Apps Script Web App URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxD99zvyQzbdS_GwGKelNVXS1k0K3U2xPke8Rbo9pYk4ON3hsbUd2tocL_QMWccOn_g/exec'; 
+
         const loginForm = document.getElementById('loginForm');
-        
+        const loginBtn = document.getElementById('loginBtn');
+
         if (loginForm) {
             loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                const loginBtn = document.getElementById('loginBtn') || document.querySelector("button[type='submit']");
-                if (loginBtn) {
-                    loginBtn.innerText = 'অপেক্ষা করুন...';
-                    loginBtn.disabled = true;
+                const loginInput = document.getElementById('login_input').value.trim();
+                const passwordInput = document.getElementById('password').value.trim();
+
+                if (!loginInput || !passwordInput) {
+                    alert('অনুগ্রহ করে মেম্বার আইডি/ইমেইল এবং পাসওয়ার্ড উভয়ই পূরণ করুন।');
+                    return;
                 }
 
-                // ইউজার ইনপুট (আপনার ইনপুট ID অনুযায়ী মিলিয়ে নেবেন)
-                const usernameInput = document.getElementById('username')?.value.trim();
-                const passwordInput = document.getElementById('password')?.value.trim();
+                loginBtn.innerText = 'অপেক্ষা করুন...';
+                loginBtn.disabled = true;
 
-                // আপনার গুগল অ্যাপস স্ক্রিপ্ট Web App URL
-                const scriptURL = 'YOUR_APPS_SCRIPT_URL_HERE'; 
+                // POST রিকোয়েস্ট প্যারামিটার
+                const params = new URLSearchParams();
+                params.append('action', 'login');
+                params.append('id', loginInput);
+                params.append('password', passwordInput);
 
-                fetch(`${scriptURL}?action=login&id=${encodeURIComponent(usernameInput)}&password=${encodeURIComponent(passwordInput)}`)
+                fetch(scriptURL, { method: 'POST', body: params })
                 .then(response => response.text())
                 .then(data => {
                     try {
                         let result = JSON.parse(data);
-                        if (result.status === 'Success') {
-                            // ব্রাউজারে ইউজার ডাটা সেভ রাখা
-                            localStorage.setItem('loggedInUser', JSON.stringify(result.user));
-                            alert('লগইন সফল হয়েছে! স্বাগতম ' + (result.user.name || ''));
-                            window.location.href = 'dashboard.html'; // ড্যাশবোর্ডে পাঠাবে
+                        if (result.status === 'Success' || result.result === 'Success') {
+                            // ব্রাউজারের LocalStorage-এ ইউজার ডাটা সেভ রাখা
+                            const userData = result.user || {
+                                name: result.name || 'সদস্য',
+                                id: loginInput
+                            };
+                            
+                            localStorage.setItem('loggedInUser', JSON.stringify(userData));
+                            alert('আলহামদুলিল্লাহ! লগইন সফল হয়েছে। স্বাগতম ' + (userData.name || '') + '!');
+                            
+                            // সফলভাবে লগইন শেষে হোমপেজ বা ড্যাশবোর্ডে রিডাইরেক্ট
+                            window.location.href = 'index.html'; 
                         } else {
                             alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
+                            resetBtn();
                         }
                     } catch(err) {
-                        alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
+                        // যদি JSON পার্সিং করতে না পারে কিন্তু 'Success' টেক্সট পাঠায়
+                        if (data.trim() === 'Success') {
+                            localStorage.setItem('loggedInUser', JSON.stringify({ id: loginInput }));
+                            alert('লগইন সফল হয়েছে!');
+                            window.location.href = 'index.html';
+                        } else {
+                            alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
+                            resetBtn();
+                        }
                     }
                 })
                 .catch(error => {
+                    console.error('Error:', error);
                     alert('নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।');
-                })
-                .finally(() => {
-                    if (loginBtn) {
-                        loginBtn.innerText = 'লগইন করুন';
-                        loginBtn.disabled = false;
-                    }
+                    resetBtn();
                 });
             });
+        }
+
+        function resetBtn() {
+            loginBtn.innerText = 'লগইন করুন';
+            loginBtn.disabled = false;
         }
     </script>
 
