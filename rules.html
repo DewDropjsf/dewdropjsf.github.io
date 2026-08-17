@@ -180,58 +180,41 @@
 
     <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const rawData = localStorage.getItem("loggedInUser");
+        const loggedInUserData = localStorage.getItem("loggedInUser");
         const navAuthBtn = document.getElementById("navAuthBtn");
         const headerUserAvatar = document.getElementById("headerUserAvatar");
 
-        let user = null;
-        let isLoggedIn = false;
-
-        // ১. নিখুঁতভাবে ইউজার ডাটা চেক করা
-        if (rawData && rawData !== "null" && rawData !== "undefined") {
+        if (loggedInUserData) {
             try {
-                user = JSON.parse(rawData);
-                // ইউজারের নাম বা আইডি থাকলে তবেই লগইন ধরা হবে
-                if (user && typeof user === 'object' && Object.keys(user).length > 0) {
-                    isLoggedIn = true;
+                const user = JSON.parse(loggedInUserData);
+
+                // ১. "লগইন" লেখা বদলে "লগআউট" করা
+                if (navAuthBtn) {
+                    navAuthBtn.innerText = "লগআউট";
+                    navAuthBtn.href = "javascript:void(0)";
+                    navAuthBtn.onclick = function() {
+                        if (confirm("আপনি কি নিশ্চিত যে লগআউট করতে চান?")) {
+                            localStorage.removeItem("loggedInUser");
+                            alert("লগআউট সফল হয়েছে।");
+                            window.location.href = "index.html";
+                        }
+                    };
+                }
+
+                // ২. ইউজারের নিজস্ব ছবি থাকলে সেটি দেখাবে, না থাকলে plbaby.jpg দেখাবে
+                if (headerUserAvatar) {
+                    headerUserAvatar.src = user.photoUrl || user.image || "proflogo.jpeg";
+                    
+                    // কোনো কারণে ছবি লোড না হলে proflogo.jpeg দেখাবে
+                    headerUserAvatar.onerror = function() {
+                        this.src = "proflogo.jpeg";
+                    };
+
+                    headerUserAvatar.style.display = "inline-block";
+                    headerUserAvatar.title = user.name || "প্রোফাইল";
                 }
             } catch (e) {
-                isLoggedIn = false;
-            }
-        }
-
-        // ২. লগইন অবস্থা অনুযায়ী হেডার আপডেট
-        if (isLoggedIn && user) {
-            // আসল লগইন থাকলে: প্রোফাইল ছবি ও লগআউট বাটন দেখাবে
-            if (headerUserAvatar) {
-                headerUserAvatar.src = user.photoUrl || user.image || "proflogo.jpeg";
-                headerUserAvatar.onerror = function() {
-                    this.src = "proflogo.jpeg";
-                };
-                headerUserAvatar.style.display = "inline-block";
-                headerUserAvatar.title = user.name || "প্রোফাইল";
-            }
-
-            if (navAuthBtn) {
-                navAuthBtn.innerText = "লগআউট";
-                navAuthBtn.href = "javascript:void(0)";
-                navAuthBtn.onclick = function() {
-                    if (confirm("আপনি কি নিশ্চিত যে লগআউট করতে চান?")) {
-                        localStorage.removeItem("loggedInUser");
-                        alert("লগআউট সফল হয়েছে।");
-                        window.location.reload();
-                    }
-                };
-            }
-        } else {
-            // লগইন না থাকলে: ছবি সম্পূর্ণ হাইড থাকবে এবং "লগইন" দেখাবে
-            if (headerUserAvatar) {
-                headerUserAvatar.style.display = "none";
-            }
-            if (navAuthBtn) {
-                navAuthBtn.innerText = "লগইন";
-                navAuthBtn.href = "login.html";
-                navAuthBtn.onclick = null;
+                console.error("User session parsing error:", e);
             }
         }
     });
