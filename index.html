@@ -8,7 +8,7 @@
     <style>
     /* --- General Reset & Page Setup --- */
     html {
-        scroll-behavior: smooth; /* স্মুথ স্ক্রোলিং */
+        scroll-behavior: smooth;
     }
     body {
         font-family: 'Comic Sans MS', Tahoma, Geneva, Verdana, sans-serif;
@@ -45,6 +45,10 @@
         margin: 0;
         font-size: 22px;
     }
+    nav {
+        display: flex;
+        align-items: center;
+    }
     nav a {
         color: white;
         text-decoration: none;
@@ -53,6 +57,17 @@
     }
     nav a:hover {
         color: #e9d8a6;
+    }
+
+    /* প্রোফাইল ছবি / ডেমো আইকন */
+    .user-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+        object-fit: cover;
+        margin-right: 8px;
+        cursor: pointer;
     }
 
     /* --- Hero Section --- */
@@ -90,7 +105,7 @@
     /* --- Features Section --- */
     .features {
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* কম্পিউটারে ৩টি বক্স পাশাপাশি থাকবে */
+        grid-template-columns: repeat(3, 1fr);
         gap: 20px;
         padding: 40px 20px;
         background-color: #ffffff;
@@ -140,7 +155,7 @@
         color: #333333;
         line-height: 1.8;
         clear: both;
-        scroll-margin-top: 100px; /* 👈 এই ম্যাজিক লাইনটি হেডার থেকে ১০০ পিক্সেল নিচে স্ক্রোল থামাবে */
+        scroll-margin-top: 100px;
     }
 
     .about-section h2 {
@@ -186,7 +201,7 @@
         text-decoration: underline;
     }
 
-    /* --- Footer (Developer & Copyright) --- */
+    /* --- Footer --- */
     .site-footer {
         background-color: #002b36;
         color: #ffffff;
@@ -223,62 +238,47 @@
     /* --- Mobile Responsiveness --- */
     @media (max-width: 768px) {
         .features {
-            grid-template-columns: 1fr; /* মোবাইলে ৩টি বক্স একের নিচে এক দেখাবে */
+            grid-template-columns: 1fr;
         }
     }
-/* ড্রপডাউন কন্টেইনার */
-.dropdown {
-    display: inline-block;
-    position: relative;
-}
 
-/* ড্রপডাউন মেনু (ডিফল্টভাবে লুকানো থাকবে) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #064e3b; /* আপনার নেভবারের কালার অনুযায়ী এটি অ্যাডজাস্ট করতে পারেন */
-    min-width: 180px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    border-radius: 6px;
-    top: 100%;
-    left: 0;
-    overflow: hidden;
-}
-
-/* ড্রপডাউনের ভেতরের লিংকগুলো */
-.dropdown-content a {
-    color: #ffffff;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    font-size: 15px;
-    transition: background-color 0.2s ease;
-}
-
-/* মাউস হোভার করলে কালার চেঞ্জ */
-.dropdown-content a:hover {
-    background-color: #04382a;
-}
-
-/* মাউস "আমাদের সম্পর্কে" এর ওপর আনলে ড্রপডাউন শো করবে */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-        /* প্রোফাইল ছবি */
-    .user-avatar {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        border: 2px solid #ffffff;
-        object-fit: cover;
-        display: none; /* ডিফল্টভাবে লুকানো থাকবে */
-        margin-right: 5px;
+    /* ড্রপডাউন কন্টেইনার */
+    .dropdown {
+        display: inline-block;
+        position: relative;
     }
-        
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #064e3b;
+        min-width: 180px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        border-radius: 6px;
+        top: 100%;
+        left: 0;
+        overflow: hidden;
+    }
+
+    .dropdown-content a {
+        color: #ffffff;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+        font-size: 15px;
+        transition: background-color 0.2s ease;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #04382a;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 </style>
-    
 </head>
 <body>
 
@@ -289,17 +289,20 @@
             <h1>DewDrop Joint Savings Fund</h1>
         </div>
         <nav>
+            <!-- ইউজারের প্রোফাইল ছবি / ডিফল্ট লোগো -->
+            <img id="headerUserAvatar" src="prflogo.jpeg" alt="User Avatar" class="user-avatar">
+            
             <a href="#">হোম</a>
-<div class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">আমাদের সম্পর্কে ▾</a>
-    <div class="dropdown-content">
-        <a href="#about-section">ডিউড্রপ সম্পর্কে</a>
-        <a href="board.html">পরিচালনা পর্ষদ</a>
-    </div>
-</div>
+            <div class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">আমাদের সম্পর্কে ▾</a>
+                <div class="dropdown-content">
+                    <a href="#about-section">ডিউড্রপ সম্পর্কে</a>
+                    <a href="board.html">পরিচালনা পর্ষদ</a>
+                </div>
+            </div>
             
             <a href="rules.html">নিয়মাবলি</a>
-            <a href="login.html">লগইন</a>
+            <a href="login.html" id="navAuthBtn">লগইন</a>
             <a href="signup.html">সাইন আপ</a>
         </nav>
     </header>
@@ -308,70 +311,92 @@
     <div class="hero">
         <h2>DewDrop Joint Savings Fund-এ স্বাগতম</h2>
         <p>সহকর্মীদের সাথে মিলে একটি সুন্দর ভবিষ্যতের জন্য আমাদের এই যৌথ সঞ্চয় উদ্যোগ। স্বচ্ছতা ও পারস্পরিক সহযোগিতার মাধ্যমে আমরা এগিয়ে যেতে চাই।</p>
-        <a href="#" class="btn">সদস্য হোন</a>
+        <a href="signup.html" class="btn">সদস্য হোন</a>
     </div>
 
     <!-- Features Section -->
     <div class="features"> 
-    <div class="feature-box">
-        <h3>স্বচ্ছ হিসাব-নিকাশ</h3>
-        <p>ফান্ডের প্রতিটি আয়-ব্যয় এবং সদস্যদের হিসাব রাখা হয় সম্পূর্ণ স্বচ্ছতার সাথে।</p>
+        <div class="feature-box">
+            <h3>স্বচ্ছ হিসাব-নিকাশ</h3>
+            <p>ফান্ডের প্রতিটি আয়-ব্যয় এবং সদস্যদের হিসাব রাখা হয় সম্পূর্ণ স্বচ্ছতার সাথে।</p>
+        </div>
+
+        <div class="feature-box">
+            <h3>নিরাপদ সঞ্চয়</h3>
+            <p>সবার সম্মিলিত প্রচেষ্টায় একটি নির্ভরযোগ্য ও সুরক্ষিত আর্থিক ভিত্তি তৈরি করা।</p>
+        </div>
+
+        <div class="feature-box">
+            <h3>সহজ পরিচালনা</h3>
+            <p>যেকোনো সময় নিজেদের ফান্ডের বর্তমান অবস্থা ও রিপোর্ট দেখে নেওয়ার সুবিধা।</p>
+            <a href="dashboard.html" class="btn-report">রিপোর্ট দেখুন</a>
+        </div>
     </div>
 
-    <div class="feature-box">
-        <h3>নিরাপদ সঞ্চয়</h3>
-        <p>সবার সম্মিলিত প্রচেষ্টায় একটি নির্ভরযোগ্য ও সুরক্ষিত আর্থিক ভিত্তি তৈরি করা।</p>
+    <!-- আমাদের সম্পর্কে ও যোগাযোগের সেকশন -->
+    <div id="about-section" class="about-section">
+        <h2>আমাদের সম্পর্কে</h2>
+        <p>
+            আমরা, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund)-এর প্রতিষ্ঠাতা সদস্যবৃন্দ, পারস্পরিক সহযোগিতা, সুদৃঢ় ঐক্য এবং একটি সঞ্চয়ী মনোভাব গড়ে তোলার লক্ষ্যে সর্বসম্মতিক্রমে এই সমিতি গঠন করছি। আমাদের মূল উদ্দেশ্য- পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা, যা ভবিষ্যতে আমাদের যেকোনো বড় ধরনের লাভজনক খাতে যৌথ বিনিয়োগের পথ সুগম করবে এবং আমাদের আর্থিক ও সামাজিক নিরাপত্তাকে জোরদার করবে।
+        </p>
+        <p>
+            পরিশেষে বলা যায়, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund) কেবল একটি আর্থিক সঞ্চয়ের মাধ্যম নয়; এটি আমাদের পারস্পরিক আস্থা, বিশ্বাস এবং যৌথ সফলতার একটি স্মারক। আমরা দৃঢ়ভাবে বিশ্বাস করি, এই নীতিমালার প্রতিটি ধারা অক্ষরে অক্ষরে পালনের মাধ্যমে আমাদের তহবিলের শৃঙ্খলা বজায় থাকবে। দীর্ঘ ৩ বছরের এই পথচলায় যেকোনো সাময়িক প্রতিকূলতা বা মতপার্থক্য আমরা সকলে মিলে আন্তরিকতা, পারস্পরিক সৌহার্দ্য এবং আলোচনার মাধ্যমে সমাধান করব, ইনশাআল্লাহ। এই যৌথ প্রচেষ্টা আমাদের সকলের জন্য কল্যাণময়, বরকতময় এবং একটি উজ্জ্বল ভবিষ্যৎ বিনির্মাণের হাতিয়ার হোক, আমীন।
+        </p>
+
+        <!-- যোগাযোগের তথ্য -->
+        <div class="contact-info">
+            <h4>DewDrop Joint Savings Fund</h4>
+            <p>📍 ৬৭ নয়া পল্টন, ঢাকা।</p>
+            <p>📞 মোবাইল: <a href="tel:01977885122">01977885122</a></p>
+            <p>✉️ ইমেইল: <a href="mailto:dewdropjsf@gmail.com">dewdropjsf@gmail.com</a></p>
+        </div>
     </div>
 
-    <div class="feature-box">
-        <h3>সহজ পরিচালনা</h3>
-        <p>যেকোনো সময় নিজেদের ফান্ডের বর্তমান অবস্থা ও রিপোর্ট দেখে নেওয়ার সুবিধা।</p>
-        <a href="dashboard.html" class="btn-report">রিপোর্ট দেখুন</a>
-    </div>
-</div>
+    <!-- সাইট ফুটার -->
+    <footer class="site-footer">
+        <div class="developer-footer">
+            Website Developed by:<br>
+            <strong>Md Tanjim Islam</strong><br>
+            <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
+        </div>
+        
+        <div class="copyright-bar">
+            &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
+        </div>
+    </footer>
 
-   <!-- ৩. আমাদের সম্পর্কে ও যোগাযোগের সেকশন -->
-<div id="about-section" class="about-section">
-    <h2>আমাদের সম্পর্কে</h2>
-    <p>
-        আমরা, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund)-এর প্রতিষ্ঠাতা সদস্যবৃন্দ, পারস্পরিক সহযোগিতা, সুদৃঢ় ঐক্য এবং একটি সঞ্চয়ী মনোভাব গড়ে তোলার লক্ষ্যে সর্বসম্মতিক্রমে এই সমিতি গঠন করছি। আমাদের মূল উদ্দেশ্য- পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা, যা ভবিষ্যতে আমাদের যেকোনো বড় ধরনের লাভজনক খাতে যৌথ বিনিয়োগের পথ সুগম করবে এবং আমাদের আর্থিক ও সামাজিক নিরাপত্তাকে জোরদার করবে।
-    </p>
-    <p>
-        পরিশেষে বলা যায়, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund) কেবল একটি আর্থিক সঞ্চয়ের মাধ্যম নয়; এটি আমাদের পারস্পরিক আস্থা, বিশ্বাস এবং যৌথ সফলতার একটি স্মারক। আমরা দৃঢ়ভাবে বিশ্বাস করি, এই নীতিমালার প্রতিটি ধারা অক্ষরে অক্ষরে পালনের মাধ্যমে আমাদের তহবিলের শৃঙ্খলা বজায় থাকবে। দীর্ঘ ৩ বছরের এই পথচলায় যেকোনো সাময়িক প্রতিকূলতা বা মতপার্থক্য আমরা সকলে মিলে আন্তরিকতা, পারস্পরিক সৌহার্দ্য এবং আলোচনার মাধ্যমে সমাধান করব, ইনশাআল্লাহ। এই যৌথ প্রচেষ্টা আমাদের সকলের জন্য কল্যাণময়, বরকতময় এবং একটি উজ্জ্বল ভবিষ্যৎ বিনির্মাণের হাতিয়ার হোক, আমীন।
-    </p>
+    <!-- সেশন ও প্রোফাইল জাভাস্ক্রিপ্ট -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const rawData = localStorage.getItem("loggedInUser");
+            const navAuthBtn = document.getElementById("navAuthBtn");
+            const headerUserAvatar = document.getElementById("headerUserAvatar");
 
-    <!-- যোগাযোগের তথ্য -->
-    <div class="contact-info">
-        <h4>DewDrop Joint Savings Fund</h4>
-        <p>📍 ৬৭ নয়া পল্টন, ঢাকা।</p>
-        <p>📞 মোবাইল: <a href="tel:01977885122">01977885122</a></p>
-        <p>✉️ ইমেইল: <a href="mailto:dewdropjsf@gmail.com">dewdropjsf@gmail.com</a></p>
-    </div>
-</div>
+            let user = null;
+            let isLoggedIn = false;
 
-<!-- ৪. সাইট ফুটার (ডেভেলপার তথ্য ও কপিরাইট বার) -->
-<footer class="site-footer">
-    <div class="developer-footer">
-        Website Developed by:<br>
-        <strong>Md Tanjim Islam</strong><br>
-        <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
-    </div>
-    
-    <div class="copyright-bar">
-        &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
-    </div>
-</footer>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const loggedInUserData = localStorage.getItem("loggedInUser");
-        const navAuthBtn = document.getElementById("navAuthBtn");
-        const headerUserAvatar = document.getElementById("headerUserAvatar");
+            if (rawData && rawData !== "null" && rawData !== "undefined") {
+                try {
+                    user = JSON.parse(rawData);
+                    if (user && typeof user === 'object' && Object.keys(user).length > 0) {
+                        isLoggedIn = true;
+                    }
+                } catch (e) {
+                    isLoggedIn = false;
+                }
+            }
 
-        if (loggedInUserData) {
-            try {
-                const user = JSON.parse(loggedInUserData);
+            if (isLoggedIn && user) {
+                // ১. লগইন অবস্থায়: ইউজারের নিজস্ব ছবি (না থাকলে prflogo.jpeg)
+                if (headerUserAvatar) {
+                    headerUserAvatar.src = user.photoUrl || user.image || "prflogo.jpeg";
+                    headerUserAvatar.onerror = function() {
+                        this.src = "prflogo.jpeg";
+                    };
+                    headerUserAvatar.title = user.name || "প্রোফাইল";
+                }
 
-                // ১. "লগইন" লেখা বদলে "লগআউট" করা
+                // ২. লগইন বাটন পরিবর্তন করে "লগআউট" করা
                 if (navAuthBtn) {
                     navAuthBtn.innerText = "লগআউট";
                     navAuthBtn.href = "javascript:void(0)";
@@ -379,29 +404,24 @@
                         if (confirm("আপনি কি নিশ্চিত যে লগআউট করতে চান?")) {
                             localStorage.removeItem("loggedInUser");
                             alert("লগআউট সফল হয়েছে।");
-                            window.location.href = "index.html";
+                            window.location.reload();
                         }
                     };
                 }
-
-                // ২. ইউজারের নিজস্ব ছবি থাকলে সেটি দেখাবে, না থাকলে proflogo.jpeg দেখাবে
+            } else {
+                // ৩. লগইন না থাকলে: prflogo.jpeg ছবি দেখাবে এবং "লগইন" বাটন থাকবে
                 if (headerUserAvatar) {
-                    headerUserAvatar.src = user.photoUrl || user.image || "proflogo.jpeg";
-                    
-                    // কোনো কারণে ছবি লোড না হলে proflogo.jpeg দেখাবে
-                    headerUserAvatar.onerror = function() {
-                        this.src = "proflogo.jpeg";
-                    };
-
-                    headerUserAvatar.style.display = "inline-block";
-                    headerUserAvatar.title = user.name || "প্রোফাইল";
+                    headerUserAvatar.src = "prflogo.jpeg";
+                    headerUserAvatar.title = "গেস্ট প্রোফাইল";
                 }
-            } catch (e) {
-                console.error("User session parsing error:", e);
+                if (navAuthBtn) {
+                    navAuthBtn.innerText = "লগইন";
+                    navAuthBtn.href = "login.html";
+                    navAuthBtn.onclick = null;
+                }
             }
-        }
-    });
-</script>
+        });
+    </script>
     
 </body>
 </html>
