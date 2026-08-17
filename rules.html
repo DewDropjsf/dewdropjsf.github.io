@@ -204,9 +204,9 @@
         if (isLoggedIn && user) {
             // আসল লগইন থাকলে: প্রোফাইল ছবি ও লগআউট বাটন দেখাবে
             if (headerUserAvatar) {
-                headerUserAvatar.src = user.photoUrl || user.image || "DDjsf";
+                headerUserAvatar.src = user.photoUrl || user.image || "proflogo.jpeg";
                 headerUserAvatar.onerror = function() {
-                    this.src = "DDjsf";
+                    this.src = "proflogo.jpeg";
                 };
                 headerUserAvatar.style.display = "inline-block";
                 headerUserAvatar.title = user.name || "প্রোফাইল";
