@@ -118,57 +118,76 @@
     </div>
 
     <!-- জাভাস্ক্রিপ্ট (লগইন ভ্যালিডেশন ও সেশন হ্যান্ডলিং) -->
-    <script>
-        const scriptURL = 'YOUR_APPS_SCRIPT_URL_HERE'; // আপনার সঠিক URL টি এখানে আবার দিন
+<script>
+    // আপনার সঠিক Apps Script Web App URL টি দিন
+    const scriptURL = 'YOUR_APPS_SCRIPT_URL_HERE'; 
 
-        const loginForm = document.getElementById('loginForm');
-        const loginBtn = document.getElementById('loginBtn');
+    const loginForm = document.getElementById('loginForm');
+    const loginBtn = document.getElementById('loginBtn');
 
+    if (loginForm) {
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
             const loginInput = document.getElementById('login_input').value.trim();
             const passwordInput = document.getElementById('password').value.trim();
 
+            if (!loginInput || !passwordInput) {
+                alert('মেম্বার আইডি/ইমেইল এবং পাসওয়ার্ড দিন!');
+                return;
+            }
+
             loginBtn.innerText = 'অপেক্ষা করুন...';
             loginBtn.disabled = true;
 
             const params = new URLSearchParams();
             params.append('action', 'login');
-            params.append('id', loginInput); // আমরা 'id' পাঠাচ্ছি
+            params.append('id', loginInput);
+            params.append('login_input', loginInput);
             params.append('password', passwordInput);
 
             fetch(scriptURL, { method: 'POST', body: params })
             .then(response => response.text())
             .then(data => {
-                console.log("Server Response:", data); // এই লাইনটি আমাদের সমস্যার মূল কারণ দেখিয়ে দেবে
+                console.log("Server Response Raw:", data);
+                const trimmedData = data.trim();
+
+                // ১. যদি প্লেন টেক্সট এরর আসে
+                if (trimmedData.includes("Invalid Credentials") || trimmedData.includes("Error:")) {
+                    alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
+                    resetBtn();
+                    return;
+                }
+
+                // ২. JSON ডাটা পার্স করা
                 try {
-                    let result = JSON.parse(data);
+                    let result = JSON.parse(trimmedData);
                     if (result.status === 'Success') {
                         localStorage.setItem('loggedInUser', JSON.stringify(result.user));
-                        alert('লগইন সফল হয়েছে!');
+                        alert('লগইন সফল হয়েছে! স্বাগতম ' + (result.user.name || ''));
                         window.location.href = 'index.html'; 
                     } else {
-                        alert('লগইন ব্যর্থ: ' + (result.message || 'ভুল তথ্য'));
+                        alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
                         resetBtn();
                     }
                 } catch(err) {
-                    console.error("Parse Error:", err);
-                    alert('সার্ভার থেকে সঠিক তথ্য আসছে না। কনসোল দেখুন।');
+                    alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
                     resetBtn();
                 }
             })
             .catch(error => {
                 console.error("Fetch Error:", error);
-                alert('নেটওয়ার্ক সমস্যা!');
+                alert('নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।');
                 resetBtn();
             });
         });
+    }
 
-        function resetBtn() {
-            loginBtn.innerText = 'লগইন করুন';
-            loginBtn.disabled = false;
-        }
-    </script>
+    function resetBtn() {
+        loginBtn.innerText = 'লগইন করুন';
+        loginBtn.disabled = false;
+    }
+</script>
+    
 </body>
 </html>
