@@ -206,15 +206,44 @@
             document.getElementById('forgotPasswordModal').style.display = 'none';
         });
 
-        // OTP বাটন ক্লিক লজিক
+      
         document.getElementById('sendOtpBtn').addEventListener('click', function() {
-            const email = document.getElementById('resetEmail').value;
-            if(email) {
-                alert('OTP পাঠানোর প্রক্রিয়া শুরু হচ্ছে: ' + email);
+    const email = document.getElementById('resetEmail').value.trim();
+    if(!email) {
+        alert('অনুগ্রহ করে আপনার ইমেইল লিখুন।');
+        return;
+    }
+
+    this.innerText = 'পাঠানো হচ্ছে...';
+    this.disabled = true;
+
+    const params = new URLSearchParams();
+    params.append('action', 'send_otp');
+    params.append('email', email);
+
+    fetch(scriptURL, { method: 'POST', body: params })
+    .then(response => response.text())
+    .then(data => {
+        try {
+            let result = JSON.parse(data.trim());
+            if (result.status === 'Success') {
+                alert('সফলভাবে আপনার ইমেইলে OTP পাঠানো হয়েছে!');
+                // এখানে আমরা পরবর্তী ধাপ অর্থাৎ OTP ইনপুট দেওয়ার বক্স ওপেন করতে পারব
             } else {
-                alert('অনুগ্রহ করে আপনার ইমেইল লিখুন।');
+                alert('এই মেইল আইডিটি নিবন্ধিত নয়!');
             }
-        });
+        } catch(err) {
+            alert('এই মেইল আইডিটি নিবন্ধিত নয় বা সার্ভারে সমস্যা!');
+        }
+        document.getElementById('sendOtpBtn').innerText = 'OTP পাঠান';
+        document.getElementById('sendOtpBtn').disabled = false;
+    })
+    .catch(error => {
+        alert('নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।');
+        document.getElementById('sendOtpBtn').innerText = 'OTP পাঠান';
+        document.getElementById('sendOtpBtn').disabled = false;
+    });
+});
     </script>
 </body>
 </html>
