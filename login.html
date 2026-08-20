@@ -190,17 +190,30 @@
         loginBtn.innerText = 'লগইন করুন';
         loginBtn.disabled = false;
     }
-    // মডাল ওপেন করা
-document.getElementById('forgotPasswordLink').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.getElementById('forgotPasswordModal').style.display = 'block';
-});
+    <script>
+  // মডাল ওপেন করার লজিক
+  document.getElementById('forgotPasswordLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('forgotPasswordModal').style.display = 'block';
+  });
 
-// মডাল ক্লোজ করা
-document.getElementById('closeModal').addEventListener('click', function() {
-    document.getElementById('forgotPasswordModal').style.display = 'none';
-});
+  // মডাল ক্লোজ করার লজিক
+  document.getElementById('closeModal').addEventListener('click', function() {
+      document.getElementById('forgotPasswordModal').style.display = 'none';
+  });
+
+  // OTP বাটন ক্লিক লজিক (সামনের কাজের জন্য প্রস্তুতি)
+  document.getElementById('sendOtpBtn').addEventListener('click', function() {
+      const email = document.getElementById('resetEmail').value;
+      if(email) {
+          alert('OTP পাঠানোর প্রক্রিয়া শুরু হচ্ছে: ' + email);
+          // এখানে আমরা পরে Apps Script কল করব
+      } else {
+          alert('অনুগ্রহ করে আপনার ইমেইল লিখুন।');
+      }
+  });
 </script>
+
    <!-- পাসওয়ার্ড রিসেট মডাল -->
 <div id="forgotPasswordModal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
   <div style="background-color:#fff; margin:15% auto; padding:20px; width:300px; border-radius:8px; position:relative;">
