@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ড্যাশবোর্ড - DewDrop Joint Savings Fund</title>
@@ -181,6 +184,15 @@
     </div>
 
     <script>
+        // ড্যাশবোর্ডে প্রবেশের আগে চেক করা ইউজার লগইন করা কি না
+window.addEventListener('DOMContentLoaded', function() {
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    
+    // যদি লগইন করা না থাকে, সাথে সাথে লগইন পেজে পাঠিয়ে দিবে
+    if (!loggedInUser) {
+        window.location.replace('login.html');
+    }
+});
         const userData = JSON.parse(localStorage.getItem('loggedInUser'));
 
         if (!userData) {
@@ -196,7 +208,7 @@
         document.getElementById('logoutBtn').addEventListener('click', () => {
             localStorage.removeItem('loggedInUser');
             alert('সফলভাবে লগআউট করা হয়েছে।');
-            window.location.href = 'login.html';
+            window.location.replace('login.html');
         });
     </script>
 
