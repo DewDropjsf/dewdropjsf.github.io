@@ -122,13 +122,24 @@
 
     <!-- পাসওয়ার্ড রিসেট মডাল (এইচটিএমএল এলিমেন্টগুলো স্ক্রিপ্টের আগে রাখা হলো) -->
     <div id="forgotPasswordModal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
-      <div style="background-color:#fff; margin:15% auto; padding:20px; width:300px; border-radius:8px; position:relative;">
-        <span id="closeModal" style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:24px; font-weight:bold; color:#333;">&times;</span>
-        <h3 style="font-weight:bold; margin-top:0; margin-bottom:15px; color:#333;">পাসওয়ার্ড পুনরুদ্ধার</h3>
-        <input type="text" id="resetEmail" placeholder="আপনার রেজিস্টার্ড ইমেইল" style="width:100%; margin-bottom:15px; padding:8px; box-sizing:border-box;">
-        <button id="sendOtpBtn" style="width:100%; padding:10px; background-color:#0066cc; color:#fff; border:none; border-radius:4px; cursor:pointer;">OTP পাঠান</button>
-      </div>
+    <div style="background-color:#fff; margin:10% auto; padding:20px; width:350px; border-radius:8px; position:relative;">
+        <span id="closeModal" style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:20px; font-weight:bold;">&times;</span>
+        <h3 style="margin-top:0; color:#333;">পাসওয়ার্ড পুনরুদ্ধার</h3>
+        
+        <!-- ধাপ ১: ইমেইল ইনপুট -->
+        <div id="step1Email">
+            <input type="email" id="resetEmail" placeholder="আপনার রেজিস্টার্ড ইমেইল" style="width:100%; padding:8px; margin-bottom:10px; box-sizing:border-box;">
+            <button id="sendOtpBtn" style="width:100%; padding:8px; background-color:#0066cc; color:#fff; border:none; border-radius:4px; cursor:pointer;">OTP পাঠান</button>
+        </div>
+
+        <!-- ধাপ ২: OTP এবং নতুন পাসওয়ার্ড ইনপুট (প্রথমে লুকাট থাকবে) -->
+        <div id="step2Reset" style="display:none;">
+            <input type="text" id="enteredOtp" placeholder="৬ ডিজিটের ওটিপি লিখুন" style="width:100%; padding:8px; margin-bottom:10px; box-sizing:border-box;">
+            <input type="password" id="newPassword" placeholder="নতুন পাসওয়ার্ড দিন" style="width:100%; padding:8px; margin-bottom:10px; box-sizing:border-box;">
+            <button id="verifyAndResetBtn" style="width:100%; padding:8px; background-color:#28a745; color:#fff; border:none; border-radius:4px; cursor:pointer;">পাসওয়ার্ড পরিবর্তন করুন</button>
+        </div>
     </div>
+</div>
 
     <!-- জাভাস্ক্রিপ্ট (লগইন ভ্যালিডেশন, সেশন এবং মডাল হ্যান্ডলিং) -->
     <script>
@@ -229,6 +240,8 @@
             if (result.status === 'Success') {
                 alert('সফলভাবে আপনার ইমেইলে OTP পাঠানো হয়েছে!');
                 // এখানে আমরা পরবর্তী ধাপ অর্থাৎ OTP ইনপুট দেওয়ার বক্স ওপেন করতে পারব
+                document.getElementById('step1Email').style.display = 'none';
+    document.getElementById('step2Reset').style.display = 'block';
             } else {
                 alert('এই মেইল আইডিটি নিবন্ধিত নয়!');
             }
