@@ -111,8 +111,8 @@
             <button type="submit" id="loginBtn" class="btn-submit">লগইন করুন</button>
         </form>
         <div style="margin-top: 10px;">
-    <a href="#" id="forgotPasswordLink" style="font-size: 14px; font-weight:bold; color: #0066cc; text-decoration: none;">পাসওয়ার্ড ভুলে গেছেন?</a>
-</div>
+            <a href="#" id="forgotPasswordLink" style="font-size: 14px; font-weight:bold; color: #0066cc; text-decoration: none;">পাসওয়ার্ড ভুলে গেছেন?</a>
+        </div>
 
         <div class="extra-links">
             <p>অ্যাকাউন্ট নেই? <a href="signup.html">সাইন আপ করুন</a></p>
@@ -120,113 +120,101 @@
         </div>
     </div>
 
-    <!-- জাভাস্ক্রিপ্ট (লগইন ভ্যালিডেশন ও সেশন হ্যান্ডলিং) -->
-<script>
-    // আপনার সঠিক Apps Script Web App URL টি দিন
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxD99zvyQzbdS_GwGKelNVXS1k0K3U2xPke8Rbo9pYk4ON3hsbUd2tocL_QMWccOn_g/exec'; 
+    <!-- পাসওয়ার্ড রিসেট মডাল (এইচটিএমএল এলিমেন্টগুলো স্ক্রিপ্টের আগে রাখা হলো) -->
+    <div id="forgotPasswordModal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
+      <div style="background-color:#fff; margin:15% auto; padding:20px; width:300px; border-radius:8px; position:relative;">
+        <span id="closeModal" style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:24px; font-weight:bold; color:#333;">&times;</span>
+        <h3 style="font-weight:bold; margin-top:0; margin-bottom:15px; color:#333;">পাসওয়ার্ড পুনরুদ্ধার</h3>
+        <input type="text" id="resetEmail" placeholder="আপনার রেজিস্টার্ড ইমেইল" style="width:100%; margin-bottom:15px; padding:8px; box-sizing:border-box;">
+        <button id="sendOtpBtn" style="width:100%; padding:10px; background-color:#0066cc; color:#fff; border:none; border-radius:4px; cursor:pointer;">OTP পাঠান</button>
+      </div>
+    </div>
 
-    const loginForm = document.getElementById('loginForm');
-    const loginBtn = document.getElementById('loginBtn');
+    <!-- জাভাস্ক্রিপ্ট (লগইন ভ্যালিডেশন, সেশন এবং মডাল হ্যান্ডলিং) -->
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxD99zvyQzbdS_GwGKelNVXS1k0K3U2xPke8Rbo9pYk4ON3hsbUd2tocL_QMWccOn_g/exec'; 
 
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
 
-            const loginInput = document.getElementById('login_input').value.trim();
-            const passwordInput = document.getElementById('password').value.trim();
+        if (loginForm) {
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
 
-            if (!loginInput || !passwordInput) {
-                alert('মেম্বার আইডি/ইমেইল এবং পাসওয়ার্ড দিন!');
-                return;
-            }
+                const loginInput = document.getElementById('login_input').value.trim();
+                const passwordInput = document.getElementById('password').value.trim();
 
-            loginBtn.innerText = 'অপেক্ষা করুন...';
-            loginBtn.disabled = true;
-
-            const params = new URLSearchParams();
-            params.append('action', 'login');
-            params.append('id', loginInput);
-            params.append('login_input', loginInput);
-            params.append('password', passwordInput);
-
-            fetch(scriptURL, { method: 'POST', body: params })
-            .then(response => response.text())
-            .then(data => {
-                console.log("Server Response Raw:", data);
-                const trimmedData = data.trim();
-
-                // ১. যদি প্লেন টেক্সট এরর আসে
-                if (trimmedData.includes("Invalid Credentials") || trimmedData.includes("Error:")) {
-                    alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
-                    resetBtn();
+                if (!loginInput || !passwordInput) {
+                    alert('মেম্বার আইডি/ইমেইল এবং পাসওয়ার্ড দিন!');
                     return;
                 }
 
-                // ২. JSON ডাটা পার্স করা
-                try {
-                    let result = JSON.parse(trimmedData);
-                    if (result.status === 'Success') {
-                        localStorage.setItem('loggedInUser', JSON.stringify(result.user));
-                        alert('লগইন সফল হয়েছে! স্বাগতম ' + (result.user.name || ''));
-                        window.location.href = 'index.html'; 
-                    } else {
+                loginBtn.innerText = 'অপেক্ষা করুন...';
+                loginBtn.disabled = true;
+
+                const params = new URLSearchParams();
+                params.append('action', 'login');
+                params.append('id', loginInput);
+                params.append('login_input', loginInput);
+                params.append('password', passwordInput);
+
+                fetch(scriptURL, { method: 'POST', body: params })
+                .then(response => response.text())
+                .then(data => {
+                    const trimmedData = data.trim();
+                    if (trimmedData.includes("Invalid Credentials") || trimmedData.includes("Error:")) {
+                        alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
+                        resetBtn();
+                        return;
+                    }
+
+                    try {
+                        let result = JSON.parse(trimmedData);
+                        if (result.status === 'Success') {
+                            localStorage.setItem('loggedInUser', JSON.stringify(result.user));
+                            alert('লগইন সফল হয়েছে! স্বাগতম ' + (result.user.name || ''));
+                            window.location.href = 'index.html'; 
+                        } else {
+                            alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
+                            resetBtn();
+                        }
+                    } catch(err) {
                         alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
                         resetBtn();
                     }
-                } catch(err) {
-                    alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
+                })
+                .catch(error => {
+                    alert('নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।');
                     resetBtn();
-                }
-            })
-            .catch(error => {
-                console.error("Fetch Error:", error);
-                alert('নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।');
-                resetBtn();
+                });
             });
+        }
+
+        function resetBtn() {
+            loginBtn.innerText = 'লগইন করুন';
+            loginBtn.disabled = false;
+        }
+
+        // মডাল ওপেন করার লজিক
+        document.getElementById('forgotPasswordLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('forgotPasswordModal').style.display = 'block';
         });
-    }
 
-    function resetBtn() {
-        loginBtn.innerText = 'লগইন করুন';
-        loginBtn.disabled = false;
-    }
-    <script>
-  // মডাল ওপেন করার লজিক
-  document.getElementById('forgotPasswordLink').addEventListener('click', function(e) {
-      e.preventDefault();
-      document.getElementById('forgotPasswordModal').style.display = 'block';
-  });
+        // মডাল ক্লোজ করার লজিক
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('forgotPasswordModal').style.display = 'none';
+        });
 
-  // মডাল ক্লোজ করার লজিক
-  document.getElementById('closeModal').addEventListener('click', function() {
-      document.getElementById('forgotPasswordModal').style.display = 'none';
-  });
-
-  // OTP বাটন ক্লিক লজিক (সামনের কাজের জন্য প্রস্তুতি)
-  document.getElementById('sendOtpBtn').addEventListener('click', function() {
-      const email = document.getElementById('resetEmail').value;
-      if(email) {
-          alert('OTP পাঠানোর প্রক্রিয়া শুরু হচ্ছে: ' + email);
-          // এখানে আমরা পরে Apps Script কল করব
-      } else {
-          alert('অনুগ্রহ করে আপনার ইমেইল লিখুন।');
-      }
-  });
-</script>
-
-   <!-- পাসওয়ার্ড রিসেট মডাল -->
-<div id="forgotPasswordModal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
-  <div style="background-color:#fff; margin:15% auto; padding:20px; width:300px; border-radius:8px; position:relative;">
-    
-    <!-- ক্লোজ বাটন (ডান কোণায় নিখুঁতভাবে সেট করা) -->
-    <span id="closeModal" style="position:absolute; right:15px; top:10px; cursor:pointer; font-size:24px; font-weight:bold; color:#333;">&times;</span>
-    
-    <!-- বোল্ড করা শিরোনাম -->
-    <h3 style="font-weight:bold; margin-top:0; margin-bottom:15px; color:#333;">পাসওয়ার্ড পুনরুদ্ধার</h3>
-    
-    <input type="text" id="resetEmail" placeholder="আপনার রেজিস্টার্ড ইমেইল" style="width:100%; margin-bottom:15px; padding:8px; box-sizing:border-box;">
-    <button id="sendOtpBtn" style="width:100%; padding:10px; background-color:#0066cc; color:#fff; border:none; border-radius:4px; cursor:pointer;">OTP পাঠান</button>
-  </div>
-</div>
-    
+        // OTP বাটন ক্লিক লজিক
+        document.getElementById('sendOtpBtn').addEventListener('click', function() {
+            const email = document.getElementById('resetEmail').value;
+            if(email) {
+                alert('OTP পাঠানোর প্রক্রিয়া শুরু হচ্ছে: ' + email);
+            } else {
+                alert('অনুগ্রহ করে আপনার ইমেইল লিখুন।');
+            }
+        });
+    </script>
+</body>
 </html>
