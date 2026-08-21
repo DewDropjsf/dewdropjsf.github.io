@@ -18,8 +18,8 @@
         .dashboard-card { 
             background: white; 
             max-width: 480px; 
-            margin: 30px auto; 
-            padding: 25px 30px; 
+            margin: 20px auto; 
+            padding: 25px; 
             border-radius: 12px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
             position: relative;
@@ -27,99 +27,141 @@
 
         .fund-title {
             font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-            color: #00bcd4;
+            color: #2b6777;
             text-align: center;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             margin-top: 0;
-            margin-bottom: 15px;
-            text-shadow: 0px 1px 2px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
         }
 
-        /* স্কেচ অনুযায়ী ওয়েলকাম ব্যানার */
-        .welcome-banner {
-            background: linear-gradient(135deg, #005f73, #0a9396);
-            color: white;
+        /* --- CSS দিয়ে তৈরি ঝুলন্ত নোটিশ বোর্ড ও রশি ডিজাইন --- */
+        .hanging-board-wrapper {
+            position: relative;
+            margin-top: 25px;
+            margin-bottom: 35px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* ওপরে পিন বা পেরেক */
+        .board-pin {
+            position: absolute;
+            top: -12px;
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle at 30% 30%, #fff, #555);
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+            z-index: 10;
+        }
+
+        /* রশি (V আকৃতির) */
+        .board-string {
+            position: absolute;
+            top: -5px;
+            width: 160px;
+            height: 25px;
+            border-bottom: 3px solid #8c6239;
+            border-radius: 0 0 50% 50%;
+            z-index: 5;
+        }
+
+        /* নোটিশ বোর্ডের মেইন বক্স */
+        .notice-board-box {
+            background: linear-gradient(135deg, #f39c12, #e67e22); /* সুন্দর কাঠের বা নোটিশ কালার */
+            color: #fff;
+            width: 85%;
+            padding: 15px 20px;
             text-align: center;
-            padding: 15px;
             border-radius: 8px;
-            font-size: 20px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            border: 2px dashed #f1c40f;
+            position: relative;
+            z-index: 4;
+            margin-top: 15px;
+        }
+
+        .notice-board-box h2 {
+            margin: 0;
+            font-size: 22px;
+            font-family: 'Times New Roman', Times, serif;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        /* ----------------------------------------------- */
+
+        /* সেকশন হেডার এবং লগআউট বাটন এক লাইনে */
+        .section-header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1.5px solid #333;
+            padding-bottom: 5px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 16px;
             font-weight: bold;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .dashboard-header { 
-            border-bottom: 2px solid #005f73; 
-            padding-bottom: 10px; 
-            margin-bottom: 15px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-        }
-
-        .dashboard-header h3 { 
-            color: #005f73; 
-            margin: 0; 
-            font-size: 18px; 
+            color: #000;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-        }
-
-        .user-info { 
-            font-size: 16px; 
-            line-height: 1.5; 
-            color: #333; 
-        }
-
-        .welcome-msg { 
-            font-size: 18px; 
-            color: #2a9d8f; 
-            font-weight: bold; 
-            margin-bottom: 12px; 
-        }
-
-        .info-item { 
-            background: #e0f2f1; 
-            padding: 10px 14px; 
-            margin-bottom: 10px; 
-            border-radius: 6px; 
-            border-left: 4px solid #2a9d8f; 
-        }
-
-        .info-item strong { 
-            color: #005f73; 
+            margin: 0;
         }
 
         .btn-logout { 
-            background-color: #e76f51; 
+            background-color: #a4243b; 
             color: white; 
             border: none; 
-            padding: 6px 14px; 
+            padding: 5px 12px; 
             font-size: 13px; 
-            border-radius: 5px; 
+            border-radius: 4px; 
             cursor: pointer; 
             font-weight: bold; 
         }
 
         .btn-logout:hover { 
-            background-color: #d62828; 
+            background-color: #801b2d; 
         }
 
-        .action-area {
+        .welcome-msg { 
+            font-size: 17px; 
+            color: #111; 
+            margin-bottom: 15px; 
+        }
+
+        .info-item { 
+            background: #d8f3dc; 
+            padding: 10px 14px; 
+            margin-bottom: 10px; 
+            border-radius: 4px; 
+            border-left: 4px solid #2d6a4f; 
+            font-size: 15px;
+            color: #111;
+        }
+
+        .info-item strong { 
+            color: #000; 
+        }
+
+        .footer-action-area {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 20px;
+            margin-top: 30px;
+            border-top: 1px dashed #bbb;
+            padding-top: 15px;
         }
 
         .btn-home {
-            background-color: #005f73;
+            background-color: #2b6777;
             color: white;
             border: none;
-            padding: 8px 18px;
+            padding: 8px 20px;
             font-size: 14px;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
             text-decoration: none;
@@ -127,21 +169,19 @@
         }
 
         .btn-home:hover {
-            background-color: #0a9396;
+            background-color: #1d4e59;
         }
 
         .developer-footer {
-            text-align: center;
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px dashed #cccccc;
-            font-size: 13px;
-            color: #555555;
-            line-height: 1.5;
+            text-align: right;
+            font-size: 12px;
+            color: #555;
+            line-style: none;
+            line-height: 1.4;
         }
 
         .developer-footer a {
-            color: #005f73;
+            color: #2b6777;
             text-decoration: none;
             font-weight: bold;
         }
@@ -156,14 +196,18 @@
     <div class="dashboard-card">
         <h1 class="fund-title">DewDrop Joint Savings Fund</h1>
 
-        <!-- কাগজের স্কেচ অনুযায়ী ব্যানার -->
-        <div class="welcome-banner">
-            Welcome to DashBoard
+        <!-- CSS দিয়ে তৈরি পিন, রশি ও নোটিশ বোর্ড স্টাইল ব্যানার -->
+        <div class="hanging-board-wrapper">
+            <div class="board-pin"></div>
+            <div class="board-string"></div>
+            <div class="notice-board-box">
+                <h2>Welcome to DashBoard</h2>
+            </div>
         </div>
 
-        <!-- মেম্বার ডিটেইলস সেকশন -->
-        <div class="dashboard-header">
-            <h3>Member Details</h3>
+        <!-- MEMBER DETAILS সেকশন এবং লগআউট বাটন -->
+        <div class="section-header-area" style="margin-top: 5px;">
+            <h3 class="section-title">MEMBER DETAILS</h3>
             <button class="btn-logout" id="logoutBtn">Log out</button>
         </div>
         
@@ -184,9 +228,9 @@
             </div>
         </div>
 
-        <!-- অ্যাকাউন্ট ডিটেইলস সেকশন (আপনার স্কেচ অনুযায়ী) -->
-        <div class="dashboard-header" style="margin-top: 25px;">
-            <h3>Account Details</h3>
+        <!-- ACCOUNT DETAILS সেকশন -->
+        <div class="section-header-area">
+            <h3 class="section-title">ACCOUNT DETAILS</h3>
         </div>
 
         <div class="user-info">
@@ -204,15 +248,14 @@
             </div>
         </div>
 
-        <div class="action-area">
+        <!-- হোম বাটন এবং ডেভেলপার ক্রেডিট এক লাইনে নিচে -->
+        <div class="footer-action-area">
             <a href="index.html" class="btn-home">Home</a>
-        </div>
-
-        <!-- ডেভেলপার ক্রেডিট ফুটার -->
-        <div class="developer-footer">
-            Website Developed by:<br>
-            <strong>Md Tanjim Islam</strong><br>
-            <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
+            <div class="developer-footer">
+                Website Developed by:<br>
+                <strong>Md Tanjim Islam</strong><br>
+                <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
+            </div>
         </div>
     </div>
 
@@ -236,9 +279,6 @@
             document.getElementById('memberId').innerText = userData.member_id || 'N/A';
             document.getElementById('userEmail').innerText = userData.email || 'N/A';
             document.getElementById('userMobile').innerText = userData.mobile || 'N/A';
-            
-            // ভবিষ্যতে গুগল শিট থেকে ট্রানজেকশন ডেটা এনে এখানে বসানোর সুযোগ রাখা হলো
-            // যেমন: document.getElementById('totalSavings').innerText = userData.total_savings || '০.০০ টাকা';
         }
 
         document.getElementById('logoutBtn').addEventListener('click', () => {
