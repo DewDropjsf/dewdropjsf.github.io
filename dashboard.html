@@ -2,8 +2,8 @@
 <html lang="bn">
 <head>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ড্যাশবোর্ড - DewDrop Joint Savings Fund</title>
@@ -19,7 +19,7 @@
             background: white; 
             max-width: 480px; 
             margin: 30px auto; 
-            padding: 25px 30px 25px 30px; 
+            padding: 25px 30px; 
             border-radius: 12px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
             position: relative;
@@ -36,25 +36,39 @@
             text-shadow: 0px 1px 2px rgba(0,0,0,0.1);
         }
 
+        /* স্কেচ অনুযায়ী ওয়েলকাম ব্যানার */
+        .welcome-banner {
+            background: linear-gradient(135deg, #005f73, #0a9396);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
         .dashboard-header { 
             border-bottom: 2px solid #005f73; 
-            padding-bottom: 12px; 
-            margin-bottom: 20px; 
+            padding-bottom: 10px; 
+            margin-bottom: 15px; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
         }
 
-        .dashboard-header h2 { 
+        .dashboard-header h3 { 
             color: #005f73; 
             margin: 0; 
-            font-size: 22px; 
-            font-family: 'Times New Roman', Arial, sans-serif;
+            font-size: 18px; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .user-info { 
             font-size: 16px; 
-            line-height: 1.6; 
+            line-height: 1.5; 
             color: #333; 
         }
 
@@ -62,37 +76,30 @@
             font-size: 18px; 
             color: #2a9d8f; 
             font-weight: bold; 
-            margin-bottom: 15px; 
-            font-family: 'Times New Roman', Times, serif;
+            margin-bottom: 12px; 
         }
 
         .info-item { 
             background: #e0f2f1; 
-            padding: 12px 15px; 
-            margin-bottom: 12px; 
+            padding: 10px 14px; 
+            margin-bottom: 10px; 
             border-radius: 6px; 
             border-left: 4px solid #2a9d8f; 
-            font-family: 'Times New Roman', Times, serif;
         }
 
         .info-item strong { 
             color: #005f73; 
         }
 
-        .info-value {
-            font-family: 'Times New Roman', Times, serif;
-        }
-
         .btn-logout { 
             background-color: #e76f51; 
             color: white; 
             border: none; 
-            padding: 8px 16px; 
-            font-size: 14px; 
+            padding: 6px 14px; 
+            font-size: 13px; 
             border-radius: 5px; 
             cursor: pointer; 
             font-weight: bold; 
-            font-family: 'Times New Roman', Times, serif;
         }
 
         .btn-logout:hover { 
@@ -117,14 +124,12 @@
             font-weight: bold;
             text-decoration: none;
             display: inline-block;
-            font-family: 'Times New Roman', Times, serif;
         }
 
         .btn-home:hover {
             background-color: #0a9396;
         }
 
-        /* ডেভেলপার ক্রেডিটের স্টাইল */
         .developer-footer {
             text-align: center;
             margin-top: 25px;
@@ -132,7 +137,6 @@
             border-top: 1px dashed #cccccc;
             font-size: 13px;
             color: #555555;
-            font-family: 'Times New Roman', Times, serif;
             line-height: 1.5;
         }
 
@@ -152,27 +156,56 @@
     <div class="dashboard-card">
         <h1 class="fund-title">DewDrop Joint Savings Fund</h1>
 
+        <!-- কাগজের স্কেচ অনুযায়ী ব্যানার -->
+        <div class="welcome-banner">
+            Welcome to DashBoard
+        </div>
+
+        <!-- মেম্বার ডিটেইলস সেকশন -->
         <div class="dashboard-header">
-            <h2>সদস্য ড্যাশবোর্ড</h2>
-            <button class="btn-logout" id="logoutBtn">লগআউট</button>
+            <h3>Member Details</h3>
+            <button class="btn-logout" id="logoutBtn">Log out</button>
         </div>
         
         <div class="user-info">
-            <div class="welcome-msg">স্বাগতম, <span id="userName" class="info-value">...</span>!</div>
+            <div class="welcome-msg">স্বাগতম, <span id="userName">...</span>!</div>
             
             <div class="info-item">
-                <strong>মেম্বার আইডি:</strong> <span id="memberId" class="info-value">...</span>
+                <strong>Member Name:</strong> <span id="memberNameDisp">...</span>
             </div>
             <div class="info-item">
-                <strong>ইমেইল:</strong> <span id="userEmail" class="info-value">...</span>
+                <strong>Member ID:</strong> <span id="memberId">...</span>
             </div>
             <div class="info-item">
-                <strong>মোবাইল নম্বর:</strong> <span id="userMobile" class="info-value">...</span>
+                <strong>E-mail:</strong> <span id="userEmail">...</span>
+            </div>
+            <div class="info-item">
+                <strong>Mobile No.:</strong> <span id="userMobile">...</span>
+            </div>
+        </div>
+
+        <!-- অ্যাকাউন্ট ডিটেইলস সেকশন (আপনার স্কেচ অনুযায়ী) -->
+        <div class="dashboard-header" style="margin-top: 25px;">
+            <h3>Account Details</h3>
+        </div>
+
+        <div class="user-info">
+            <div class="info-item">
+                <strong>Last Transaction:</strong> <span id="lastTxAmount">০.০০ টাকা</span>
+            </div>
+            <div class="info-item">
+                <strong>Last Transaction Date:</strong> <span id="lastTxDate">প্রযোজ্য নয়</span>
+            </div>
+            <div class="info-item">
+                <strong>Any Due:</strong> <span id="anyDue">০.০০ টাকা</span>
+            </div>
+            <div class="info-item">
+                <strong>Total Savings:</strong> <span id="totalSavings">০.০০ টাকা</span>
             </div>
         </div>
 
         <div class="action-area">
-            <a href="index.html" class="btn-home">হোম পেজ</a>
+            <a href="index.html" class="btn-home">Home</a>
         </div>
 
         <!-- ডেভেলপার ক্রেডিট ফুটার -->
@@ -184,15 +217,14 @@
     </div>
 
     <script>
-        // ড্যাশবোর্ডে প্রবেশের আগে চেক করা ইউজার লগইন করা কি না
-window.addEventListener('DOMContentLoaded', function() {
-    const loggedInUser = localStorage.getItem('loggedInUser');
-    
-    // যদি লগইন করা না থাকে, সাথে সাথে লগইন পেজে পাঠিয়ে দিবে
-    if (!loggedInUser) {
-        window.location.replace('login.html');
-    }
-});
+        // সিকিউরিটি চেক: লগইন করা না থাকলে রিডাইরেক্ট করা
+        window.addEventListener('DOMContentLoaded', function() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (!loggedInUser) {
+                window.location.replace('login.html');
+            }
+        });
+
         const userData = JSON.parse(localStorage.getItem('loggedInUser'));
 
         if (!userData) {
@@ -200,9 +232,13 @@ window.addEventListener('DOMContentLoaded', function() {
             window.location.href = 'login.html';
         } else {
             document.getElementById('userName').innerText = userData.name || 'সদস্য';
+            document.getElementById('memberNameDisp').innerText = userData.name || 'N/A';
             document.getElementById('memberId').innerText = userData.member_id || 'N/A';
             document.getElementById('userEmail').innerText = userData.email || 'N/A';
             document.getElementById('userMobile').innerText = userData.mobile || 'N/A';
+            
+            // ভবিষ্যতে গুগল শিট থেকে ট্রানজেকশন ডেটা এনে এখানে বসানোর সুযোগ রাখা হলো
+            // যেমন: document.getElementById('totalSavings').innerText = userData.total_savings || '০.০০ টাকা';
         }
 
         document.getElementById('logoutBtn').addEventListener('click', () => {
