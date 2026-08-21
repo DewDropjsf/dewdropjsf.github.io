@@ -136,6 +136,7 @@
         <div id="step2Reset" style="display:none;">
             <input type="text" id="enteredOtp" placeholder="৬ ডিজিটের ওটিপি লিখুন" style="width:100%; padding:8px; margin-bottom:10px; box-sizing:border-box;">
             <input type="password" id="newPassword" placeholder="নতুন পাসওয়ার্ড দিন" style="width:100%; padding:8px; margin-bottom:10px; box-sizing:border-box;">
+              <input type="password" id="confirmPassword" placeholder="নতুন পাসওয়ার্ড পুনরায় দিন" style="width:100%; padding:8px; margin-bottom:10px; box-sizing:border-box;">
             <button id="verifyAndResetBtn" style="width:100%; padding:8px; background-color:#28a745; color:#fff; border:none; border-radius:4px; cursor:pointer;">পাসওয়ার্ড পরিবর্তন করুন</button>
         </div>
     </div>
@@ -255,6 +256,55 @@
         alert('নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।');
         document.getElementById('sendOtpBtn').innerText = 'OTP পাঠান';
         document.getElementById('sendOtpBtn').disabled = false;
+    });
+});
+        // পাসওয়ার্ড রিসেট এবং ওটিপি ভেরিফিকেশন বাটন ক্লিক হ্যান্ডলার
+document.getElementById('verifyAndResetBtn').addEventListener('click', function() {
+    const email = document.getElementById('resetEmail').value.trim();
+    const otp = document.getElementById('enteredOtp').value.trim();
+    const newPassword = document.getElementById('newPassword').value.trim();
+    const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+    if (!otp || !newPassword || !confirmPassword) {
+        alert('অনুগ্রহ করে সবগুলি ফিল্ড পূরণ করুন।');
+        return;
+    }
+
+    if (newPassword !== confirmPassword) {
+        alert('দুঃখিত! নতুন পাসওয়ার্ড এবং পুনরায় দেওয়া পাসওয়ার্ড এক হয়নি। আবার চেক করুন।');
+        return;
+    }
+
+    this.innerText = 'পরিবর্তন করা হচ্ছে...';
+    this.disabled = true;
+
+    const params = new URLSearchParams();
+    params.append('action', 'update_password');
+    params.append('email', email);
+    params.append('otp', otp);
+    params.append('new_password', newPassword);
+
+    fetch(scriptURL, { method: 'POST', body: params })
+    .then(response => response.text())
+    .then(data => {
+        try {
+            let result = JSON.parse(data.trim());
+            if (result.status === 'Success') {
+                alert('অভিনন্দন! আপনার পাসওয়ার্ড সফলভাবে পরিবর্তন করা হয়েছে। এখন নতুন পাসওয়ার্ড দিয়ে লগইন করুন।');
+                location.reload(); 
+            } else {
+                alert('ভুল ওটিপি দেওয়া হয়েছে! দয়া করে সঠিক ওটিপি দিন।');
+            }
+        } catch(err) {
+            alert('সার্ভারে সমস্যা হয়েছে, আবার চেষ্টা করুন।');
+        }
+        this.innerText = 'পাসওয়ার্ড পরিবর্তন করুন';
+        this.disabled = false;
+    })
+    .catch(error => {
+        alert('নেটওয়ার্ক সমস্যা! আবার চেষ্টা করুন।');
+        this.innerText = 'পাসওয়ার্ড পরিবর্তন করুন';
+        this.disabled = false;
     });
 });
     </script>
