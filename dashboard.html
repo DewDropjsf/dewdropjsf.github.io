@@ -56,7 +56,6 @@
             z-index: 10;
         }
 
-        /* সিঙ্গেল রসি স্টাইল (পিন থেকে বোর্ডের ওপরের মাঝখান পর্যন্ত একটি দাগ) */
         .board-string {
             position: absolute;
             top: -6px;
@@ -88,7 +87,6 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
 
-        /* --- দুই কলাম লেআউট (বাম ও ডান পাশ) --- */
         .dashboard-grid {
             display: flex;
             gap: 30px;
@@ -104,7 +102,6 @@
             box-shadow: 0 3px 8px rgba(0,0,0,0.02);
         }
 
-        /* সেকশন হেডার */
         .section-header {
             border-bottom: 2.5px solid #0077b6;
             padding-bottom: 8px;
@@ -160,7 +157,6 @@
             color: #03045e; 
         }
 
-        /* ফুটার এরিয়া */
         .footer-action-area {
             display: flex;
             justify-content: space-between;
@@ -205,7 +201,6 @@
             text-decoration: underline;
         }
 
-        /* রেসপন্সিভ */
         @media (max-width: 768px) {
             .dashboard-grid {
                 flex-direction: column;
@@ -222,7 +217,6 @@
     <div class="dashboard-container">
         <h1 class="fund-title">DewDrop Joint Savings Fund</h1>
 
-        <!-- পিন এবং একটিমাত্র রসি দিয়ে ঝুলন্ত নোটিশ বোর্ড ব্যানার -->
         <div class="hanging-board-wrapper">
             <div class="board-pin"></div>
             <div class="board-string"></div>
@@ -231,10 +225,8 @@
             </div>
         </div>
 
-        <!-- দুই কলাম লেআউট -->
         <div class="dashboard-grid">
             
-            <!-- বাম কলাম: Member Details -->
             <div class="column-box">
                 <div class="section-header">
                     <h3 class="section-title">MEMBER DETAILS</h3>
@@ -256,7 +248,6 @@
                 </div>
             </div>
 
-            <!-- ডান কলাম: Account Details ও Log out বাটন -->
             <div class="column-box">
                 <div class="section-header">
                     <h3 class="section-title">ACCOUNT DETAILS</h3>
@@ -279,7 +270,6 @@
 
         </div>
 
-        <!-- হোম বাটন এবং ডেভেলপার ক্রেডিট -->
         <div class="footer-action-area">
             <a href="index.html" class="btn-home">Home</a>
             <div class="developer-footer">
@@ -290,8 +280,7 @@
         </div>
     </div>
 
-      <script>
-        // সিকিউরিটি চেক: লগইন করা না থাকলে রিডাইরেক্ট করা
+    <script>
         window.addEventListener('DOMContentLoaded', function() {
             const loggedInUser = localStorage.getItem('loggedInUser');
             if (!loggedInUser) {
@@ -311,7 +300,6 @@
             document.getElementById('userEmail').innerText = userData.email || 'N/A';
             document.getElementById('userMobile').innerText = userData.mobile || 'N/A';
 
-            // **এখানে ফাংশনটি কল করা হলো যাতে মেম্বার আইডি অনুযায়ী ডেটা নিয়ে আসে**
             loadUserDataFromDropbox(userData.member_id);
         }
 
@@ -339,10 +327,10 @@
 
                         if (currentMemberId.toLowerCase() === memberId.toLowerCase()) {
                             foundUser = {
-                                name: cols[6] ? cols[6].trim().replace(/"/g, '') : '',
-                             lastTxAmount: cols[4] ? cols[4].trim().replace(/"/g, '') : '০.০০',
-                                anyDue: cols[18] ? cols[18].trim().replace(/"/g, '') : '০.০০', // Col S
-                                totalSavings: cols[19] ? cols[19].trim().replace(/"/g, '') : '০.০০' // Col T
+                                lastTx: cols[4] ? cols[4].trim().replace(/"/g, '') : '০.০০',     // E Col (Last Transaction Amount)
+                                lastTxDate: cols[5] ? cols[5].trim().replace(/"/g, '') : 'প্রযোজ্য নয়', // F Col (Last Transaction Date)
+                                anyDue: cols[18] ? cols[18].trim().replace(/"/g, '') : '০.০০',     // S Col (Total Due)
+                                totalSavings: cols[19] ? cols[19].trim().replace(/"/g, '') : '০.০০' // T Col (Total Savings)
                             };
                             break;
                         }
@@ -351,6 +339,7 @@
 
                 if (foundUser) {
                     document.getElementById('lastTxAmount').innerText = foundUser.lastTx + ' টাকা';
+                    document.getElementById('lastTxDate').innerText = foundUser.lastTxDate;
                     document.getElementById('anyDue').innerText = foundUser.anyDue + ' টাকা';
                     document.getElementById('totalSavings').innerText = foundUser.totalSavings + ' টাকা';
                 } else {
