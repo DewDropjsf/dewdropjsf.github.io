@@ -339,7 +339,7 @@
 
                         if (currentMemberId.toLowerCase() === memberId.toLowerCase()) {
                             foundUser = {
-                                name: cols[2] ? cols[2].trim().replace(/"/g, '') : '',
+                                lastTxAmount: cols[4] ? cols[4].trim().replace(/"/g, '') : '',
                                 lastTx: cols[4] ? cols[4].trim().replace(/"/g, '') : '০.০০',
                                 anyDue: cols[18] ? cols[18].trim().replace(/"/g, '') : '০.০০', // Col S
                                 totalSavings: cols[19] ? cols[19].trim().replace(/"/g, '') : '০.০০' // Col T
