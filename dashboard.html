@@ -318,61 +318,47 @@
             window.location.replace('login.html');
         });
         async function loadUserDataFromDropbox(memberId) {
-    // এখানে আপনার ড্রপবক্স ফাইলের ডিরেক্ট লিংকটি বসাবেন (?raw=1 সহ)
-    const dropboxUrl = 'https://www.dropbox.com/scl/fi/7fgf71v2j19k9mykj96su/MasterLedger_Y26_V13.csv?rlkey=r7dcav82cfcmf6r5av1fwp3lr&st=7x488d0z&raw=1';
+    // ড্রপবক্সের লিংকটিকে সরাসরি ফেচ করার উপযোগী করার জন্য
+    const dropboxUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://www.dropbox.com/scl/fi/7fgf71v2j19k9mykj96su/MasterLedger_Y26_V13.csv?rlkey=r7dcav82cfcmf6r5av1fwp3lr&st=7x488d0z&raw=1');
 
     try {
         const response = await fetch(dropboxUrl);
         const data = await response.text();
 
-        // CSV ডেটা লাইন বাই লাইন ভাগ করা
         const rows = data.split('\n');
         let foundUser = null;
 
-        for (let i = 1; i < rows.length; i++) {
-            // কমা বা ট্যাব দিয়ে আলাদা করা (আপনার CSV যদি কমা সেপারেটেড হয়)
+        for (let i = 0; i < rows.length; i++) {
             const cols = rows[i].split(',');
             
             if (cols.length > 1) {
                 // কলাম B (ইনডেক্স 1) হলো Member ID
-                const currentMemberId = cols[1] ? cols[1].trim() : '';
+                const currentMemberId = cols[1] ? cols[1].trim().replace(/"/g, '') : '';
 
                 if (currentMemberId.toLowerCase() === memberId.toLowerCase()) {
                     foundUser = {
-                        name: cols[2] ? cols[2].trim() : '',        // Member Name
-                        lastTx: cols[3] ? cols[3].trim() : '০.০০',  // Receipt No / Last Transaction
-                        lastTxDate: "প্রযোজ্য নয়",                   // তারিখ চাইলে আলাদা কলাম থেকে নিতে পারেন
-                        anyDue: cols[18] ? cols[18].trim() : '০.০০', // Col S (Total Due)
-                        totalSavings: cols[19] ? cols[19].trim() : '০.০০' // Col T (Total Savings)
+                        name: cols[2] ? cols[2].trim().replace(/"/g, '') : '',
+                        lastTx: cols[3] ? cols[3].trim().replace(/"/g, '') : '০.০০',
+                        anyDue: cols[18] ? cols[18].trim().replace(/"/g, '') : '০.০০', // Col S
+                        totalSavings: cols[19] ? cols[19].trim().replace(/"/g, '') : '০.০০' // Col T
                     };
                     break;
                 }
             }
         }
 
-        // HTML এলিমেন্টে ডেটা বসিয়ে দেওয়া
         if (foundUser) {
             document.getElementById('lastTxAmount').innerText = foundUser.lastTx + ' টাকা';
             document.getElementById('anyDue').innerText = foundUser.anyDue + ' টাকা';
             document.getElementById('totalSavings').innerText = foundUser.totalSavings + ' টাকা';
         } else {
-            console.warn('এই মেম্বার আইডি দিয়ে কোনো ডেটা পাওয়া যায়নি।');
+            console.warn('এই মেম্বার আইডি দিয়ে কোনো ডেটা পাওয়া যায়নি। আইডি:', memberId);
         }
 
     } catch (error) {
-        console.error('ড্রপবক্স থেকে ডেটা লোড করতে সমস্যা হয়েছে:', error);
+        console.error('ডেটা লোড করতে সমস্যা হয়েছে:', error);
     }
 }
-
-// পেজ লোড হওয়ার পর রান হবে
-window.addEventListener('DOMContentLoaded', function() {
-    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-    if (loggedInUser && loggedInUser.member_id) {
-        loadUserDataFromDropbox(loggedInUser.member_id);
-    } else {
-        window.location.replace('login.html');
-    }
-});
     </script>
 
 </body>
