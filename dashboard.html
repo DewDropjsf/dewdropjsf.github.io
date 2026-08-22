@@ -319,7 +319,7 @@
         });
         async function loadUserDataFromDropbox(memberId) {
     // এখানে আপনার ড্রপবক্স ফাইলের ডিরেক্ট লিংকটি বসাবেন (?raw=1 সহ)
-    const dropboxUrl = 'https://www.dropbox.com/scl/fi/7fgf71v2j19k9mykj96su/MasterLedger_Y26_V13.csv?rlkey=r7dcav82cfcmf6r5av1fwp3lr&st=7x488d0z&dl=0';
+    const dropboxUrl = 'https://www.dropbox.com/scl/fi/7fgf71v2j19k9mykj96su/MasterLedger_Y26_V13.csv?rlkey=r7dcav82cfcmf6r5av1fwp3lr&st=7x488d0z&raw=1';
 
     try {
         const response = await fetch(dropboxUrl);
