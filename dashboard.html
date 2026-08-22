@@ -270,10 +270,10 @@
                     <strong>Last Transaction Date:</strong> <span id="lastTxDate">প্রযোজ্য নয়</span>
                 </div>
                 <div class="info-item">
-                    <strong>Any Due:</strong> <span id="anyDue">০.০০ টাকা</span>
+                    <strong>Any Due:</strong> <span id="anyDue">০০০০.০০ টাকা</span>
                 </div>
                 <div class="info-item">
-                    <strong>Total Savings:</strong> <span id="totalSavings">০.০০ টাকা</span>
+                    <strong>Total Savings:</strong> <span id="totalSavings">০০০০.০০ টাকা</span>
                 </div>
             </div>
 
@@ -340,9 +340,9 @@
                         if (currentMemberId.toLowerCase() === memberId.toLowerCase()) {
                             foundUser = {
                                 lastTxAmount: cols[4] ? cols[4].trim().replace(/"/g, '') : '',
-                                lastTx: cols[4] ? cols[4].trim().replace(/"/g, '') : '০.০০',
-                                anyDue: cols[18] ? cols[18].trim().replace(/"/g, '') : '০.০০', // Col S
-                                totalSavings: cols[19] ? cols[19].trim().replace(/"/g, '') : '০.০০' // Col T
+                              lastTxDate: cols[4] ? cols[4].trim().replace(/"/g, '') : '০.০০',
+                                anyDue: cols[18] ? cols[18].trim().replace(/"/g, '') : '০০০০.০০', // Col S
+                                totalSavings: cols[19] ? cols[19].trim().replace(/"/g, '') : '০০০০.০০' // Col T
                             };
                             break;
                         }
