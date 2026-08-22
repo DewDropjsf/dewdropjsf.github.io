@@ -290,7 +290,7 @@
         </div>
     </div>
 
-    <script>
+      <script>
         // সিকিউরিটি চেক: লগইন করা না থাকলে রিডাইরেক্ট করা
         window.addEventListener('DOMContentLoaded', function() {
             const loggedInUser = localStorage.getItem('loggedInUser');
@@ -310,6 +310,9 @@
             document.getElementById('memberId').innerText = userData.member_id || 'N/A';
             document.getElementById('userEmail').innerText = userData.email || 'N/A';
             document.getElementById('userMobile').innerText = userData.mobile || 'N/A';
+
+            // **এখানে ফাংশনটি কল করা হলো যাতে মেম্বার আইডি অনুযায়ী ডেটা নিয়ে আসে**
+            loadUserDataFromDropbox(userData.member_id);
         }
 
         document.getElementById('logoutBtn').addEventListener('click', () => {
@@ -317,48 +320,47 @@
             alert('সফলভাবে লগআউট করা হয়েছে।');
             window.location.replace('login.html');
         });
+
         async function loadUserDataFromDropbox(memberId) {
-    // ড্রপবক্সের লিংকটিকে সরাসরি ফেচ করার উপযোগী করার জন্য
-    const dropboxUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://www.dropbox.com/scl/fi/7fgf71v2j19k9mykj96su/MasterLedger_Y26_V13.csv?rlkey=r7dcav82cfcmf6r5av1fwp3lr&st=7x488d0z&raw=1');
+            const dropboxUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://www.dropbox.com/scl/fi/7fgf71v2j19k9mykj96su/MasterLedger_Y26_V13.csv?rlkey=r7dcav82cfcmf6r5av1fwp3lr&st=7x488d0z&raw=1');
 
-    try {
-        const response = await fetch(dropboxUrl);
-        const data = await response.text();
+            try {
+                const response = await fetch(dropboxUrl);
+                const data = await response.text();
 
-        const rows = data.split('\n');
-        let foundUser = null;
+                const rows = data.split('\n');
+                let foundUser = null;
 
-        for (let i = 0; i < rows.length; i++) {
-            const cols = rows[i].split(',');
-            
-            if (cols.length > 1) {
-                // কলাম B (ইনডেক্স 1) হলো Member ID
-                const currentMemberId = cols[1] ? cols[1].trim().replace(/"/g, '') : '';
+                for (let i = 0; i < rows.length; i++) {
+                    const cols = rows[i].split(',');
+                    
+                    if (cols.length > 1) {
+                        const currentMemberId = cols[1] ? cols[1].trim().replace(/"/g, '') : '';
 
-                if (currentMemberId.toLowerCase() === memberId.toLowerCase()) {
-                    foundUser = {
-                        name: cols[2] ? cols[2].trim().replace(/"/g, '') : '',
-                        lastTx: cols[3] ? cols[3].trim().replace(/"/g, '') : '০.০০',
-                        anyDue: cols[18] ? cols[18].trim().replace(/"/g, '') : '০.০০', // Col S
-                        totalSavings: cols[19] ? cols[19].trim().replace(/"/g, '') : '০.০০' // Col T
-                    };
-                    break;
+                        if (currentMemberId.toLowerCase() === memberId.toLowerCase()) {
+                            foundUser = {
+                                name: cols[2] ? cols[2].trim().replace(/"/g, '') : '',
+                                lastTx: cols[3] ? cols[3].trim().replace(/"/g, '') : '০.০০',
+                                anyDue: cols[18] ? cols[18].trim().replace(/"/g, '') : '০.০০', // Col S
+                                totalSavings: cols[19] ? cols[19].trim().replace(/"/g, '') : '০.০০' // Col T
+                            };
+                            break;
+                        }
+                    }
                 }
+
+                if (foundUser) {
+                    document.getElementById('lastTxAmount').innerText = foundUser.lastTx + ' টাকা';
+                    document.getElementById('anyDue').innerText = foundUser.anyDue + ' টাকা';
+                    document.getElementById('totalSavings').innerText = foundUser.totalSavings + ' টাকা';
+                } else {
+                    console.warn('এই মেম্বার আইডি দিয়ে কোনো ডেটা পাওয়া যায়নি। আইডি:', memberId);
+                }
+
+            } catch (error) {
+                console.error('ডেটা লোড করতে সমস্যা হয়েছে:', error);
             }
         }
-
-        if (foundUser) {
-            document.getElementById('lastTxAmount').innerText = foundUser.lastTx + ' টাকা';
-            document.getElementById('anyDue').innerText = foundUser.anyDue + ' টাকা';
-            document.getElementById('totalSavings').innerText = foundUser.totalSavings + ' টাকা';
-        } else {
-            console.warn('এই মেম্বার আইডি দিয়ে কোনো ডেটা পাওয়া যায়নি। আইডি:', memberId);
-        }
-
-    } catch (error) {
-        console.error('ডেটা লোড করতে সমস্যা হয়েছে:', error);
-    }
-}
     </script>
 
 </body>
