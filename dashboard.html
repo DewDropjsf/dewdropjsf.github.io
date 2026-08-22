@@ -10,35 +10,36 @@
     <style>
         body { 
             font-family: 'Times New Roman', Times, serif; 
-            background-color: #f4f7f6; 
+            background-color: #f0f4f8; 
             margin: 0; 
-            padding: 15px; 
+            padding: 20px; 
         }
 
         .dashboard-container { 
-            background: white; 
-            max-width: 850px; 
+            background: #ffffff; 
+            max-width: 900px; 
             margin: 20px auto; 
-            padding: 25px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            padding: 30px; 
+            border-radius: 16px; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08); 
             position: relative;
         }
 
         .fund-title {
             font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-            color: #2b6777;
+            color: #0077b6;
             text-align: center;
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
 
-        /* --- CSS দিয়ে পিন ও রসি সহ ঝুলন্ত নোটিশ বোর্ড ব্যানার --- */
+        /* --- CSS দিয়ে তৈরি ঝুলন্ত নোটিশ বোর্ড (পিন ও রসি সহ) --- */
         .hanging-board-wrapper {
             position: relative;
-            margin: 15px auto 30px auto;
+            margin: 10px auto 35px auto;
             display: flex;
             justify-content: center;
             width: 100%;
@@ -46,116 +47,118 @@
 
         .board-pin {
             position: absolute;
-            top: -12px;
-            width: 14px;
-            height: 14px;
-            background: radial-gradient(circle at 30% 30%, #fff, #555);
+            top: -14px;
+            width: 16px;
+            height: 16px;
+            background: radial-gradient(circle at 30% 30%, #ffffff, #333333);
             border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.4);
             z-index: 10;
         }
 
         .board-string {
             position: absolute;
-            top: -5px;
-            width: 220px;
-            height: 25px;
-            border-bottom: 3px solid #8c6239;
+            top: -6px;
+            width: 240px;
+            height: 28px;
+            border-bottom: 3.5px solid #8c6239;
             border-radius: 0 0 50% 50%;
             z-index: 5;
         }
 
         .notice-board-box {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
+            background: linear-gradient(135deg, #f4a261, #e76f51);
             color: #fff;
-            width: 320px;
-            padding: 12px 20px;
+            width: 340px;
+            padding: 14px 20px;
             text-align: center;
-            border-radius: 8px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-            border: 2px dashed #f1c40f;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border: 2px dashed #ffb703;
             position: relative;
             z-index: 4;
-            margin-top: 15px;
+            margin-top: 18px;
         }
 
         .notice-board-box h2 {
             margin: 0;
-            font-size: 20px;
+            font-size: 22px;
             font-family: 'Times New Roman', Times, serif;
-            letter-spacing: 0.5px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            letter-spacing: 0.8px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
         }
 
-        /* --- দুই পাশের গ্রিড লেআউট (বাম ও ডান কলাম) --- */
+        /* --- দুই কলাম লেআউট (বাম ও ডান পাশ) --- */
         .dashboard-grid {
             display: flex;
-            gap: 20px;
+            gap: 30px;
             margin-bottom: 20px;
         }
 
         .column-box {
             flex: 1;
-            background: #fafafa;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            background: #fdfdfd;
+            border: 1.5px solid #dcdcdc;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.02);
         }
 
         /* সেকশন হেডার */
         .section-header {
-            border-bottom: 2px solid #2b6777;
-            padding-bottom: 6px;
-            margin-bottom: 12px;
+            border-bottom: 2.5px solid #0077b6;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .section-title {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
-            color: #2b6777;
+            color: #03045e;
             text-transform: uppercase;
             margin: 0;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
         }
 
         .btn-logout { 
-            background-color: #a4243b; 
+            background-color: #d90429; 
             color: white; 
             border: none; 
-            padding: 4px 10px; 
-            font-size: 12px; 
-            border-radius: 4px; 
+            padding: 6px 14px; 
+            font-size: 13px; 
+            border-radius: 6px; 
             cursor: pointer; 
             font-weight: bold; 
+            transition: background 0.2s;
         }
 
         .btn-logout:hover { 
-            background-color: #801b2d; 
+            background-color: #8d0801; 
         }
 
         .welcome-msg { 
-            font-size: 15px; 
-            color: #111; 
-            margin-bottom: 10px; 
+            font-size: 16px; 
+            color: #1d3557; 
+            margin-bottom: 14px; 
             font-weight: bold;
         }
 
+        /* সুন্দর ইনফো আইটেম ও ব্র্যাকেট ইফেক্ট */
         .info-item { 
-            background: #e8f4f8; 
-            padding: 8px 10px; 
-            margin-bottom: 8px; 
-            border-radius: 4px; 
-            border-left: 3px solid #2b6777; 
-            font-size: 14px;
-            color: #333;
+            background: #e0fbfc; 
+            padding: 10px 14px; 
+            margin-bottom: 10px; 
+            border-radius: 6px; 
+            border-left: 4px solid #00b4d8; 
+            font-size: 15px;
+            color: #2b2d42;
         }
 
         .info-item strong { 
-            color: #111; 
+            color: #03045e; 
         }
 
         /* ফুটার এরিয়া (হোম বাটন এবং ডেভেলপার ক্রেডিট) */
@@ -163,37 +166,38 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 25px;
-            border-top: 1px dashed #ccc;
-            padding-top: 15px;
+            margin-top: 30px;
+            border-top: 1.5px dashed #cbd5e1;
+            padding-top: 20px;
         }
 
         .btn-home {
-            background-color: #2b6777;
+            background-color: #0077b6;
             color: white;
             border: none;
-            padding: 8px 20px;
-            font-size: 14px;
-            border-radius: 4px;
+            padding: 9px 22px;
+            font-size: 15px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
             text-decoration: none;
             display: inline-block;
+            transition: background 0.2s;
         }
 
         .btn-home:hover {
-            background-color: #1d4e59;
+            background-color: #03045e;
         }
 
         .developer-footer {
             text-align: right;
-            font-size: 12px;
-            color: #555;
-            line-height: 1.4;
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
         }
 
         .developer-footer a {
-            color: #2b6777;
+            color: #0077b6;
             text-decoration: none;
             font-weight: bold;
         }
@@ -202,10 +206,14 @@
             text-decoration: underline;
         }
 
-        /* মোবাইল স্ক্রিনের জন্য রেসপন্সিভ ডিজাইন (এক কলামে রূপান্তর হবে) */
+        /* মোবাইল স্ক্রিনের জন্য রেসপন্সিভ ডিজাইন */
         @media (max-width: 768px) {
             .dashboard-grid {
                 flex-direction: column;
+                gap: 20px;
+            }
+            .dashboard-container {
+                padding: 15px;
             }
         }
     </style>
@@ -224,14 +232,13 @@
             </div>
         </div>
 
-        <!-- দুই পাশের মূল কলাম সেকশন -->
+        <!-- দুই কলাম লেআউট (বাম ও ডান পাশ) -->
         <div class="dashboard-grid">
             
             <!-- বাম কলাম: Member Details -->
             <div class="column-box">
                 <div class="section-header">
-                    <h3 class="section-title">Member Details</h3>
-                    <button class="btn-logout" id="logoutBtn">Log out</button>
+                    <h3 class="section-title">MEMBER DETAILS</h3>
                 </div>
                 
                 <div class="welcome-msg">স্বাগতম, <span id="userName">...</span>!</div>
@@ -250,15 +257,14 @@
                 </div>
             </div>
 
-            <!-- ডান কলাম: Account Details -->
+            <!-- ডান কলাম: Account Details ও Log out বাটন -->
             <div class="column-box">
                 <div class="section-header">
-                    <h3 class="section-title">Account Details</h3>
+                    <h3 class="section-title">ACCOUNT DETAILS</h3>
+                    <button class="btn-logout" id="logoutBtn">Log out</button>
                 </div>
                 
-                <div style="height: 23px; margin-bottom: 10px;"></div> <!-- লেআউট ব্যালেন্স রাখার জন্য স্পেস -->
-
-                <div class="info-item">
+                <div class="info-item" style="margin-top: 15px;">
                     <strong>Last Transaction:</strong> <span id="lastTxAmount">০.০০ টাকা</span>
                 </div>
                 <div class="info-item">
