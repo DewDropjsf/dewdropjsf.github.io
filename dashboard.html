@@ -327,11 +327,11 @@
 
                         if (currentMemberId.toLowerCase() === memberId.toLowerCase()) {
                             foundUser = {
-                                lastTx: cols[4] ? cols[4].trim().replace(/"/g, '') : '০.০০',     // E Col (Last Transaction Amount)
-                                lastTxDate: cols[5] ? cols[5].trim().replace(/"/g, '') : 'প্রযোজ্য নয়', // F Col (Last Transaction Date)
-                                anyDue: cols[20] ? cols[20].trim().replace(/"/g, '') : '০.০০',     // U Col (Total Due)
-                                totalSavings: cols[21] ? cols[21].trim().replace(/"/g, '') : '০.০০' // V Col (Total Savings)
-                            };
+                            lastTx: cols[4] ? cols.slice(4, 6).join(',').replace(/"/g, '').trim() : '০.০০',     
+                            lastTxDate: cols[6] ? cols[6].trim().replace(/"/g, '') : 'প্রযোজ্য নয়', 
+                            anyDue: cols[20] ? cols.slice(20, 22).join(',').replace(/"/g, '').trim() : '০.০০',     
+                            totalSavings: cols[22] ? cols.slice(22, 24).join(',').replace(/"/g, '').trim() : '০.০০' 
+                        };
                             break;
                         }
                     }
