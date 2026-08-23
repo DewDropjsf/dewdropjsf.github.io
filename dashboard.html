@@ -330,7 +330,7 @@
                             lastTx: cols[4] ? cols.slice(4, 6).join(',').replace(/"/g, '').trim() : '০.০০',     
                             lastTxDate: cols[6] ? cols[6].trim().replace(/"/g, '') : 'প্রযোজ্য নয়', 
                             anyDue: cols[21] ? cols.slice(21, 23).join(',').replace(/"/g, '').trim() : '০.০০',     
-                            totalSavings: cols[cols.length - 3] ? cols[cols.length - 3].replace(/"/g, '').trim() : '০.০০' 
+                            totalSavings: cols.length > 5 ? cols.slice(cols.length - 4, cols.length - 2).join(',').replace(/"/g, '').trim() : '০.০০' 
                         };
                             break;
                         }
