@@ -308,11 +308,11 @@
             window.location.replace('login.html');
         });
 
-       async function loadUserDataFromDropbox(memberId) {
+      async function loadUserDataFromDropbox(memberId) {
             const targetUrl = 'https://www.dropbox.com/scl/fi/7fgf71v2j19k9mykj96su/MasterLedger_Y26_V13.csv?rlkey=r7dcav82cfcmf6r5av1fwp3lr&raw=1';
             
-            // corsproxy.io এর বদলে allorigins প্রক্সি ব্যবহার করা যাক
-            const dropboxUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(targetUrl);
+            // corsproxy বা allorigins এর বদলে codetabs প্রক্সি ব্যবহার করে দেখি
+            const dropboxUrl = 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(targetUrl);
 
             try {
                 const response = await fetch(dropboxUrl);
