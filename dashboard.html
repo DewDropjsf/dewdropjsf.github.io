@@ -299,7 +299,7 @@
             document.getElementById('userEmail').innerText = userData.email || 'N/A';
             document.getElementById('userMobile').innerText = userData.mobile || 'N/A';
 
-            loadUserDataFromDropbox(userData.member_id);
+            loadUserDataFromGoogleSheet(userData.member_id);
         }
 
         document.getElementById('logoutBtn').addEventListener('click', () => {
@@ -308,8 +308,7 @@
             window.location.replace('login.html');
         });
 
-    async function loadUserDataFromDropbox(memberId) {
-            // নতুন গুগল শিটের পাবলিশড CSV লিংক
+        async function loadUserDataFromGoogleSheet(memberId) {
             const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
 
             try {
@@ -319,19 +318,17 @@
                 }
                 const data = await response.text();
                 
-                // CSV ডেটা লাইন বাই লাইন আলাদা করা
                 const rows = data.split('\n');
                 let found = false;
 
-                // হেডার বাদ দিয়ে ১ নম্বর ইনডেক্স থেকে লুপ শুরু
+                const targetId = memberId ? memberId.trim().toLowerCase() : '';
+
                 for (let i = 1; i < rows.length; i++) {
                     const row = rows[i].trim();
                     if (!row) continue;
 
-                    // কমা দিয়ে কলামগুলো আলাদা করা
                     const cols = row.split(',').map(col => col.trim());
                     
-                    // কলাম ম্যাপিং (আপনার শিট অনুযায়ী):
                     // cols[0] = SL No
                     // cols[1] = Member ID
                     // cols[2] = Member Name
@@ -340,13 +337,12 @@
                     // cols[5] = Any Due
                     // cols[6] = Total Savings
 
-                    const currentMemberId = cols[1];
+                    const currentMemberId = cols[1] ? cols[1].toLowerCase() : '';
 
-                    if (currentMemberId === memberId) {
+                    if (currentMemberId === targetId) {
                         found = true;
                         
-                        // ড্যাশবোর্ডের এলিমেন্টগুলোতে ডেটা বসানো (আপনার আইডি অনুযায়ী নামগুলো মিলিয়ে নেবেন)
-                        document.getElementById('memberName').innerText = cols[2] || 'তথ্য নেই';
+                        document.getElementById('memberNameDisp').innerText = cols[2] || 'তথ্য নেই';
                         document.getElementById('lastTxAmount').innerText = cols[3] ? cols[3] + ' টাকা' : '০.০০ টাকা';
                         document.getElementById('lastTxDate').innerText = cols[4] || 'তথ্য নেই';
                         document.getElementById('anyDue').innerText = cols[5] ? cols[5] + ' টাকা' : '০.০০ টাকা';
