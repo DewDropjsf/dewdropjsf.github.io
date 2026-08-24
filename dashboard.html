@@ -308,44 +308,56 @@
             window.location.replace('login.html');
         });
 
-      async function loadUserDataFromDropbox(memberId) {
-            const targetUrl = 'https://www.dropbox.com/scl/fi/7fgf71v2j19k9mykj96su/MasterLedger_Y26_V13.csv?rlkey=r7dcav82cfcmf6r5av1fwp3lr&raw=1';
-            
-            // corsproxy বা allorigins এর বদলে codetabs প্রক্সি ব্যবহার করে দেখি
-            const dropboxUrl = 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(targetUrl);
+    async function loadUserDataFromDropbox(memberId) {
+            // নতুন গুগল শিটের পাবলিশড CSV লিংক
+            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
 
             try {
-                const response = await fetch(dropboxUrl);
+                const response = await fetch(csvUrl);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
                 const data = await response.text();
-
+                
+                // CSV ডেটা লাইন বাই লাইন আলাদা করা
                 const rows = data.split('\n');
-                let foundUser = null;
+                let found = false;
 
-                for (let i = 0; i < rows.length; i++) {
-                    const cols = rows[i].split(',');
+                // হেডার বাদ দিয়ে ১ নম্বর ইনডেক্স থেকে লুপ শুরু
+                for (let i = 1; i < rows.length; i++) {
+                    const row = rows[i].trim();
+                    if (!row) continue;
+
+                    // কমা দিয়ে কলামগুলো আলাদা করা
+                    const cols = row.split(',').map(col => col.trim());
                     
-                    if (cols.length > 1) {
-                        const currentMemberId = cols[1] ? cols[1].trim().replace(/"/g, '') : '';
+                    // কলাম ম্যাপিং (আপনার শিট অনুযায়ী):
+                    // cols[0] = SL No
+                    // cols[1] = Member ID
+                    // cols[2] = Member Name
+                    // cols[3] = Last Tx Amount
+                    // cols[4] = Last Tx Date
+                    // cols[5] = Any Due
+                    // cols[6] = Total Savings
 
-                        if (currentMemberId.toLowerCase() === memberId.toLowerCase()) {
-                            foundUser = {
-                                lastTx: cols[4] ? cols.slice(4, 6).join(',').replace(/"/g, '').trim() : '০.০০',     
-                                lastTxDate: cols[6] ? cols[6].trim().replace(/"/g, '') : 'প্রযোজ্য নয়', 
-                                anyDue: cols[21] ? cols.slice(21, 23).join(',').replace(/"/g, '').trim() : '০.০০',     
-                                totalSavings: cols.length > 5 ? cols.slice(cols.length - 4, cols.length - 2).reverse().join(',').replace(/"/g, '').trim() : '০.০০' 
-                            };
-                            break;
-                        }
+                    const currentMemberId = cols[1];
+
+                    if (currentMemberId === memberId) {
+                        found = true;
+                        
+                        // ড্যাশবোর্ডের এলিমেন্টগুলোতে ডেটা বসানো (আপনার আইডি অনুযায়ী নামগুলো মিলিয়ে নেবেন)
+                        document.getElementById('memberName').innerText = cols[2] || 'তথ্য নেই';
+                        document.getElementById('lastTxAmount').innerText = cols[3] ? cols[3] + ' টাকা' : '০.০০ টাকা';
+                        document.getElementById('lastTxDate').innerText = cols[4] || 'তথ্য নেই';
+                        document.getElementById('anyDue').innerText = cols[5] ? cols[5] + ' টাকা' : '০.০০ টাকা';
+                        document.getElementById('totalSavings').innerText = cols[6] ? cols[6] + ' টাকা' : '০.০০ টাকা';
+                        
+                        break;
                     }
                 }
 
-                if (foundUser) {
-                    document.getElementById('lastTxAmount').innerText = foundUser.lastTx + ' টাকা';
-                    document.getElementById('lastTxDate').innerText = foundUser.lastTxDate;
-                    document.getElementById('anyDue').innerText = foundUser.anyDue + ' টাকা';
-                    document.getElementById('totalSavings').innerText = foundUser.totalSavings + ' টাকা';
-                } else {
-                    console.warn('এই মেম্বার আইডি দিয়ে কোনো ডেটা পাওয়া যায়নি। আইডি:', memberId);
+                if (!found) {
+                    console.warn('এই মেম্বার আইডি দিয়ে কোনো ডেটা পাওয়া যায়নি:', memberId);
                 }
 
             } catch (error) {
