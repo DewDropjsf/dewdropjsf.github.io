@@ -300,6 +300,8 @@
     </div>
 
     <script>
+        let hideTimer = null;
+
         window.addEventListener('DOMContentLoaded', function() {
             const loggedInUser = localStorage.getItem('loggedInUser');
             if (!loggedInUser) {
@@ -326,8 +328,13 @@
             window.location.replace('login.html');
         });
 
-        // Check A/C Button Event (Fetches data from Google Sheet only when clicked)
+        // Check A/C Button Event
         document.getElementById('checkAcBtn').addEventListener('click', () => {
+            // যদি আগের কোনো টাইমার চালু থাকে তা বাতিল করে দেবো, যাতে বারবার ক্লিক করলে সময় রিসেট হয়
+            if (hideTimer) {
+                clearTimeout(hideTimer);
+            }
+
             loadUserDataFromGoogleSheet(userData.member_id);
         });
 
@@ -374,16 +381,28 @@
 
                 if (!found) {
                     alert('এই মেম্বার আইডি দিয়ে কোনো ডেটা পাওয়া যায়নি!');
-                    document.getElementById('lastTxAmount').innerText = '০.০০ টাকা';
-                    document.getElementById('lastTxDate').innerText = 'তথ্য নেই';
-                    document.getElementById('anyDue').innerText = '০.০০ টাকা';
-                    document.getElementById('totalSavings').innerText = '০.০০ টাকা';
+                    resetAccountDetails();
+                    return;
                 }
+
+                // তথ্য সফলভাবে প্রদর্শিত হওয়ার পর ১৫ সেকেন্ড (১৫০০০ মিলিসেকেন্ড) টাইমার শুরু হবে
+                hideTimer = setTimeout(() => {
+                    resetAccountDetails();
+                }, 15000);
 
             } catch (error) {
                 console.error('ডেটা লোড করতে সমস্যা হয়েছে:', error);
                 alert('ডেটা ফেচ করতে সমস্যা হয়েছে। ইন্টারনেট কানেকশন চেক করুন।');
+                resetAccountDetails();
             }
+        }
+
+        // অ্যাকাউন্ট ডিটেইলস ফিল্ডগুলো আগের অবস্থায় ফিরিয়ে নেওয়ার ফাংশন
+        function resetAccountDetails() {
+            document.getElementById('lastTxAmount').innerText = 'বাটনে ক্লিক করুন';
+            document.getElementById('lastTxDate').innerText = 'তথ্য নেই';
+            document.getElementById('anyDue').innerText = 'বাটনে ক্লিক করুন';
+            document.getElementById('totalSavings').innerText = 'বাটনে ক্লিক করুন';
         }
     </script>
 
