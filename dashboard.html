@@ -310,7 +310,7 @@
         });
 
         async function loadUserDataFromDropbox(memberId) {
-            const dropboxUrl = 'https://corsproxy.io/?' + encodeURIComponent('https://www.dropbox.com/scl/fi/7fgf71v2j19k9mykj96su/MasterLedger_Y26_V13.csv?rlkey=r7dcav82cfcmf6r5av1fwp3lr&raw=1');
+            const dropboxUrl = ('https://www.dropbox.com/scl/fi/7fgf71v2j19k9mykj96su/MasterLedger_Y26_V13.csv?rlkey=r7dcav82cfcmf6r5av1fwp3lr&raw=1');
 
             try {
                 const response = await fetch(dropboxUrl);
