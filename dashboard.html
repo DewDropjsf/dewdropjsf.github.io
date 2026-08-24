@@ -328,7 +328,7 @@
                         if (currentMemberId.toLowerCase() === memberId.toLowerCase()) {
                           foundUser = {
                             lastTx: cols[4] ? cols.slice(4, 6).join(',').replace(/"/g, '').trim() : '০.০০',     
-                            lastTxDate: cols[6] ? cols[6].trim().replace(/"/g, '') : 'প্রযোজ্য নয়', 
+                            lastTxDate: cols[6] ? cols[6].trim().replace(/"/g, '') : 'তথ্য নেই', 
                             anyDue: cols[21] ? cols.slice(21, 23).join(',').replace(/"/g, '').trim() : '০.০০',     
                             totalSavings: cols.length > 5 ? cols.slice(cols.length - 4, cols.length - 2).reverse().join(',').replace(/"/g, '').trim() : '০.০০' 
                         };
