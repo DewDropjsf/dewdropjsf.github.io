@@ -156,6 +156,11 @@
             color: #03045e; 
         }
 
+        /* মেম্বার আইডি বড় হাতের অক্ষরে দেখানোর জন্য */
+        #memberId {
+            text-transform: uppercase;
+        }
+
         .footer-action-area {
             display: flex;
             justify-content: space-between;
@@ -234,9 +239,6 @@
                 <div class="welcome-msg">স্বাগতম, <span id="userName">...</span>!</div>
                 
                 <div class="info-item">
-                    <strong>Member Name:</strong> <span id="memberNameDisp">...</span>
-                </div>
-                <div class="info-item">
                     <strong>Member ID:</strong> <span id="memberId">...</span>
                 </div>
                 <div class="info-item">
@@ -294,7 +296,6 @@
             window.location.href = 'login.html';
         } else {
             document.getElementById('userName').innerText = userData.name || 'সদস্য';
-            document.getElementById('memberNameDisp').innerText = userData.name || 'N/A';
             document.getElementById('memberId').innerText = userData.member_id || 'N/A';
             document.getElementById('userEmail').innerText = userData.email || 'N/A';
             document.getElementById('userMobile').innerText = userData.mobile || 'N/A';
@@ -342,7 +343,6 @@
                     if (currentMemberId === targetId) {
                         found = true;
                         
-                        document.getElementById('memberNameDisp').innerText = cols[2] || 'তথ্য নেই';
                         document.getElementById('lastTxAmount').innerText = cols[3] ? cols[3] + ' টাকা' : '০.০০ টাকা';
                         document.getElementById('lastTxDate').innerText = cols[4] || 'তথ্য নেই';
                         document.getElementById('anyDue').innerText = cols[5] ? cols[5] + ' টাকা' : '০.০০ টাকা';
