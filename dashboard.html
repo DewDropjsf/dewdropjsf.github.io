@@ -308,10 +308,11 @@
             window.location.replace('login.html');
         });
 
-        async function loadUserDataFromDropbox(memberId) {
-            // এখানে corsproxy.io যোগ করে দেওয়া হয়েছে যাতে ব্রাউজার থেকে ফেইল না করে
+       async function loadUserDataFromDropbox(memberId) {
             const targetUrl = 'https://www.dropbox.com/scl/fi/7fgf71v2j19k9mykj96su/MasterLedger_Y26_V13.csv?rlkey=r7dcav82cfcmf6r5av1fwp3lr&raw=1';
-            const dropboxUrl = 'https://corsproxy.io/?' + encodeURIComponent(targetUrl);
+            
+            // corsproxy.io এর বদলে allorigins প্রক্সি ব্যবহার করা যাক
+            const dropboxUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(targetUrl);
 
             try {
                 const response = await fetch(dropboxUrl);
