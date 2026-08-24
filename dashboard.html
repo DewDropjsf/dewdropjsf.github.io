@@ -258,7 +258,7 @@
                     <strong>Last Transaction:</strong> <span id="lastTxAmount">০.০০ টাকা</span>
                 </div>
                 <div class="info-item">
-                    <strong>Last Transaction Date:</strong> <span id="lastTxDate">প্রযোজ্য নয়</span>
+                    <strong>Last Transaction Date:</strong> <span id="lastTxDate">তথ্য নেই</span>
                 </div>
                 <div class="info-item">
                     <strong>Any Due:</strong> <span id="anyDue">০.০০ টাকা</span>
@@ -328,7 +328,7 @@
                         if (currentMemberId.toLowerCase() === memberId.toLowerCase()) {
                           foundUser = {
                             lastTx: cols[4] ? cols.slice(4, 6).join(',').replace(/"/g, '').trim() : '০.০০',     
-                            lastTxDate: cols[6] ? cols[6].trim().replace(/"/g, '') : 'তথ্য নেই', 
+                            lastTxDate: cols[6] ? cols[6].trim().replace(/"/g, '') : 'প্রযোজ্য নয়', 
                             anyDue: cols[21] ? cols.slice(21, 23).join(',').replace(/"/g, '').trim() : '০.০০',     
                             totalSavings: cols.length > 5 ? cols.slice(cols.length - 4, cols.length - 2).reverse().join(',').replace(/"/g, '').trim() : '০.০০' 
                         };
