@@ -135,6 +135,22 @@
             background-color: #8d0801; 
         }
 
+        .btn-check { 
+            background-color: #2a9d8f; 
+            color: white; 
+            border: none; 
+            padding: 6px 14px; 
+            font-size: 13px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: background 0.2s;
+        }
+
+        .btn-check:hover { 
+            background-color: #21867a; 
+        }
+
         .welcome-msg { 
             font-size: 16px; 
             color: #1d3557; 
@@ -156,7 +172,6 @@
             color: #03045e; 
         }
 
-        /* মেম্বার আইডি বড় হাতের অক্ষরে দেখানোর জন্য */
         #memberId {
             text-transform: uppercase;
         }
@@ -231,9 +246,11 @@
 
         <div class="dashboard-grid">
             
+            <!-- MEMBER DETAILS COLUMN -->
             <div class="column-box">
                 <div class="section-header">
                     <h3 class="section-title">MEMBER DETAILS</h3>
+                    <button class="btn-logout" id="logoutBtn">Log out</button>
                 </div>
                 
                 <div class="welcome-msg">স্বাগতম, <span id="userName">...</span>!</div>
@@ -249,23 +266,24 @@
                 </div>
             </div>
 
+            <!-- ACCOUNT DETAILS COLUMN -->
             <div class="column-box">
                 <div class="section-header">
                     <h3 class="section-title">ACCOUNT DETAILS</h3>
-                    <button class="btn-logout" id="logoutBtn">Log out</button>
+                    <button class="btn-check" id="checkAcBtn">Check A/C</button>
                 </div>
                 
                 <div class="info-item" style="margin-top: 15px;">
-                    <strong>Last Transaction:</strong> <span id="lastTxAmount">০.০০ টাকা</span>
+                    <strong>Last Transaction:</strong> <span id="lastTxAmount">বাটনে ক্লিক করুন</span>
                 </div>
                 <div class="info-item">
                     <strong>Last Transaction Date:</strong> <span id="lastTxDate">তথ্য নেই</span>
                 </div>
                 <div class="info-item">
-                    <strong>Any Due:</strong> <span id="anyDue">০.০০ টাকা</span>
+                    <strong>Any Due:</strong> <span id="anyDue">বাটনে ক্লিক করুন</span>
                 </div>
                 <div class="info-item">
-                    <strong>Total Savings:</strong> <span id="totalSavings">০.০০ টাকা</span>
+                    <strong>Total Savings:</strong> <span id="totalSavings">বাটনে ক্লিক করুন</span>
                 </div>
             </div>
 
@@ -299,18 +317,28 @@
             document.getElementById('memberId').innerText = userData.member_id || 'N/A';
             document.getElementById('userEmail').innerText = userData.email || 'N/A';
             document.getElementById('userMobile').innerText = userData.mobile || 'N/A';
-
-            loadUserDataFromGoogleSheet(userData.member_id);
         }
 
+        // Logout Button Event
         document.getElementById('logoutBtn').addEventListener('click', () => {
             localStorage.removeItem('loggedInUser');
             alert('সফলভাবে লগআউট করা হয়েছে।');
             window.location.replace('login.html');
         });
 
+        // Check A/C Button Event (Fetches data from Google Sheet only when clicked)
+        document.getElementById('checkAcBtn').addEventListener('click', () => {
+            loadUserDataFromGoogleSheet(userData.member_id);
+        });
+
         async function loadUserDataFromGoogleSheet(memberId) {
             const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
+
+            // Loading state text
+            document.getElementById('lastTxAmount').innerText = 'লোড হচ্ছে...';
+            document.getElementById('lastTxDate').innerText = 'লোড হচ্ছে...';
+            document.getElementById('anyDue').innerText = 'লোড হচ্ছে...';
+            document.getElementById('totalSavings').innerText = 'লোড হচ্ছে...';
 
             try {
                 const response = await fetch(csvUrl);
@@ -330,14 +358,6 @@
 
                     const cols = row.split(',').map(col => col.trim());
                     
-                    // cols[0] = SL No
-                    // cols[1] = Member ID
-                    // cols[2] = Member Name
-                    // cols[3] = Last Tx Amount
-                    // cols[4] = Last Tx Date
-                    // cols[5] = Any Due
-                    // cols[6] = Total Savings
-
                     const currentMemberId = cols[1] ? cols[1].toLowerCase() : '';
 
                     if (currentMemberId === targetId) {
@@ -353,11 +373,16 @@
                 }
 
                 if (!found) {
-                    console.warn('এই মেম্বার আইডি দিয়ে কোনো ডেটা পাওয়া যায়নি:', memberId);
+                    alert('এই মেম্বার আইডি দিয়ে কোনো ডেটা পাওয়া যায়নি!');
+                    document.getElementById('lastTxAmount').innerText = '০.০০ টাকা';
+                    document.getElementById('lastTxDate').innerText = 'তথ্য নেই';
+                    document.getElementById('anyDue').innerText = '০.০০ টাকা';
+                    document.getElementById('totalSavings').innerText = '০.০০ টাকা';
                 }
 
             } catch (error) {
                 console.error('ডেটা লোড করতে সমস্যা হয়েছে:', error);
+                alert('ডেটা ফেচ করতে সমস্যা হয়েছে। ইন্টারনেট কানেকশন চেক করুন।');
             }
         }
     </script>
