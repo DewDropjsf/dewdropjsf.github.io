@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ডেভেলপার সম্পর্কে - DewDrop Joint Savings Fund</title>
+    <style>
+        body { 
+            font-family: 'Times New Roman', Times, serif; 
+            background-color: #f0f4f8; 
+            margin: 0; 
+            padding: 20px; 
+        }
+
+        .dev-container { 
+            background: #ffffff; 
+            max-width: 950px; 
+            margin: 30px auto; 
+            padding: 40px; 
+            border-radius: 16px; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08); 
+        }
+
+        .fund-title {
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+            color: #0077b6;
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .section-header {
+            border-bottom: 2.5px solid #0077b6;
+            padding-bottom: 8px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #03045e;
+            text-transform: uppercase;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        /* মূল গ্রিড লেআউট: বামে ছবি, ডানে ও নিচে তথ্য */
+        .dev-grid {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        /* বাম পাশের ছবির বক্স */
+        .dev-image-box {
+            flex: 1;
+            text-align: center;
+            background: #fdfdfd;
+            border: 1.5px solid #dcdcdc;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.02);
+        }
+
+        .dev-image-box img {
+            width: 100%;
+            max-width: 280px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 3px solid #00b4d8;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .dev-name {
+            margin-top: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #1d3557;
+        }
+
+        .dev-role {
+            font-size: 15px;
+            color: #e76f51;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        /* ডান ও নিচের তথ্যাদির বক্স */
+        .dev-info-box {
+            flex: 1.5;
+            background: #fdfdfd;
+            border: 1.5px solid #dcdcdc;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.02);
+        }
+
+        .info-group {
+            margin-bottom: 20px;
+        }
+
+        .info-group h4 {
+            color: #03045e;
+            margin: 0 0 8px 0;
+            font-size: 17px;
+            border-left: 4px solid #00b4d8;
+            padding-left: 8px;
+        }
+
+        .info-group p {
+            margin: 0;
+            font-size: 15px;
+            color: #2b2d42;
+            line-height: 1.6;
+        }
+
+        /* নিচের ন্যাভিগেশন বাটন */
+        .footer-action-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 35px;
+            border-top: 1.5px dashed #cbd5e1;
+            padding-top: 20px;
+        }
+
+        .btn-home {
+            background-color: #0077b6;
+            color: white;
+            border: none;
+            padding: 9px 22px;
+            font-size: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+
+        .btn-home:hover {
+            background-color: #03045e;
+        }
+
+        @media (max-width: 768px) {
+            .dev-grid {
+                flex-direction: column;
+            }
+            .dev-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dev-container">
+        <h1 class="fund-title">DewDrop Joint Savings Fund</h1>
+
+        <div class="section-header">
+            <h2 class="section-title">Developer & Founder Autobiography</h2>
+        </div>
+
+        <div class="dev-grid">
+            <!-- বাম পাশের ছবি ও সংক্ষিপ্ত পরিচিতি -->
+            <div class="dev-image-box">
+                <!-- আপনার ছবির ফাইল নেম এখানে বসাবেন, যেমন: developer.jpg -->
+                <img src="developer.jpg" alt="Md Tanjim Islam">
+                <div class="dev-name">Md Tanjim Islam</div>
+                <div class="dev-role">Lead Developer & Founder</div>
+            </div>
+
+            <!-- ডান ও নিচের বিস্তারিত তথ্যাদি -->
+            <div class="dev-info-box">
+                <div class="info-group">
+                    <h4>আমার সম্পর্কে (About Me)</h4>
+                    <p>আসসালামু আলাইকুম। আমি মোহাঃ তানজিম ইসলাম। প্রযুক্তি এবং ক্রিয়েটিভ প্রজেক্ট নিয়ে কাজ করতে আমি সবসময়ই স্বাচ্ছন্দ্যবোধ করি। DewDrop Joint Savings Fund প্রজেক্টটি আমাদের যৌথ সঞ্চয় ও হিসাব ব্যবস্থাপনাকে সহজ ও স্বচ্ছ করার একটি ক্ষুদ্র প্রয়াস।</p>
+                </div>
+
+                <div class="info-group">
+                    <h4>প্রোজেক্টের পেছনের ভাবনা (Vision)</h4>
+                    <p>সদস্যদের জমানো টাকা, লেনদেনের স্বচ্ছতা এবং যেকোনো সময় নিজের অ্যাকাউন্ট নিজে চেক করার আধুনিক সুবিধা নিশ্চিত করতেই এই ওয়েবসাইটের পরিকল্পনা ও বাস্তবায়ন করা হয়েছে।</p>
+                </div>
+
+                <div class="info-group">
+                    <h4>যোগাযোগ ও ঠিকানা (Contact Info)</h4>
+                    <p>
+                        <strong>ইমেইল:</strong> tanjimtoru@gmail.com<br>
+                        <strong>মোবাইল:</strong> ০১৯৭৭৮৮৫১২২<br>
+                        <strong>অবস্থান:</strong> ঢাকা, বাংলাদেশ।
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-action-area">
+            <a href="index.html" class="btn-home">হোম পেজে ফিরে যান</a>
+            <div style="font-size: 13px; color: #475569; text-align: right;">
+                Website Developed by <strong>Md Tanjim Islam</strong>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
