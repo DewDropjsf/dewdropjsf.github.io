@@ -277,7 +277,7 @@
                     <strong>Last Transaction:</strong> <span id="lastTxAmount">বাটনে ক্লিক করুন</span>
                 </div>
                 <div class="info-item">
-                    <strong>Last Transaction Date:</strong> <span id="lastTxDate">তথ্য নেই</span>
+                    <strong>Last Transaction Date:</strong> <span id="lastTxDate">বাটনে ক্লিক করুন</span>
                 </div>
                 <div class="info-item">
                     <strong>Any Due:</strong> <span id="anyDue">বাটনে ক্লিক করুন</span>
@@ -370,10 +370,10 @@
                     if (currentMemberId === targetId) {
                         found = true;
                         
-                        document.getElementById('lastTxAmount').innerText = cols[3] ? cols[3] + ' টাকা' : '০.০০ টাকা';
+                        document.getElementById('lastTxAmount').innerText = cols[3] ? cols[3] + ' টাকা' : '০.০০ Taka';
                         document.getElementById('lastTxDate').innerText = cols[4] || 'তথ্য নেই';
-                        document.getElementById('anyDue').innerText = cols[5] ? cols[5] + ' টাকা' : '০.০০ টাকা';
-                        document.getElementById('totalSavings').innerText = cols[6] ? cols[6] + ' টাকা' : '০.০০ টাকা';
+                        document.getElementById('anyDue').innerText = cols[5] ? cols[5] + ' টাকা' : '০.০০ Taka';
+                        document.getElementById('totalSavings').innerText = cols[6] ? cols[6] + ' টাকা' : '০.০০ Taka';
                         
                         break;
                     }
