@@ -47,16 +47,22 @@
             letter-spacing: 1px;
         }
 
-        /* মূল গ্রিড লেআউট: বামে ছবি, ডানে ও নিচে তথ্য */
+        /* মূল গ্রিড লেআউট */
         .dev-grid {
             display: flex;
             gap: 40px;
             align-items: flex-start;
         }
 
-        /* বাম পাশের ছবির বক্স */
-        .dev-image-box {
+        /* বাম পাশের ছবির বক্স ও আমার সম্পর্কে অংশ */
+        .dev-left-column {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .dev-image-box {
             text-align: center;
             background: #fdfdfd;
             border: 1.5px solid #dcdcdc;
@@ -68,7 +74,7 @@
         .dev-image-box img {
             width: 100%;
             max-width: 280px;
-            height: 350px;
+            height: 330px;
             object-fit: cover;
             border-radius: 8px;
             border: 3px solid #00b4d8;
@@ -100,7 +106,7 @@
         }
 
         .info-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         .info-group h4 {
@@ -116,6 +122,18 @@
             font-size: 15px;
             color: #2b2d42;
             line-height: 1.6;
+        }
+
+        /* ক্লিকযোগ্য বা অ্যাক্টিভ লিংক ডিজাইন */
+        .info-group a {
+            color: #0077b6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .info-group a:hover {
+            text-decoration: underline;
+            color: #03045e;
         }
 
         /* নিচের ন্যাভিগেশন বাটন */
@@ -166,32 +184,36 @@
         </div>
 
         <div class="dev-grid">
-            <!-- বাম পাশের ছবি ও সংক্ষিপ্ত পরিচিতি -->
-            <div class="dev-image-box">
-                <!-- আপনার ছবির ফাইল নেম এখানে বসাবেন, যেমন: developer.jpg -->
-                <img src="developer.jpg" alt="Md Tanjim Islam">
-                <div class="dev-name">Md Tanjim Islam</div>
-                <div class="dev-role">Lead Developer & Founder</div>
-            </div>
-
-            <!-- ডান ও নিচের বিস্তারিত তথ্যাদি -->
-            <div class="dev-info-box">
-                <div class="info-group">
-                    <h4>আমার সম্পর্কে (About Me)</h4>
-                    <p>আসসালামু আলাইকুম। আমি মোঃ তানযীম ইসলাম। প্রযুক্তি এবং ক্রিয়েটিভ প্রজেক্ট নিয়ে কাজ করতে আমি সবসময়ই স্বাচ্ছন্দ্যবোধ করি। DewDrop Joint Savings Fund প্রজেক্টটি আমাদের যৌথ সঞ্চয় ও হিসাব ব্যবস্থাপনাকে সহজ ও স্বচ্ছ করার একটি ক্ষুদ্র প্রয়াস।</p>
+            <!-- বাম পাশের কলাম: ছবি এবং তার নিচে "আমার সম্পর্কে" -->
+            <div class="dev-left-column">
+                <div class="dev-image-box">
+                    <!-- আপনার ছবির ফাইল নেম এখানে ঠিক রাখা হয়েছে -->
+                    <img src="developer.jpg" alt="Md Tanjim Islam">
+                    <div class="dev-name">Md Tanjim Islam</div>
+                    <div class="dev-role">Lead Developer & Founder</div>
                 </div>
 
+                <div class="dev-info-box" style="padding: 20px;">
+                    <div class="info-group" style="margin-bottom: 0;">
+                        <h4>আমার সম্পর্কে (About Me)</h4>
+                        <p>আসসালামু আলাইকুম। আমি মোহাঃ তানজিম ইসলাম। প্রযুক্তি এবং ক্রিয়েটিভ প্রজেক্ট নিয়ে কাজ করতে আমি সবসময়ই স্বাচ্ছন্দ্যবোধ করি। DewDrop Joint Savings Fund প্রজেক্টটি আমাদের যৌথ সঞ্চয় ও হিসাব ব্যবস্থাপনাকে সহজ ও স্বচ্ছ করার একটি ক্ষুদ্র প্রয়াস।</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ডান পাশের কলাম: প্রজেক্টের ভাবনা ও যোগাযোগ মাধ্যম -->
+            <div class="dev-info-box">
                 <div class="info-group">
                     <h4>প্রোজেক্টের পেছনের ভাবনা (Vision)</h4>
-                    <p>সদস্যদের জমানো টাকা, লেনদেনের স্বচ্ছতা এবং যেকোনো সময় নিজের অ্যাকাউন্ট নিজে চেক করার আধুনিক সুবিধা নিশ্চিত করতেই এই ওয়েবসাইটের পরিকল্পনা ও বাস্তবায়ন করা হয়েছে।</p>
+                    <p>সদস্যদের জমানো টাকা, লেনদেনের স্বচ্ছता এবং যেকোনো সময় নিজের অ্যাকাউন্ট নিজে চেক করার আধুনিক সুবিধা নিশ্চিত করতেই এই ওয়েবসাইটের পরিকল্পনা ও বাস্তবায়ন করা হয়েছে।</p>
                 </div>
 
                 <div class="info-group">
                     <h4>যোগাযোগ ও ঠিকানা (Contact Info)</h4>
                     <p>
-                        <strong>ইমেইল:</strong> tanjimtoru@gmail.com<br>
-                        <strong>মোবাইল:</strong> 01977885122<br>
-                        <strong>অবস্থান:</strong> Dhaka, Bangladesh।
+                        <strong>ইমেইল:</strong> <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a><br>
+                        <strong>মোবাইল:</strong> <a href="tel:+8801977885122">০১৯৭৭৮৮৫১২২</a><br>
+                        <strong>অবস্থান:</strong> ঢাকা, বাংলাদেশ।
                     </p>
                 </div>
             </div>
