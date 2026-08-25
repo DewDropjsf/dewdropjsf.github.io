@@ -172,6 +172,38 @@
         font-size: 15px;
         text-align: justify;
     }
+<!-- ড্রপডাউন মেনুর জন্য সিএসএস স্টাইল (হেড ট্যাগের ভেতরে বসাতে পারেন) -->
+<style>
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #ffffff;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+        z-index: 1;
+        border-radius: 6px;
+        border: 1px solid #dcdcdc;
+    }
+    .dropdown-content a {
+        color: #1d3557;
+        padding: 10px 14px;
+        text-decoration: none;
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .dropdown-content a:hover {
+        background-color: #f0f4f8;
+        color: #0077b6;
+        border-radius: 6px;
+    }
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 
     /* --- Contact Info Section --- */
     .contact-info {
@@ -298,6 +330,7 @@
                 <div class="dropdown-content">
                     <a href="#about-section">ডিউড্রপ সম্পর্কে</a>
                     <a href="board.html">পরিচালনা পর্ষদ</a>
+                     <a href="developer.html">ডেভেলপার সম্পর্কে</a>
                 </div>
             </div>
             
