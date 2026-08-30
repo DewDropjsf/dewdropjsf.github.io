@@ -267,7 +267,31 @@
         grid-template-columns: 1fr; /* মোবাইল ফোনে ১ কলাম হয়ে নিচে নিচে আসবে */
     }
 }
+/* পুরো বডিতে যেন অতিরিক্ত স্ক্রিন বা হরিজন্টাল স্ক্রল না আসে */
+body, html {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
 
+/* হেডার বা নেভবার যেন মোবাইলে ঠিকমতো ফিট হয় */
+header, nav {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* মোবাইল ডিভাইসের জন্য নেভবার বা লোগো ফ্লেক্স বক্স ঠিক করা */
+@media screen and (max-width: 768px) {
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+    }
+}
+        
     /* --- Contact Info Section --- */
     .contact-info {
         margin-top: 30px;
