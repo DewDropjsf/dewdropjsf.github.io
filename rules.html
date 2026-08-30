@@ -5,23 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>নিয়মাবলি - DewDrop Joint Savings Fund</title>
 
-    <style>
+  <style>
     /* --- General Reset & Page Setup --- */
     html {
         scroll-behavior: smooth;
     }
-    body {
-        font-family: 'Comic Sans MS', Tahoma, Geneva, Verdana, sans-serif, Arial;
+    body, html {
         margin: 0;
         padding: 0;
+        width: 100%;
+        overflow-x: hidden;
+        font-family: 'Comic Sans MS', Tahoma, Geneva, Verdana, sans-serif, Arial;
         background-color: #f4f7f6;
         color: #333;
         line-height: 1.6;
     }
+    * {
+        box-sizing: border-box;
+    }
 
     /* --- Header & Navigation --- */
     header {
-        background-color: #2a9d8f;
+        background-color: #004d40;
         color: white;
         padding: 15px 20px;
         display: flex;
@@ -31,6 +36,7 @@
         top: 0;
         z-index: 1000;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        width: 100%;
     }
     .logo-container {
         display: flex;
@@ -41,6 +47,7 @@
         width: auto;
         margin-right: 12px;
         border-radius: 50%;
+        object-fit: cover;
     }
     header h1 {
         margin: 0;
@@ -48,51 +55,22 @@
     }
     nav {
         display: flex;
+        justify-content: center;
         align-items: center;
+        gap: 20px;
+        background: #00332c;
+        padding: 12px;
+        width: 100%;
     }
     nav a {
         color: white;
         text-decoration: none;
-        margin: 0 12px;
         font-weight: bold;
+        font-size: 15px;
     }
     nav a:hover {
         color: #e9d8a6;
     }
-       /* ১. ডেস্কটপ বা বড় স্ক্রিনের জন্য ডিফল্ট স্টাইল (মেইন হেডার ও নেভবার) */
-header {
-    width: 100%;
-    background: #004d40; /* আপনার আগের কালার কোড */
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
-}
-
-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    background: #00332c;
-    padding: 12px;
-    width: 100%;
-}
-
-/* ২. শুধু মোবাইল স্ক্রিনের জন্য (Media Query) */
-@media screen and (max-width: 768px) {
-    body, html {
-        overflow-x: hidden;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    nav {
-        flex-wrap: wrap;
-        gap: 10px;
-        padding: 10px;
-    }
-}
 
     /* প্রোফাইল ছবি / ডেমো আইকন */
     .user-avatar {
@@ -105,7 +83,7 @@ nav {
         cursor: pointer;
     }
 
-    /* ড্রপডাউন */
+    /* ড্রপডাউন মেনু */
     .dropdown {
         display: inline-block;
         position: relative;
@@ -113,7 +91,7 @@ nav {
     .dropdown-content {
         display: none;
         position: absolute;
-        background-color: #064e3b;
+        background-color: #004d40;
         min-width: 180px;
         box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
         z-index: 1000;
@@ -121,6 +99,7 @@ nav {
         top: 100%;
         left: 0;
         overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.1);
     }
     .dropdown-content a {
         color: white;
@@ -128,11 +107,14 @@ nav {
         display: block;
         text-decoration: none;
         text-align: left;
-        font-size: 15px;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0;
         transition: background-color 0.2s ease;
     }
     .dropdown-content a:hover {
-        background-color: #04382a;
+        background-color: #00332c;
+        color: #e9d8a6;
     }
     .dropdown:hover .dropdown-content {
         display: block;
@@ -179,6 +161,12 @@ nav {
         line-height: 1.6;
     }
 
+    .developer-footer a {
+        color: #4ea8de;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
     .copyright-bar {
         background-color: #001f28;
         padding: 12px 20px;
@@ -186,7 +174,27 @@ nav {
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         color: #b0bec5;
     }
-    </style>
+
+    /* --- Mobile Responsiveness --- */
+    @media screen and (max-width: 768px) {
+        header {
+            flex-direction: column;
+            gap: 12px;
+            padding: 12px;
+            text-align: center;
+        }
+        nav {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+        }
+        .content {
+            padding: 20px;
+            margin: 15px;
+        }
+    }
+</style>
 </head>
 <body>
 
