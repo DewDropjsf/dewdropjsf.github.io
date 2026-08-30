@@ -253,30 +253,41 @@
             grid-template-columns: 1fr;
         }
     }
-        /* পুরো বডিতে যেন অতিরিক্ত স্ক্রিন বা হরিজন্টাল স্ক্রল না আসে */
-body, html {
-    overflow-x: hidden;
+/* ১. ডেস্কটপ বা বড় স্ক্রিনের জন্য ডিফল্ট স্টাইল (মেইন হেডার ও নেভবার) */
+header {
     width: 100%;
-    margin: 0;
-    padding: 0;
+    background: #004d40; /* আপনার আগের কালার কোড */
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
 }
 
-/* হেডার বা নেভবার যেন মোবাইলে ঠিকমতো ফিট হয় */
-header, nav {
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    background: #00332c;
+    padding: 12px;
     width: 100%;
-    box-sizing: border-box;
 }
 
-/* মোবাইল ডিভাইসের জন্য নেভবার বা লোগো ফ্লেক্স বক্স ঠিক করা */
+/* ২. শুধু মোবাইল স্ক্রিনের জন্য (Media Query) */
 @media screen and (max-width: 768px) {
+    body, html {
+        overflow-x: hidden;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
     nav {
-        display: flex;
         flex-wrap: wrap;
-        justify-content: center;
         gap: 10px;
         padding: 10px;
     }
 }
+        
 </style>
 </head>
     
