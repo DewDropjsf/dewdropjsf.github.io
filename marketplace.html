@@ -45,7 +45,7 @@
             padding: 0 20px;
         }
         
-        /* ফিক্সড বা ভাসমান স্টোর বাটনগুলো (বামের খালি জায়গায় রাখার জন্য) */
+        /* ফিক্সড বা ভাসমান স্টোর বাটনগুলো */
         .floating-stores {
             position: fixed;
             left: 20px;
@@ -57,8 +57,8 @@
         }
 
         .store-circle-btn {
-            width: 130px;
-            height: 130px;
+            width: 120px;
+            height: 120px;
             background-color: #e65100; /* কমলা রং */
             border: 3px solid #ffffff;
             border-radius: 50%; /* একদম গোল বৃত্ত */
@@ -80,23 +80,25 @@
         }
 
         .store-name {
-            font-size: 0.95rem;
+            font-size: 1.1rem; /* ফন্ট সাইজ বড় করা হয়েছে */
             font-weight: bold;
             line-height: 1.2;
+            margin-bottom: 2px;
         }
 
         .shopping-text {
-            font-size: 0.95rem;
+            font-size: 0.8rem;
             color: #ffccbc;
             display: flex;
+            flex-direction: column; /* উপর থেকে নিচে সাজানোর জন্য */
             align-items: center;
-            gap: 3px;
-            margin-top: 3px;
+            line-height: 1.1;
         }
 
         .arrow-icon {
             font-size: 0.9rem;
             font-weight: bold;
+            margin-top: 2px;
         }
 
         /* ওয়েলকাম ব্যানার */
@@ -189,7 +191,7 @@
             margin-top: 50px;
         }
 
-        /* মোবাইল স্ক্রিনের জন্য রেসপন্সিভ (মোবাইলে ফিড ঠিক রেখে নিচে বা উপরে সুন্দর দেখানোর জন্য) */
+        /* মোবাইল স্ক্রিনের জন্য রেসপন্সিভ */
         @media(max-width: 992px) {
             .floating-stores {
                 position: static;
@@ -202,16 +204,21 @@
 </head>
 <body>
 
-    <!-- বাম পাশের খালি জায়গায় গোল স্টোর বাটন দুটি -->
     <div class="floating-stores">
         <a href="#gias-store" class="store-circle-btn">
             <span class="store-name">Gias Store</span>
-            <span class="shopping-text">Shopping Now<span class="arrow-icon">➔</span></span>
+            <span class="shopping-text">
+                Shopping Now
+                <span class="arrow-icon">➔</span>
+            </span>
         </a>
 
         <a href="#mizan-store" class="store-circle-btn">
             <span class="store-name">Mizan Store</span>
-            <span class="shopping-text">Shopping Now<span class="arrow-icon">➔</span></span>
+            <span class="shopping-text">
+                Shopping Now
+                <span class="arrow-icon">➔</span>
+            </span>
         </a>
     </div>
 
