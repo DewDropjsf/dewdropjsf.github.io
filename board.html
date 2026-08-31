@@ -5,335 +5,578 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>পরিচালনা পর্ষদ - DewDrop Joint Savings Fund</title>
     
-    <style>
-        /* --- General Reset & Page Setup --- */
-        html {
-            scroll-behavior: smooth;
-        }
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            overflow-x: hidden;
-            font-family: 'Comic Sans MS', Tahoma, Geneva, Verdana, sans-serif, Arial;
-            background-color: #f4f7f6;
-            color: #333;
-            line-height: 1.6;
-        }
-        * {
-            box-sizing: border-box;
-        }
+   <style>
+    /* --- General Reset & Page Setup --- */
+    html {
+        scroll-behavior: smooth;
+    }
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        overflow-x: hidden;
+        font-family: 'Comic Sans MS', Tahoma, Geneva, Verdana, sans-serif, Arial;
+        background-color: #f4f7f6;
+        color: #333;
+        line-height: 1.6;
+    }
+    * {
+        box-sizing: border-box;
+    }
 
-        /* --- Header & Navigation (Unified) --- */
+    /* --- Header & Navigation (Unified) --- */
+    header {
+        background-color: #004d40;
+        color: white;
+        padding: 12px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        width: 100%;
+    }
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .logo-image {
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    header h1 {
+        margin: 0;
+        font-size: 20px;
+    }
+    
+    /* নেভবার হেডারের ভেতরে ডানপাশে থাকবে */
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 15px;
+        transition: color 0.2s ease;
+    }
+    nav a:hover {
+        color: #e9d8a6;
+    }
+
+    /* প্রোফাইল ছবি / ডেমো আইকন */
+    .user-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+        object-fit: cover;
+        cursor: pointer;
+    }
+
+    /* ড্রপডাউন মেনু */
+    .dropdown {
+        display: inline-block;
+        position: relative;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #004d40;
+        min-width: 180px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        border-radius: 6px;
+        top: 100%;
+        right: 0;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+    .dropdown-content a {
+        color: white;
+        padding: 12px 16px;
+        display: block;
+        text-decoration: none;
+        text-align: left;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0;
+    }
+    .dropdown-content a:hover {
+        background-color: #00332c;
+        color: #e9d8a6;
+    }
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* --- Page Content Styling (Rules & Board) --- */
+    .page-wrapper {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 0 15px;
+    }
+    .board-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        align-items: start;
+    }
+
+    /* Column Headers & Cards styling */
+    .column-header {
+        color: #005f73;
+        font-size: 20px;
+        border-bottom: 2px solid #2a9d8f;
+        padding-bottom: 8px;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+    .intro-card, .role-card {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        margin-bottom: 20px;
+    }
+    .intro-card h3, .role-card h3 {
+        margin-top: 0;
+        color: #005f73;
+    }
+    .duties-title {
+        font-weight: bold;
+        margin-top: 15px;
+        color: #2a9d8f;
+    }
+    .main-role-box {
+        background: #f4f7f6;
+        padding: 10px 15px;
+        border-left: 4px solid #2a9d8f;
+        margin: 10px 0;
+        border-radius: 0 4px 4px 0;
+    }
+    .duties-list, .committee-list {
+        margin: 8px 0 0 20px;
+        padding: 0;
+    }
+
+    /* Member Card & Accordion Styling */
+    .member-card {
+        margin-bottom: 15px;
+    }
+    .member-btn {
+        width: 100%;
+        background-color: #2a9d8f;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        text-align: left;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 6px;
+        transition: background-color 0.2s ease;
+    }
+    .member-btn:hover {
+        background-color: #005f73;
+    }
+    .member-details {
+        display: none;
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 0 0 8px 8px;
+        border: 1px solid #ddd;
+        border-top: none;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+    }
+
+    /* Photo Box & Image Sizing Control (Fixing the giant image issue) */
+    .photo-box {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .photo-box img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #2a9d8f;
+        display: inline-block;
+    }
+    .photo-placeholder {
+        font-size: 50px;
+    }
+    .identity-box h4 {
+        margin: 0 0 5px 0;
+        color: #005f73;
+        font-size: 18px;
+    }
+    .designation {
+        color: #2a9d8f;
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    .info-item {
+        font-size: 14px;
+        margin: 4px 0;
+    }
+
+    /* --- Footer --- */
+    .site-footer {
+        background-color: #002b36;
+        color: #ffffff;
+        margin-top: 60px;
+        padding-top: 25px;
+        text-align: center;
+    }
+    .developer-footer {
+        font-size: 13px;
+        color: #d3d3d3;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+    .developer-footer a {
+        color: #4ea8de;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .copyright-bar {
+        background-color: #001f28;
+        padding: 12px 20px;
+        font-size: 13px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #b0bec5;
+    }
+
+    /* --- Mobile Responsiveness --- */
+    @media screen and (max-width: 768px) {
         header {
-            background-color: #004d40;
-            color: white;
-            padding: 12px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            width: 100%;
+            flex-direction: column;
+            gap: 12px;
+            padding: 15px;
+            text-align: center;
         }
-        .logo-container {
-            display: flex;
-            align-items: center;
+        nav {
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 12px;
         }
-        .logo-image {
-            height: 45px;
-            width: 45px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 20px;
-        }
-        
-        /* নেভবার হেডারের ভেতরে ডানপাশে থাকবে */
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 15px;
-            transition: color 0.2s ease;
-        }
-        nav a:hover {
-            color: #e9d8a6;
-        }
-
-        /* প্রোফাইল ছবি / ডেমো আইকন */
-        .user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 2px solid #ffffff;
-            object-fit: cover;
-            cursor: pointer;
-        }
-
-        /* ড্রপডাউন মেনু */
-        .dropdown {
-            display: inline-block;
-            position: relative;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #004d40;
-            min-width: 180px;
-            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            border-radius: 6px;
-            top: 100%;
-            right: 0;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .dropdown-content a {
-            color: white;
-            padding: 12px 16px;
-            display: block;
-            text-decoration: none;
-            text-align: left;
-            font-size: 14px;
-            font-weight: bold;
-            margin: 0;
-        }
-        .dropdown-content a:hover {
-            background-color: #00332c;
-            color: #e9d8a6;
-        }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* --- Page Grid Layout (Board Page Specific) --- */
-        .page-wrapper {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
         .board-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            align-items: start;
+            grid-template-columns: 1fr;
         }
-
-        .column-header {
-            color: #005f73;
-            font-size: 20px;
-            border-bottom: 2px solid #2a9d8f;
-            padding-bottom: 8px;
-            margin-bottom: 20px;
-        }
-
-        /* --- Cards & Content Styling --- */
-        .intro-card, .role-card, .member-card {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-            margin-bottom: 20px;
-        }
-        
-        .role-card h3, .intro-card h3 {
-            margin-top: 0;
-            color: #005f73;
-        }
-
-        .role-card ol {
-            margin: 10px 0 0 20px;
-            padding: 0;
-        }
-
-        /* মেম্বার কার্ড ও ছবির সাইজ নিয়ন্ত্রণ */
-        .photo-box {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .photo-box img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #2a9d8f;
-        }
-
-        .member-btn {
-            width: 100%;
-            background-color: #0a9396;
-            color: white;
-            padding: 15px 20px;
-            border: none;
-            text-align: left;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            transition: background-color 0.2s ease;
-        }
-        .member-btn:hover {
-            background-color: #005f73;
-        }
-        .member-details {
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 0 0 8px 8px;
-            border: 1px solid #eeeeee;
-            margin-top: -5px;
-            margin-bottom: 15px;
-        }
-        .identity-box h4 {
-            margin: 0 0 5px 0;
-            color: #005f73;
-            font-size: 18px;
-        }
-        .designation {
-            color: #2a9d8f;
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-        .info-item {
-            font-size: 14px;
-            margin: 4px 0;
-        }
-
-        /* --- Footer --- */
-        .site-footer {
-            background-color: #002b36;
-            color: #ffffff;
-            margin-top: 60px;
-            padding-top: 25px;
-            text-align: center;
-        }
-        .developer-footer {
-            font-size: 13px;
-            color: #d3d3d3;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-        .developer-footer a {
-            color: #4ea8de;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .copyright-bar {
-            background-color: #001f28;
-            padding: 12px 20px;
-            font-size: 13px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #b0bec5;
-        }
-
-        /* --- Mobile Responsiveness --- */
-        @media screen and (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 12px;
-                padding: 15px;
-                text-align: center;
-            }
-            nav {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 12px;
-            }
-            .board-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
 
-    <!-- Header & Navigation -->
-    <header>
+    <!-- ১. হেডার ও নেভিগেশন বার -->
+    <header id="top">
         <div class="logo-container">
-            <img src="logo.png" alt="Logo" class="logo-image">
+            <img src="gldlogo.png" alt="logo" class="logo-image">
             <h1>DewDrop Joint Savings Fund</h1>
         </div>
         <nav>
+            <img id="headerUserAvatar" src="prflogo.jpeg" alt="User Avatar" class="user-avatar">
+            
             <a href="index.html">হোম</a>
-            <a href="about.html">আমাদের সম্পর্কে</a>
-            <a href="rules.html">নিয়মাবলি</a>
-            <a href="board.html">পরিচালনা পর্ষদ</a>
+            
             <div class="dropdown">
-                <img src="avatar.png" alt="User" class="user-avatar">
+                <a href="javascript:void(0)" class="dropbtn">আমাদের সম্পর্কে ▾</a>
                 <div class="dropdown-content">
-                    <a href="login.html">লগইন</a>
-                    <a href="signup.html">সাইন আপ</a>
+                    <a href="index.html#about-section">ডিউড্রপ সম্পর্কে</a>
+                    <a href="board.html">পরিচালনা পর্ষদ</a>
                 </div>
             </div>
+
+            <a href="rules.html">নিয়মাবলি</a>
+            <a href="login.html" id="navAuthBtn">লগইন</a>
+            <a href="signup.html">সাইন আপ</a>
         </nav>
     </header>
 
-    <!-- Main Page Content -->
+    <!-- ২. মূল লেআউট (দুই কলাম) -->
     <div class="page-wrapper">
         <div class="board-grid">
-            <!-- বাম কলাম: কাঠামো ও নীতি -->
-            <div>
-                <div class="column-header">পরিচালনা পর্ষদ ও নীতিমালা</div>
-                <div class="role-card">
-                    <h3>কাঠামো ও মেয়াদী বিবরণী</h3>
-                    <p>"DewDrop Joint Savings Fund"-এর পূর্ব ঘোষিত নীতি (স্বচ্ছতা, নিরাপত্তা ও যৌথ সমৃদ্ধি) বজায় রেখে পরিচালনা পর্ষদের কাঠামো, পদের নাম এবং দায়িত্ব নিচে উল্লেখ করা হলো (যার মেয়াদ ০১ এক বছর):</p>
-                    <ol>
+
+            <!-- ================= বাম কলাম: পরিচালনা পর্ষদের নীতিমালা ও দায়িত্ব ================= -->
+            <div class="left-column">
+                <h2 class="column-header">📌 পরিচালনা পর্ষদ ও নীতিমালা</h2>
+
+                <div class="intro-card">
+                    <h3>কাঠামো ও মেয়াদী বিবরণী</h3>
+                    <p>"DewDrop Joint Savings Fund"- এর পূর্ব ঘোষিত নীতি (স্বচ্ছতা, নিরাপত্তা ও যৌথ সমৃদ্ধি) বজায় রেখে পরিচালনা পর্ষদের কাঠামো, পদের নাম এবং দায়িত্ব নিম্নে উল্লেখ করা হলো (যার মেয়াদ ০১ এক বছর):</p>
+                    <ol class="committee-list">
                         <li>সভাপতি (President / Chairman)</li>
                         <li>সাধারণ সম্পাদক (General Secretary)</li>
                         <li>সাংগঠনিক সম্পাদক (Organizing Secretary)</li>
                         <li>কোষাধ্যক্ষ (Treasurer / Accounts Officer)</li>
                     </ol>
                 </div>
+
+                <!-- ১. সভাপতি -->
+                <div class="role-card">
+                    <h3 class="role-title">১. সভাপতি (President)</h3>
+                    <div class="main-role-box">
+                        <strong>মূল ভূমিকা:</strong> ফান্ডের মূল লক্ষ্য, আদর্শ ও নীতি যেন সঠিকভাবে বজায় থাকে তা তদারকি করা।
+                    </div>
+                    <div class="duties-title">প্রধান দায়িত্বাবলী:</div>
+                    <ul class="duties-list">
+                        <li>ফান্ডের যেকোনো অফিশিয়াল, মাসিক বা জরুরি মিটিং আহ্বান করা এবং সভায় সভাপতিত্ব করা।</li>
+                        <li>কোনো বিষয়ে সাধারণ সদস্যদের মধ্যে মতবিরোধ তৈরি হলে নিরপেক্ষভাবে তা মীমাংসা করা।</li>
+                        <li>পরিচালনা পর্ষদের বাকি সদস্যদের কাজের সমন্বয় ও তদারকি করা।</li>
+                        <li>সভায় কোনো সিদ্ধান্তে সমতা (টাই) দেখা দিলে কাস্টিং ভোট প্রদানের মাধ্যমে সিদ্ধান্ত গ্রহণ করা।</li>
+                    </ul>
+                </div>
+
+                <!-- ২. সাধারণ সম্পাদক -->
+                <div class="role-card">
+                    <h3 class="role-title">২. সাধারণ সম্পাদক (General Secretary)</h3>
+                    <div class="main-role-box">
+                        <strong>মূল ভূমিকা:</strong> ফান্ডের যাবতীয় অফিশিয়াল নথিপত্র সংরক্ষণ এবং সদস্যদের সাথে মূল যোগাযোগ রক্ষা করা।
+                    </div>
+                    <div class="duties-title">প্রধান দায়িত্বাবলী:</div>
+                    <ul class="duties-list">
+                        <li>ব্যাংক হিসাব ও উত্তোলন ফরমে ১ম যৌথ স্বাক্ষরকারী (First Joint Signatory) হিসেবে দায়িত্ব পালন।</li>
+                        <li>প্রতি মাসের শুরুতে সদস্যদের কাছ থেকে সঞ্চয়ের চাঁদা সংগ্রহ ও মানি রিসিট প্রদান।</li>
+                        <li>ফান্ডের মূল এক্সেল ফাইলের ক্যাশ বুক ও ড্যাশবোর্ডে ট্রানজেকশন এন্ট্রি করা।</li>
+                        <li>অফিশিয়াল হোয়াটসঅ্যাপ গ্রুপ পরিচালনা ও প্রয়োজনীয় নোটিশ প্রকাশ করা।</li>
+                    </ul>
+                </div>
+
+                <!-- ৩. সাংগঠনিক সম্পাদক -->
+                <div class="role-card">
+                    <h3 class="role-title">৩. সাংগঠনিক সম্পাদক (Organizing Secretary)</h3>
+                    <div class="main-role-box">
+                        <strong>মূল ভূমিকা:</strong> ফান্ডের অভ্যন্তরীণ সাংগঠনিক ভিত্তি মজবুত করা এবং সভার কার্যক্রম পরিচালনা করা।
+                    </div>
+                    <div class="duties-title">প্রধান দায়িত্বাবলী:</div>
+                    <ul class="duties-list">
+                        <li>সভাপতি অনুপস্থিতিতে সভাপতির পক্ষে দায়িত্বসমূহ পালন করা।</li>
+                        <li>মিটিংয়ের এজেন্ডা তৈরি এবং সভার সিদ্ধান্তগুলো 'মিনিটস বুক' বা রেজুলেশনে লিখে রাখা।</li>
+                        <li>ব্যাংক হিসাব উত্তোলন ফরমে ৩য় যৌথ স্বাক্ষরকারী (Third Joint Signatory) হিসেবে কাজ করা।</li>
+                    </ul>
+                </div>
+
+                <!-- ৪. কোষাধ্যক্ষ -->
+                <div class="role-card">
+                    <h3 class="role-title">৪. কোষাধ্যক্ষ (Treasurer / Accounts Officer)</h3>
+                    <div class="main-role-box">
+                        <strong>মূল ভূমিকা:</strong> ফান্ডের আর্থিক নিরাপত্তা নিশ্চিত করা এবং ক্যাশ বুক হালনাগাদ রাখা।
+                    </div>
+                    <div class="duties-title">প্রধান দায়িত্বাবলী:</div>
+                    <ul class="duties-list">
+                        <li>ব্যাংক উত্তোলন ফরমে ২য় যৌথ স্বাক্ষরকারী (Second Joint Signatory) হিসেবে দায়িত্ব পালন।</li>
+                        <li>সংগৃহীত টাকা জমা নেওয়া এবং অফিশিয়াল মানি রিসিট বা লেজারে স্বাক্ষর করা।</li>
+                        <li>ক্যাশ বই ও ভাউচার অডিট এবং হিসাব মেলাতে সাহায্য করা।</li>
+                    </ul>
+                </div>
             </div>
 
-            <!-- ডান কলাম: পর্ষদে অধিষ্ঠিত ব্যক্তিবর্গ -->
-            <div>
-                <div class="column-header">পরিচালনা পর্ষদে অধিষ্ঠিত ব্যক্তিবর্গ</div>
-                
-                <button class="member-btn">১. সভাপতি (President / Chairman) <span>▼</span></button>
-                <div class="member-details">
-                    <div class="photo-box">
-                        <img src="president.jpg" alt="President">
-                    </div>
-                    <div class="identity-box">
-                        <h4>Gias Uddin</h4>
-                        <p class="designation">সভাপতি, ডিউড্রপ যৌথ সঞ্চয় তহবিল</p>
-                        <p class="info-item"><b>ইউনিক আইডি:</b> 6U3942</p>
+            <!-- ================= ডান কলাম: পরিচালনা পর্ষদে অধিষ্ঠিত ব্যক্তিবর্গ ================= -->
+            <div class="right-column">
+                <h2 class="column-header">👥 পরিচালনা পর্ষদে অধিষ্ঠিত ব্যক্তিবর্গ</h2>
+
+                <!-- ১. সভাপতি বাটন ও প্রোফাইল -->
+                <div class="member-card">
+                    <button class="member-btn" onclick="toggleMember('president-details')">
+                        <span>১. সভাপতি (President / Chairman)</span>
+                        <span>▾</span>
+                    </button>
+                    
+                    <div id="president-details" class="member-details">
+                        <div class="photo-box">
+                            <img src="president.jpeg" alt="President" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                            <span class="photo-placeholder" style="display:none;">👤</span>
+                        </div>
+
+                        <div class="identity-box">
+                            <h4>Gias Uddin</h4>
+                            <div class="designation">সভাপতি, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
+                            <div class="info-item"><strong>ইউনিক আইডি:</strong> GU3942</div>
+                            <div class="info-item"><strong>মোবাইল:</strong> +8801713443942</div>
+                            <div class="info-item"><strong>ইমেইল:</strong> gias@anlima.com</div>
+                            <div class="info-item"><strong>পেশা:</strong> Anlima Group</div>
+                        </div>
                     </div>
                 </div>
 
-                <button class="member-btn">২. সাধারণ সম্পাদক (General Secretary) <span>▼</span></button>
-                <div class="member-details" style="display:none;">
-                    <!-- সাধারণ সম্পাদকের তথ্য এখানে যোগ করতে পারেন -->
+                <!-- ২. সাধারণ সম্পাদক বাটন ও প্রোফাইল -->
+                <div class="member-card">
+                    <button class="member-btn" onclick="toggleMember('secretary-details')">
+                        <span>২. সাধারণ সম্পাদক (General Secretary)</span>
+                        <span>▾</span>
+                    </button>
+                    
+                    <div id="secretary-details" class="member-details">
+                        <div class="photo-box">
+                            <img src="secretary.jpeg" alt="General Secretary" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                            <span class="photo-placeholder" style="display:none;">👤</span>
+                        </div>
+
+                        <div class="identity-box">
+                            <h4>Md Tanjim Islam</h4>
+                            <div class="designation">সাধারণ সম্পাদক, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
+                            <div class="info-item"><strong>ইউনিক আইডি:</strong> MTI5122</div>
+                            <div class="info-item"><strong>মোবাইল:</strong> +8801977885122</div>
+                            <div class="info-item"><strong>ইমেইল:</strong> tanjimtoru@gmail.com</div>
+                            <div class="info-item"><strong>পেশা:</strong> Anlima Group</div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- ৩. সাংগঠনিক সম্পাদক বাটন ও প্রোফাইল -->
+                <div class="member-card">
+                    <button class="member-btn" onclick="toggleMember('organizer-details')">
+                        <span>৩. সাংগঠনিক সম্পাদক (Organizing Secretary)</span>
+                        <span>▾</span>
+                    </button>
+                    
+                    <div id="organizer-details" class="member-details">
+                        <div class="photo-box">
+                            <img src="organizer.jpeg" alt="Organizing Secretary" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                            <span class="photo-placeholder" style="display:none;">👤</span>
+                        </div>
+
+                        <div class="identity-box">
+                            <h4>Md Mizanur Rahman</h4>
+                            <div class="designation">সাংগঠনিক সম্পাদক, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
+                            <div class="info-item"><strong>ইউনিক আইডি:</strong> MMR8543</div>
+                            <div class="info-item"><strong>মোবাইল:</strong> +8801684158543</div>
+                            <div class="info-item"><strong>ইমেইল:</strong> afrina25021980@gmail.com</div>
+                            <div class="info-item"><strong>পেশা:</strong> Anlima Group</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ৪. কোষাধ্যক্ষ বাটন ও প্রোফাইল -->
+                <div class="member-card">
+                    <button class="member-btn" onclick="toggleMember('treasurer-details')">
+                        <span>৪. কোষাধ্যক্ষ (Treasurer / Accounts Officer)</span>
+                        <span>▾</span>
+                    </button>
+                    
+                    <div id="treasurer-details" class="member-details">
+                        <div class="photo-box">
+                            <img src="treasurer.jpeg" alt="Treasurer" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                            <span class="photo-placeholder" style="display:none;">👤</span>
+                        </div>
+
+                        <div class="identity-box">
+                            <h4>Omar Md Faroq</h4>
+                            <div class="designation">কোষাধ্যক্ষ, ডিউড্রপ যৌথ সঞ্চয় তহবিল</div>
+                            <div class="info-item"><strong>ইউনিক আইডি:</strong> OMF0056</div>
+                            <div class="info-item"><strong>মোবাইল:</strong> +8801827270056</div>
+                            <div class="info-item"><strong>ইমেইল:</strong> omar.mdfaruk@gmail.com</div>
+                            <div class="info-item"><strong>পেশা:</strong> Anlima Group</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- ৩. ফুটার -->
     <footer class="site-footer">
         <div class="developer-footer">
-            Design & Developed by <a href="#">Developer</a>
+            Website Developed by:<br>
+            <strong>Md Tanjim Islam</strong><br>
+            <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
         </div>
+        
         <div class="copyright-bar">
-            &copy; 2026 DewDrop Joint Savings Fund. All rights reserved.
+            &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
         </div>
     </footer>
+
+    <!-- ৪. একত্রিত জাভাস্ক্রিপ্ট -->
+    <script>
+        // ১. সদস্যের বিবরণ দেখার জন্য বাটন টগল লজিক (লগইন করা না থাকলে রিডাইরেক্ট করবে)
+        function toggleMember(elementId) {
+            const userSession = localStorage.getItem("loggedInUser");
+
+            if (!userSession || userSession === "null" || userSession === "undefined") {
+                alert("পরিচালনা পর্ষদের ব্যক্তিবর্গের তথ্য দেখতে অনুগ্রহ করে প্রথমে লগইন করুন।");
+                window.location.href = "login.html";
+                return;
+            }
+
+            const targetElement = document.getElementById(elementId);
+            if (targetElement) {
+                const isHidden = window.getComputedStyle(targetElement).display === "none";
+                targetElement.style.display = isHidden ? "block" : "none";
+            }
+        }
+
+        // ২. সেশন অনুযায়ী নেভবার ও প্রোফাইল আইকন আপডেট
+        document.addEventListener("DOMContentLoaded", function() {
+            const rawData = localStorage.getItem("loggedInUser");
+            const navAuthBtn = document.getElementById("navAuthBtn");
+            const headerUserAvatar = document.getElementById("headerUserAvatar");
+
+            let user = null;
+            let isLoggedIn = false;
+
+            if (rawData && rawData !== "null" && rawData !== "undefined") {
+                try {
+                    user = JSON.parse(rawData);
+                    if (user && typeof user === 'object' && Object.keys(user).length > 0) {
+                        isLoggedIn = true;
+                    }
+                } catch (e) {
+                    isLoggedIn = false;
+                }
+            }
+
+            if (isLoggedIn && user) {
+                // লগইন অবস্থায় প্রোফাইল ছবি
+                if (headerUserAvatar) {
+                    headerUserAvatar.src = user.photoUrl || user.image || "prflogo.jpeg";
+                    headerUserAvatar.onerror = function() {
+                        this.src = "prflogo.jpeg";
+                    };
+                    headerUserAvatar.title = user.name || "প্রোফাইল";
+                }
+
+                // লগইন বাটন পরিবর্তন করে "লগআউট" করা
+                if (navAuthBtn) {
+                    navAuthBtn.innerText = "লগআউট";
+                    navAuthBtn.href = "javascript:void(0)";
+                    navAuthBtn.onclick = function() {
+                        if (confirm("আপনি কি নিশ্চিত যে লগআউট করতে চান?")) {
+                            localStorage.removeItem("loggedInUser");
+                            alert("লগআউট সফল হয়েছে।");
+                            window.location.reload();
+                        }
+                    };
+                }
+            } else {
+                // লগইন না থাকলে ডিফল্ট লোগো ও লগইন অপশন
+                if (headerUserAvatar) {
+                    headerUserAvatar.src = "prflogo.jpeg";
+                    headerUserAvatar.title = "গেস্ট প্রোফাইল";
+                }
+                if (navAuthBtn) {
+                    navAuthBtn.innerText = "লগইন";
+                    navAuthBtn.href = "login.html";
+                    navAuthBtn.onclick = null;
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>
