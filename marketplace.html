@@ -45,7 +45,7 @@
             padding: 0 20px;
         }
         
-        /* ফিক্সড বা ভাসমান স্টোর বাটনগুলো */
+        /* ফিক্সড বা ভাসমান স্টোর বাটনগুলো (ডেস্কটপের জন্য বামে ফিক্সড) */
         .floating-stores {
             position: fixed;
             left: 20px;
@@ -72,6 +72,7 @@
             transition: transform 0.2s ease, background-color 0.2s ease;
             text-align: center;
             padding: 5px;
+            flex-shrink: 0;
         }
 
         .store-circle-btn:hover {
@@ -191,18 +192,34 @@
             margin-top: 50px;
         }
 
-        /* মোবাইল স্ক্রিনের জন্য রেসপন্সিভ */
+        /* মোবাইল স্ক্রিনের জন্য রেসপন্সিভ ফিক্স (হেডারের নিচে কন্টেইনারের ভেতরে সুন্দরভাবে দেখাবে) */
         @media(max-width: 992px) {
             .floating-stores {
-                position: static;
+                position: static; /* ফিক্সড তুলে দেওয়া হলো যাতে উপরে না উঠে যায় */
                 flex-direction: row;
-                justify-content: center;
-                margin-bottom: 20px;
+                overflow-x: auto; /* মোবাইলে চওড়া স্ক্রিন হলে স্ক্রল করা যাবে */
+                justify-content: flex-start;
+                padding: 15px 10px;
+                background: #f1f1f1;
+                margin: 20px auto;
+                max-width: 1100px;
+                width: 100%;
+                border-radius: 8px;
+                box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
             }
         }
     </style>
 </head>
 <body>
+
+    <header>
+        <h1>বিপণন কেন্দ্র</h1>
+    </header>
+    <nav>
+        <a href="index.html">হোম</a>
+        <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
+        <a href="marketplace.html">বিপণন কেন্দ্র</a>
+    </nav>
 
     <div class="floating-stores">
         <a href="#gias-store" class="store-circle-btn">
@@ -237,15 +254,6 @@
             </span>
         </a>
     </div>
-
-    <header>
-        <h1>বিপণন কেন্দ্র</h1>
-    </header>
-    <nav>
-        <a href="index.html">হোম</a>
-        <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
-        <a href="marketplace.html">বিপণন কেন্দ্র</a>
-    </nav>
 
     <div class="container">
         
