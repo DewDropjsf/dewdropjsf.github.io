@@ -45,82 +45,69 @@
             padding: 0 20px;
         }
         
-        /* ফ্লেক্সিবল ব্যানার সেকশন */
+        /* ফিক্সড বা ভাসমান স্টোর বাটনগুলো (বামের খালি জায়গায় রাখার জন্য) */
+        .floating-stores {
+            position: fixed;
+            left: 20px;
+            top: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .store-circle-btn {
+            width: 110px;
+            height: 110px;
+            background-color: #e65100; /* কমলা রং */
+            border: 3px solid #ffffff;
+            border-radius: 50%; /* একদম গোল বৃত্ত */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .store-circle-btn:hover {
+            transform: scale(1.08);
+            background-color: #d84315;
+        }
+
+        .store-name {
+            font-size: 0.95rem;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        .shopping-text {
+            font-size: 0.75rem;
+            color: #ffccbc;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            margin-top: 3px;
+        }
+
+        .arrow-icon {
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* ওয়েলকাম ব্যানার */
         .welcome-banner {
             background: #e0f2f1;
             border-left: 5px solid #00796b;
             padding: 25px;
             margin-bottom: 40px;
             border-radius: 5px;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            flex-wrap: wrap;
         }
-
-        /* বাম পাশের স্টাইলিশ বাটন সেকশন */
-        .store-buttons-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            flex-shrink: 0;
-        }
-
-        .store-btn {
-            display: flex;
-            align-items: center;
-            width: 210px;
-            height: 65px;
-            background-color: #e65100; /* কমলা ব্যাকগ্রাউন্ড */
-            border-radius: 50px 0 0 50px; /* বৃত্তাকার বা কাটা ডিজাইন */
-            position: relative;
-            text-decoration: none;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            transition: transform 0.2s ease;
-            overflow: hidden;
-            border: 2px solid #fff;
-            border-right: none;
-        }
-
-        .store-btn:hover {
-            transform: scale(1.03);
-            background-color: #d84315;
-        }
-
-        /* বৃত্তাকার শেপ তৈরির জন্য এবং টেক্সট সাজাতে */
-        .store-btn-content {
-            padding-left: 15px;
-            color: #fff;
-            width: 100%;
-        }
-
-        .store-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            display: block;
-            line-height: 1.2;
-        }
-
-        .shopping-row {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.85rem;
-            color: #ffccbc;
-            margin-top: 2px;
-        }
-
-        .arrow-icon {
-            font-size: 1rem;
-            font-weight: bold;
-        }
-
-        /* ডান পাশের টেক্সট কন্টেন্ট */
-        .welcome-text {
-            flex: 1;
-            min-width: 280px;
-        }
-        .welcome-text h2 {
+        .welcome-banner h2 {
             color: #004d40;
             margin-bottom: 10px;
         }
@@ -202,27 +189,31 @@
             margin-top: 50px;
         }
 
-        /* রেসপন্সিভ ডিজাইন ছোট স্ক্রিনের জন্য */
-        @media(max-width: 768px) {
-            .welcome-banner {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            .store-buttons-container {
-                align-items: center;
-            }
-            .store-btn {
-                border-radius: 50px;
-                border: 2px solid #fff;
-            }
-            .store-btn-content {
-                padding-left: 20px;
+        /* মোবাইল স্ক্রিনের জন্য রেসপন্সিভ (মোবাইলে ফিড ঠিক রেখে নিচে বা উপরে সুন্দর দেখানোর জন্য) */
+        @media(max-width: 992px) {
+            .floating-stores {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                margin-bottom: 20px;
             }
         }
     </style>
 </head>
 <body>
+
+    <!-- বাম পাশের খালি জায়গায় গোল স্টোর বাটন দুটি -->
+    <div class="floating-stores">
+        <a href="#gias-store" class="store-circle-btn">
+            <span class="store-name">Gias Store</span>
+            <span class="shopping-text">Shopping <span class="arrow-icon">➔</span></span>
+        </a>
+
+        <a href="#mizan-store" class="store-circle-btn">
+            <span class="store-name">Mizan Store</span>
+            <span class="shopping-text">Shopping <span class="arrow-icon">➔</span></span>
+        </a>
+    </div>
 
     <header>
         <h1>বিপণন কেন্দ্র</h1>
@@ -236,39 +227,15 @@
     <div class="container">
         
         <div class="welcome-banner">
-            <div class="store-buttons-container">
-                <a href="#gias-store" class="store-btn">
-                    <div class="store-btn-content">
-                        <span class="store-title">Gias Store</span>
-                        <div class="shopping-row">
-                            <span>Shopping</span>
-                            <span class="arrow-icon">➔</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#mizan-store" class="store-btn">
-                    <div class="store-btn-content">
-                        <span class="store-title">Mizan Store</span>
-                        <div class="shopping-row">
-                            <span>Shopping</span>
-                            <span class="arrow-icon">➔</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="welcome-text">
-                <h2>DewDrop Joint Savings Fund-এর বিপণন কেন্দ্রে আপনাকে আন্তরিক অভিনন্দন!</h2>
-                <p>আমাদের এই প্ল্যাটফর্মের মূল লক্ষ্য হলো গুণগত মানে সেরা পণ্যগুলো সাশ্রয়ী মূল্যে আপনাদের দোরগোড়ায় পৌঁছে দেওয়া। আমাদের সাথে যুক্ত হয়ে আপনারা যেমন সঞ্চয় ও তহবিলের অংশীদার হচ্ছেন, তেমনি এখান থেকে আপনার প্রয়োজনীয় পণ্য অর্ডার করে আমাদের এই উদ্যোগকে আরও এগিয়ে নিতে পারেন। আপনাদের আস্থাই আমাদের সবচেয়ে বড় শক্তি। যেকোনো পণ্যের অর্ডার করতে নিচের WhatsApp বা Gmail অপশন ব্যবহার করুন।</p>
-            </div>
+            <h2>DewDrop Joint Savings Fund-এর বিপণন কেন্দ্রে আপনাকে আন্তরিক অভিনন্দন!</h2>
+            <p>আমাদের এই প্ল্যাটফর্মের মূল লক্ষ্য হলো গুণগত মানে সেরা পণ্যগুলো সাশ্রয়ী মূল্যে আপনাদের দোরগোড়ায় পৌঁছে দেওয়া। আমাদের সাথে যুক্ত হয়ে আপনারা যেমন সঞ্চয় ও তহবিলের অংশীদার হচ্ছেন, তেমনি এখান থেকে আপনার প্রয়োজনীয় পণ্য অর্ডার করে আমাদের এই উদ্যোগকে আরও এগিয়ে নিতে পারেন। আপনাদের আস্থাই আমাদের সবচেয়ে বড় শক্তি। যেকোনো পণ্যের অর্ডার করতে নিচের WhatsApp বা Gmail অপশন ব্যবহার করুন।</p>
         </div>
 
         <div class="products-section">
             <h2>আমাদের উপলব্ধ পণ্যসমূহ</h2>
             
             <div class="product-grid">
-                <div class="product-card">
+                <div class="product-card" id="gias-store">
                     <img src="placeholder-product1.jpg" alt="পণ্যের ছবি">
                     <h3>অর্গানিক খাঁটি মধু (১ কেজি)</h3>
                     <p>সুন্দরবনের প্রাকৃতিক ও ভেজালমুক্ত খাঁটি মধু।</p>
@@ -290,11 +257,11 @@
                     </div>
                 </div>
 
-                <div class="product-card">
+                <div class="product-card" id="mizan-store">
                     <img src="placeholder-product3.jpg" alt="পণ্যের ছবি">
                     <h3>সুগন্ধি চিনিগুড়া চাল (৫ কেজি)</h3>
                     <p>সেরা মানের ঐতিহ্যবাহী সুগন্ধি চাল।</p>
-                    <div class="price">মূল্য:১২৫০ টাকা</div>
+                    <div class="price">মূল্য: ৭৫০ টাকা</div>
                     <div class="order-btns">
                         <a href="https://wa.me/8801713443942?text=আমি%20'চিনিগুড়া%20চাল'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp অর্ডার</a>
                         <a href="mailto:gias@anlima.com?subject=Product Order: Chinigura Rice&body=আমি এই পণ্যটি অর্ডার করতে চাই: সুগন্ধি চিনিগুড়া চাল (৫ কেজি)। আমার নাম ও ঠিকানা:" class="btn-gmail">Gmail অর্ডার</a>
