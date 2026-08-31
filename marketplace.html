@@ -16,7 +16,7 @@
             color: #333;
             line-height: 1.6;
         }
-        /* হেডার স্টাইল (আপনার ইনডেক্স পেজের আদলে) */
+        /* হেডার স্টাইল */
         header {
             background: #004d40;
             color: #fff;
@@ -44,17 +44,87 @@
             margin: 30px auto;
             padding: 0 20px;
         }
+        
+        /* ফ্লেক্সিবল ব্যানার সেকশন */
         .welcome-banner {
             background: #e0f2f1;
             border-left: 5px solid #00796b;
             padding: 25px;
             margin-bottom: 40px;
             border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
-        .welcome-banner h2 {
+
+        /* বাম পাশের স্টাইলিশ বাটন সেকশন */
+        .store-buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+
+        .store-btn {
+            display: flex;
+            align-items: center;
+            width: 210px;
+            height: 65px;
+            background-color: #e65100; /* কমলা ব্যাকগ্রাউন্ড */
+            border-radius: 50px 0 0 50px; /* বৃত্তাকার বা কাটা ডিজাইন */
+            position: relative;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transition: transform 0.2s ease;
+            overflow: hidden;
+            border: 2px solid #fff;
+            border-right: none;
+        }
+
+        .store-btn:hover {
+            transform: scale(1.03);
+            background-color: #d84315;
+        }
+
+        /* বৃত্তাকার শেপ তৈরির জন্য এবং টেক্সট সাজাতে */
+        .store-btn-content {
+            padding-left: 15px;
+            color: #fff;
+            width: 100%;
+        }
+
+        .store-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: block;
+            line-height: 1.2;
+        }
+
+        .shopping-row {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            color: #ffccbc;
+            margin-top: 2px;
+        }
+
+        .arrow-icon {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        /* ডান পাশের টেক্সট কন্টেন্ট */
+        .welcome-text {
+            flex: 1;
+            min-width: 280px;
+        }
+        .welcome-text h2 {
             color: #004d40;
             margin-bottom: 10px;
         }
+
         .products-section h2 {
             text-align: center;
             margin-bottom: 30px;
@@ -131,6 +201,25 @@
             padding: 20px 0;
             margin-top: 50px;
         }
+
+        /* রেসপন্সিভ ডিজাইন ছোট স্ক্রিনের জন্য */
+        @media(max-width: 768px) {
+            .welcome-banner {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .store-buttons-container {
+                align-items: center;
+            }
+            .store-btn {
+                border-radius: 50px;
+                border: 2px solid #fff;
+            }
+            .store-btn-content {
+                padding-left: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -147,8 +236,32 @@
     <div class="container">
         
         <div class="welcome-banner">
-            <h2>DewDrop Joint Savings Fund-এর বিপণন কেন্দ্রে আপনাকে আন্তরিক অভিনন্দন!</h2>
-            <p>আমাদের এই প্ল্যাটফর্মের মূল লক্ষ্য হলো গুণগত মানে সেরা পণ্যগুলো সাশ্রয়ী মূল্যে আপনাদের দোরগোড়ায় পৌঁছে দেওয়া। আমাদের সাথে যুক্ত হয়ে আপনারা যেমন সঞ্চয় ও তহবিলের অংশীদার হচ্ছেন, তেমনি এখান থেকে আপনার প্রয়োজনীয় পণ্য অর্ডার করে আমাদের এই উদ্যোগকে আরও এগিয়ে নিতে পারেন। আপনাদের আস্থাই আমাদের সবচেয়ে বড় শক্তি। যেকোনো পণ্যের অর্ডার করতে নিচের WhatsApp বা Gmail অপশন ব্যবহার করুন।</p>
+            <div class="store-buttons-container">
+                <a href="#gias-store" class="store-btn">
+                    <div class="store-btn-content">
+                        <span class="store-title">Gias Store</span>
+                        <div class="shopping-row">
+                            <span>Shopping</span>
+                            <span class="arrow-icon">➔</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#mizan-store" class="store-btn">
+                    <div class="store-btn-content">
+                        <span class="store-title">Mizan Store</span>
+                        <div class="shopping-row">
+                            <span>Shopping</span>
+                            <span class="arrow-icon">➔</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="welcome-text">
+                <h2>DewDrop Joint Savings Fund-এর বিপণন কেন্দ্রে আপনাকে আন্তরিক অভিনন্দন!</h2>
+                <p>আমাদের এই প্ল্যাটফর্মের মূল লক্ষ্য হলো গুণগত মানে সেরা পণ্যগুলো সাশ্রয়ী মূল্যে আপনাদের দোরগোড়ায় পৌঁছে দেওয়া। আমাদের সাথে যুক্ত হয়ে আপনারা যেমন সঞ্চয় ও তহবিলের অংশীদার হচ্ছেন, তেমনি এখান থেকে আপনার প্রয়োজনীয় পণ্য অর্ডার করে আমাদের এই উদ্যোগকে আরও এগিয়ে নিতে পারেন। আপনাদের আস্থাই আমাদের সবচেয়ে বড় শক্তি। যেকোনো পণ্যের অর্ডার করতে নিচের WhatsApp বা Gmail অপশন ব্যবহার করুন।</p>
+            </div>
         </div>
 
         <div class="products-section">
@@ -162,7 +275,7 @@
                     <div class="price">মূল্য: ১,২০০ টাকা</div>
                     <div class="order-btns">
                         <a href="https://wa.me/8801977885122?text=আমি%20'অর্গানিক%20খাঁটি%20মধু'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp অর্ডার</a>
-                        <a href="mailto:your-tanjimtoru@gmail.com?subject=Product Order: Organic Honey&body=আমি এই পণ্যটি অর্ডার করতে চাই: অর্গানিক খাঁটি মধু (১ কেজি)। আমার নাম ও ঠিকানা:" class="btn-gmail">Gmail অর্ডার</a>
+                        <a href="mailto:tanjimtoru@gmail.com?subject=Product Order: Organic Honey&body=আমি এই পণ্যটি অর্ডার করতে চাই: অর্গানিক খাঁটি মধু (১ কেজি)। আমার নাম ও ঠিকানা:" class="btn-gmail">Gmail অর্ডার</a>
                     </div>
                 </div>
 
@@ -181,10 +294,10 @@
                     <img src="placeholder-product3.jpg" alt="পণ্যের ছবি">
                     <h3>সুগন্ধি চিনিগুড়া চাল (৫ কেজি)</h3>
                     <p>সেরা মানের ঐতিহ্যবাহী সুগন্ধি চাল।</p>
-                    <div class="price">মূল্য: ৭৫০ টাকা</div>
+                    <div class="price">মূল্য:১২৫০ টাকা</div>
                     <div class="order-btns">
                         <a href="https://wa.me/8801713443942?text=আমি%20'চিনিগুড়া%20চাল'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp অর্ডার</a>
-                        <a href="mailto:gias@anlima.com?subject=Product Order: Chinigura Rice&body=আমি এই পণ্যটি অর্ডার করতে চাই: সুগন্ধি চিনিগুড়া চাল (৫ কেজি)। আমার নাম ও ঠিকানা:" class="btn-gmail">Gmail` অর্ডার</a>
+                        <a href="mailto:gias@anlima.com?subject=Product Order: Chinigura Rice&body=আমি এই পণ্যটি অর্ডার করতে চাই: সুগন্ধি চিনিগুড়া চাল (৫ কেজি)। আমার নাম ও ঠিকানা:" class="btn-gmail">Gmail অর্ডার</a>
                     </div>
                 </div>
             </div>
