@@ -46,7 +46,6 @@
             padding: 0 20px;
         }
                            
-
         /* ওয়েলকাম ব্যানার */
         .welcome-banner {
             background: #e0f2f1;
@@ -60,9 +59,70 @@
             margin-bottom: 10px;
         }
 
-        /* মোবাইল স্টোর সেকশন (ডিফল্টভাবে ডেস্কটপে এটি লুকিয়ে থাকবে) */
-        .mobile-stores-section {
-            display: none;
+        /* ক্যাটাগরি লোগো সেকশন (ব্যানারের নিচে গোল বাটনগুলো) */
+        .store-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .category-item {
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .category-circle {
+            width: 100px;
+            height: 100px;
+            background-color: #e65100;
+            border: 3px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+
+        .category-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .category-circle:hover {
+            transform: scale(1.08);
+            background-color: #d84315;
+        }
+
+        .category-label {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #004d40;
+        }
+
+        /* কাঠের সাইনবোর্ডের মতো ক্যাটাগরি টাইটেল স্টাইল */
+        .wood-signboard {
+            background: linear-gradient(135deg, #8d5524, #653b15);
+            color: #fff;
+            padding: 12px 25px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 6px;
+            margin: 40px 0 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            border: 2px dashed #ffccbc;
+            display: inline-block;
+        }
+
+        .signboard-container {
+            text-align: left;
         }
 
         .products-section h2 {
@@ -74,6 +134,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
+            margin-bottom: 30px;
         }
         .product-card {
             background: #fff;
@@ -141,23 +202,10 @@
             padding: 20px 0;
             margin-top: 50px;
         }
-
-    
-            /* মোবাইলের জন্য অভিনন্দন লেখার নিচে শো করানোর সেকশনটি অন হবে */
-            .mobile-stores-section {
-                display: flex;
-                overflow-x: auto;
-                gap: 15px;
-                padding: 10px 5px 20px 5px;
-                margin-bottom: 30px;
-                justify-content: flex-start;
-            }
-        }
     </style>
 </head>
 <body>
 
-    
     <header>
         <h1>Gias Store</h1>
     </header>
@@ -172,13 +220,115 @@
         <div class="welcome-banner">
             <h2>DewDrop Joint Savings Fund-এর বিপণন কেন্দ্রে আপনাকে আন্তরিক অভিনন্দন!</h2>
             <p>আমাদের এই প্ল্যাটফর্মের মূল লক্ষ্য হলো গুণগত মানে সেরা পণ্যগুলো সাশ্রয়ী মূল্যে আপনাদের দোরগোড়ায় পৌঁছে দেওয়া। আমাদের সাথে যুক্ত হয়ে আপনারা যেমন সঞ্চয় ও তহবিলের অংশীদার হচ্ছেন, তেমনি এখান থেকে আপনার প্রয়োজনীয় পণ্য অর্ডার করে আমাদের এই উদ্যোগকে আরও এগিয়ে নিতে পারেন। আপনাদের আস্থাই আমাদের সবচেয়ে বড় শক্তি। যেকোনো পণ্যের অর্ডার করতে নিচের WhatsApp বা Gmail অপশন ব্যবহার করুন।</p>
-    
- <p> </p>
-<p> </p>
+        </div>
+
+        <div class="store-categories">
+            <a href="#homemade-section" class="category-item">
+                <div class="category-circle">
+                    <span style="color: #fff; font-weight: bold; font-size: 0.85rem;">Homemade</span>
+                </div>
+                <div class="category-label">Homemade Items</div>
+            </a>
+
+            <a href="#readymade-section" class="category-item">
+                <div class="category-circle">
+                    <span style="color: #fff; font-weight: bold; font-size: 0.85rem;">Garments</span>
+                </div>
+                <div class="category-label">Readymade Garments</div>
+            </a>
+
+            <a href="#appliance-section" class="category-item">
+                <div class="category-circle">
+                    <span style="color: #fff; font-weight: bold; font-size: 0.85rem;">Appliance</span>
+                </div>
+                <div class="category-label">Home Appliance</div>
+            </a>
+        </div>
+
         <div class="products-section">
-            <h2>আমাদের পণ্যসমূহ</h2>
             
-            
+            <div class="signboard-container" id="homemade-section">
+                <div class="wood-signboard">🏠 Homemade Items</div>
+            </div>
+
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="placeholder-cake.jpg" alt="Dark Chocolate Cake">
+                    <h3>Dark Chocolate Cake</h3>
+                    <p>Details: Rich and moist homemade dark chocolate cake.</p>
+                    <div class="price">Price: ৳ ৬৫০</div>
+                    <div class="order-btns">
+                        <a href="https://wa.me/8801977885122?text=Order:%20Dark%20Chocolate%20Cake" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                        <a href="mailto:tanjimtoru@gmail.com?subject=Order: Dark Chocolate Cake" class="btn-gmail">Gmail</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="placeholder-cake2.jpg" alt="Vanilla Cake">
+                    <h3>Vanilla Cake</h3>
+                    <p>Details: Soft and delicious vanilla flavored cake.</p>
+                    <div class="price">Price: ৳ ৫৫০</div>
+                    <div class="order-btns">
+                        <a href="https://wa.me/8801977885122?text=Order:%20Vanilla%20Cake" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                        <a href="mailto:tanjimtoru@gmail.com?subject=Order: Vanilla Cake" class="btn-gmail">Gmail</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="placeholder-fries.jpg" alt="French Fries">
+                    <h3>French Fries (Frozen/Ready)</h3>
+                    <p>Details: Crispy homemade style snacks.</p>
+                    <div class="price">Price: ৳ ২৫০</div>
+                    <div class="order-btns">
+                        <a href="https://wa.me/8801977885122?text=Order:%20French%20Fries" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                        <a href="mailto:tanjimtoru@gmail.com?subject=Order: French Fries" class="btn-gmail">Gmail</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="signboard-container" id="readymade-section">
+                <div class="wood-signboard">👕 Readymade Garments</div>
+            </div>
+
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="placeholder-tshirt.jpg" alt="T-Shirt">
+                    <h3>Stylish T-Shirt</h3>
+                    <p>Details: Comfortable 100% cotton casual t-shirt.</p>
+                    <div class="price">Price: ৳ ৩৫০</div>
+                    <div class="order-btns">
+                        <a href="https://wa.me/8801977885122?text=Order:%20T-Shirt" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                        <a href="mailto:tanjimtoru@gmail.com?subject=Order: T-Shirt" class="btn-gmail">Gmail</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="placeholder-pant.jpg" alt="Pant">
+                    <h3>Casual Pant</h3>
+                    <p>Details: Premium quality fabric comfortable pant.</p>
+                    <div class="price">Price: ৳ ৭৫০</div>
+                    <div class="order-btns">
+                        <a href="https://wa.me/8801977885122?text=Order:%20Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                        <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="placeholder-jeans.jpg" alt="Jeans">
+                    <h3>Denim Jeans</h3>
+                    <p>Details: Durable and stylish fashionable jeans.</p>
+                    <div class="price">Price: ৳ ১,১৫০</div>
+                    <div class="order-btns">
+                        <a href="https://wa.me/8801977885122?text=Order:%20Jeans" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                        <a href="mailto:tanjimtoru@gmail.com?subject=Order: Jeans" class="btn-gmail">Gmail</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
     <footer>
         <p>&copy; ২০২৬ কল্যাণ তহবিল ও বিপণন কেন্দ্র। সর্বস্বত্ব সংরক্ষিত।</p>
     </footer>
