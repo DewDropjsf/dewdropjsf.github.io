@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বিপণন কেন্দ্র - Marketplace</title>
+  <title>Gias Store - Marketplace</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'SolaimanLipi', Arial, sans-serif;
+        }
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        /* হেডার স্টাইল */
+        header {
+            background: #004d40;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            background: #00332c;
+            padding: 10px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #80cbc4;
+        }
+        /* মেইন কন্টেন্ট স্টাইল */
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        /* ডেস্কটপের জন্য ফিক্সড বা ভাসমান স্টোর বাটনগুলো (বামে থাকবে) */
+        .floating-stores {
+            position: fixed;
+            left: 20px;
+            top: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .store-circle-btn {
+            width: 145px;
+            height: 145px;
+            background-color: #e65100; /* কমলা রং */
+            border: 3px solid #ffffff;
+            border-radius: 50%; /* একদম গোল বৃত্ত */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            text-align: center;
+            padding: 5px;
+            flex-shrink: 0;
+        }
+
+        .store-circle-btn:hover {
+            transform: scale(1.08);
+            background-color: #d84315;
+        }
+
+        .store-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            line-height: 1.3;
+            margin-bottom: 2px;
+        }
+
+        .shopping-text {
+            font-size: 0.9rem;
+            color: #ffccbc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.1;
+        }
+
+        .arrow-icon {
+            font-size: 1.0rem;
+            font-weight: bold;
+            margin-top: 2px;
+        }
+
+        /* ওয়েলকাম ব্যানার */
+        .welcome-banner {
+            background: #e0f2f1;
+            border-left: 5px solid #00796b;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        .welcome-banner h2 {
+            color: #004d40;
+            margin-bottom: 10px;
+        }
+
+        /* মোবাইল স্টোর সেকশন (ডিফল্টভাবে ডেস্কটপে এটি লুকিয়ে থাকবে) */
+        .mobile-stores-section {
+            display: none;
+        }
+
+        .products-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            background: #eee;
+        }
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #222;
+        }
+        .product-card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        .price {
+            font-weight: bold;
+            color: #c0392b;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        .order-btns {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        .btn-gmail {
+            background: #ea4335;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        .btn-whatsapp:hover { background: #1ebe5d; }
+        .btn-gmail:hover { background: #d33426; }
+        
+        /* ফুটার স্টাইল */
+        footer {
+            background: #222;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+
+        /* মোবাইল স্ক্রিনের জন্য রেসপন্সিভ নিয়ম */
+        @media(max-width: 992px) {
+            /* ডেস্কটপের ফিক্সড বাটনগুলো মোবাইলে হাইড থাকবে */
+            .floating-stores {
+                display: none;
+            }
+            /* মোবাইলের জন্য অভিনন্দন লেখার নিচে শো করানোর সেকশনটি অন হবে */
+            .mobile-stores-section {
+                display: flex;
+                overflow-x: auto;
+                gap: 15px;
+                padding: 10px 5px 20px 5px;
+                margin-bottom: 30px;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-stores">
+        <a href="#gias-store" class="store-circle-btn">
+            <span class="store-name">Gias Store</span>
+            <span class="shopping-text">
+                Shopping Now
+                <span class="arrow-icon">➔</span>
+            </span>
+        </a>
+
+        <a href="#mizan-store" class="store-circle-btn">
+            <span class="store-name">Mizan Store</span>
+            <span class="shopping-text">
+                Shopping Now
+                <span class="arrow-icon">➔</span>
+            </span>
+        </a>
+
+         <a href="#faroq-store" class="store-circle-btn">
+            <span class="store-name">Faroq Store</span>
+            <span class="shopping-text">
+                Shopping Now
+                <span class="arrow-icon">➔</span>
+            </span>
+        </a>
+
+         <a href="#hasan-store" class="store-circle-btn">
+            <span class="store-name">Hasan Store</span>
+            <span class="shopping-text">
+                Shopping Now
+                <span class="arrow-icon">➔</span>
+            </span>
+        </a>
+    </div>
+
+    <header>
+        <h1>বিপণন কেন্দ্র</h1>
+    </header>
+    <nav>
+        <a href="index.html">হোম</a>
+        <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
+        <a href="marketplace.html">বিপণন কেন্দ্র</a>
+    </nav>
+
+    <div class="container">
+        
+        <div class="welcome-banner">
+            <h2>DewDrop Joint Savings Fund-এর বিপণন কেন্দ্রে আপনাকে আন্তরিক অভিনন্দন!</h2>
+            <p>আমাদের এই প্ল্যাটফর্মের মূল লক্ষ্য হলো গুণগত মানে সেরা পণ্যগুলো সাশ্রয়ী মূল্যে আপনাদের দোরগোড়ায় পৌঁছে দেওয়া। আমাদের সাথে যুক্ত হয়ে আপনারা যেমন সঞ্চয় ও তহবিলের অংশীদার হচ্ছেন, তেমনি এখান থেকে আপনার প্রয়োজনীয় পণ্য অর্ডার করে আমাদের এই উদ্যোগকে আরও এগিয়ে নিতে পারেন। আপনাদের আস্থাই আমাদের সবচেয়ে বড় শক্তি। যেকোনো পণ্যের অর্ডার করতে নিচের WhatsApp বা Gmail অপশন ব্যবহার করুন।</p>
+        </div>
+
+        <div class="mobile-stores-section">
+            <a href="#gias-store" class="store-circle-btn">
+                <span class="store-name">Gias Store</span>
+                <span class="shopping-text">
+                    Shopping Now
+                    <span class="arrow-icon">➔</span>
+                </span>
+            </a>
+
+            <a href="#mizan-store" class="store-circle-btn">
+                <span class="store-name">Mizan Store</span>
+                <span class="shopping-text">
+                    Shopping Now
+                    <span class="arrow-icon">➔</span>
+                </span>
+            </a>
+
+             <a href="#faroq-store" class="store-circle-btn">
+                <span class="store-name">Faroq Store</span>
+                <span class="shopping-text">
+                    Shopping Now
+                    <span class="arrow-icon">➔</span>
+                </span>
+            </a>
+
+             <a href="#hasan-store" class="store-circle-btn">
+                <span class="store-name">Hasan Store</span>
+                <span class="shopping-text">
+                    Shopping Now
+                    <span class="arrow-icon">➔</span>
+                </span>
+            </a>
+        </div>
+
+        <div class="products-section">
+            <h2>আমাদের উপলব্ধ পণ্যসমূহ</h2>
+            
+            <div class="product-grid">
+                <div class="product-card" id="gias-store">
+                    <img src="placeholder-product1.jpg" alt="পণ্যের ছবি">
+                    <h3>অর্গানিক খাঁটি মধু (১ কেজি)</h3>
+                    <p>সুন্দরবনের প্রাকৃতিক ও ভেজালমুক্ত খাঁটি মধু।</p>
+                    <div class="price">মূল্য: ১,২০০ টাকা</div>
+                    <div class="order-btns">
+                        <a href="https://wa.me/8801977885122?text=আমি%20'অর্গানিক%20খাঁটি%20মধু'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp অর্ডার</a>
+                        <a href="mailto:tanjimtoru@gmail.com?subject=Product Order: Organic Honey&body=আমি এই পণ্যটি অর্ডার করতে চাই: অর্গানিক খাঁটি মধু (১ কেজি)। আমার নাম ও ঠিকানা:" class="btn-gmail">Gmail অর্ডার</a>
+                    </div>
+                </div>
+
+                <div class="product-card" id="mizan-store">
+                    <img src="placeholder-product2.jpg" alt="পণ্যের ছবি">
+                    <h3>ঘানি ভাঙা সরিষার তেল (১ লিটার)</h3>
+                    <p>শতভাগ খাঁটি ও স্বাস্থ্যসম্মত দেশি সরিষার তেল।</p>
+                    <div class="price">মূল্য: ২২০ টাকা</div>
+                    <div class="order-btns">
+                        <a href="https://wa.me/8801684158543?text=আমি%20'সরিষার%20তেল'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp অর্ডার</a>
+                        <a href="mailto:mizan@anlima.com?subject=Product Order: Mustard Oil&body=আমি এই পণ্যটি অর্ডার করতে চাই: ঘানি ভাঙা সরিষার তেল (১ লিটার)। আমার নাম ও ঠিকানা:" class="btn-gmail">Gmail অর্ডার</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="placeholder-product3.jpg" alt="পণ্যের ছবি">
+                    <h3>সুগন্ধি চিনিগুড়া চাল (৫ কেজি)</h3>
+                    <p>সেরা মানের ঐতিহ্যবাহী সুগন্ধি চাল।</p>
+                    <div class="price">মূল্য: ১,২৫০ টাকা</div>
+                    <div class="order-btns">
+                        <a href="https://wa.me/8801713443942?text=আমি%20'চিনিগুড়া%20চাল'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp অর্ডার</a>
+                        <a href="mailto:gias@anlima.com?subject=Product Order: Chinigura Rice&body=আমি এই পণ্যটি অর্ডার করতে চাই: সুগন্ধি চিনিগুড়া চাল (৫ কেজি)। আমার নাম ও ঠিকানা:" class="btn-gmail">Gmail অর্ডার</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; ২০২৬ কল্যাণ তহবিল ও বিপণন কেন্দ্র। সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+</body>
+</html>
