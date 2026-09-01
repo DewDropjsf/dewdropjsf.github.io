@@ -59,12 +59,12 @@
             margin-bottom: 10px;
         }
 
-        /* ক্যাটাগরি লোগো সেকশন (ব্যানারের নিচে গোল বাটনগুলো) */
+        /* ক্যাটাগরি লোগো সেকশন (ব্যানারের নিচে গোল লোগোগুলো) */
         .store-categories {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 25px;
+            gap: 30px;
             margin-bottom: 40px;
         }
 
@@ -75,16 +75,16 @@
         }
 
         .category-circle {
-            width: 100px;
-            height: 100px;
-            background-color: #e65100;
-            border: 3px solid #fff;
+            width: 110px;
+            height: 110px;
+            background-color: #fff;
+            border: 4px solid #8d5524; /* কাঠের ফ্রেমের মতো বর্ডার */
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            transition: transform 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
             margin-bottom: 8px;
             overflow: hidden;
         }
@@ -97,27 +97,27 @@
 
         .category-circle:hover {
             transform: scale(1.08);
-            background-color: #d84315;
         }
 
         .category-label {
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: bold;
             color: #004d40;
         }
 
-        /* কাঠের সাইনবোর্ডের মতো ক্যাটাগরি টাইটেল স্টাইল */
+        /* নিখুঁত কাঠের সাইনবোর্ডের মতো ক্যাটাগরি টাইটেল স্টাইল */
         .wood-signboard {
-            background: linear-gradient(135deg, #8d5524, #653b15);
+            background: linear-gradient(135deg, #a0522d, #6b3410);
             color: #fff;
-            padding: 12px 25px;
-            font-size: 1.3rem;
+            padding: 15px 30px;
+            font-size: 1.4rem;
             font-weight: bold;
             text-align: center;
-            border-radius: 6px;
-            margin: 40px 0 20px 0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            border: 2px dashed #ffccbc;
+            border-radius: 8px;
+            margin: 40px 0 25px 0;
+            box-shadow: inset 0 2px 5px rgba(255,255,255,0.2), 0 5px 10px rgba(0,0,0,0.3);
+            border: 3px solid #3d1c02;
+            letter-spacing: 0.5px;
             display: inline-block;
         }
 
@@ -125,11 +125,6 @@
             text-align: left;
         }
 
-        .products-section h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -225,21 +220,21 @@
         <div class="store-categories">
             <a href="#homemade-section" class="category-item">
                 <div class="category-circle">
-                    <span style="color: #fff; font-weight: bold; font-size: 0.85rem;">Homemade</span>
+                    <img src="home.jpg" alt="Homemade Items">
                 </div>
                 <div class="category-label">Homemade Items</div>
             </a>
 
             <a href="#readymade-section" class="category-item">
                 <div class="category-circle">
-                    <span style="color: #fff; font-weight: bold; font-size: 0.85rem;">Garments</span>
+                    <img src="rmg.jpg" alt="Readymade Garments">
                 </div>
                 <div class="category-label">Readymade Garments</div>
             </a>
 
             <a href="#appliance-section" class="category-item">
                 <div class="category-circle">
-                    <span style="color: #fff; font-weight: bold; font-size: 0.85rem;">Appliance</span>
+                    <img src="homeapp.jpg" alt="Home Appliance">
                 </div>
                 <div class="category-label">Home Appliance</div>
             </a>
@@ -248,7 +243,7 @@
         <div class="products-section">
             
             <div class="signboard-container" id="homemade-section">
-                <div class="wood-signboard">🏠 Homemade Items</div>
+                <div class="wood-signboard">🪵 Homemade Items</div>
             </div>
 
             <div class="product-grid">
@@ -287,7 +282,7 @@
             </div>
 
             <div class="signboard-container" id="readymade-section">
-                <div class="wood-signboard">👕 Readymade Garments</div>
+                <div class="wood-signboard">🪵 Readymade Garments</div>
             </div>
 
             <div class="product-grid">
