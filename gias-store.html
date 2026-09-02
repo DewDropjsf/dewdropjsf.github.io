@@ -78,7 +78,7 @@
             width: 110px;
             height: 110px;
             background-color: #fff;
-            border: 4px solid #8d5524; /* কাঠের ফ্রেমের মতো বর্ডার */
+            border: 4px solid #8d5524;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -105,24 +105,18 @@
             color: #004d40;
         }
 
-        /* নিখুঁত কাঠের সাইনবোর্ডের মতো ক্যাটাগরি টাইটেল স্টাইল */
-        .wood-signboard {
-            background: linear-gradient(135deg, #a0522d, #6b3410);
-            color: #fff;
-            padding: 15px 30px;
-            font-size: 1.4rem;
-            font-weight: bold;
+        /* কাঠের সাইনবোর্ড ইমেজ স্টাইল (আপনার দেওয়া ছবির আদলে) */
+        .signboard-container {
             text-align: center;
-            border-radius: 8px;
             margin: 40px 0 25px 0;
-            box-shadow: inset 0 2px 5px rgba(255,255,255,0.2), 0 5px 10px rgba(0,0,0,0.3);
-            border: 3px solid #3d1c02;
-            letter-spacing: 0.5px;
-            display: inline-block;
         }
 
-        .signboard-container {
-            text-align: left;
+        .signboard-img {
+            max-width: 350px;
+            width: 100%;
+            height: auto;
+            display: inline-block;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
         }
 
         .product-grid {
@@ -243,7 +237,7 @@
         <div class="products-section">
             
             <div class="signboard-container" id="homemade-section">
-                <div class="wood-signboard">🪵 Homemade Items</div>
+                <img src="homemade.jpg" alt="Homemade Items Signboard" class="signboard-img">
             </div>
 
             <div class="product-grid">
@@ -282,7 +276,7 @@
             </div>
 
             <div class="signboard-container" id="readymade-section">
-                <div class="wood-signboard">🪵 Readymade Garments</div>
+                <img src="rmg.jpg" alt="Readymade Garments Signboard" class="signboard-img">
             </div>
 
             <div class="product-grid">
