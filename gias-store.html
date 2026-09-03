@@ -21,48 +21,48 @@
         header {
             background: #004d40;
             color: #fff;
-            padding: 15px 20px;
+            padding: 20px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
         }
         header h1 {
             font-size: 1.8rem;
         }
-        
-
-        /* কার্ট বাটন স্টাইল */
-        .cart-btn {
-            background: #ffb300;
-            color: #222;
+        /* হেডার কার্ট স্টাইল */
+        .header-cart {
+            background: #00332c;
+            color: #fff;
             padding: 8px 15px;
-            border-radius: 4px;
+            border-radius: 20px;
             text-decoration: none;
             font-weight: bold;
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.95rem;
+            border: 1px solid #80cbc4;
         }
-        .cart-btn:hover {
-            background: #ffa000;
-        }
-        .cart-count {
-            background: #d32f2f;
+        .header-cart span {
+            background: #c0392b;
             color: #fff;
+            padding: 2px 7px;
             border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 0.75rem;
+            font-size: 0.85rem;
         }
 
+        /* নেভবার স্টাইল ও সার্চ বক্স */
         nav {
             display: flex;
-            justify-content: right;
-            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
             background: #00332c;
             padding: 10px 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
         }
         nav a {
             color: #fff;
@@ -72,36 +72,34 @@
         nav a:hover {
             color: #80cbc4;
         }
-
-        /* সার্চ বার স্টাইল */
+        /* সার্চ বক্স স্টাইল */
         .search-box {
             display: flex;
             align-items: center;
             background: #fff;
             border-radius: 4px;
             overflow: hidden;
-            max-width: 350px;
-            width: 100%;
+            border: 1px solid #80cbc4;
         }
         .search-box input {
-            padding: 8px 12px;
+            padding: 6px 10px;
             border: none;
             outline: none;
-            width: 100%;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            width: 180px;
         }
         .search-box button {
-            background: #00796b;
-            color: #fff;
+            background: #004d40;
+            color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 6px 12px;
             cursor: pointer;
             font-weight: bold;
         }
         .search-box button:hover {
-            background: #004d40;
+            background: #00332c;
         }
-        
+
         /* মেইন কন্টেন্ট স্টাইল */
         .container {
             max-width: 1200px;
@@ -122,7 +120,7 @@
             margin-bottom: 10px;
         }
 
-        /* স্টোর ক্যাটাগরি লোগো বাটন */
+        /* স্টোর ক্যাটাগরি লোগো */
         .store-categories {
             display: flex;
             justify-content: center;
@@ -185,7 +183,7 @@
             flex: 0 0 280px;
             text-align: center;
             position: sticky;
-            top: 20px;
+            top: 130px; /* স্টিকি ক্যাটাগরির নিচের পজিশন বজায় রাখার জন্য */
         }
 
         .signboard-img {
@@ -276,12 +274,23 @@
         /* মোবাইলের জন্য রেসপন্সিভ ডিজাইন */
         @media (max-width: 768px) {
             header {
-                justify-content: center;
+                flex-direction: column;
+                gap: 12px;
                 text-align: center;
             }
             nav {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .nav-links {
                 justify-content: center;
-                flex-wrap: wrap;
+            }
+            .search-box {
+                width: 100%;
+            }
+            .search-box input {
+                width: 100%;
             }
             .category-section-layout {
                 flex-direction: column;
@@ -312,23 +321,21 @@
 
     <header>
         <h1>Gias Store</h1>
-        
-        <!-- সার্চ বার -->
-        <div class="search-box">
-            <input type="text" placeholder="পণ্য খুঁজুন...">
-            <button type="button">🔍</button>
-        </div>
-
-        <!-- কার্ট বাটন -->
-        <a href="cart.html" class="cart-btn">
-            🛒 কার্ট <span class="cart-count">০</span>
+        <a href="cart.html" class="header-cart">
+            🛒 Cart <span>০</span>
         </a>
     </header>
-
+    
     <nav>
-        <a href="index.html">হোম</a>
-        <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
-        <a href="rules.html">নিয়মাবলি</a>
+        <div class="nav-links">
+            <a href="index.html">হোম</a>
+            <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
+            <a href="rules.html">নিয়মাবলি</a>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="পণ্য খুঁজুন...">
+            <button type="submit">🔍</button>
+        </div>
     </nav>
 
     <div class="container">
@@ -363,7 +370,6 @@
 
         <div class="products-section">
             
-            <!-- Homemade Items Section -->
             <div class="category-section-layout" id="homemade-section">
                 <div class="signboard-sidebar">
                     <img src="signhomemade.jpg" alt="Homemade Items Signboard" class="signboard-img">
@@ -402,11 +408,50 @@
                                 <a href="mailto:tanjimtoru@gmail.com?subject=Order: French Fries" class="btn-gmail">Gmail</a>
                             </div>
                         </div>
+                         <div class="product-card">
+                            <img src="placeholder-cake2.jpg" alt="Vanilla Cake">
+                            <h3>Birthday Cake</h3>
+                            <p>Details: Soft and delicious vanilla flavored cake.</p>
+                            <div class="price">Price: ৳ ৫৫৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Vanilla%20Cake" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Vanilla Cake" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-fries.jpg" alt="French Fries">
+                            <h3>China Fries (Frozen/Ready)</h3>
+                            <p>Details: Crispy homemade style snacks.</p>
+                            <div class="price">Price: ৳ ২৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20French%20Fries" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: French Fries" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-fries.jpg" alt="French Fries">
+                            <h3>kashmir Fries (Frozen/Ready)</h3>
+                            <p>Details: Crispy homemade style snacks.</p>
+                            <div class="price">Price: ৳ ২৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20French%20Fries" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: French Fries" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-fries.jpg" alt="French Fries">
+                            <h3>Itana Fries (Frozen/Ready)</h3>
+                            <p>Details: Crispy homemade style snacks.</p>
+                            <div class="price">Price: ৳ ২৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20French%20Fries" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: French Fries" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Readymade Garments Section -->
             <div class="category-section-layout" id="readymade-section">
                 <div class="signboard-sidebar">
                     <img src="signrmg.jpg" alt="Readymade Garments Signboard" class="signboard-img">
@@ -434,11 +479,81 @@
                                 <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
                             </div>
                         </div>
+
+                        <div class="product-card">
+                            <img src="placeholder-jeans.jpg" alt="Jeans">
+                            <h3>Denim Jeans</h3>
+                            <p>Details: Durable and stylish fashionable jeans.</p>
+                            <div class="price">Price: ৳ ১,১৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Jeans" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Jeans" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-pant.jpg" alt="Pant">
+                            <h3>Casual Pant</h3>
+                            <p>Details: Premium quality fabric comfortable pant.</p>
+                            <div class="price">Price: ৳ ৭৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-pant.jpg" alt="Pant">
+                            <h3>Casual Pant</h3>
+                            <p>Details: Premium quality fabric comfortable pant.</p>
+                            <div class="price">Price: ৳ ৭৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-pant.jpg" alt="Pant">
+                            <h3>Casual Pant</h3>
+                            <p>Details: Premium quality fabric comfortable pant.</p>
+                            <div class="price">Price: ৳ ৭৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-pant.jpg" alt="Pant">
+                            <h3>Casual Pant</h3>
+                            <p>Details: Premium quality fabric comfortable pant.</p>
+                            <div class="price">Price: ৳ ৭৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-pant.jpg" alt="Pant">
+                            <h3>Casual Pant</h3>
+                            <p>Details: Premium quality fabric comfortable pant.</p>
+                            <div class="price">Price: ৳ ৭৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-pant.jpg" alt="Pant">
+                            <h3>Casual Shirt</h3>
+                            <p>Details: Premium quality fabric comfortable pant.</p>
+                            <div class="price">Price: ৳ ৭৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Home Appliance Section -->
             <div class="category-section-layout" id="appliance-section">
                 <div class="signboard-sidebar">
                     <img src="signhomeappl.jpg" alt="Home Appliance Signboard" class="signboard-img">
@@ -446,13 +561,95 @@
                 <div class="products-wrapper">
                     <div class="product-grid">
                         <div class="product-card">
-                            <img src="placeholder-tshirt.jpg" alt="Appliance">
-                            <h3>Home Appliance Item</h3>
-                            <p>Details: Quality home appliance for daily use.</p>
-                            <div class="price">Price: ৳ ১,৫০০</div>
+                            <img src="placeholder-tshirt.jpg" alt="T-Shirt">
+                            <h3>Stylish T-Shirt</h3>
+                            <p>Details: Comfortable 100% cotton casual t-shirt.</p>
+                            <div class="price">Price: ৳ ৩৫০</div>
                             <div class="order-btns">
-                                <a href="https://wa.me/8801977885122?text=Order:%20Appliance" class="btn-whatsapp" target="_blank">WhatsApp</a>
-                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Appliance" class="btn-gmail">Gmail</a>
+                                <a href="https://wa.me/8801977885122?text=Order:%20T-Shirt" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: T-Shirt" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <img src="placeholder-pant.jpg" alt="Pant">
+                            <h3>Casual Pant</h3>
+                            <p>Details: Premium quality fabric comfortable pant.</p>
+                            <div class="price">Price: ৳ ৭৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+
+                        <div class="product-card">
+                            <img src="placeholder-jeans.jpg" alt="Jeans">
+                            <h3>Denim Jeans</h3>
+                            <p>Details: Durable and stylish fashionable jeans.</p>
+                            <div class="price">Price: ৳ ১,১৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Jeans" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Jeans" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-pant.jpg" alt="Pant">
+                            <h3>Casual Pant</h3>
+                            <p>Details: Premium quality fabric comfortable pant.</p>
+                            <div class="price">Price: ৳ ৭৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-pant.jpg" alt="Pant">
+                            <h3>Casual Pant</h3>
+                            <p>Details: Premium qualityфици comfortable pant.</p>
+                            <div class="price">Price: ৳ ৭৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-pant.jpg" alt="Pant">
+                            <h3>Casual Pant</h3>
+                            <p>Details: Premium quality fabric comfortable pant.</p>
+                            <div class="price">Price: ৳ ৭৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-pant.jpg" alt="Pant">
+                            <h3>Casual Pant</h3>
+                            <p>Details: Premium quality fabric comfortable pant.</p>
+                            <div class="price">Price: ৳ ৭৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%25Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-pant.jpg" alt="Pant">
+                            <h3>Casual Pant</h3>
+                            <p>Details: Premium quality fabric comfortable pant.</p>
+                            <div class="price">Price: ৳ ৭৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="placeholder-pant.jpg" alt="Pant">
+                            <h3>Casual Shirt</h3>
+                            <p>Details: Premium quality fabric comfortable pant.</p>
+                            <div class="price">Price: ৳ ৭৫০</div>
+                            <div class="order-btns">
+                                <a href="https://wa.me/8801977885122?text=Order:%20Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
                             </div>
                         </div>
                     </div>
@@ -463,12 +660,13 @@
 
     </div>
 
-    <!-- ভাসমান Gias Store লোগো -->
+    <!-- ভাসমান Gias Store বৃত্তাকার লোগো -->
     <div id="floating-store-badge" style="position: fixed; top: 100px; left: 15px; width: 110px; height: 110px; background-color: #004d40; border: 3px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; visibility: hidden; transition: all 0.3s ease; cursor: pointer;" onclick="window.scrollTo({top: 0, behavior: 'smooth'});" title="উপরে যেতে ক্লিক করুন">
         <span style="color: #fff; font-size: 15px; font-weight: bold; text-align: center; line-height: 1.1;">Gias Store</span>
     </div>
 
     <script>
+        // স্ক্রোল করলে বৃত্তটি দৃশ্যমান বা অদৃশ্য করার স্ক্রিপ্ট
         window.addEventListener('scroll', function() {
             var badge = document.getElementById('floating-store-badge');
             if (window.scrollY > 250) {
