@@ -263,7 +263,7 @@
         </div>
 
         <div class="store-categories">
-            <a href="signhomemade.jpg" class="category-item">
+            <a href="#homemade-section" class="category-item">
                 <div class="category-circle">
                     <img src="homemadelogo.jpg" alt="Homemade Items">
                 </div>
@@ -576,10 +576,26 @@
         </div>
 
     </div>
+<div id="floating-store-badge" style="position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background-color: #004d40; border: 3px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 9999; opacity: 0; visibility: hidden; transition: all 0.3s ease; cursor: pointer;" onclick="window.scrollTo({top: 0, behavior: 'smooth'});" title="উপরে যেতে ক্লিক করুন">
+    <span style="color: #fff; font-size: 10px; font-weight: bold; text-align: center; line-height: 1.1;">Gias Store</span>
+</div>
 
+<script>
+    // স্ক্রোল করলে বৃত্তটি দৃশ্যমান বা অদৃশ্য করার স্ক্রিপ্ট
+    window.addEventListener('scroll', function() {
+        var badge = document.getElementById('floating-store-badge');
+        if (window.scrollY > 250) {
+            badge.style.opacity = '1';
+            badge.style.visibility = 'visible';
+        } else {
+            badge.style.opacity = '0';
+            badge.style.visibility = 'hidden';
+        }
+    });
+</script>
+    
     <footer>
         <p>&copy; ২০২৬ কল্যাণ তহবিল ও বিপণন কেন্দ্র। সর্বস্বত্ব সংরক্ষিত।</p>
     </footer>
-
 </body>
 </html>
