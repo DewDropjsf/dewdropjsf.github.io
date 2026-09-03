@@ -59,7 +59,7 @@
             margin-bottom: 10px;
         }
 
-        /* স্টোর ক্যাটাগরি লোগো বাটনগুলোকে উপরে বা পাশে ফিক্সড রাখার জন্য */
+        /* স্টোর ক্যাটাগরি লোগো বাটনগুলোকে উপরে বা পাশে ফিক্সড রাখার জন্য* স্ক্রোল করলে ভাসমান থাকবে */
 .store-categories {
     display: flex;
     justify-content: center;
@@ -67,10 +67,11 @@
     gap: 30px;
     margin-bottom: 40px;
     position: sticky;
-    top: 10px;
-    background: #f9f9f9;
-    padding: 10px 0;
-    z-index: 100;
+    top: 0px;  /* স্ক্রিন একদম উপরে গেলে আটকে থাকবে */
+    background-color: #f9f9f9; /* ব্যাকগ্রাউন্ড সলিড রাখা হলো যেন পিছনের লেখা না ভেসে ওঠে */
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* নিচে হালকা ছায়া */
 }
         .category-item {
             text-align: center;
