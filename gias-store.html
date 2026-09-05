@@ -17,22 +17,40 @@
             color: #333;
             line-height: 1.6;
         }
-        /* হেডার স্টাইল - Gias Store সেন্টারে এবং Cart ডানে */
+        /* হেডার স্টাইল - বামে লোগো ও ব্র্যান্ড নেম, সেন্টারে Gias Store, ডানে Cart */
         header {
             background: #004d40;
             color: #fff;
             padding: 15px 20px;
             display: grid;
-            grid-template-columns: 1fr auto 1fr;
+            grid-template-columns: auto 1fr auto;
             align-items: center;
+            gap: 15px;
+        }
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-brand img {
+            height: 45px;
+            width: auto;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #80cbc4;
+        }
+        .header-brand span {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            white-space: nowrap;
         }
         header h1 {
-            grid-column: 2;
             font-size: 1.8rem;
             text-align: center;
+            margin: 0;
         }
         .header-cart {
-            grid-column: 3;
             justify-self: end;
             background: #00332c;
             color: #fff;
@@ -44,6 +62,7 @@
             align-items: center;
             gap: 8px;
             border: 1px solid #80cbc4;
+            white-space: nowrap;
         }
         .header-cart span {
             background: #c0392b;
@@ -53,7 +72,7 @@
             font-size: 0.85rem;
         }
 
-        /* নেভবার স্টাইল ও সার্চ বক্স (নেভবার ও হেডারের ঠিক মাঝামাঝি পজিশন) */
+        /* নেভবার স্টাইল ও সার্চ বক্স */
         nav {
             display: flex;
             justify-content: space-between;
@@ -273,6 +292,16 @@
             padding: 20px 0;
             margin-top: 30px;
         }
+        .developer-footer {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .copyright-bar {
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 10px;
+            margin-top: 10px;
+        }
 
         /* মোবাইলের জন্য রেসপন্সিভ ডিজাইন */
         @media (max-width: 768px) {
@@ -280,12 +309,16 @@
                 grid-template-columns: 1fr;
                 gap: 10px;
                 text-align: center;
+                justify-items: center;
+            }
+            .header-brand {
+                flex-direction: column;
+                gap: 5px;
             }
             header h1 {
-                grid-column: 1;
+                font-size: 1.5rem;
             }
             .header-cart {
-                grid-column: 1;
                 justify-self: center;
             }
             nav {
@@ -321,6 +354,10 @@
 <body>
 
     <header>
+        <div class="header-brand">
+            <img src="gldlogo.png" alt="Logo">
+            <span>DewDrop Shopping Mart</span>
+        </div>
         <h1>Gias Store</h1>
         <a href="cart.html" class="header-cart">
             🛒 Cart <span>০</span>
