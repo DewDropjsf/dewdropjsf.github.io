@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অ্যাডমিন প্যানেল - অর্ডার ম্যানেজমেন্ট</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'SolaimanLipi', Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: #1a237e;
+            color: #fff;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            font-size: 1.5rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .admin-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        h2 {
+            color: #1a237e;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 0.95rem;
+        }
+        th {
+            background-color: #1a237e;
+            color: white;
+        }
+        select {
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .status-success { color: #2e7d32; }
+        .status-pending { color: #e65100; }
+        .status-cancelled { color: #c62828; }
+        .empty-msg {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #1a237e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>DewDrop - অ্যাডমিন ম্যানেজমেন্ট প্যানেল</h1>
+        <div>
+            <a href="marketplace.html" style="color: #ffeb3b; text-decoration: none; font-weight: bold;">🏠 শপিং মার্কেট পেজে যান</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <a href="marketplace.html" class="back-link">← মার্কেটে ফিরে যান</a>
+        
+        <div class="admin-card">
+            <h2>সকল গ্রাহকের অর্ডারের তালিকা</h2>
+            <div id="adminOrderTableContainer">
+                <!-- ডাইনামিক টেবিল এখানে লোড হবে -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAdminOrders();
+        });
+
+        function loadAdminOrders() {
+            let orders = JSON.parse(localStorage.getItem('dewDropOrders')) || [];
+            let container = document.getElementById('adminOrderTableContainer');
+
+            if (orders.length === 0) {
+                container.innerHTML = `<div class="empty-msg">বর্তমানে কোনো অর্ডারের রেকর্ড নেই।</div>`;
+                return;
+            }
+
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ক্রয় তারিখ ও সময়</th>
+                            <th>পণ্যের বিবরণ</th>
+                            <th>মোট টাকা</th>
+                            <th>বর্তমান স্ট্যাটাস</th>
+                            <th>স্ট্যাটাস পরিবর্তন করুন</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            orders.forEach((ord, index) => {
+                let statusClass = "status-pending";
+                if (ord.status === "সফল") statusClass = "status-success";
+                else if (ord.status === "বাতিল") statusClass = "status-cancelled";
+
+                html += `
+                    <tr>
+                        <td>${ord.date}</td>
+                        <td style="text-align: left; padding-left: 15px;">${ord.itemsList}</td>
+                        <td><strong>${ord.totalAmount}৳</strong></td>
+                        <td><span class="${statusClass}" style="font-weight:bold;">${ord.status}</span></td>
+                        <td>
+                            <select onchange="changeOrderStatus(${index}, this.value)">
+                                <option value="অপেক্ষমান" ${ord.status === 'অপেক্ষমান' ? 'selected' : ''}>অপেক্ষমান (Pending)</option>
+                                <option value="সফল" ${ord.status === 'সফল' ? 'selected' : ''}>সফল (Success)</option>
+                                <option value="বাতিল" ${ord.status === 'বাতিল' ? 'selected' : ''}>বাতিল (Cancelled)</option>
+                            </select>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        function changeOrderStatus(index, newStatus) {
+            let orders = JSON.parse(localStorage.getItem('dewDropOrders')) || [];
+            if (orders[index]) {
+                orders[index].status = newStatus;
+                localStorage.setItem('dewDropOrders', JSON.stringify(orders));
+                loadAdminOrders(); // টেবিল সাথে সাথে আপডেট করার জন্য রিলোড হবে
+                alert('অর্ডারের স্ট্যাটাস সফলভাবে আপডেট করা হয়েছে!');
+            }
+        }
+    </script>
+</body>
+</html>
