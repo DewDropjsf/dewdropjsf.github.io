@@ -55,13 +55,13 @@
         }
 
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 16px;
         }
         .form-group label {
             display: block;
             font-weight: bold;
             color: #34495e;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
             font-size: 0.95rem;
         }
         .form-group input, .form-group textarea {
@@ -79,7 +79,7 @@
         }
         .form-group textarea {
             resize: vertical;
-            height: 80px;
+            height: 70px;
         }
 
         .btn-submit {
@@ -113,7 +113,6 @@
             text-decoration: underline;
         }
 
-        /* সফল মেসেজ স্টাইল */
         #success-msg {
             display: none;
             background: #d4edda;
@@ -132,32 +131,42 @@
         <div class="signup-header">
             <img src="gldlogo.png" alt="Logo">
             <h2>শপিং অ্যাকাউন্ট সাইন-আপ</h2>
-            <p>আপনার মোবাইল নম্বর বা জিমেইল দিয়ে দ্রুত প্রোফাইল তৈরি করুন</p>
+            <p>আপনার তথ্য দিয়ে দ্রুত শপিং প্রোফাইল তৈরি করুন</p>
         </div>
 
         <div id="success-msg">সফলভাবে আপনার অ্যাকাউন্ট তৈরি হয়েছে! হোম পেজে নিয়ে যাওয়া হচ্ছে...</div>
 
         <form id="shopperSignupForm" onsubmit="handleShopperSignup(event)">
             <div class="form-group">
-                <label for="shopperName">পূর্ণ নাম:</label>
-                <input type="text" id="shopperName" placeholder="আপনার নাম লিখুন" required>
+                <label for="shopperName">১. পূর্ণ নাম:</label>
+                <input type="text" id="shopperName" placeholder="আপনার পূর্ণ নাম লিখুন" required>
             </div>
 
             <div class="form-group">
-                <label for="shopperContact">মোবাইল নম্বর বা জিমেইল আইডি:</label>
-                <input type="text" id="shopperContact" placeholder="যেমন: 017xxxxxxxx বা email@gmail.com" required>
+                <label for="shopperPhone">২. মোবাইল নম্বর:</label>
+                <input type="tel" id="shopperPhone" placeholder="যেমন: 017xxxxxxxx" required>
             </div>
 
             <div class="form-group">
-                <label for="shopperAddress">ডেলিভারির পূর্ণ ঠিকানা:</label>
-                <textarea id="shopperAddress, area" id="shopperAddress" placeholder="বাসা/হোল্ডিং, রোড, এলাকা, থানা ও জেলা" required></textarea>
+                <label for="shopperEmail">৩. জিমেইল আইডি:</label>
+                <input type="email" id="shopperEmail" placeholder="example@gmail.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="shopperPassword">৪. পাসওয়ার্ড সেট করুন:</label>
+                <input type="password" id="shopperPassword" placeholder="একটি গোপন পাসওয়ার্ড দিন" required>
+            </div>
+
+            <div class="form-group">
+                <label for="shopperAddress">৫. ডেলিভারির পূর্ণ ঠিকানা:</label>
+                <textarea id="shopperAddress" placeholder="বাসা/হোল্ডিং, রোড, এলাকা, থানা ও জেলা" required></textarea>
             </div>
 
             <button type="submit" class="btn-submit">অ্যাকাউন্ট তৈরি করুন</button>
         </form>
 
         <div class="back-home">
-            <a href="index.html">← মূল হোম পেজে ফিরে যান</a>
+            <a href="marketplace.html">← শপিং মার্টে ফিরে যান</a>
         </div>
     </div>
 
@@ -166,26 +175,31 @@
             event.preventDefault();
 
             const name = document.getElementById('shopperName').value;
-            const contact = document.getElementById('shopperContact').value;
+            const phone = document.getElementById('shopperPhone').value;
+            const email = document.getElementById('shopperEmail').value;
+            const password = document.getElementById('shopperPassword').value;
             const address = document.getElementById('shopperAddress').value;
 
-            // ব্রাউজারের LocalStorage-এ শপার প্রোফাইল সেভ করে রাখা
+            // শপার প্রোফাইল অবজেক্ট
             const shopperData = {
                 name: name,
-                contact: contact,
+                phone: phone,
+                email: email,
+                password: password,
                 address: address,
                 type: 'General Shopper'
             };
 
+            // ব্রাউজারের LocalStorage-এ সেভ করা
             localStorage.setItem('giasStoreUser', JSON.stringify(shopperData));
 
             // সফল মেসেজ দেখানো
             document.getElementById('success-msg').style.display = 'block';
             document.getElementById('shopperSignupForm').style.display = 'none';
 
-            // ২ সেকেন্ড পর হোম পেজে রিডাইরেক্ট করা
+            // ২ সেকেন্ড পর শপিং মার্টে রিডাইরেক্ট করা
             setTimeout(function() {
-                window.location.href = 'index.html';
+                window.location.href = 'marketplace.html';
             }, 2000);
         }
     </script>
