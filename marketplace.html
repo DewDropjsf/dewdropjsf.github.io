@@ -58,7 +58,7 @@
             font-size: 0.95rem;
             color: #ffeb3b;
             border: 1px solid #00796b;
-            display: none; /* ডিফল্টভাবে লুকিয়ে থাকবে, লগইন হলে দেখাবে */
+            display: none;
         }
         .header-right .cart-btn {
             background: #d84315;
@@ -260,13 +260,51 @@
         .product-card p {
             color: #666;
             font-size: 0.95rem;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         .price {
             font-weight: bold;
             color: #c0392b;
             font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        /* কোয়ান্টিটি কন্ট্রোল বক্স (আপনার দেওয়া ছবির ডিজাইন অনুযায়ী) */
+        .quantity-control-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 4px 10px;
             margin-bottom: 15px;
+            background: #fff;
+            width: 140px;
+        }
+        .quantity-display {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            min-width: 30px;
+            text-align: center;
+        }
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            background-color: #e0e0e0;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .qty-btn:hover {
+            background-color: #bdbdbd;
         }
         
         .order-btns {
@@ -328,7 +366,7 @@
         .btn-whatsapp:hover { background: #1ebe5d; }
         .btn-gmail:hover { background: #d33426; }
         
-        /* মেম্বার লগইন মডাল (Popup) স্টাইল */
+        /* মেম্বার লগইন মডাল স্টাইল */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -437,7 +475,6 @@
             <h1>শপিং মার্ট</h1>
         </div>
         <div class="header-right">
-            <!-- কার্টের পাশে মেম্বারের নাম ভাসবে -->
             <span id="loggedUserName" class="logged-user-name"></span>
             <a href="cart.html" class="cart-btn">
                 🛒 কার্ট <span id="cartCount">0</span>
@@ -452,7 +489,6 @@
             <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
             <a href="rules.html">নিয়মাবলি</a>
             <a href="shoppingsignup.html" style="color: #ffeb3b;">শপিং সাইন-আপ</a>
-            <!-- ডাইনামিক লগইন/লগআউট বাটন -->
             <button id="memberAuthBtn" class="btn-member-login" onclick="handleAuthButtonClick()">🔐 মেম্বার লগইন</button>
         </div>
         <div class="search-box">
@@ -508,11 +544,19 @@
                     <img src="placeholder-product1.jpg" alt="পণ্যের ছবি">
                     <h3>অর্গানিক খাঁটি মধু (১ কেজি)</h3>
                     <p>সুন্দরবনের প্রাকৃতিক ও ভেজালমুক্ত খাঁটি মধু।</p>
-                    <div class="price">মূল্য: ১,২০০ টাকা</div>
+                    <div class="price">মূল্য: <span id="price-1">1200</span> টাকা</div>
+                    
+                    <!-- মূল্যের নিচে কোয়ান্টিটি কন্ট্রোল বাটন -->
+                    <div class="quantity-control-box">
+                        <span class="quantity-display" id="qty-1">1</span>
+                        <button class="qty-btn" onclick="changeQuantity(1, -1, 1200)">-</button>
+                        <button class="qty-btn" onclick="changeQuantity(1, 1, 1200)">+</button>
+                    </div>
+
                     <div class="order-btns">
                         <div class="btn-row">
-                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'অর্গানিক খাঁটি মধু (১ কেজি)', 1200)">Buy Now</button>
-                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'অর্গানিক খাঁটি মধু (১ কেজি)', 1200)">Add To Cart</button>
+                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'অর্গানিক খাঁটি মধু (১ কেজি)', 1200, 1)">Buy Now</button>
+                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'অর্গানিক খাঁটি মধু (১ কেজি)', 1200, 1)">Add To Cart</button>
                         </div>
                         <div class="btn-row">
                             <a href="https://wa.me/8801977885122?text=আমি%20'অর্গানিক%20খাঁটি%20মধু'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp</a>
@@ -526,11 +570,19 @@
                     <img src="placeholder-product2.jpg" alt="পণ্যের ছবি">
                     <h3>ঘানি ভাঙা সরিষার তেল (১ লিটার)</h3>
                     <p>শতভাগ খাঁটি ও স্বাস্থ্যসম্মত দেশি সরিষার তেল।</p>
-                    <div class="price">মূল্য: ২২০ টাকা</div>
+                    <div class="price">মূল্য: <span id="price-2">220</span> টাকা</div>
+                    
+                    <!-- মূল্যের নিচে কোয়ান্টিটি কন্ট্রোল বাটন -->
+                    <div class="quantity-control-box">
+                        <span class="quantity-display" id="qty-2">1</span>
+                        <button class="qty-btn" onclick="changeQuantity(2, -1, 220)">-</button>
+                        <button class="qty-btn" onclick="changeQuantity(2, 1, 220)">+</button>
+                    </div>
+
                     <div class="order-btns">
                         <div class="btn-row">
-                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'ঘানি ভাঙা সরিষার তেল (১ লিটার)', 220)">Buy Now</button>
-                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'ঘানি ভাঙা সরিষার তেল (১ লিটার)', 220)">Add To Cart</button>
+                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'ঘানি ভাঙা সরিষার তেল (১ লিটার)', 220, 2)">Buy Now</button>
+                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'ঘানি ভাঙা সরিষার তেল (১ লিটার)', 220, 2)">Add To Cart</button>
                         </div>
                         <div class="btn-row">
                             <a href="https://wa.me/8801684158543?text=আমি%20'সরিষার%20তেল'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp</a>
@@ -544,11 +596,19 @@
                     <img src="placeholder-product3.jpg" alt="পণ্যের ছবি">
                     <h3>সুগন্ধি চিনিগুড়া চাল (৫ কেজি)</h3>
                     <p>সেরা মানের ঐতিহ্যবাহী সুগন্ধি চাল।</p>
-                    <div class="price">মূল্য: ১,২৫০ টাকা</div>
+                    <div class="price">মূল্য: <span id="price-3">1250</span> টাকা</div>
+                    
+                    <!-- মূল্যের নিচে কোয়ান্টিটি কন্ট্রোল বাটন -->
+                    <div class="quantity-control-box">
+                        <span class="quantity-display" id="qty-3">1</span>
+                        <button class="qty-btn" onclick="changeQuantity(3, -1, 1250)">-</button>
+                        <button class="qty-btn" onclick="changeQuantity(3, 1, 1250)">+</button>
+                    </div>
+
                     <div class="order-btns">
                         <div class="btn-row">
-                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'সুগন্ধি চিনিগুড়া চাল (৫ কেজি)', 1250)">Buy Now</button>
-                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'সুগন্ধি চিনিগুড়া চাল (৫ কেজি)', 1250)">Add To Cart</button>
+                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'সুগন্ধি চিনিগুড়া চাল (৫ কেজি)', 1250, 3)">Buy Now</button>
+                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'সুগন্ধি চিনিগুড়া চাল (৫ কেজি)', 1250, 3)">Add To Cart</button>
                         </div>
                         <div class="btn-row">
                             <a href="https://wa.me/8801713443942?text=আমি%20'চিনিগুড়া%20চাল'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp</a>
@@ -577,8 +637,24 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             updateCartCount();
-            checkLoginStatus(); // পেজ লোড হওয়ার সাথেই লগইন স্টেট চেক করবে
+            checkLoginStatus();
         });
+
+        // পণ্যের পরিমাণ কমানো বা বাড়ানোর ফাংশন
+        function changeQuantity(productId, change, basePrice) {
+            let qtySpan = document.getElementById('qty-' + productId);
+            let priceSpan = document.getElementById('price-' + productId);
+            
+            let currentQty = parseInt(qtySpan.innerText);
+            let newQty = currentQty + change;
+
+            if (newQty < 1) {
+                newQty = 1; // সর্বনিম্ন পরিমাণ ১ থাকবে
+            }
+
+            qtySpan.innerText = newQty;
+            priceSpan.innerText = basePrice * newQty; // মোট দাম আপডেট হবে
+        }
 
         // লগইন স্ট্যাটাস চেক করে হেডার ও বাটন আপডেট করা
         function checkLoginStatus() {
@@ -589,11 +665,9 @@
             if (memberData) {
                 try {
                     let memberObj = JSON.parse(memberData);
-                    // বাটন রূপান্তর করব 'লগ আউট করুন'-এ
                     authBtn.innerText = "🚪 লগ আউট করুন";
                     authBtn.className = "btn-member-login btn-member-logout";
 
-                    // কার্টের পাশে নাম ভেসে উঠবে
                     nameSpan.innerText = "👤 " + memberObj.name;
                     nameSpan.style.display = "inline-block";
                 } catch(e) {}
@@ -604,7 +678,6 @@
             }
         }
 
-        // বাটন ক্লিক হ্যান্ডলার (লগইন থাকলে লগআউট করবে, না থাকলে পপ-আপ আনবে)
         function handleAuthButtonClick() {
             const memberData = localStorage.getItem('dewDropMember');
             if (memberData) {
@@ -618,7 +691,6 @@
             }
         }
 
-        // মেম্বার লগইন পপ-আপ খোলা ও বন্ধ করা
         function openMemberLoginModal() {
             document.getElementById('memberLoginModal').style.display = 'flex';
         }
@@ -626,7 +698,6 @@
             document.getElementById('memberLoginModal').style.display = 'none';
         }
 
-        // মেম্বার আইডি ভেরিফিকেশন লজিক
         function verifyMemberLogin() {
             let memberId = document.getElementById('modalMemberId').value.trim();
             let memberPhone = document.getElementById('modalMemberPhone').value.trim();
@@ -636,7 +707,6 @@
                 return;
             }
 
-            // মেম্বার ডাটা লোকালস্টোরেজে সেভ করা
             let memberObj = {
                 memberId: memberId,
                 name: "আইডি: " + memberId,
@@ -647,11 +717,11 @@
             localStorage.setItem('dewDropMember', JSON.stringify(memberObj));
             alert('অভিনন্দন! আপনার মেম্বার আইডি সফলভাবে ভেরিফাই হয়েছে।');
             closeMemberLoginModal();
-            checkLoginStatus(); // স্টেট আপডেট করে নাম ও লগআউট বাটন শো করা
+            checkLoginStatus();
         }
 
-        // মূল ভেরিফিকেশন এবং বাই/কার্ট লজিক
-        function handleShoppingAction(actionType, productName, productPrice) {
+        // মূল ভেরিফিকেশন এবং বাই/কার্ট লজিক (নির্ধারিত কোয়ান্টিটি সহ)
+        function handleShoppingAction(actionType, productName, basePrice, productId) {
             const memberData = localStorage.getItem('dewDropMember'); 
             const shopperData = localStorage.getItem('giasStoreUser'); 
 
@@ -661,15 +731,21 @@
                 return;
             }
 
+            // স্ক্রিন থেকে বর্তমান সিলেক্ট করা কোয়ান্টিটি নিয়ে নেওয়া
+            let quantity = parseInt(document.getElementById('qty-' + productId).innerText);
+            let totalPrice = basePrice * quantity;
+
             let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
             let existingItem = cart.find(item => item.name === productName);
+            
             if (existingItem) {
-                existingItem.quantity += 1;
+                existingItem.quantity += quantity;
+                existingItem.price = basePrice * existingItem.quantity;
             } else {
                 cart.push({
                     name: productName,
-                    price: productPrice,
-                    quantity: 1
+                    price: totalPrice,
+                    quantity: quantity
                 });
             }
 
@@ -679,11 +755,10 @@
             if (actionType === 'buy') {
                 window.location.href = 'cart.html';
             } else {
-                alert('"' + productName + '" সফলভাবে কার্টে যোগ করা হয়েছে!');
+                alert('"' + productName + ' (' + quantity + 'টি)" সফলভাবে কার্টে যোগ করা হয়েছে!');
             }
         }
 
-        // কার্ট কাউন্ট আপডেট ফাংশন
         function updateCartCount() {
             let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
             let totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -693,7 +768,6 @@
             }
         }
 
-        // সার্চ বার ফিল্টার ফাংশন
         function searchProducts() {
             let input = document.getElementById('searchInput').value.toLowerCase();
             let cards = document.getElementsByClassName('product-card');
