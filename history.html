@@ -150,7 +150,7 @@
     </footer>
 
     <script>
-        // আপনার ফায়ারবেজ কনফিগারেশন এখানে বসান
+        // আপনার ফায়ারবেজ কনফিগারেশন
         const firebaseConfig = {
             apiKey: "YOUR_API_KEY",
             authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
@@ -172,9 +172,9 @@
         });
 
         function loadFirebaseOrderHistory() {
-            const memberData = localStorage.getItem('dewDropMember');
             const historyContainer = document.getElementById('historyContainer');
             const memberBox = document.getElementById('memberDetailsBox');
+            const memberData = localStorage.getItem('dewDropMember');
 
             if (!memberData) {
                 historyContainer.innerHTML = `
@@ -188,22 +188,30 @@
 
             try {
                 let memberObj = JSON.parse(memberData);
-                document.getElementById('dispMemberId').innerText = memberObj.memberId;
-                document.getElementById('dispMemberName').innerText = memberObj.name;
+                // মেম্বার আইডি ও নাম বিভিন্ন প্রপার্টি নামে থাকতে পারে, তাই সবদিক নিরাপদ রাখা হলো
+                let memberId = memberObj.memberId || memberObj.id || memberObj.phone;
+                let memberName = memberObj.name || memberObj.memberName || "মেম্বার";
+
+                if (!memberId) {
+                    historyContainer.innerHTML = `<div class="no-history">মেম্বার আইডি পাওয়া যায়নি। দয়া করে আবার লগইন করুন।</div>`;
+                    return;
+                }
+
+                document.getElementById('dispMemberId').innerText = memberId;
+                document.getElementById('dispMemberName').innerText = memberName;
                 memberBox.style.display = 'block';
 
-                // ফায়ারবেজ থেকে নির্দিষ্ট মেম্বারের আইডি অনুযায়ী অর্ডার ফেচ করা
-                // ফায়ারবেজে ডাটা সংরক্ষিত থাকবে এভাবে: orders -> memberId -> orderList
-                let sanitizedId = memberObj.memberId.replace(/[.#$\/\[\]]/g, "_"); // ফায়ারবেজের কী (key) নিরাপদ রাখতে
+                let sanitizedId = memberId.toString().replace(/[.#$\/\[\]]/g, "_");
                 let ordersRef = database.ref('orders/' + sanitizedId);
 
+                // রিয়েল-টাইম ডেটা শো করার জন্য .on() ব্যবহার করা হলো
                 ordersRef.on('value', (snapshot) => {
                     const data = snapshot.val();
                     
                     if (!data) {
                         historyContainer.innerHTML = `
                             <div class="no-history">
-                                <p>আপনার ফায়ারবেজে এখনো কোনো সফল কেনাকাটার ইতিহাস নেই।</p>
+                                <p>আপনার ফায়ারবেজে এখনো কোনো কেনাকাটার ইতিহাস নেই।</p>
                             </div>
                         `;
                         return;
@@ -222,13 +230,12 @@
                             <tbody>
                     `;
 
-                    // অবজেক্ট বা অ্যারে ডাটা লুপ করা
                     Object.values(data).forEach(order => {
                         html += `
                             <tr>
-                                <td>${order.productName}</td>
-                                <td>${order.quantity} টি</td>
-                                <td>${order.totalPrice} টাকা</td>
+                                <td>${order.productName || order.title || 'পণ্য'}</td>
+                                <td>${order.quantity || 1} টি</td>
+                                <td>${order.totalPrice || order.price || 0} টাকা</td>
                                 <td>${order.date || 'প্রযোজ্য নয়'}</td>
                             </tr>
                         `;
@@ -236,11 +243,14 @@
 
                     html += `</tbody></table>`;
                     historyContainer.innerHTML = html;
+
                 }, (error) => {
+                    console.error("Firebase Error:", error);
                     historyContainer.innerHTML = `<div class="no-history">ডাটা লোড করতে ত্রুটি হয়েছে: ${error.message}</div>`;
                 });
 
             } catch (e) {
+                console.error("Parse Error:", e);
                 historyContainer.innerHTML = `<div class="no-history">ইউজার ডেটা প্রসেস করতে সমস্যা হয়েছে।</div>`;
             }
         }
