@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>শপিং মার্ট - Marketplace</title>
+    <title>DewDrop Joint Savings Fund - শপিং মার্ট</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,780 +12,276 @@
             font-family: 'SolaimanLipi', Arial, sans-serif;
         }
         body {
-            background-color: #f9f9f9;
+            background-color: #f8f9fa;
             color: #333;
-            line-height: 1.6;
         }
-
-        /* হেডার স্টাইল */
         header {
-            background: #004d40;
+            background: #1a237e;
             color: #fff;
-            padding: 15px 30px;
+            padding: 20px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        header h1 {
+            font-size: 1.5rem;
         }
-        .header-left img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #fff;
-        }
-        .header-left span {
-            font-size: 1.25rem;
-            font-weight: bold;
-        }
-        .header-center h1 {
-            font-size: 1.6rem;
-            font-weight: bold;
-        }
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .logged-user-name {
-            background: #00332c;
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 0.95rem;
-            color: #ffeb3b;
-            border: 1px solid #00796b;
-            display: none;
-        }
-        
-        /* কেনাকাটা বিবরণ বাটন (আইডি ও কার্টের মাঝে) */
-        .history-btn {
-            background: #00796b;
-            color: white;
-            padding: 8px 14px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.95rem;
-            border: 1px solid #4db6ac;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: background 0.2s;
-        }
-        .history-btn:hover {
-            background: #004d40;
-        }
-
-        .header-right .cart-btn {
-            background: #d84315;
-            color: white;
-            padding: 8px 18px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .header-right .cart-btn:hover {
-            background: #bf360c;
-        }
-
-        /* নেভিগেশন বার */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #00332c;
-            padding: 10px 30px;
-            flex-wrap: wrap;
-        }
-        .nav-links {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
-        nav a:hover {
-            color: #80cbc4;
-        }
-        .btn-member-login {
-            background: #00796b;
-            color: #fff !important;
-            padding: 5px 12px;
-            border-radius: 4px;
-            border: 1px solid #4db6ac;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: bold;
-        }
-        .btn-member-login:hover {
-            background: #004d40;
-        }
-        .btn-member-logout {
-            background: #c62828 !important;
-            border: 1px solid #ef5350 !important;
-        }
-        .btn-member-logout:hover {
-            background: #b71c1c !important;
-        }
-
-        .search-box {
-            display: flex;
-            align-items: center;
-            background: #fff;
-            border-radius: 4px;
-            padding: 3px 8px;
-        }
-        .search-box input {
+        .nav-links button {
+            background: #ffeb3b;
             border: none;
-            outline: none;
-            padding: 5px;
-            font-size: 0.9rem;
-        }
-        .search-box button {
-            background: #004d40;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
+            padding: 8px 15px;
+            font-weight: bold;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 0.85rem;
+            margin-left: 10px;
         }
-
-        /* মেইন কন্টেন্ট স্টাইল */
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 30px auto;
             padding: 0 20px;
         }
-        
-        /* ভাসমান স্টোর বাটন */
-        .floating-stores {
-            position: fixed;
-            left: 20px;
-            top: 180px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 1000;
-        }
-
-        .store-circle-btn {
-            width: 145px;
-            height: 145px;
-            background-color: #e65100;
-            border: 3px solid #ffffff;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: #fff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-            transition: transform 0.2s ease, background-color 0.2s ease;
-            text-align: center;
-            padding: 5px;
-            flex-shrink: 0;
-        }
-
-        .store-circle-btn:hover {
-            transform: scale(1.08);
-            background-color: #d84315;
-        }
-
-        .store-name {
-            font-size: 1.3rem;
-            font-weight: bold;
-            line-height: 1.3;
-            margin-bottom: 2px;
-        }
-
-        .shopping-text {
-            font-size: 0.9rem;
-            color: #ffccbc;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 1.1;
-        }
-
-        .arrow-icon {
-            font-size: 1.0rem;
-            font-weight: bold;
-            margin-top: 2px;
-        }
-
-        /* ওয়েলকাম ব্যানার */
-        .welcome-banner {
-            background: #e0f2f1;
-            border-left: 5px solid #00796b;
-            padding: 25px;
-            margin-bottom: 30px;
-            border-radius: 5px;
-        }
-        .welcome-banner h2 {
-            color: #004d40;
-            margin-bottom: 10px;
-        }
-
-        .mobile-stores-section {
-            display: none;
-        }
-
-        .products-section h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-        .product-grid {
+        .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
         .product-card {
             background: #fff;
-            border: 1px solid #ddd;
             border-radius: 8px;
-            padding: 15px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .product-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            background: #eee;
         }
         .product-card h3 {
-            font-size: 1.2rem;
+            color: #1a237e;
             margin-bottom: 10px;
-            color: #222;
         }
         .product-card p {
             color: #666;
-            font-size: 0.95rem;
-            margin-bottom: 12px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
         }
         .price {
             font-weight: bold;
-            color: #c0392b;
+            color: #2e7d32;
             font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        /* কোয়ান্টিটি কন্ট্রোল বক্স */
-        .quantity-control-box {
-            display: inline-flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            padding: 4px 10px;
             margin-bottom: 15px;
-            background: #fff;
-            width: 140px;
         }
-        .quantity-display {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #333;
-            min-width: 30px;
-            text-align: center;
+        .qty-control {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
         }
-        .qty-btn {
+        .qty-control button {
             width: 30px;
             height: 30px;
-            background-color: #e0e0e0;
+            background: #ddd;
             border: none;
-            border-radius: 50%;
-            font-size: 1.1rem;
             font-weight: bold;
-            color: #333;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-        }
-        .qty-btn:hover {
-            background-color: #bdbdbd;
-        }
-        
-        .order-btns {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .btn-row {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-        }
-        .btn-buy {
-            background: #2e7d32;
-            color: white;
-            padding: 8px 12px;
-            text-decoration: none;
             border-radius: 4px;
-            font-size: 0.9rem;
+        }
+        .qty-control input {
+            width: 40px;
+            text-align: center;
             font-weight: bold;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 4px;
+        }
+        .buy-btn {
+            background: #1a237e;
+            color: white;
             border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
             cursor: pointer;
-            flex: 1;
-        }
-        .btn-cart {
-            background: #1565c0;
-            color: white;
-            padding: 8px 12px;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.9rem;
             font-weight: bold;
-            border: none;
-            cursor: pointer;
-            flex: 1;
+            width: 100%;
         }
-        .btn-whatsapp {
-            background: #25d366;
-            color: white;
-            padding: 6px 10px;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            flex: 1;
-        }
-        .btn-gmail {
-            background: #ea4335;
-            color: white;
-            padding: 6px 10px;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            flex: 1;
-        }
-        .btn-buy:hover { background: #235e27; }
-        .btn-cart:hover { background: #0d47a1; }
-        .btn-whatsapp:hover { background: #1ebe5d; }
-        .btn-gmail:hover { background: #d33426; }
-        
-        /* মেম্বার লগইন ও হিস্ট্রি মডাল স্টাইল */
-        .modal-overlay {
+        .buy-btn:hover { background: #303f9f; }
+
+        /* Modal Styles */
+        .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 2000;
+            background: rgba(0,0,0,0.5);
             justify-content: center;
             align-items: center;
         }
-        .modal-box {
-            background: #fff;
+        .modal-content {
+            background: white;
             padding: 30px;
             border-radius: 8px;
-            width: 100%;
+            width: 90%;
             max-width: 600px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            position: relative;
-            max-height: 85vh;
+            max-height: 80vh;
             overflow-y: auto;
         }
-        .modal-box h3 {
-            color: #004d40;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .modal-box input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .modal-box button.submit-btn {
-            width: 100%;
-            background: #004d40;
-            color: white;
-            border: none;
-            padding: 10px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .modal-box button.submit-btn:hover {
-            background: #00332c;
-        }
         .close-modal {
-            position: absolute;
-            top: 10px; right: 15px;
-            font-size: 1.4rem;
-            cursor: pointer;
-            color: #888;
+            float: right;
+            font-size: 1.2rem;
             font-weight: bold;
+            cursor: pointer;
+            color: #c62828;
         }
-
-        /* কেনাকাটা বিবরণ টেবিল স্টাইল */
-        .history-table {
+        table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
         }
-        .history-table th, .history-table td {
+        th, td {
             padding: 10px;
-            text-align: center;
             border: 1px solid #ddd;
+            text-align: center;
             font-size: 0.9rem;
         }
-        .history-table th {
-            background-color: #004d40;
-            color: white;
-        }
-        .status-success { color: #2e7d32; font-weight: bold; }
-        .status-pending { color: #e65100; font-weight: bold; }
-        .status-cancelled { color: #c62828; font-weight: bold; }
-
-        /* ফুটার স্টাইল */
-        footer {
-            background: #004d40;
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
-        }
-
-        @media(max-width: 992px) {
-            .floating-stores { display: none; }
-            .mobile-stores-section {
-                display: flex;
-                overflow-x: auto;
-                gap: 15px;
-                padding: 10px 5px 20px 5px;
-                margin-bottom: 30px;
-                justify-content: flex-start;
-            }
-            header { flex-direction: column; gap: 10px; text-align: center; }
-            .header-right { flex-direction: column; gap: 8px; }
-            nav { flex-direction: column; gap: 10px; }
-        }
+        th { background: #1a237e; color: white; }
     </style>
 </head>
 <body>
-     
-    <!-- ভাসমান স্টোর বাটন -->
-    <div class="floating-stores">
-        <a href="gias-store.html" class="store-circle-btn">
-            <span class="store-name">Gias Store</span>
-            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
-        </a>
-        <a href="#mizan-store" class="store-circle-btn">
-            <span class="store-name">Mizan Store</span>
-            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
-        </a>
-        <a href="#faroq-store" class="store-circle-btn">
-            <span class="store-name">Faroq Store</span>
-            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
-        </a>
-        <a href="#hasan-store" class="store-circle-btn">
-            <span class="store-name">Hasan Store</span>
-            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
-        </a>
-    </div>
 
-    <!-- হেডার -->
     <header>
-        <div class="header-left">
-            <img src="gldlogo.png" alt="Logo">
-            <span>DewDrop Shopping Mart</span>
-        </div>
-        <div class="header-center">
-            <h1>শপিং মার্ট</h1>
-        </div>
-        <div class="header-right">
-            <span id="loggedUserName" class="logged-user-name"></span>
-            
-            <!-- আইডি ও কার্টের মাঝখানে কেনাকাটা বিবরণ বাটন -->
-            <button class="history-btn" onclick="openPurchaseHistoryModal()">📋 কেনাকাটা বিবরণ</button>
-
-            <a href="cart.html" class="cart-btn">
-                🛒 কার্ট <span id="cartCount">0</span>
-            </a>
+        <h1>DewDrop - শপিং মার্ট</h1>
+        <div class="nav-links">
+            <button onclick="openHistoryModal()">কেনাকাটার বিবরণ (History)</button>
+            <button onclick="window.location.href='admin.html'">অ্যাডমিন প্যানেল</button>
         </div>
     </header>
 
-    <!-- নেভিগেশন বার -->
-    <nav>
-        <div class="nav-links">
-            <a href="index.html">হোম</a>
-            <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
-            <a href="rules.html">নিয়মাবলি</a>
-            <a href="shoppingsignup.html" style="color: #ffeb3b;">শপিং সাইন-আপ</a>
-            <button id="memberAuthBtn" class="btn-member-login" onclick="handleAuthButtonClick()">🔐 মেম্বার লগইন</button>
-        </div>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
-            <button onclick="searchProducts()">সার্চ</button>
-        </div>
-    </nav>
-
-    <!-- মেম্বার লগইন পপ-আপ মডাল -->
-    <div class="modal-overlay" id="memberLoginModal">
-        <div class="modal-box">
-            <span class="close-modal" onclick="closeMemberLoginModal()">&times;</span>
-            <h3>মেম্বার আইডি দিয়ে লগইন</h3>
-            <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; text-align: center;">আপনার সমিতির মেম্বার আইডি এবং মোবাইল নম্বর দিয়ে ভেরিফাই করুন।</p>
-            <input type="text" id="modalMemberId" placeholder="আপনার মেম্বার আইডি (যেমন: MEM-101)">
-            <input type="tel" id="modalMemberPhone" placeholder="আপনার রেজিস্টার্ড মোবাইল নম্বর">
-            <button class="submit-btn" onclick="verifyMemberLogin()">লগইন করুন</button>
-        </div>
-    </div>
-
-    <!-- কেনাকাটা বিবরণ পপ-আপ মডাল -->
-    <div class="modal-overlay" id="purchaseHistoryModal">
-        <div class="modal-box" style="max-width: 750px;">
-            <span class="close-modal" onclick="closePurchaseHistoryModal()">&times;</span>
-            <h3>আপনার কেনাকাটার বিবরণ (Purchase History)</h3>
-            <div id="historyContentContainer">
-                <!-- ডাইনামিক টেবিল বা রেকর্ড এখানে লোড হবে -->
-            </div>
-        </div>
-    </div>
-
     <div class="container">
-        
-        <div class="welcome-banner">
-            <h2>DewDrop Joint Savings Fund-এর শপিং মার্টে আপনাকে আন্তরিক অভিনন্দন!</h2>
-            <p>আমাদের এই প্ল্যাটফর্মের মূল লক্ষ্য হলো গুণগত মানে সেরা পণ্যগুলো সাশ্রয়ী মূল্যে আপনাদের দোরগোড়ায় পৌঁছে দেওয়া। আমাদের সাথে যুক্ত হয়ে আপনারা যেমন সঞ্চয় ও তহবিলের অংশীদার হচ্ছেন, তেমনি এখান থেকে আপনার প্রয়োজনীয় পণ্য অর্ডার করে আমাদের এই উদ্যোগকে আরও এগিয়ে নিতে পারেন।</p>
-        </div>
-
-        <div class="mobile-stores-section">
-            <a href="gias-store.html" class="store-circle-btn">
-                <span class="store-name">Gias Store</span>
-                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
-            </a>
-            <a href="#mizan-store" class="store-circle-btn">
-                <span class="store-name">Mizan Store</span>
-                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
-            </a>
-            <a href="#faroq-store" class="store-circle-btn">
-                <span class="store-name">Faroq Store</span>
-                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
-            </a>
-            <a href="#hasan-store" class="store-circle-btn">
-                <span class="store-name">Hasan Store</span>
-                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
-            </a>
-        </div>
-
-        <div class="products-section">
-            <h2>আমাদের উপলব্ধ পণ্যসমূহ</h2>
-            
-            <div class="product-grid" id="productGrid">
-                <!-- পণ্য ১ -->
-                <div class="product-card" id="gias-store" data-name="অর্গানিক খাঁটি মধু (১ কেজি)">
-                    <img src="placeholder-product1.jpg" alt="পণ্যের ছবি">
-                    <h3>অর্গানিক খাঁটি মধু (১ কেজি)</h3>
-                    <p>সুন্দরবনের প্রাকৃতিক ও ভেজালমুক্ত খাঁটি মধু।</p>
-                    <div class="price">মূল্য: <span id="price-1">1200</span> টাকা</div>
-                    
-                    <div class="quantity-control-box">
-                        <span class="quantity-display" id="qty-1">1</span>
-                        <button class="qty-btn" onclick="changeQuantity(1, -1, 1200)">-</button>
-                        <button class="qty-btn" onclick="changeQuantity(1, 1, 1200)">+</button>
-                    </div>
-
-                    <div class="order-btns">
-                        <div class="btn-row">
-                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'অর্গানিক খাঁটি মধু (১ কেজি)', 1200, 1)">Buy Now</button>
-                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'অর্গানিক খাঁটি মধু (১ কেজি)', 1200, 1)">Add To Cart</button>
-                        </div>
-                        <div class="btn-row">
-                            <a href="https://wa.me/8801977885122?text=আমি%20'অর্গানিক%20খাঁটি%20মধু'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp</a>
-                            <a href="mailto:tanjimtoru@gmail.com?subject=Product Order: Organic Honey&body=আমি এই পণ্যটি অর্ডার করতে চাই: অর্গানিক খাঁটি মধু (১ কেজি)।" class="btn-gmail">Gmail</a>
-                        </div>
-                    </div>
+        <div class="products-grid">
+            <!-- প্রোডাক্ট ১ -->
+            <div class="product-card" data-name="অর্গানিক খাঁটি মধু (১ কেজি)" data-price="1200">
+                <h3>অর্গানিক খাঁটি মধু (১ কেজি)</h3>
+                <p>শতভাগ খাঁটি ও সুন্দরবনের অর্গানিক মধু।</p>
+                <div class="price">মূল্য: ১২০০ টাকা</div>
+                <div class="qty-control">
+                    <button onclick="updateQty(this, -1)">-</button>
+                    <input type="text" value="1" readonly>
+                    <button onclick="updateQty(this, 1)">+</button>
                 </div>
+                <button class="buy-btn" onclick="placeOrder(this)">অর্ডার করুন</button>
+            </div>
 
-                <!-- পণ্য ২ -->
-                <div class="product-card" id="mizan-store" data-name="ঘানি ভাঙা সরিষার তেল (১ লিটার)">
-                    <img src="placeholder-product2.jpg" alt="পণ্যের ছবি">
-                    <h3>ঘানি ভাঙা সরিষার তেল (১ লিটার)</h3>
-                    <p>শতভাগ খাঁটি ও স্বাস্থ্যসম্মত দেশি সরিষার তেল।</p>
-                    <div class="price">মূল্য: <span id="price-2">220</span> টাকা</div>
-                    
-                    <div class="quantity-control-box">
-                        <span class="quantity-display" id="qty-2">1</span>
-                        <button class="qty-btn" onclick="changeQuantity(2, -1, 220)">-</button>
-                        <button class="qty-btn" onclick="changeQuantity(2, 1, 220)">+</button>
-                    </div>
-
-                    <div class="order-btns">
-                        <div class="btn-row">
-                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'ঘানি ভাঙা সরিষার তেল (১ লিটার)', 220, 2)">Buy Now</button>
-                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'ঘানি ভাঙা সরিষার তেল (১ লিটার)', 220, 2)">Add To Cart</button>
-                        </div>
-                        <div class="btn-row">
-                            <a href="https://wa.me/8801684158543?text=আমি%20'সরিষার%20তেল'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp</a>
-                            <a href="mailto:mizan@anlima.com?subject=Product Order: Mustard Oil&body=আমি এই পণ্যটি অর্ডার করতে চাই: ঘানি ভাঙা সরিষার তেল।" class="btn-gmail">Gmail</a>
-                        </div>
-                    </div>
+            <!-- প্রোডাক্ট ২ -->
+            <div class="product-card" data-name="ঘানি ভাঙা সরিষার তেল (১ লিটার)" data-price="220">
+                <h3>ঘানি ভাঙা সরিষার তেল (১ লিটার)</h3>
+                <p>শতভাগ খাঁটি ও স্বাস্থ্যসম্মত দেশি সরিষার তেল।</p>
+                <div class="price">মূল্য: ২২০ টাকা</div>
+                <div class="qty-control">
+                    <button onclick="updateQty(this, -1)">-</button>
+                    <input type="text" value="1" readonly>
+                    <button onclick="updateQty(this, 1)">+</button>
                 </div>
+                <button class="buy-btn" onclick="placeOrder(this)">অর্ডার করুন</button>
+            </div>
 
-                <!-- পণ্য ৩ -->
-                <div class="product-card" data-name="সুগন্ধি চিনিগুড়া চাল (৫ কেজি)">
-                    <img src="placeholder-product3.jpg" alt="পণ্যের ছবি">
-                    <h3>সুগন্ধি চিনিগুড়া চাল (৫ কেজি)</h3>
-                    <p>সেরা মানের ঐতিহ্যবাহী সুগন্ধি চাল।</p>
-                    <div class="price">মূল্য: <span id="price-3">1250</span> টাকা</div>
-                    
-                    <div class="quantity-control-box">
-                        <span class="quantity-display" id="qty-3">1</span>
-                        <button class="qty-btn" onclick="changeQuantity(3, -1, 1250)">-</button>
-                        <button class="qty-btn" onclick="changeQuantity(3, 1, 1250)">+</button>
-                    </div>
-
-                    <div class="order-btns">
-                        <div class="btn-row">
-                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'সুগন্ধি চিনিগুড়া চাল (৫ কেজি)', 1250, 3)">Buy Now</button>
-                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'সুগন্ধি চিনিগুড়া চাল (৫ কেজি)', 1250, 3)">Add To Cart</button>
-                        </div>
-                        <div class="btn-row">
-                            <a href="https://wa.me/8801713443942?text=আমি%20'চিনিগুড়া%20চাল'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp</a>
-                            <a href="mailto:gias@anlima.com?subject=Product Order: Chinigura Rice&body=আমি এই পণ্যটি অর্ডার করতে চাই: সুগন্ধি চিনিগুড়া চাল।" class="btn-gmail">Gmail</a>
-                        </div>
-                    </div>
+            <!-- প্রোডাক্ট ৩ -->
+            <div class="product-card" data-name="সুগন্ধি চিনিগুড়া চাল (৫ কেজি)" data-price="650">
+                <h3>সুগন্ধি চিনিগুড়া চাল (৫ কেজি)</h3>
+                <p>সেরা মানের ঐতিহ্যবাহী সুগন্ধি চাল।</p>
+                <div class="price">মূল্য: ৬৫০ টাকা</div>
+                <div class="qty-control">
+                    <button onclick="updateQty(this, -1)">-</button>
+                    <input type="text" value="1" readonly>
+                    <button onclick="updateQty(this, 1)">+</button>
                 </div>
+                <button class="buy-btn" onclick="placeOrder(this)">অর্ডার করুন</button>
             </div>
         </div>
-
     </div>
 
-    <footer>
-       <div class="developer-footer">
-            Website Developed by:<br>
-            <strong>Md Tanjim Islam</strong><br>
-            <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a>
+    <!-- Purchase History Modal -->
+    <div id="historyModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeHistoryModal()">&times;</span>
+            <h2 style="color: #1a237e; margin-bottom: 15px; text-align: center;">আপনার কেনাকাটার বিবরণ (Purchase History)</h2>
+            <div id="historyTableContainer">
+                <!-- ডাইনামিক হিস্ট্রি টেবিল এখানে লোড হবে -->
+            </div>
         </div>
-        
-        <div class="copyright-bar">
-            &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
-        </div>
-    </footer>
+    </div>
 
-    <!-- জাভাস্ক্রিপ্ট লজিক -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            resetAllQuantities();
-            updateCartCount();
-            checkLoginStatus();
-        });
+    <!-- Firebase SDK & Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        function resetAllQuantities() {
-            const products = [
-                { id: 1, unitPrice: 1200 },
-                { id: 2, unitPrice: 220 },
-                { id: 3, unitPrice: 1250 }
-            ];
+        const firebaseConfig = {
+            apiKey: "AIzaSyCOjFcokcNgmdfulQMjQNaWm1-b4f5iHU",
+            authDomain: "dewdrop-shopping.firebaseapp.com",
+            databaseURL: "https://dewdrop-shopping-default-rtdb.firebaseio.com",
+            projectId: "dewdrop-shopping",
+            storageBucket: "dewdrop-shopping.appspot.com",
+            messagingSenderId: "265469043595",
+            appId: "1:265469043595:web:1532d537b0f42b96dac58e"
+        };
 
-            products.forEach(p => {
-                let qtySpan = document.getElementById('qty-' + p.id);
-                let priceSpan = document.getElementById('price-' + p.id);
-                if (qtySpan && priceSpan) {
-                    qtySpan.innerText = "1";
-                    priceSpan.innerText = p.unitPrice;
-                }
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // পেজ লোড হলে কোয়ান্টিটি ডিফল্ট ১ সেট করা
+        window.updateQty = function(btn, change) {
+            let input = btn.parentElement.querySelector('input');
+            let currentVal = parseInt(input.value);
+            let newVal = currentVal + change;
+            if (newVal >= 1) {
+                input.value = newVal;
+            }
+        }
+
+        // অর্ডার প্লেস করার ফাংশন
+        window.placeOrder = function(btn) {
+            let card = btn.closest('.product-card');
+            let productName = card.getAttribute('data-name');
+            let productPrice = parseInt(card.getAttribute('data-price'));
+            let qty = parseInt(card.querySelector('input').value);
+            let totalAmount = productPrice * qty;
+
+            let now = new Date();
+            let dateStr = now.toLocaleDateString('bn-BD') + ' ' + now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+
+            let orderData = {
+                date: dateStr,
+                itemsList: `${productName} (${qty}টি)`,
+                totalAmount: totalAmount,
+                status: "অপেক্ষমান"
+            };
+
+            // ফায়ারবেসে ডাটা পাঠানো
+            const ordersRef = ref(db, 'dewDropOrders');
+            const newOrderRef = push(ordersRef);
+            set(newOrderRef, orderData)
+            .then(() => {
+                alert('আপনার অর্ডারটি সফলভাবে গৃহিত হয়েছে!');
+                card.querySelector('input').value = 1; // রিলোডের পর ডিফল্ট ১ করা
+            })
+            .catch((error) => {
+                console.error('অর্ডার সেভ করতে সমস্যা হয়েছে: ', error);
+                alert('অর্ডার করতে সমস্যা হয়েছে, আবার চেষ্টা করুন।');
             });
         }
 
-        function changeQuantity(productId, change, unitPrice) {
-            let qtySpan = document.getElementById('qty-' + productId);
-            let priceSpan = document.getElementById('price-' + productId);
-            
-            let currentQty = parseInt(qtySpan.innerText);
-            let newQty = currentQty + change;
+        // হিস্ট্রি মোডাল ওপেন করা ও ফায়ারবেস থেকে ডাটা ফেচ করা
+        window.openHistoryModal = function() {
+            document.getElementById('historyModal').style.display = 'flex';
+            let container = document.getElementById('historyTableContainer');
+            container.innerHTML = `<p style="text-align:center;">লোড হচ্ছে...</p>`;
 
-            if (newQty < 1) {
-                newQty = 1;
-            }
-
-            qtySpan.innerText = newQty;
-            priceSpan.innerText = unitPrice * newQty;
-        }
-
-        function checkLoginStatus() {
-            const memberData = localStorage.getItem('dewDropMember');
-            const authBtn = document.getElementById('memberAuthBtn');
-            const nameSpan = document.getElementById('loggedUserName');
-
-            if (memberData) {
-                try {
-                    let memberObj = JSON.parse(memberData);
-                    authBtn.innerText = "🚪 লগ আউট করুন";
-                    authBtn.className = "btn-member-login btn-member-logout";
-
-                    nameSpan.innerText = "👤 " + memberObj.name;
-                    nameSpan.style.display = "inline-block";
-                } catch(e) {}
-            } else {
-                authBtn.innerText = "🔐 মেম্বার লগইন";
-                authBtn.className = "btn-member-login";
-                nameSpan.style.display = "none";
-            }
-        }
-
-        function handleAuthButtonClick() {
-            const memberData = localStorage.getItem('dewDropMember');
-            if (memberData) {
-                if (confirm('আপনি কি সত্যিই লগআউট করতে চান?')) {
-                    localStorage.removeItem('dewDropMember');
-                    checkLoginStatus();
-                    alert('সফলভাবে লগআউট করা হয়েছে।');
+            const ordersRef = ref(db, 'dewDropOrders');
+            onValue(ordersRef, (snapshot) => {
+                let data = snapshot.val();
+                if (!data) {
+                    container.innerHTML = `<p style="text-align:center; padding:20px;">কোনো অর্ডারের রেকর্ড পাওয়া যায়নি।</p>`;
+                    return;
                 }
-            } else {
-                openMemberLoginModal();
-            }
-        }
 
-        function openMemberLoginModal() {
-            document.getElementById('memberLoginModal').style.display = 'flex';
-        }
-        function closeMemberLoginModal() {
-            document.getElementById('memberLoginModal').style.display = 'none';
-        }
-
-        // কেনাকাটা বিবরণ মডাল ওপেন এবং রেকর্ড লোড করার ফাংশন
-        function openPurchaseHistoryModal() {
-            const memberData = localStorage.getItem('dewDropMember');
-            if (!memberData) {
-                alert('দয়া করে প্রথমে মেম্বার আইডি দিয়ে লগইন করুন!');
-                openMemberLoginModal();
-                return;
-            }
-
-            let historyContainer = document.getElementById('historyContentContainer');
-            // লোকালস্টোরেজ থেকে কেনাকাটার ইতিহাস রিড করা (যদি থাকে)
-            let orders = JSON.parse(localStorage.getItem('dewDropOrders')) || [];
-
-            if (orders.length === 0) {
-                historyContainer.innerHTML = `<p style="text-align:center; padding: 25px; color:#666;">আপনার কোনো কেনাকাটার রেকর্ড পাওয়া যায়নি।</p>`;
-            } else {
-                let tableHtml = `
-                    <table class="history-table">
+                let html = `
+                    <table>
                         <thead>
                             <tr>
                                 <th>ক্রয় তারিখ ও সময়</th>
@@ -797,117 +293,28 @@
                         <tbody>
                 `;
 
-                orders.forEach(ord => {
-                    let statusClass = "status-pending";
-                    let statusText = "অপেক্ষমান";
+                Object.values(data).forEach(ord => {
+                    let statusColor = "color: #e65100; font-weight: bold;";
+                    if (ord.status === "সফল") statusColor = "color: #2e7d32; font-weight: bold;";
+                    else if (ord.status === "বাতিল") statusColor = "color: #c62828; font-weight: bold;";
 
-                    if (ord.status === "সফল") {
-                        statusClass = "status-success";
-                        statusText = "সফল";
-                    } else if (ord.status === "বাতিল") {
-                        statusClass = "status-cancelled";
-                        statusText = "বাতিল";
-                    }
-
-                    tableHtml += `
+                    html += `
                         <tr>
                             <td>${ord.date}</td>
-                            <td style="text-align: left; padding-left: 15px;">${ord.itemsList}</td>
+                            <td>${ord.itemsList}</td>
                             <td><strong>${ord.totalAmount}৳</strong></td>
-                            <td><span class="${statusClass}">${statusText}</span></td>
+                            <td><span style="${statusColor}">${ord.status}</span></td>
                         </tr>
                     `;
                 });
 
-                tableHtml += `</tbody></table>`;
-                historyContainer.innerHTML = tableHtml;
-            }
-
-            document.getElementById('purchaseHistoryModal').style.display = 'flex';
+                html += `</tbody></table>`;
+                container.innerHTML = html;
+            }, { onlyOnce: true });
         }
 
-        function closePurchaseHistoryModal() {
-            document.getElementById('purchaseHistoryModal').style.display = 'none';
-        }
-
-        function verifyMemberLogin() {
-            let memberId = document.getElementById('modalMemberId').value.trim();
-            let memberPhone = document.getElementById('modalMemberPhone').value.trim();
-
-            if (!memberId || !memberPhone) {
-                alert('দয়া করে মেম্বার আইডি এবং মোবাইল নম্বর দুটিই লিখুন!');
-                return;
-            }
-
-            let memberObj = {
-                memberId: memberId,
-                name: "আইডি: " + memberId,
-                phone: memberPhone
-            };
-
-            localStorage.setItem('dewDropMember', JSON.stringify(memberObj));
-            alert('অভিনন্দন! আপনার মেম্বার আইডি সফলভাবে ভেরিফাই হয়েছে।');
-            closeMemberLoginModal();
-            checkLoginStatus();
-        }
-
-        function handleShoppingAction(actionType, productName, unitPrice, productId) {
-            const memberData = localStorage.getItem('dewDropMember'); 
-
-            if (!memberData) {
-                alert('দয়া করে প্রথমে উপরে থাকা "🔐 মেম্বার লগইন" বাটনে ক্লিক করে আপনার মেম্বার আইডি দিয়ে লগইন করুন!');
-                openMemberLoginModal();
-                return;
-            }
-
-            let quantity = parseInt(document.getElementById('qty-' + productId).innerText);
-
-            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
-            let existingItem = cart.find(item => item.name === productName);
-            
-            if (existingItem) {
-                existingItem.quantity += quantity;
-                existingItem.price = unitPrice * existingItem.quantity;
-            } else {
-                cart.push({
-                    name: productName,
-                    unitPrice: unitPrice,
-                    price: unitPrice * quantity,
-                    quantity: quantity
-                });
-            }
-
-            localStorage.setItem('dewDropCart', JSON.stringify(cart));
-            updateCartCount();
-
-            if (actionType === 'buy') {
-                window.location.href = 'cart.html';
-            } else {
-                alert('"' + productName + ' (' + quantity + 'টি)" সফলভাবে কার্টে যোগ করা হয়েছে!');
-            }
-        }
-
-        function updateCartCount() {
-            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
-            let totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const badge = document.getElementById('cartCount');
-            if(badge) {
-                badge.innerText = totalCount;
-            }
-        }
-
-        function searchProducts() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('product-card');
-
-            for (let i = 0; i < cards.length; i++) {
-                let name = cards[i].getAttribute('data-name').toLowerCase();
-                if (name.includes(input)) {
-                    cards[i].style.display = "block";
-                } else {
-                    cards[i].style.display = "none";
-                }
-            }
+        window.closeHistoryModal = function() {
+            document.getElementById('historyModal').style.display = 'none';
         }
     </script>
 </body>
