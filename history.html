@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>কেনাকাটার ইতিহাস - DewDrop Shopping Mart</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'SolaimanLipi', Arial, sans-serif;
+        }
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            background: #004d40;
+            color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-left img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+        }
+        .header-left span {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .back-btn {
+            background: #ffb300;
+            color: #000;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .back-btn:hover {
+            background: #ffa000;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        h2 {
+            color: #004d40;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .member-info-card {
+            background: #e0f2f1;
+            border-left: 5px solid #00796b;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+            font-size: 1.05rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #004d40;
+            color: white;
+            font-size: 0.95rem;
+        }
+        td {
+            font-size: 0.95rem;
+            color: #444;
+        }
+        tr:hover {
+            background-color: #f1f8f6;
+        }
+        .no-history {
+            text-align: center;
+            padding: 40px;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            font-size: 1.1rem;
+            color: #666;
+        }
+        footer {
+            background: #004d40;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 60px;
+        }
+    </style>
+
+    <!-- Firebase App (v8 সিডিএন) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <!-- Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="gldlogo.png" alt="Logo">
+            <span>DewDrop Shopping Mart</span>
+        </div>
+        <div>
+            <a href="marketplace.html" class="back-btn">← শপিং মার্টে ফিরে যান</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>আপনার কেনাকাটার ইতিহাস (Order History)</h2>
+        
+        <div id="memberDetailsBox" class="member-info-card" style="display: none;">
+            <strong>মেম্বার আইডি:</strong> <span id="dispMemberId"></span> | 
+            <strong>নাম:</strong> <span id="dispMemberName"></span>
+        </div>
+
+        <div id="historyContainer">
+            <div class="no-history">ডাটা লোড হচ্ছে...</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।</p>
+    </footer>
+
+    <script>
+        // আপনার ফায়ারবেজ কনফিগারেশন এখানে বসান
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "SENDER_ID",
+            appId: "APP_ID"
+        };
+
+        // ফায়ারবেজ ইনিশিয়ালাইজ করা
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFirebaseOrderHistory();
+        });
+
+        function loadFirebaseOrderHistory() {
+            const memberData = localStorage.getItem('dewDropMember');
+            const historyContainer = document.getElementById('historyContainer');
+            const memberBox = document.getElementById('memberDetailsBox');
+
+            if (!memberData) {
+                historyContainer.innerHTML = `
+                    <div class="no-history">
+                        <p style="color: #c62828; margin-bottom: 15px;">⚠️ আপনি মেম্বার হিসেবে লগইন করেননি!</p>
+                        <a href="marketplace.html" style="background: #004d40; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold;">লগইন করতে শপিং মার্টে যান</a>
+                    </div>
+                `;
+                return;
+            }
+
+            try {
+                let memberObj = JSON.parse(memberData);
+                document.getElementById('dispMemberId').innerText = memberObj.memberId;
+                document.getElementById('dispMemberName').innerText = memberObj.name;
+                memberBox.style.display = 'block';
+
+                // ফায়ারবেজ থেকে নির্দিষ্ট মেম্বারের আইডি অনুযায়ী অর্ডার ফেচ করা
+                // ফায়ারবেজে ডাটা সংরক্ষিত থাকবে এভাবে: orders -> memberId -> orderList
+                let sanitizedId = memberObj.memberId.replace(/[.#$\/\[\]]/g, "_"); // ফায়ারবেজের কী (key) নিরাপদ রাখতে
+                let ordersRef = database.ref('orders/' + sanitizedId);
+
+                ordersRef.on('value', (snapshot) => {
+                    const data = snapshot.val();
+                    
+                    if (!data) {
+                        historyContainer.innerHTML = `
+                            <div class="no-history">
+                                <p>আপনার ফায়ারবেজে এখনো কোনো সফল কেনাকাটার ইতিহাস নেই।</p>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    let html = `
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>পণ্যের নাম</th>
+                                    <th>পরিমাণ</th>
+                                    <th>মোট মূল্য</th>
+                                    <th>তারিখ ও সময়</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+
+                    // অবজেক্ট বা অ্যারে ডাটা লুপ করা
+                    Object.values(data).forEach(order => {
+                        html += `
+                            <tr>
+                                <td>${order.productName}</td>
+                                <td>${order.quantity} টি</td>
+                                <td>${order.totalPrice} টাকা</td>
+                                <td>${order.date || 'প্রযোজ্য নয়'}</td>
+                            </tr>
+                        `;
+                    });
+
+                    html += `</tbody></table>`;
+                    historyContainer.innerHTML = html;
+                }, (error) => {
+                    historyContainer.innerHTML = `<div class="no-history">ডাটা লোড করতে ত্রুটি হয়েছে: ${error.message}</div>`;
+                });
+
+            } catch (e) {
+                historyContainer.innerHTML = `<div class="no-history">ইউজার ডেটা প্রসেস করতে সমস্যা হয়েছে।</div>`;
+            }
+        }
+    </script>
+</body>
+</html>
