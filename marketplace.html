@@ -18,17 +18,19 @@
         }
         /* হেডার স্টাইল */
         header {
-        background: #004d40;
+            background: #004d40;
             color: #fff;
             padding: 20px 0;
             text-align: center;    
-    }
+        }
         nav {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 20px;
             background: #00332c;
-            padding: 10px;
+            padding: 10px 20px;
+            flex-wrap: wrap;
         }
         nav a {
             color: #fff;
@@ -38,6 +40,14 @@
         nav a:hover {
             color: #80cbc4;
         }
+        .cart-nav-badge {
+            background: #ff5722;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
         /* মেইন কন্টেন্ট স্টাইল */
         .container {
             max-width: 1100px;
@@ -45,7 +55,7 @@
             padding: 0 20px;
         }
         
-        /* ডেস্কটপের জন্য ফিক্সড বা ভাসমান স্টোর বাটনগুলো (বামে থাকবে) */
+        /* ডেস্কটপের জন্য ফিক্সড বা ভাসমান স্টোর বাটনগুলো */
         .floating-stores {
             position: fixed;
             left: 20px;
@@ -59,9 +69,9 @@
         .store-circle-btn {
             width: 145px;
             height: 145px;
-            background-color: #e65100; /* কমলা রং */
+            background-color: #e65100;
             border: 3px solid #ffffff;
-            border-radius: 50%; /* একদম গোল বৃত্ত */
+            border-radius: 50%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -115,7 +125,7 @@
             margin-bottom: 10px;
         }
 
-        /* মোবাইল স্টোর সেকশন (ডিফল্টভাবে ডেস্কটপে এটি লুকিয়ে থাকবে) */
+        /* মোবাইল স্টোর সেকশন */
         .mobile-stores-section {
             display: none;
         }
@@ -162,29 +172,64 @@
             font-size: 1.1rem;
             margin-bottom: 15px;
         }
+        
+        /* নতুন বাটন স্টাইল (Buy Now, Add To Cart, WhatsApp, Gmail) */
         .order-btns {
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .btn-row {
+            display: flex;
+            gap: 8px;
             justify-content: center;
+        }
+        .btn-buy {
+            background: #2e7d32;
+            color: white;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+        }
+        .btn-cart {
+            background: #1565c0;
+            color: white;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            flex: 1;
         }
         .btn-whatsapp {
             background: #25d366;
             color: white;
-            padding: 8px 15px;
+            padding: 6px 10px;
             text-decoration: none;
             border-radius: 4px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: bold;
+            flex: 1;
         }
         .btn-gmail {
             background: #ea4335;
             color: white;
-            padding: 8px 15px;
+            padding: 6px 10px;
             text-decoration: none;
             border-radius: 4px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: bold;
+            flex: 1;
         }
+        .btn-buy:hover { background: #235e27; }
+        .btn-cart:hover { background: #0d47a1; }
         .btn-whatsapp:hover { background: #1ebe5d; }
         .btn-gmail:hover { background: #d33426; }
         
@@ -199,11 +244,9 @@
 
         /* মোবাইল স্ক্রিনের জন্য রেসপন্সিভ নিয়ম */
         @media(max-width: 992px) {
-            /* ডেস্কটপের ফিক্সড বাটনগুলো মোবাইলে হাইড থাকবে */
             .floating-stores {
                 display: none;
             }
-            /* মোবাইলের জন্য অভিনন্দন লেখার নিচে শো করানোর সেকশনটি অন হবে */
             .mobile-stores-section {
                 display: flex;
                 overflow-x: auto;
@@ -217,38 +260,23 @@
 </head>
 <body>
      
-         <!-- ALL floating-stores -->
+    <!-- ভাসমান স্টোর বাটন -->
     <div class="floating-stores">
         <a href="gias-store.html" class="store-circle-btn">
             <span class="store-name">Gias Store</span>
-            <span class="shopping-text">
-                Shopping Now
-                <span class="arrow-icon">➔</span>
-            </span>
+            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
         </a>
-
         <a href="#mizan-store" class="store-circle-btn">
             <span class="store-name">Mizan Store</span>
-            <span class="shopping-text">
-                Shopping Now
-                <span class="arrow-icon">➔</span>
-            </span>
+            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
         </a>
-
-         <a href="#faroq-store" class="store-circle-btn">
+        <a href="#faroq-store" class="store-circle-btn">
             <span class="store-name">Faroq Store</span>
-            <span class="shopping-text">
-                Shopping Now
-                <span class="arrow-icon">➔</span>
-            </span>
+            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
         </a>
-
-         <a href="#hasan-store" class="store-circle-btn">
+        <a href="#hasan-store" class="store-circle-btn">
             <span class="store-name">Hasan Store</span>
-            <span class="shopping-text">
-                Shopping Now
-                <span class="arrow-icon">➔</span>
-            </span>
+            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
         </a>
     </div>
 
@@ -259,46 +287,33 @@
         <a href="index.html">হোম</a>
         <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
         <a href="rules.html">নিয়মাবলি</a>
+        <a href="shoppingsignup.html" style="color: #ffeb3b;">শপিং সাইন-আপ</a>
+        <a href="cart.html">🛒 কার্ট <span id="cartCount" class="cart-nav-badge">0</span></a>
     </nav>
 
     <div class="container">
         
         <div class="welcome-banner">
             <h2>DewDrop Joint Savings Fund-এর শপিং মার্টে আপনাকে আন্তরিক অভিনন্দন!</h2>
-            <p>আমাদের এই প্ল্যাটফর্মের মূল লক্ষ্য হলো গুণগত মানে সেরা পণ্যগুলো সাশ্রয়ী মূল্যে আপনাদের দোরগোড়ায় পৌঁছে দেওয়া। আমাদের সাথে যুক্ত হয়ে আপনারা যেমন সঞ্চয় ও তহবিলের অংশীদার হচ্ছেন, তেমনি এখান থেকে আপনার প্রয়োজনীয় পণ্য অর্ডার করে আমাদের এই উদ্যোগকে আরও এগিয়ে নিতে পারেন। আপনাদের আস্থাই আমাদের সবচেয়ে বড় শক্তি। যেকোনো পণ্যের অর্ডার করতে নিচের WhatsApp বা Gmail অপশন ব্যবহার করুন।</p>
+            <p>আমাদের এই প্ল্যাটফর্মের মূল লক্ষ্য হলো গুণগত মানে সেরা পণ্যগুলো সাশ্রয়ী মূল্যে আপনাদের দোরগোড়ায় পৌঁছে দেওয়া। আমাদের সাথে যুক্ত হয়ে আপনারা যেমন সঞ্চয় ও তহবিলের অংশীদার হচ্ছেন, তেমনি এখান থেকে আপনার প্রয়োজনীয় পণ্য অর্ডার করে আমাদের এই উদ্যোগকে আরও এগিয়ে নিতে পারেন।</p>
         </div>
 
         <div class="mobile-stores-section">
             <a href="gias-store.html" class="store-circle-btn">
                 <span class="store-name">Gias Store</span>
-                <span class="shopping-text">
-                    Shop Now
-                    <span class="arrow-icon">➔</span>
-                </span>
+                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
             </a>
-
             <a href="#mizan-store" class="store-circle-btn">
                 <span class="store-name">Mizan Store</span>
-                <span class="shopping-text">
-                    Shop Now
-                    <span class="arrow-icon">➔</span>
-                </span>
+                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
             </a>
-
-             <a href="#faroq-store" class="store-circle-btn">
+            <a href="#faroq-store" class="store-circle-btn">
                 <span class="store-name">Faroq Store</span>
-                <span class="shopping-text">
-                    Shop Now
-                    <span class="arrow-icon">➔</span>
-                </span>
+                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
             </a>
-
-             <a href="#hasan-store" class="store-circle-btn">
+            <a href="#hasan-store" class="store-circle-btn">
                 <span class="store-name">Hasan Store</span>
-                <span class="shopping-text">
-                    Shop Now
-                    <span class="arrow-icon">➔</span>
-                </span>
+                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
             </a>
         </div>
 
@@ -306,36 +321,57 @@
             <h2>আমাদের উপলব্ধ পণ্যসমূহ</h2>
             
             <div class="product-grid">
-                <div class="product-card" id="gias-store">
+                <!-- পণ্য ১ -->
+                <div class="product-card" id="gias-store" data-id="p1" data-name="অর্গানিক খাঁটি মধু (১ কেজি)" data-price="1200">
                     <img src="placeholder-product1.jpg" alt="পণ্যের ছবি">
                     <h3>অর্গানিক খাঁটি মধু (১ কেজি)</h3>
                     <p>সুন্দরবনের প্রাকৃতিক ও ভেজালমুক্ত খাঁটি মধু।</p>
                     <div class="price">মূল্য: ১,২০০ টাকা</div>
                     <div class="order-btns">
-                        <a href="https://wa.me/8801977885122?text=আমি%20'অর্গানিক%20খাঁটি%20মধু'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp অর্ডার</a>
-                        <a href="mailto:tanjimtoru@gmail.com?subject=Product Order: Organic Honey&body=আমি এই পণ্যটি অর্ডার করতে চাই: অর্গানিক খাঁটি মধু (১ কেজি)। আমার নাম ও ঠিকানা:" class="btn-gmail">Gmail অর্ডার</a>
+                        <div class="btn-row">
+                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'অর্গানিক খাঁটি মধু (১ কেজি)', 1200)">Buy Now</button>
+                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'অর্গানিক খাঁটি মধু (১ কেজি)', 1200)">Add To Cart</button>
+                        </div>
+                        <div class="btn-row">
+                            <a href="https://wa.me/8801977885122?text=আমি%20'অর্গানিক%20খাঁটি%20মধু'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                            <a href="mailto:tanjimtoru@gmail.com?subject=Product Order: Organic Honey&body=আমি এই পণ্যটি অর্ডার করতে চাই: অর্গানিক খাঁটি মধু (১ কেজি)।" class="btn-gmail">Gmail</a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="product-card" id="mizan-store">
+                <!-- পণ্য ২ -->
+                <div class="product-card" id="mizan-store" data-id="p2" data-name="ঘানি ভাঙা সরিষার তেল (১ লিটার)" data-price="220">
                     <img src="placeholder-product2.jpg" alt="পণ্যের ছবি">
                     <h3>ঘানি ভাঙা সরিষার তেল (১ লিটার)</h3>
                     <p>শতভাগ খাঁটি ও স্বাস্থ্যসম্মত দেশি সরিষার তেল।</p>
                     <div class="price">মূল্য: ২২০ টাকা</div>
                     <div class="order-btns">
-                        <a href="https://wa.me/8801684158543?text=আমি%20'সরিষার%20তেল'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp অর্ডার</a>
-                        <a href="mailto:mizan@anlima.com?subject=Product Order: Mustard Oil&body=আমি এই পণ্যটি অর্ডার করতে চাই: ঘানি ভাঙা সরিষার তেল (১ লিটার)। আমার নাম ও ঠিকানা:" class="btn-gmail">Gmail অর্ডার</a>
+                        <div class="btn-row">
+                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'ঘানি ভাঙা সরিষার তেল (১ লিটার)', 220)">Buy Now</button>
+                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'ঘানি ভাঙা সরিষার তেল (১ লিটার)', 220)">Add To Cart</button>
+                        </div>
+                        <div class="btn-row">
+                            <a href="https://wa.me/8801684158543?text=আমি%20'সরিষার%20তেল'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                            <a href="mailto:mizan@anlima.com?subject=Product Order: Mustard Oil&body=আমি এই পণ্যটি অর্ডার করতে চাই: ঘানি ভাঙা সরিষার তেল।" class="btn-gmail">Gmail</a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="product-card">
+                <!-- পণ্য ৩ -->
+                <div class="product-card" data-id="p3" data-name="সুগন্ধি চিনিগুড়া চাল (৫ কেজি)" data-price="1250">
                     <img src="placeholder-product3.jpg" alt="পণ্যের ছবি">
                     <h3>সুগন্ধি চিনিগুড়া চাল (৫ কেজি)</h3>
                     <p>সেরা মানের ঐতিহ্যবাহী সুগন্ধি চাল।</p>
                     <div class="price">মূল্য: ১,২৫০ টাকা</div>
                     <div class="order-btns">
-                        <a href="https://wa.me/8801713443942?text=আমি%20'চিনিগুড়া%20চাল'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp অর্ডার</a>
-                        <a href="mailto:gias@anlima.com?subject=Product Order: Chinigura Rice&body=আমি এই পণ্যটি অর্ডার করতে চাই: সুগন্ধি চিনিগুড়া চাল (৫ কেজি)। আমার নাম ও ঠিকানা:" class="btn-gmail">Gmail অর্ডার</a>
+                        <div class="btn-row">
+                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'সুগন্ধি চিনিগুড়া চাল (৫ কেজি)', 1250)">Buy Now</button>
+                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'সুগন্ধি চিনিগুড়া চাল (৫ কেজি)', 1250)">Add To Cart</button>
+                        </div>
+                        <div class="btn-row">
+                            <a href="https://wa.me/8801713443942?text=আমি%20'চিনিগুড়া%20চাল'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                            <a href="mailto:gias@anlima.com?subject=Product Order: Chinigura Rice&body=আমি এই পণ্যটি অর্ডার করতে চাই: সুগন্ধি চিনিগুড়া চাল।" class="btn-gmail">Gmail</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -355,5 +391,73 @@
         </div>
     </footer>
 
+    <!-- শপিং ও ভেরিফিকেশন জাভাস্ক্রিপ্ট লজিক -->
+    <script>
+        // পেজ লোড হওয়ার সাথে সাথে কার্ট কাউন্ট আপডেট করা
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+
+        // মূল ভেরিফিকেশন এবং বাই/কার্ট লজিক
+        function handleShoppingAction(actionType, productName, productPrice) {
+            // ১. চেক করা ইউজার কি মেম্বার অথবা শপিং সাইন-আপ করা সাধারণ ক্রেতা কি না
+            const memberData = localStorage.getItem('dewDropMember'); // সমিতির মেম্বার ডাটা (যদি থাকে)
+            const shopperData = localStorage.getItem('giasStoreUser'); // সাধারণ শপিং সাইন-আপ ডাটা
+
+            if (!memberData && !shopperData) {
+                alert('দয়া করে প্রথমে আপনার সমিতির আইডি দিয়ে অথবা "শপিং সাইন-আপ" পেজ থেকে অ্যাকাউন্ট তৈরি করুন!');
+                window.location.href = 'shoppingsignup.html';
+                return;
+            }
+
+            // ২. যদি মেম্বার হন, তবে ডেলিভারি ঠিকানা চেক করা
+            if (memberData) {
+                try {
+                    const memberObj = JSON.parse(memberData);
+                    if (!memberObj.address || memberObj.address.trim() === "") {
+                        alert('আপনার প্রোফাইল বা ডেলিভারি তথ্য অপূর্ণ রয়েছে। দয়া করে প্রোফাইল বা ডেলিভারি তথ্য আপডেট করুন।');
+                        return;
+                    }
+                } catch(e) {
+                    // JSON সমস্যা হলে সাইন-আপে পাঠাবে
+                }
+            }
+
+            // ৩. কার্টে পণ্য যোগ করা
+            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
+            
+            // একই পণ্য আগে থেকে থাকলে পরিমাণ বাড়ানো, না থাকলে নতুন যোগ করা
+            let existingItem = cart.find(item => item.name === productName);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: productName,
+                    price: productPrice,
+                    quantity: 1
+                });
+            }
+
+            localStorage.setItem('dewDropCart', JSON.stringify(cart));
+            updateCartCount();
+
+            // ৪. একশন অনুযায়ী কাজ
+            if (actionType === 'buy') {
+                window.location.href = 'cart.html';
+            } else {
+                alert('"' + productName + '" সফলভাবে কার্টে যোগ করা হয়েছে!');
+            }
+        }
+
+        // কার্ট কাউন্ট আপডেট ফাংশন
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
+            let totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const badge = document.getElementById('cartCount');
+            if(badge) {
+                badge.innerText = totalCount;
+            }
+        }
+    </script>
 </body>
 </html>
