@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>শপিং কার্ট ও চেকআউট - DewDrop Shopping Mart</title>
+    <title>কার্ট - DewDrop Shopping Mart</title>
     <style>
         * {
             box-sizing: border-box;
@@ -19,23 +19,15 @@
         header {
             background: #004d40;
             color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
-        nav {
+            padding: 15px 30px;
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            background: #00332c;
-            padding: 10px;
+            justify-content: space-between;
+            align-items: center;
         }
-        nav a {
-            color: #fff;
+        header a {
+            color: #ffeb3b;
             text-decoration: none;
             font-weight: bold;
-        }
-        nav a:hover {
-            color: #80cbc4;
         }
         .container {
             max-width: 900px;
@@ -43,79 +35,80 @@
             padding: 0 20px;
         }
         h2 {
-            color: #004d40;
-            margin-bottom: 20px;
             text-align: center;
+            color: #004d40;
+            margin-bottom: 25px;
         }
-        .cart-table {
+        table {
             width: 100%;
             border-collapse: collapse;
             background: #fff;
-            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-radius: 6px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-        .cart-table th, .cart-table td {
+        th, td {
             padding: 12px 15px;
             text-align: center;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #ddd;
         }
-        .cart-table th {
-            background: #004d40;
+        th {
+            background: #00332c;
             color: white;
         }
-        .total-box {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
+        .qty-box-cart {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .cart-qty-btn {
+            width: 25px;
+            height: 25px;
+            background: #e0e0e0;
+            border: none;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .cart-qty-btn:hover {
+            background: #bdbdbd;
+        }
+        .btn-delete {
+            background: #c62828;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-delete:hover {
+            background: #b71c1c;
+        }
+        .total-section {
             text-align: right;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             font-size: 1.2rem;
             font-weight: bold;
             color: #c0392b;
+            margin-bottom: 20px;
         }
-        .checkout-btn-container {
+        .checkout-box {
             text-align: center;
-            margin-top: 25px;
         }
         .btn-checkout {
-            background: #27ae60;
+            background: #2e7d32;
             color: white;
-            border: none;
             padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
             font-size: 1.1rem;
             font-weight: bold;
-            border-radius: 6px;
             cursor: pointer;
-            transition: background 0.2s;
         }
         .btn-checkout:hover {
-            background: #219653;
-        }
-        .btn-remove {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-        .btn-remove:hover {
-            background: #c0392b;
-        }
-        .empty-cart {
-            text-align: center;
-            padding: 40px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .empty-cart p {
-            font-size: 1.2rem;
-            color: #7f8c8d;
-            margin-bottom: 15px;
+            background: #235e27;
         }
         footer {
             background: #004d40;
@@ -129,19 +122,39 @@
 <body>
 
     <header>
-        <h1>আপনার শপিং কার্ট</h1>
+        <span>শপিং কার্ট</span>
+        <a href="marketplace.html">← শপিং মার্ট হোম পেজ</a>
     </header>
-    <nav>
-        <a href="marketplace.html">শপিং মার্ট</a>
-        <a href="index.html">হোম পেজ</a>
-    </nav>
 
-    <div class="container" id="cartContainer">
-        <!-- জাভাস্ক্রিপ্ট দিয়ে এখানে কার্টের টেবিল বা খালি কার্টের বার্তা লোড হবে -->
+    <div class="container">
+        <h2>নির্বাচিত পণ্যসমূহ</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>পণ্যের নাম</th>
+                    <th>মূল্য (টাকা)</th>
+                    <th>পরিমাণ</th>
+                    <th>মোট (টাকা)</th>
+                    <th>মুছে ফেলুন</th>
+                </tr>
+            </thead>
+            <tbody id="cartTableBody">
+                <!-- ডায়নামিক কার্ট আইটেম এখানে লোড হবে -->
+            </tbody>
+        </table>
+
+        <div class="total-section" id="grandTotalDisplay">
+            সর্বমোট বিল: ০ টাকা
+        </div>
+
+        <div class="checkout-box">
+            <button class="btn-checkout" onclick="checkoutOrder()">অর্ডার কনফার্ম করুন</button>
+        </div>
     </div>
 
     <footer>
-        <p>&copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।</p>
+        &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
     </footer>
 
     <script>
@@ -150,65 +163,65 @@
         });
 
         function loadCartItems() {
-            const container = document.getElementById('cartContainer');
             let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
+            let tbody = document.getElementById('cartTableBody');
+            let grandTotalDisplay = document.getElementById('grandTotalDisplay');
+            
+            tbody.innerHTML = '';
 
             if (cart.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-cart">
-                        <p>আপনার কার্টটি বর্তমানে খালি রয়েছে!</p>
-                        <a href="marketplace.html" class="btn-checkout" style="text-decoration:none; display:inline-block;">পণ্য কিনতে শপিং মার্টে যান</a>
-                    </div>
-                `;
+                tbody.innerHTML = '<tr><td colspan="5" style="padding: 20px; color: #666;">আপনার কার트টি খালি রয়েছে।</td></tr>';
+                grandTotalDisplay.innerText = 'সর্বমোট বিল: ০ টাকা';
                 return;
             }
-
-            let tableHTML = `
-                <h2>নির্বাচিত পণ্যসমূহ</h2>
-                <table class="cart-table">
-                    <thead>
-                        <tr>
-                            <th>পণ্যের নাম</th>
-                            <th>মূল্য (টাকা)</th>
-                            <th>পরিমাণ</th>
-                            <th>মোট (টাকা)</th>
-                            <th>মুছে ফেলুন</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
 
             let grandTotal = 0;
 
             cart.forEach((item, index) => {
-                let itemTotal = item.price * item.quantity;
+                // যদি পুরাতন ডেটাতে unitPrice সেভ না থাকে, তবে বর্তমান মোট দামকে পরিমাণ দিয়ে ভাগ করে একক দাম বের করা হবে
+                let unitPrice = item.unitPrice || (item.price / item.quantity);
+                let itemTotal = unitPrice * item.quantity;
                 grandTotal += itemTotal;
-                tableHTML += `
-                    <tr>
-                        <td>${item.name}</td>
-                        <td>${item.price} ৳</td>
-                        <td>${item.quantity}</td>
-                        <td>${itemTotal} ৳</td>
-                        <td><button class="btn-remove" onclick="removeItem(${index})">ডিলিট</button></td>
-                    </tr>
-                `;
+
+                let row = `<tr>
+                    <td>${item.name}</td>
+                    <td>${unitPrice}৳</td>
+                    <td>
+                        <div class="qty-box-cart">
+                            <button class="cart-qty-btn" onclick="updateCartQty(${index}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="cart-qty-btn" onclick="updateCartQty(${index}, 1)">+</button>
+                        </div>
+                    </td>
+                    <td>${itemTotal}৳</td>
+                    <td><button class="btn-delete" onclick="removeItem(${index})">ডিলিট</button></td>
+                </tr>`;
+                tbody.innerHTML += row;
             });
 
-            tableHTML += `
-                    </tbody>
-                </table>
-                <div class="total-box">
-                    সর্বমোট বিল: ${grandTotal} টাকা
-                </div>
-                <div class="checkout-btn-container">
-                    <button class="btn-checkout" onclick="checkoutOrder(${grandTotal})">অর্ডার কনফার্ম করুন</button>
-                </div>
-            `;
-
-            container.innerHTML = tableHTML;
+            grandTotalDisplay.innerText = 'সর্বমোট বিল: ' + grandTotal + ' টাকা';
         }
 
-        // নির্দিষ্ট পণ্য কার트 থেকে বাদ দেওয়া
+        // কার্টের ভেতরে সরাসরি কোয়ান্টিটি পরিবর্তন করার ফাংশন
+        function updateCartQty(index, change) {
+            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
+            
+            if (cart[index]) {
+                let unitPrice = cart[index].unitPrice || (cart[index].price / cart[index].quantity);
+                cart[index].quantity += change;
+
+                if (cart[index].quantity < 1) {
+                    cart[index].quantity = 1;
+                }
+
+                cart[index].unitPrice = unitPrice;
+                cart[index].price = unitPrice * cart[index].quantity;
+
+                localStorage.setItem('dewDropCart', JSON.stringify(cart));
+                loadCartItems(); // পেজ রিফ্রেশ করে আপডেট দেখাবে
+            }
+        }
+
         function removeItem(index) {
             let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
             cart.splice(index, 1);
@@ -216,35 +229,15 @@
             loadCartItems();
         }
 
-        // অর্ডার কনফার্ম করার লজিক (এখানে গুগল শিটে ডেটা পাঠানোর কোড যুক্ত করা যাবে)
-        function checkoutOrder(totalAmount) {
-            const memberData = localStorage.getItem('dewDropMember');
-            const shopperData = localStorage.getItem('giasStoreUser');
-            
-            let userInfo = memberData ? JSON.parse(memberData) : (shopperData ? JSON.parse(shopperData) : null);
-
-            if (!userInfo) {
-                alert('দয়া করে আগে লগইন বা সাইন-আপ করুন!');
-                window.location.href = 'shoppingsignup.html';
+        function checkoutOrder() {
+            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
+            if (cart.length === 0) {
+                alert('আপনার কার্ট খালি!');
                 return;
             }
-
-            let orderDetails = {
-                user: userInfo.name,
-                contact: userInfo.phone || userInfo.contact || userInfo.memberId,
-                address: userInfo.address,
-                items: JSON.parse(localStorage.getItem('dewDropCart')),
-                total: totalAmount,
-                date: new Date().toLocaleString()
-            };
-
-            // কনসোল বা সাময়িকভাবে অ্যালার্ট দিয়ে অর্ডার সফল দেখানো
-            console.log('Order Placed:', orderDetails);
-            alert('অভিনন্দন! আপনার অর্ডারটি সফলভাবে গৃহিত হয়েছে। খুব শীঘ্রই আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবেন।');
-
-            // কার্ট পরিষ্কার করা
+            alert('আপনার অর্ডারটি সফলভাবে গ্রহণ করা হয়েছে! ধন্যবাদ।');
             localStorage.removeItem('dewDropCart');
-            window.location.href = 'marketplace.html';
+            loadCartItems();
         }
     </script>
 </body>
