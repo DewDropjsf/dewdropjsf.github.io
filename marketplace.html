@@ -16,36 +16,97 @@
             color: #333;
             line-height: 1.6;
         }
-        /* হেডার স্টাইল */
+
+        /* চিত্র ১ এর আদলে নতুন হেডার স্টাইল */
         header {
             background: #004d40;
             color: #fff;
-            padding: 20px 0;
-            text-align: center;    
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-left img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+        }
+        .header-left span {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .header-center h1 {
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+        .header-right .cart-btn {
+            background: #d84315;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-right .cart-btn:hover {
+            background: #bf360c;
+        }
+
+        /* চিত্র ১ এর আদলে নেভিগেশন বার */
         nav {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 20px;
             background: #00332c;
-            padding: 10px 20px;
+            padding: 10px 30px;
             flex-wrap: wrap;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
         }
         nav a {
             color: #fff;
             text-decoration: none;
             font-weight: bold;
+            font-size: 0.95rem;
         }
         nav a:hover {
             color: #80cbc4;
         }
-        .cart-nav-badge {
-            background: #ff5722;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 4px;
+            padding: 3px 8px;
+        }
+        .search-box input {
+            border: none;
+            outline: none;
+            padding: 5px;
             font-size: 0.9rem;
+        }
+        .search-box button {
+            background: #004d40;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.85rem;
         }
 
         /* মেইন কন্টেন্ট স্টাইল */
@@ -173,7 +234,7 @@
             margin-bottom: 15px;
         }
         
-        /* নতুন বাটন স্টাইল (Buy Now, Add To Cart, WhatsApp, Gmail) */
+        /* নতুন বাটন স্টাইল */
         .order-btns {
             display: flex;
             flex-direction: column;
@@ -255,6 +316,19 @@
                 margin-bottom: 30px;
                 justify-content: flex-start;
             }
+            header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -280,15 +354,34 @@
         </a>
     </div>
 
+    <!-- নতুন হেডার: বামে লোগো ও নাম, মাঝে শপিং মার্ট, ডানে বড়ো কার্ট -->
     <header>
-        <h1>শপিং মার্ট</h1>
+        <div class="header-left">
+            <img src="gldlogo.png" alt="Logo">
+            <span>DewDrop Shopping Mart</span>
+        </div>
+        <div class="header-center">
+            <h1>শপিং মার্ট</h1>
+        </div>
+        <div class="header-right">
+            <a href="cart.html" class="cart-btn">
+                🛒 কার্ট <span id="cartCount">0</span>
+            </a>
+        </div>
     </header>
+
+    <!-- নতুন নেভিগেশন বার: বামে হোম, সঞ্চয় পরিকল্পনা, নিয়মাবলি এবং ডানে সার্চ বার -->
     <nav>
-        <a href="index.html">হোম</a>
-        <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
-        <a href="rules.html">নিয়মাবলি</a>
-        <a href="shoppingsignup.html" style="color: #ffeb3b;">শপিং সাইন-আপ</a>
-        <a href="cart.html">🛒 কার্ট <span id="cartCount" class="cart-nav-badge">0</span></a>
+        <div class="nav-links">
+            <a href="index.html">হোম</a>
+            <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
+            <a href="rules.html">নিয়মাবলি</a>
+            <a href="shoppingsignup.html" style="color: #ffeb3b;">শপিং সাইন-আপ</a>
+        </div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
+            <button onclick="searchProducts()">সার্চ</button>
+        </div>
     </nav>
 
     <div class="container">
@@ -320,9 +413,9 @@
         <div class="products-section">
             <h2>আমাদের উপলব্ধ পণ্যসমূহ</h2>
             
-            <div class="product-grid">
+            <div class="product-grid" id="productGrid">
                 <!-- পণ্য ১ -->
-                <div class="product-card" id="gias-store" data-id="p1" data-name="অর্গানিক খাঁটি মধু (১ কেজি)" data-price="1200">
+                <div class="product-card" id="gias-store" data-name="অর্গানিক খাঁটি মধু (১ কেজি)">
                     <img src="placeholder-product1.jpg" alt="পণ্যের ছবি">
                     <h3>অর্গানিক খাঁটি মধু (১ কেজি)</h3>
                     <p>সুন্দরবনের প্রাকৃতিক ও ভেজালমুক্ত খাঁটি মধু।</p>
@@ -340,7 +433,7 @@
                 </div>
 
                 <!-- পণ্য ২ -->
-                <div class="product-card" id="mizan-store" data-id="p2" data-name="ঘানি ভাঙা সরিষার তেল (১ লিটার)" data-price="220">
+                <div class="product-card" id="mizan-store" data-name="ঘানি ভাঙা সরিষার তেল (১ লিটার)">
                     <img src="placeholder-product2.jpg" alt="পণ্যের ছবি">
                     <h3>ঘানি ভাঙা সরিষার তেল (১ লিটার)</h3>
                     <p>শতভাগ খাঁটি ও স্বাস্থ্যসম্মত দেশি সরিষার তেল।</p>
@@ -358,7 +451,7 @@
                 </div>
 
                 <!-- পণ্য ৩ -->
-                <div class="product-card" data-id="p3" data-name="সুগন্ধি চিনিগুড়া চাল (৫ কেজি)" data-price="1250">
+                <div class="product-card" data-name="সুগন্ধি চিনিগুড়া চাল (৫ কেজি)">
                     <img src="placeholder-product3.jpg" alt="পণ্যের ছবি">
                     <h3>সুগন্ধি চিনিগুড়া চাল (৫ কেজি)</h3>
                     <p>সেরা মানের ঐতিহ্যবাহী সুগন্ধি চাল।</p>
@@ -391,18 +484,16 @@
         </div>
     </footer>
 
-    <!-- শপিং ও ভেরিফিকেশন জাভাস্ক্রিপ্ট লজিক -->
+    <!-- শপিং, সার্চ ও ভেরিফিকেশন জাভাস্ক্রিপ্ট লজিক -->
     <script>
-        // পেজ লোড হওয়ার সাথে সাথে কার্ট কাউন্ট আপডেট করা
         document.addEventListener('DOMContentLoaded', function() {
             updateCartCount();
         });
 
         // মূল ভেরিফিকেশন এবং বাই/কার্ট লজিক
         function handleShoppingAction(actionType, productName, productPrice) {
-            // ১. চেক করা ইউজার কি মেম্বার অথবা শপিং সাইন-আপ করা সাধারণ ক্রেতা কি না
-            const memberData = localStorage.getItem('dewDropMember'); // সমিতির মেম্বার ডাটা (যদি থাকে)
-            const shopperData = localStorage.getItem('giasStoreUser'); // সাধারণ শপিং সাইন-আপ ডাটা
+            const memberData = localStorage.getItem('dewDropMember'); 
+            const shopperData = localStorage.getItem('giasStoreUser'); 
 
             if (!memberData && !shopperData) {
                 alert('দয়া করে প্রথমে আপনার সমিতির আইডি দিয়ে অথবা "শপিং সাইন-আপ" পেজ থেকে অ্যাকাউন্ট তৈরি করুন!');
@@ -410,7 +501,6 @@
                 return;
             }
 
-            // ২. যদি মেম্বার হন, তবে ডেলিভারি ঠিকানা চেক করা
             if (memberData) {
                 try {
                     const memberObj = JSON.parse(memberData);
@@ -418,15 +508,10 @@
                         alert('আপনার প্রোফাইল বা ডেলিভারি তথ্য অপূর্ণ রয়েছে। দয়া করে প্রোফাইল বা ডেলিভারি তথ্য আপডেট করুন।');
                         return;
                     }
-                } catch(e) {
-                    // JSON সমস্যা হলে সাইন-আপে পাঠাবে
-                }
+                } catch(e) {}
             }
 
-            // ৩. কার্টে পণ্য যোগ করা
             let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
-            
-            // একই পণ্য আগে থেকে থাকলে পরিমাণ বাড়ানো, না থাকলে নতুন যোগ করা
             let existingItem = cart.find(item => item.name === productName);
             if (existingItem) {
                 existingItem.quantity += 1;
@@ -441,7 +526,6 @@
             localStorage.setItem('dewDropCart', JSON.stringify(cart));
             updateCartCount();
 
-            // ৪. একশন অনুযায়ী কাজ
             if (actionType === 'buy') {
                 window.location.href = 'cart.html';
             } else {
@@ -456,6 +540,21 @@
             const badge = document.getElementById('cartCount');
             if(badge) {
                 badge.innerText = totalCount;
+            }
+        }
+
+        // সার্চ বার ফিল্টার ফাংশন
+        function searchProducts() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('product-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let name = cards[i].getAttribute('data-name').toLowerCase();
+                if (name.includes(input)) {
+                    cards[i].style.display = "block";
+                } else {
+                    cards[i].style.display = "none";
+                }
             }
         }
     </script>
