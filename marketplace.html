@@ -46,6 +46,20 @@
             font-size: 1.6rem;
             font-weight: bold;
         }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logged-user-name {
+            background: #00332c;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.95rem;
+            color: #ffeb3b;
+            border: 1px solid #00796b;
+            display: none; /* ডিফল্টভাবে লুকিয়ে থাকবে, লগইন হলে দেখাবে */
+        }
         .header-right .cart-btn {
             background: #d84315;
             color: white;
@@ -90,13 +104,22 @@
         .btn-member-login {
             background: #00796b;
             color: #fff !important;
-            padding: 5px 10px;
+            padding: 5px 12px;
             border-radius: 4px;
             border: 1px solid #4db6ac;
             cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: bold;
         }
         .btn-member-login:hover {
             background: #004d40;
+        }
+        .btn-member-logout {
+            background: #c62828 !important;
+            border: 1px solid #ef5350 !important;
+        }
+        .btn-member-logout:hover {
+            background: #b71c1c !important;
         }
 
         .search-box {
@@ -377,6 +400,7 @@
                 justify-content: flex-start;
             }
             header { flex-direction: column; gap: 10px; text-align: center; }
+            .header-right { flex-direction: column; gap: 5px; }
             nav { flex-direction: column; gap: 10px; }
         }
     </style>
@@ -413,20 +437,23 @@
             <h1>শপিং মার্ট</h1>
         </div>
         <div class="header-right">
+            <!-- কার্টের পাশে মেম্বারের নাম ভাসবে -->
+            <span id="loggedUserName" class="logged-user-name"></span>
             <a href="cart.html" class="cart-btn">
                 🛒 কার্ট <span id="cartCount">0</span>
             </a>
         </div>
     </header>
 
-    <!-- নেভিগেশন বার (মেম্বার লগইন অপশনসহ) -->
+    <!-- নেভিগেশন বার -->
     <nav>
         <div class="nav-links">
             <a href="index.html">হোম</a>
             <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
             <a href="rules.html">নিয়মাবলি</a>
             <a href="shoppingsignup.html" style="color: #ffeb3b;">শপিং সাইন-আপ</a>
-            <button class="btn-member-login" onclick="openMemberLoginModal()">🔐 মেম্বার লগইন</button>
+            <!-- ডাইনামিক লগইন/লগআউট বাটন -->
+            <button id="memberAuthBtn" class="btn-member-login" onclick="handleAuthButtonClick()">🔐 মেম্বার লগইন</button>
         </div>
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
@@ -550,7 +577,46 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             updateCartCount();
+            checkLoginStatus(); // পেজ লোড হওয়ার সাথেই লগইন স্টেট চেক করবে
         });
+
+        // লগইন স্ট্যাটাস চেক করে হেডার ও বাটন আপডেট করা
+        function checkLoginStatus() {
+            const memberData = localStorage.getItem('dewDropMember');
+            const authBtn = document.getElementById('memberAuthBtn');
+            const nameSpan = document.getElementById('loggedUserName');
+
+            if (memberData) {
+                try {
+                    let memberObj = JSON.parse(memberData);
+                    // বাটন রূপান্তর করব 'লগ আউট করুন'-এ
+                    authBtn.innerText = "🚪 লগ আউট করুন";
+                    authBtn.className = "btn-member-login btn-member-logout";
+
+                    // কার্টের পাশে নাম ভেসে উঠবে
+                    nameSpan.innerText = "👤 " + memberObj.name;
+                    nameSpan.style.display = "inline-block";
+                } catch(e) {}
+            } else {
+                authBtn.innerText = "🔐 মেম্বার লগইন";
+                authBtn.className = "btn-member-login";
+                nameSpan.style.display = "none";
+            }
+        }
+
+        // বাটন ক্লিক হ্যান্ডলার (লগইন থাকলে লগআউট করবে, না থাকলে পপ-আপ আনবে)
+        function handleAuthButtonClick() {
+            const memberData = localStorage.getItem('dewDropMember');
+            if (memberData) {
+                if (confirm('আপনি কি সত্যিই লগআউট করতে চান?')) {
+                    localStorage.removeItem('dewDropMember');
+                    checkLoginStatus();
+                    alert('সফলভাবে লগআউট করা হয়েছে।');
+                }
+            } else {
+                openMemberLoginModal();
+            }
+        }
 
         // মেম্বার লগইন পপ-আপ খোলা ও বন্ধ করা
         function openMemberLoginModal() {
@@ -570,17 +636,18 @@
                 return;
             }
 
-            // মেম্বার ডাটা লোকালস্টোরেজে সেভ করা (যাতে কার্ট ও চেকআউট স্বয়ংক্রিয়ভাবে কাজ করে)
+            // মেম্বার ডাটা লোকালস্টোরেজে সেভ করা
             let memberObj = {
                 memberId: memberId,
-                name: "মেম্বার (" + memberId + ")",
+                name: "আইডি: " + memberId,
                 phone: memberPhone,
-                address: "সমিতির রেজিস্টার্ড ঠিকানা" // মেম্বার ডাটা থেকে পরবর্তীতে রিয়েল অ্যাড্রেস আসতে পারে
+                address: "সমিতির রেজিস্টার্ড ঠিকানা"
             };
 
             localStorage.setItem('dewDropMember', JSON.stringify(memberObj));
-            alert('অভিনন্দন! আপনার মেম্বার আইডি সফলভাবে ভেরিফাই হয়েছে। এখন আপনি সরাসরি পণ্য অর্ডার করতে পারবেন।');
+            alert('অভিনন্দন! আপনার মেম্বার আইডি সফলভাবে ভেরিফাই হয়েছে।');
             closeMemberLoginModal();
+            checkLoginStatus(); // স্টেট আপডেট করে নাম ও লগআউট বাটন শো করা
         }
 
         // মূল ভেরিফিকেশন এবং বাই/কার্ট লজিক
@@ -589,7 +656,7 @@
             const shopperData = localStorage.getItem('giasStoreUser'); 
 
             if (!memberData && !shopperData) {
-                alert('দয়া করে প্রথমে উপরে থাকা "🔐 মেম্বার লগইন" বাটনে ক্লিক করে আপনার মেম্বার আইডি দিয়ে লগইন করুন, অথবা সাধারণ ক্রেতা হলে "শপিং সাইন-আপ" পেজ ব্যবহার করুন!');
+                alert('দয়া করে প্রথমে উপরে থাকা "🔐 মেম্বার লগইন" বাটনে ক্লিক করে আপনার মেম্বার আইডি দিয়ে লগইন করুন!');
                 openMemberLoginModal();
                 return;
             }
