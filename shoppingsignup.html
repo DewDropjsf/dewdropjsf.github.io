@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>শপিং অ্যাকাউন্ট সাইন-আপ - DewDrop Shopping Mart</title>
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'SolaimanLipi', Arial, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .signup-container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 480px;
+            padding: 35px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .signup-header img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #667eea;
+            margin-bottom: 10px;
+        }
+        .signup-header h2 {
+            color: #2c3e50;
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+        .signup-header p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+        }
+        .form-group textarea {
+            resize: vertical;
+            height: 80px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        .btn-submit:hover {
+            background: #5a6fd6;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-home a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        .back-home a:hover {
+            text-decoration: underline;
+        }
+
+        /* সফল মেসেজ স্টাইল */
+        #success-msg {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="signup-container">
+        <div class="signup-header">
+            <img src="gldlogo.png" alt="Logo">
+            <h2>শপিং অ্যাকাউন্ট সাইন-আপ</h2>
+            <p>আপনার মোবাইল নম্বর বা জিমেইল দিয়ে দ্রুত প্রোফাইল তৈরি করুন</p>
+        </div>
+
+        <div id="success-msg">সফলভাবে আপনার অ্যাকাউন্ট তৈরি হয়েছে! হোম পেজে নিয়ে যাওয়া হচ্ছে...</div>
+
+        <form id="shopperSignupForm" onsubmit="handleShopperSignup(event)">
+            <div class="form-group">
+                <label for="shopperName">পূর্ণ নাম:</label>
+                <input type="text" id="shopperName" placeholder="আপনার নাম লিখুন" required>
+            </div>
+
+            <div class="form-group">
+                <label for="shopperContact">মোবাইল নম্বর বা জিমেইল আইডি:</label>
+                <input type="text" id="shopperContact" placeholder="যেমন: 017xxxxxxxx বা email@gmail.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="shopperAddress">ডেলিভারির পূর্ণ ঠিকানা:</label>
+                <textarea id="shopperAddress, area" id="shopperAddress" placeholder="বাসা/হোল্ডিং, রোড, এলাকা, থানা ও জেলা" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">অ্যাকাউন্ট তৈরি করুন</button>
+        </form>
+
+        <div class="back-home">
+            <a href="index.html">← মূল হোম পেজে ফিরে যান</a>
+        </div>
+    </div>
+
+    <script>
+        function handleShopperSignup(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('shopperName').value;
+            const contact = document.getElementById('shopperContact').value;
+            const address = document.getElementById('shopperAddress').value;
+
+            // ব্রাউজারের LocalStorage-এ শপার প্রোফাইল সেভ করে রাখা
+            const shopperData = {
+                name: name,
+                contact: contact,
+                address: address,
+                type: 'General Shopper'
+            };
+
+            localStorage.setItem('giasStoreUser', JSON.stringify(shopperData));
+
+            // সফল মেসেজ দেখানো
+            document.getElementById('success-msg').style.display = 'block';
+            document.getElementById('shopperSignupForm').style.display = 'none';
+
+            // ২ সেকেন্ড পর হোম পেজে রিডাইরেক্ট করা
+            setTimeout(function() {
+                window.location.href = 'index.html';
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
