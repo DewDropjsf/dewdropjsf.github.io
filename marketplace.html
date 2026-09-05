@@ -269,7 +269,7 @@
             margin-bottom: 10px;
         }
 
-        /* কোয়ান্টিটি কন্ট্রোল বক্স (আপনার দেওয়া ছবির ডিজাইন অনুযায়ী) */
+        /* কোয়ান্টিটি কন্ট্রোল বক্স */
         .quantity-control-box {
             display: inline-flex;
             align-items: center;
@@ -546,7 +546,7 @@
                     <p>সুন্দরবনের প্রাকৃতিক ও ভেজালমুক্ত খাঁটি মধু।</p>
                     <div class="price">মূল্য: <span id="price-1">1200</span> টাকা</div>
                     
-                    <!-- মূল্যের নিচে কোয়ান্টিটি কন্ট্রোল বাটন -->
+                    <!-- কোয়ান্টিটি কন্ট্রোল বাটন -->
                     <div class="quantity-control-box">
                         <span class="quantity-display" id="qty-1">1</span>
                         <button class="qty-btn" onclick="changeQuantity(1, -1, 1200)">-</button>
@@ -570,11 +570,11 @@
                     <img src="placeholder-product2.jpg" alt="পণ্যের ছবি">
                     <h3>ঘানি ভাঙা সরিষার তেল (১ লিটার)</h3>
                     <p>শতভাগ খাঁটি ও স্বাস্থ্যসম্মত দেশি সরিষার তেল।</p>
-                    <div class="price">মূল্য: <span id="price-2">220</span> টাকা</div>
+                    <div class="price">মূল্য: <span id="price-2">440</span> টাকা</div>
                     
-                    <!-- মূল্যের নিচে কোয়ান্টিটি কন্ট্রোল বাটন -->
+                    <!-- কোয়ান্টিটি কন্ট্রোল বাটন -->
                     <div class="quantity-control-box">
-                        <span class="quantity-display" id="qty-2">1</span>
+                        <span class="quantity-display" id="qty-2">2</span>
                         <button class="qty-btn" onclick="changeQuantity(2, -1, 220)">-</button>
                         <button class="qty-btn" onclick="changeQuantity(2, 1, 220)">+</button>
                     </div>
@@ -596,11 +596,11 @@
                     <img src="placeholder-product3.jpg" alt="পণ্যের ছবি">
                     <h3>সুগন্ধি চিনিগুড়া চাল (৫ কেজি)</h3>
                     <p>সেরা মানের ঐতিহ্যবাহী সুগন্ধি চাল।</p>
-                    <div class="price">মূল্য: <span id="price-3">1250</span> টাকা</div>
+                    <div class="price">মূল্য: <span id="price-3">2500</span> টাকা</div>
                     
-                    <!-- মূল্যের নিচে কোয়ান্টিটি কন্ট্রোল বাটন -->
+                    <!-- কোয়ান্টিটি কন্ট্রোল বাটন -->
                     <div class="quantity-control-box">
-                        <span class="quantity-display" id="qty-3">1</span>
+                        <span class="quantity-display" id="qty-3">2</span>
                         <button class="qty-btn" onclick="changeQuantity(3, -1, 1250)">-</button>
                         <button class="qty-btn" onclick="changeQuantity(3, 1, 1250)">+</button>
                     </div>
@@ -640,8 +640,16 @@
             checkLoginStatus();
         });
 
+        // পণ্যের একক দাম (Unit Price) হিসাব করার জন্য আলাদা ফাংশন
+        function getUnitPrice(productId) {
+            if(productId === 1) return 1200;
+            if(productId === 2) return 220;
+            if(productId === 3) return 1250;
+            return 0;
+        }
+
         // পণ্যের পরিমাণ কমানো বা বাড়ানোর ফাংশন
-        function changeQuantity(productId, change, basePrice) {
+        function changeQuantity(productId, change, unitPrice) {
             let qtySpan = document.getElementById('qty-' + productId);
             let priceSpan = document.getElementById('price-' + productId);
             
@@ -653,7 +661,7 @@
             }
 
             qtySpan.innerText = newQty;
-            priceSpan.innerText = basePrice * newQty; // মোট দাম আপডেট হবে
+            priceSpan.innerText = unitPrice * newQty; // মোট দাম আপডেট হবে
         }
 
         // লগইন স্ট্যাটাস চেক করে হেডার ও বাটন আপডেট করা
@@ -720,8 +728,8 @@
             checkLoginStatus();
         }
 
-        // মূল ভেরিফিকেশন এবং বাই/কার্ট লজিক (নির্ধারিত কোয়ান্টিটি সহ)
-        function handleShoppingAction(actionType, productName, basePrice, productId) {
+        // কার্টে সঠিক পরিমাণ (Quantity) যোগ করার লজিক
+        function handleShoppingAction(actionType, productName, unitPrice, productId) {
             const memberData = localStorage.getItem('dewDropMember'); 
             const shopperData = localStorage.getItem('giasStoreUser'); 
 
@@ -731,20 +739,22 @@
                 return;
             }
 
-            // স্ক্রিন থেকে বর্তমান সিলেক্ট করা কোয়ান্টিটি নিয়ে নেওয়া
+            // স্ক্রিনের ডিসপ্লে থেকে বর্তমান সিলেক্ট করা কোয়ান্টিটি নেওয়া হচ্ছে
             let quantity = parseInt(document.getElementById('qty-' + productId).innerText);
-            let totalPrice = basePrice * quantity;
 
             let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
             let existingItem = cart.find(item => item.name === productName);
             
             if (existingItem) {
+                // পূর্বে কার্টে থাকলে নতুন পরিমাণ যোগ হবে
                 existingItem.quantity += quantity;
-                existingItem.price = basePrice * existingItem.quantity;
+                existingItem.price = unitPrice * existingItem.quantity;
             } else {
+                // নতুন যোগ হলে সরাসরি সেই কোয়ান্টিটি ও দাম সেট হবে
                 cart.push({
                     name: productName,
-                    price: totalPrice,
+                    unitPrice: unitPrice,
+                    price: unitPrice * quantity,
                     quantity: quantity
                 });
             }
