@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>শপিং কার্ট - DewDrop Shpping Mart</title>
+    <title>শপিং কার্ট - DewDrop Shopping Mart</title>
     <style>
         * {
             box-sizing: border-box;
@@ -169,7 +169,7 @@
             <div class="success-view" id="successViewSection">
                 <div class="success-icon">✅</div>
                 <h3>আপনার অর্ডারটি সফলভাবে সম্পন্ন হয়েছে!</h3>
-                <p>আমাদের সাথে থাকার জন্য আপনাকে ধন্যবাদ। আপনার অর্ডারটি আমাদের সিস্টেমে সফলভাবে রেকর্ড করা হয়েছে এবং খুব শীঘ্রই প্রতিনিধি আপনার সাথে যোগাযোগ করবেন।</p>
+                <p>আমাদের সাথে থাকার জন্য আপনাকে ধন্যবাদ। আপনার অর্ডারটি আমাদের সিস্টেমে সফলভাবে রেকর্ড করা হয়েছে এবং "কেনাকাটা বিবরণ" এ যুক্ত হয়েছে।</p>
                 <div style="margin-top: 25px;">
                     <a href="marketplace.html" class="btn btn-confirm" style="display: inline-block; width: auto; padding: 12px 30px;">হোম পেজে ফিরে যান</a>
                 </div>
@@ -242,7 +242,6 @@
                 if (cart[index].quantity < 1) {
                     cart[index].quantity = 1;
                 }
-                // একক মূল্য অনুযায়ী মোট দাম আপডেট
                 cart[index].price = cart[index].unitPrice * cart[index].quantity;
                 localStorage.setItem('dewDropCart', JSON.stringify(cart));
                 loadCartItems();
@@ -256,7 +255,7 @@
             loadCartItems();
         }
 
-        // অর্ডার কনফার্ম করার পরের ধাপ (Success Page এ রূপান্তর এবং কার্ট খালি করা)
+        // অর্ডার কনফার্ম করার সময় হিস্ট্রি সেভ করা এবং সাকসেস পেজ দেখানো
         function confirmOrder() {
             let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
             if (cart.length === 0) {
@@ -264,10 +263,31 @@
                 return;
             }
 
-            // লোকালস্টোরেজ থেকে কার্ট ডাটা মুছে ফেলা (যেহেতু অর্ডার কনফার্ম হয়ে গেছে)
+            // পণ্যের বিবরণ বা আইটেমগুলোর তালিকা টেক্সট আকারে প্রস্তুত করা
+            let itemsDescription = cart.map(item => `${item.name} (${item.quantity}টি)`).join(', ');
+            let grandTotal = cart.reduce((sum, item) => sum + item.price, 0);
+
+            // বর্তমান তারিখ ও সময় ফরম্যাট করা
+            let now = new Date();
+            let dateStr = now.toLocaleDateString('bn-BD') + ' ' + now.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
+
+            // নতুন অর্ডার অবজেক্ট
+            let newOrder = {
+                date: dateStr,
+                itemsList: itemsDescription,
+                totalAmount: grandTotal,
+                status: "অপেক্ষমান" // ডিফল্ট স্ট্যাটাস অপেক্ষমান থাকবে
+            };
+
+            // পূর্বের অর্ডার লিস্টের সাথে নতুন অর্ডার যুক্ত করা
+            let orders = JSON.parse(localStorage.getItem('dewDropOrders')) || [];
+            orders.unshift.push ? orders.unshift(newOrder) : orders.push(newOrder); // নতুন অর্ডার উপরে দেখানোর জন্য unshift ব্যবহার করা হয়েছে
+            localStorage.setItem('dewDropOrders', JSON.stringify(orders));
+
+            // কার্ট খালি করে দেওয়া
             localStorage.removeItem('dewDropCart');
 
-            // আগের টেবিল ও বাটন লুকিয়ে সফলতার উইন্ডো বা পেজটি দেখানো
+            // কার্ট সেクション লুকিয়ে সফলতার উইন্ডো দেখানো
             document.getElementById('cartContentSection').style.display = 'none';
             document.getElementById('successViewSection').style.display = 'block';
         }
