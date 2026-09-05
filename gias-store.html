@@ -233,6 +233,9 @@
             padding: 15px;
             text-align: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .product-card img {
             width: 100%;
@@ -247,42 +250,80 @@
             margin-bottom: 8px;
             color: #222;
         }
-        .product-card p {
+        
+        /* ডিটেইলস সেকশন ডিজাইন */
+        .product-desc {
             color: #666;
             font-size: 0.9rem;
-            margin-bottom: 12px;
+            max-height: 40px; /* ডিফল্ট অবস্থায় ছোট দেখাবে */
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-bottom: 10px;
+            text-align: left;
         }
+        .product-card.expanded .product-desc {
+            max-height: 200px; /* More Details ক্লিক করলে বড় হবে */
+        }
+
         .price {
             font-weight: bold;
             color: #c0392b;
             font-size: 1rem;
             margin-bottom: 12px;
         }
-        .order-btns {
+
+        /* নতুন বাটন ডিজাইন */
+        .card-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .btn-more-details {
+            background: #e0f2f1;
+            color: #004d40;
+            border: 1px solid #00796b;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-more-details:hover {
+            background: #b2dfdb;
+        }
+        .action-row {
             display: flex;
             gap: 8px;
-            justify-content: center;
         }
-        .btn-whatsapp {
-            background: #25d366;
+        .btn-buy-now {
+            flex: 1;
+            background: #27ae60;
             color: white;
-            padding: 6px 12px;
-            text-decoration: none;
+            border: none;
+            padding: 8px;
             border-radius: 4px;
             font-size: 0.85rem;
             font-weight: bold;
+            cursor: pointer;
         }
-        .btn-gmail {
-            background: #ea4335;
+        .btn-buy-now:hover {
+            background: #219653;
+        }
+        .btn-add-cart {
+            flex: 1;
+            background: #2980b9;
             color: white;
-            padding: 6px 12px;
-            text-decoration: none;
+            border: none;
+            padding: 8px;
             border-radius: 4px;
             font-size: 0.85rem;
             font-weight: bold;
+            cursor: pointer;
         }
-        .btn-whatsapp:hover { background: #1ebe5d; }
-        .btn-gmail:hover { background: #d33426; }
+        .btn-add-cart:hover {
+            background: #2471a3;
+        }
         
         /* ফুটার স্টাইল */
         footer {
@@ -380,7 +421,7 @@
         
         <div class="welcome-banner">
             <h2>DewDrop Joint Savings Fund-এর বিপণন কেন্দ্রে আপনাকে আন্তরিক অভিনন্দন!</h2>
-            <p>আমাদের এই প্ল্যাটফর্মের মূল লক্ষ্য হলো গুণগত মানে সেরা পণ্যগুলো সাশ্রয়ী মূল্যে আপনাদের দোরগোড়ায় পৌঁছে দেওয়া। আমাদের সাথে যুক্ত হয়ে আপনারা যেমন সঞ্চয় ও তহবিলের অংশীদার হচ্ছেন, তেমনি এখান থেকে আপনার প্রয়োজনীয় পণ্য অর্ডার করে আমাদের এই উদ্যোগকে আরও এগিয়ে নিতে পারেন। আপনাদের আস্থাই আমাদের সবচেয়ে বড় শক্তি। যেকোনো পণ্যের অর্ডার করতে নিচের WhatsApp বা Gmail অপশন ব্যবহার করুন।</p>
+            <p>আমাদের এই প্ল্যাটফর্মের মূল লক্ষ্য হলো গুণগত মানে সেরা পণ্যগুলো সাশ্রয়ী মূল্যে আপনাদের দোরগোড়ায় পৌঁছে দেওয়া। আমাদের সাথে যুক্ত হয়ে আপনারা যেমন সঞ্চয় ও তহবিলের অংশীদার হচ্ছেন, তেমনি এখান থেকে আপনার প্রয়োজনীয় পণ্য অর্ডার করে আমাদের এই উদ্যোগকে আরও এগিয়ে নিতে পারেন। আপনাদের আস্থাই আমাদের সবচেয়ে বড় শক্তি।</p>
         </div>
 
         <div class="store-categories">
@@ -414,38 +455,55 @@
                 </div>
                 <div class="products-wrapper">
                     <div class="product-grid">
+                        
                         <div class="product-card">
-                            <img src="placeholder-cake.jpg" alt="Dark Chocolate Cake">
-                            <h3>Dark Chocolate Cake</h3>
-                            <p>Details: Rich and moist homemade dark chocolate cake.</p>
-                            <div class="price">Price: ৳ ৬৫০</div>
-                            <div class="order-btns">
-                                <a href="https://wa.me/8801977885122?text=Order:%20Dark%20Chocolate%20Cake" class="btn-whatsapp" target="_blank">WhatsApp</a>
-                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Dark Chocolate Cake" class="btn-gmail">Gmail</a>
+                            <div>
+                                <img src="placeholder-cake.jpg" alt="Dark Chocolate Cake">
+                                <h3>Dark Chocolate Cake</h3>
+                                <p class="product-desc">Details: Rich and moist homemade dark chocolate cake baked with premium ingredients and pure cocoa.</p>
+                                <div class="price">Price: ৳ ৬৫০</div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn-more-details" onclick="toggleDetails(this)">More Details</button>
+                                <div class="action-row">
+                                    <button class="btn-buy-now">Buy Now</button>
+                                    <button class="btn-add-cart">Add To Cart</button>
+                                </div>
                             </div>
                         </div>
 
                         <div class="product-card">
-                            <img src="placeholder-cake2.jpg" alt="Vanilla Cake">
-                            <h3>Vanilla Cake</h3>
-                            <p>Details: Soft and delicious vanilla flavored cake.</p>
-                            <div class="price">Price: ৳ ৫৫০</div>
-                            <div class="order-btns">
-                                <a href="https://wa.me/8801977885122?text=Order:%20Vanilla%20Cake" class="btn-whatsapp" target="_blank">WhatsApp</a>
-                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Vanilla Cake" class="btn-gmail">Gmail</a>
+                            <div>
+                                <img src="placeholder-cake2.jpg" alt="Vanilla Cake">
+                                <h3>Vanilla Cake</h3>
+                                <p class="product-desc">Details: Soft and delicious vanilla flavored cake with creamy vanilla frosting.</p>
+                                <div class="price">Price: ৳ ৫৫০</div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn-more-details" onclick="toggleDetails(this)">More Details</button>
+                                <div class="action-row">
+                                    <button class="btn-buy-now">Buy Now</button>
+                                    <button class="btn-add-cart">Add To Cart</button>
+                                </div>
                             </div>
                         </div>
 
                         <div class="product-card">
-                            <img src="placeholder-fries.jpg" alt="French Fries">
-                            <h3>French Fries (Frozen/Ready)</h3>
-                            <p>Details: Crispy homemade style snacks.</p>
-                            <div class="price">Price: ৳ ২৫০</div>
-                            <div class="order-btns">
-                                <a href="https://wa.me/8801977885122?text=Order:%20French%20Fries" class="btn-whatsapp" target="_blank">WhatsApp</a>
-                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: French Fries" class="btn-gmail">Gmail</a>
+                            <div>
+                                <img src="placeholder-fries.jpg" alt="French Fries">
+                                <h3>French Fries (Frozen/Ready)</h3>
+                                <p class="product-desc">Details: Crispy homemade style snacks, perfectly cut and ready to fry for evening tea.</p>
+                                <div class="price">Price: ৳ ২৫০</div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn-more-details" onclick="toggleDetails(this)">More Details</button>
+                                <div class="action-row">
+                                    <button class="btn-buy-now">Buy Now</button>
+                                    <button class="btn-add-cart">Add To Cart</button>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -456,38 +514,55 @@
                 </div>
                 <div class="products-wrapper">
                     <div class="product-grid">
+                        
                         <div class="product-card">
-                            <img src="placeholder-tshirt.jpg" alt="T-Shirt">
-                            <h3>Stylish T-Shirt</h3>
-                            <p>Details: Comfortable 100% cotton casual t-shirt.</p>
-                            <div class="price">Price: ৳ ৩৫০</div>
-                            <div class="order-btns">
-                                <a href="https://wa.me/8801977885122?text=Order:%20T-Shirt" class="btn-whatsapp" target="_blank">WhatsApp</a>
-                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: T-Shirt" class="btn-gmail">Gmail</a>
+                            <div>
+                                <img src="placeholder-tshirt.jpg" alt="T-Shirt">
+                                <h3>Stylish T-Shirt</h3>
+                                <p class="product-desc">Details: Comfortable 100% cotton casual t-shirt suitable for regular outdoor and indoor use.</p>
+                                <div class="price">Price: ৳ ৩৫০</div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn-more-details" onclick="toggleDetails(this)">More Details</button>
+                                <div class="action-row">
+                                    <button class="btn-buy-now">Buy Now</button>
+                                    <button class="btn-add-cart">Add To Cart</button>
+                                </div>
                             </div>
                         </div>
 
                         <div class="product-card">
-                            <img src="placeholder-pant.jpg" alt="Pant">
-                            <h3>Casual Pant</h3>
-                            <p>Details: Premium quality fabric comfortable pant.</p>
-                            <div class="price">Price: ৳ ৭৫০</div>
-                            <div class="order-btns">
-                                <a href="https://wa.me/8801977885122?text=Order:%20Pant" class="btn-whatsapp" target="_blank">WhatsApp</a>
-                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Pant" class="btn-gmail">Gmail</a>
+                            <div>
+                                <img src="placeholder-pant.jpg" alt="Pant">
+                                <h3>Casual Pant</h3>
+                                <p class="product-desc">Details: Premium quality durable fabric comfortable pant designed for daily styling.</p>
+                                <div class="price">Price: ৳ ৭৫০</div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn-more-details" onclick="toggleDetails(this)">More Details</button>
+                                <div class="action-row">
+                                    <button class="btn-buy-now">Buy Now</button>
+                                    <button class="btn-add-cart">Add To Cart</button>
+                                </div>
                             </div>
                         </div>
 
                         <div class="product-card">
-                            <img src="placeholder-jeans.jpg" alt="Jeans">
-                            <h3>Denim Jeans</h3>
-                            <p>Details: Durable and stylish fashionable jeans.</p>
-                            <div class="price">Price: ৳ ১,১৫০</div>
-                            <div class="order-btns">
-                                <a href="https://wa.me/8801977885122?text=Order:%20Jeans" class="btn-whatsapp" target="_blank">WhatsApp</a>
-                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Jeans" class="btn-gmail">Gmail</a>
+                            <div>
+                                <img src="placeholder-jeans.jpg" alt="Jeans">
+                                <h3>Denim Jeans</h3>
+                                <p class="product-desc">Details: Durable and stylish fashionable jeans with perfect fitting and fine stitching.</p>
+                                <div class="price">Price: ৳ ১,১৫০</div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn-more-details" onclick="toggleDetails(this)">More Details</button>
+                                <div class="action-row">
+                                    <button class="btn-buy-now">Buy Now</button>
+                                    <button class="btn-add-cart">Add To Cart</button>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -498,38 +573,55 @@
                 </div>
                 <div class="products-wrapper">
                     <div class="product-grid">
+                        
                         <div class="product-card">
-                            <img src="placeholder-tshirt.jpg" alt="Appliance 1">
-                            <h3>Smart Blender</h3>
-                            <p>Details: High speed multi-purpose kitchen blender.</p>
-                            <div class="price">Price: ৳ ২,৪৫০</div>
-                            <div class="order-btns">
-                                <a href="https://wa.me/8801977885122?text=Order:%20Smart%20Blender" class="btn-whatsapp" target="_blank">WhatsApp</a>
-                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Smart Blender" class="btn-gmail">Gmail</a>
+                            <div>
+                                <img src="placeholder-tshirt.jpg" alt="Appliance 1">
+                                <h3>Smart Blender</h3>
+                                <p class="product-desc">Details: High speed multi-purpose kitchen blender for smoothies, spices, and everyday cooking.</p>
+                                <div class="price">Price: ৳ ২,৪৫০</div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn-more-details" onclick="toggleDetails(this)">More Details</button>
+                                <div class="action-row">
+                                    <button class="btn-buy-now">Buy Now</button>
+                                    <button class="btn-add-cart">Add To Cart</button>
+                                </div>
                             </div>
                         </div>
 
                         <div class="product-card">
-                            <img src="placeholder-pant.jpg" alt="Appliance 2">
-                            <h3>Electric Kettle</h3>
-                            <p>Details: Fast boiling stainless steel kettle.</p>
-                            <div class="price">Price: ৳ ১,২০০</div>
-                            <div class="order-btns">
-                                <a href="https://wa.me/8801977885122?text=Order:%20Electric%20Kettle" class="btn-whatsapp" target="_blank">WhatsApp</a>
-                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Electric Kettle" class="btn-gmail">Gmail</a>
+                            <div>
+                                <img src="placeholder-pant.jpg" alt="Appliance 2">
+                                <h3>Electric Kettle</h3>
+                                <p class="product-desc">Details: Fast boiling stainless steel electric kettle with automatic shut-off feature.</p>
+                                <div class="price">Price: ৳ ১,২০০</div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn-more-details" onclick="toggleDetails(this)">More Details</button>
+                                <div class="action-row">
+                                    <button class="btn-buy-now">Buy Now</button>
+                                    <button class="btn-add-cart">Add To Cart</button>
+                                </div>
                             </div>
                         </div>
 
                         <div class="product-card">
-                            <img src="placeholder-jeans.jpg" alt="Appliance 3">
-                            <h3>Rice Cooker</h3>
-                            <p>Details: Automatic non-stick electric rice cooker.</p>
-                            <div class="price">Price: ৳ ৩,৫০০</div>
-                            <div class="order-btns">
-                                <a href="https://wa.me/8801977885122?text=Order:%20Rice%20Cooker" class="btn-whatsapp" target="_blank">WhatsApp</a>
-                                <a href="mailto:tanjimtoru@gmail.com?subject=Order: Rice Cooker" class="btn-gmail">Gmail</a>
+                            <div>
+                                <img src="placeholder-jeans.jpg" alt="Appliance 3">
+                                <h3>Rice Cooker</h3>
+                                <p class="product-desc">Details: Automatic non-stick electric rice cooker with keep-warm function and steam tray.</p>
+                                <div class="price">Price: ৳ ৩,৫০০</div>
+                            </div>
+                            <div class="card-buttons">
+                                <button class="btn-more-details" onclick="toggleDetails(this)">More Details</button>
+                                <div class="action-row">
+                                    <button class="btn-buy-now">Buy Now</button>
+                                    <button class="btn-add-cart">Add To Cart</button>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -544,6 +636,7 @@
     </div>
 
     <script>
+        // ভাসমান লোগো স্ক্রিপ্ট
         window.addEventListener('scroll', function() {
             var badge = document.getElementById('floating-store-badge');
             if (window.scrollY > 250) {
@@ -554,6 +647,17 @@
                 badge.style.visibility = 'hidden';
             }
         });
+
+        // More Details বাটন টগল করার ফাংশন
+        function toggleDetails(button) {
+            const card = button.closest('.product-card');
+            card.classList.toggle('expanded');
+            if (card.classList.contains('expanded')) {
+                button.innerText = 'Less Details';
+            } else {
+                button.innerText = 'More Details';
+            }
+        }
     </script>
     
     <footer>
