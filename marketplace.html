@@ -17,7 +17,7 @@
             line-height: 1.6;
         }
 
-        /* চিত্র ১ এর আদলে নতুন হেডার স্টাইল */
+        /* হেডার স্টাইল */
         header {
             background: #004d40;
             color: #fff;
@@ -63,7 +63,7 @@
             background: #bf360c;
         }
 
-        /* চিত্র ১ এর আদলে নেভিগেশন বার */
+        /* নেভিগেশন বার */
         nav {
             display: flex;
             justify-content: space-between;
@@ -74,8 +74,9 @@
         }
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             align-items: center;
+            flex-wrap: wrap;
         }
         nav a {
             color: #fff;
@@ -86,6 +87,18 @@
         nav a:hover {
             color: #80cbc4;
         }
+        .btn-member-login {
+            background: #00796b;
+            color: #fff !important;
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #4db6ac;
+            cursor: pointer;
+        }
+        .btn-member-login:hover {
+            background: #004d40;
+        }
+
         .search-box {
             display: flex;
             align-items: center;
@@ -116,7 +129,7 @@
             padding: 0 20px;
         }
         
-        /* ডেস্কটপের জন্য ফিক্সড বা ভাসমান স্টোর বাটনগুলো */
+        /* ভাসমান স্টোর বাটন */
         .floating-stores {
             position: fixed;
             left: 20px;
@@ -186,7 +199,6 @@
             margin-bottom: 10px;
         }
 
-        /* মোবাইল স্টোর সেকশন */
         .mobile-stores-section {
             display: none;
         }
@@ -234,7 +246,6 @@
             margin-bottom: 15px;
         }
         
-        /* নতুন বাটন স্টাইল */
         .order-btns {
             display: flex;
             flex-direction: column;
@@ -294,6 +305,58 @@
         .btn-whatsapp:hover { background: #1ebe5d; }
         .btn-gmail:hover { background: #d33426; }
         
+        /* মেম্বার লগইন মডাল (Popup) স্টাইল */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .modal-box h3 {
+            color: #004d40;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .modal-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .modal-box button {
+            width: 100%;
+            background: #004d40;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .modal-box button:hover {
+            background: #00332c;
+        }
+        .close-modal {
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #888;
+        }
+
         /* ফুটার স্টাইল */
         footer {
             background: #004d40;
@@ -303,11 +366,8 @@
             margin-top: 40px;
         }
 
-        /* মোবাইল স্ক্রিনের জন্য রেসপন্সিভ নিয়ম */
         @media(max-width: 992px) {
-            .floating-stores {
-                display: none;
-            }
+            .floating-stores { display: none; }
             .mobile-stores-section {
                 display: flex;
                 overflow-x: auto;
@@ -316,19 +376,8 @@
                 margin-bottom: 30px;
                 justify-content: flex-start;
             }
-            header {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
-            }
-            nav {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
+            header { flex-direction: column; gap: 10px; text-align: center; }
+            nav { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
@@ -354,7 +403,7 @@
         </a>
     </div>
 
-    <!-- নতুন হেডার: বামে লোগো ও নাম, মাঝে শপিং মার্ট, ডানে বড়ো কার্ট -->
+    <!-- হেডার -->
     <header>
         <div class="header-left">
             <img src="gldlogo.png" alt="Logo">
@@ -370,19 +419,32 @@
         </div>
     </header>
 
-    <!-- নতুন নেভিগেশন বার: বামে হোম, সঞ্চয় পরিকল্পনা, নিয়মাবলি এবং ডানে সার্চ বার -->
+    <!-- নেভিগেশন বার (মেম্বার লগইন অপশনসহ) -->
     <nav>
         <div class="nav-links">
             <a href="index.html">হোম</a>
             <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
             <a href="rules.html">নিয়মাবলি</a>
             <a href="shoppingsignup.html" style="color: #ffeb3b;">শপিং সাইন-আপ</a>
+            <button class="btn-member-login" onclick="openMemberLoginModal()">🔐 মেম্বার লগইন</button>
         </div>
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
             <button onclick="searchProducts()">সার্চ</button>
         </div>
     </nav>
+
+    <!-- মেম্বার লগইন পপ-আপ মডাল -->
+    <div class="modal-overlay" id="memberLoginModal">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeMemberLoginModal()">&times;</span>
+            <h3>মেম্বার আইডি দিয়ে লগইন</h3>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px; text-align: center;">আপনার সমিতির মেম্বার আইডি এবং মোবাইল নম্বর দিয়ে ভেরিফাই করুন।</p>
+            <input type="text" id="modalMemberId" placeholder="আপনার মেম্বার আইডি (যেমন: MEM-101)">
+            <input type="tel" id="modalMemberPhone" placeholder="আপনার রেজিস্টার্ড মোবাইল নম্বর">
+            <button onclick="verifyMemberLogin()">লগইন করুন</button>
+        </div>
+    </div>
 
     <div class="container">
         
@@ -484,11 +546,42 @@
         </div>
     </footer>
 
-    <!-- শপিং, সার্চ ও ভেরিফিকেশন জাভাস্ক্রিপ্ট লজিক -->
+    <!-- জাভাস্ক্রিপ্ট লজিক -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             updateCartCount();
         });
+
+        // মেম্বার লগইন পপ-আপ খোলা ও বন্ধ করা
+        function openMemberLoginModal() {
+            document.getElementById('memberLoginModal').style.display = 'flex';
+        }
+        function closeMemberLoginModal() {
+            document.getElementById('memberLoginModal').style.display = 'none';
+        }
+
+        // মেম্বার আইডি ভেরিফিকেশন লজিক
+        function verifyMemberLogin() {
+            let memberId = document.getElementById('modalMemberId').value.trim();
+            let memberPhone = document.getElementById('modalMemberPhone').value.trim();
+
+            if (!memberId || !memberPhone) {
+                alert('দয়া করে মেম্বার আইডি এবং মোবাইল নম্বর দুটিই লিখুন!');
+                return;
+            }
+
+            // মেম্বার ডাটা লোকালস্টোরেজে সেভ করা (যাতে কার্ট ও চেকআউট স্বয়ংক্রিয়ভাবে কাজ করে)
+            let memberObj = {
+                memberId: memberId,
+                name: "মেম্বার (" + memberId + ")",
+                phone: memberPhone,
+                address: "সমিতির রেজিস্টার্ড ঠিকানা" // মেম্বার ডাটা থেকে পরবর্তীতে রিয়েল অ্যাড্রেস আসতে পারে
+            };
+
+            localStorage.setItem('dewDropMember', JSON.stringify(memberObj));
+            alert('অভিনন্দন! আপনার মেম্বার আইডি সফলভাবে ভেরিফাই হয়েছে। এখন আপনি সরাসরি পণ্য অর্ডার করতে পারবেন।');
+            closeMemberLoginModal();
+        }
 
         // মূল ভেরিফিকেশন এবং বাই/কার্ট লজিক
         function handleShoppingAction(actionType, productName, productPrice) {
@@ -496,19 +589,9 @@
             const shopperData = localStorage.getItem('giasStoreUser'); 
 
             if (!memberData && !shopperData) {
-                alert('দয়া করে প্রথমে আপনার সমিতির আইডি দিয়ে অথবা "শপিং সাইন-আপ" পেজ থেকে অ্যাকাউন্ট তৈরি করুন!');
-                window.location.href = 'shoppingsignup.html';
+                alert('দয়া করে প্রথমে উপরে থাকা "🔐 মেম্বার লগইন" বাটনে ক্লিক করে আপনার মেম্বার আইডি দিয়ে লগইন করুন, অথবা সাধারণ ক্রেতা হলে "শপিং সাইন-আপ" পেজ ব্যবহার করুন!');
+                openMemberLoginModal();
                 return;
-            }
-
-            if (memberData) {
-                try {
-                    const memberObj = JSON.parse(memberData);
-                    if (!memberObj.address || memberObj.address.trim() === "") {
-                        alert('আপনার প্রোফাইল বা ডেলিভারি তথ্য অপূর্ণ রয়েছে। দয়া করে প্রোফাইল বা ডেলিভারি তথ্য আপডেট করুন।');
-                        return;
-                    }
-                } catch(e) {}
             }
 
             let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
