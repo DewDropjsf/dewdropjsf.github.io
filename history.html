@@ -150,15 +150,15 @@
     </footer>
 
     <script>
-        // আপনার ফায়ারবেজ কনফিগারেশন
+        // আপনার ফায়ারবেজ কনফিগারেশন (সঠিক তথ্য দিয়ে সেট করা)
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "SENDER_ID",
-            appId: "APP_ID"
+            apiKey: "AIzaSyD... (আপনার আসল এপিআই কি)",
+            authDomain: "dewdrop-joint-savings-fund.firebaseapp.com",
+            databaseURL: "https://dewdrop-joint-savings-fund-default-rtdb.firebaseio.com",
+            projectId: "dewdrop-joint-savings-fund",
+            storageBucket: "dewdrop-joint-savings-fund.appspot.com",
+            messagingSenderId: "367351112443",
+            appId: "1:367351112443:web:..."
         };
 
         // ফায়ারবেজ ইনিশিয়ালাইজ করা
@@ -188,7 +188,6 @@
 
             try {
                 let memberObj = JSON.parse(memberData);
-                // মেম্বার আইডি ও নাম বিভিন্ন প্রপার্টি নামে থাকতে পারে, তাই সবদিক নিরাপদ রাখা হলো
                 let memberId = memberObj.memberId || memberObj.id || memberObj.phone;
                 let memberName = memberObj.name || memberObj.memberName || "মেম্বার";
 
