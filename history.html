@@ -54,7 +54,7 @@
             background: #ffa000;
         }
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 40px auto;
             padding: 0 20px;
         }
@@ -81,21 +81,33 @@
             margin-bottom: 30px;
         }
         th, td {
-            padding: 12px 15px;
+            padding: 12px 10px;
             text-align: center;
             border-bottom: 1px solid #ddd;
+            font-size: 0.9rem;
         }
         th {
             background-color: #004d40;
             color: white;
             font-size: 0.95rem;
         }
-        td {
-            font-size: 0.95rem;
-            color: #444;
-        }
         tr:hover {
             background-color: #f1f8f6;
+        }
+        .order-group-header {
+            background-color: #e8f5e9 !important;
+            font-weight: bold;
+            text-align: left;
+            color: #2e7d32;
+            padding: 10px 15px;
+        }
+        .status-success {
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        .status-cancelled {
+            color: #c62828;
+            font-weight: bold;
         }
         .no-history {
             text-align: center;
@@ -151,15 +163,16 @@
 
     <script>
         // ফায়ারবেজ কনফিগারেশন
-       const firebaseConfig = {
-    apiKey: "AIzaSyDJfcoxchgwdfulQMjQNa8wml-b4f5jHu",
-    authDomain: "dewdrop-shopping.firebaseapp.com",
-    databaseURL: "https://dewdrop-shopping-default-rtdb.firebaseio.com",
-    projectId: "dewdrop-shopping",
-    storageBucket: "dewdrop-shopping.appspot.com",
-    messagingSenderId: "265469043595",
-    appId: "1:265469043595:web:1532d537b0642bf6dac58e"
-};
+        const firebaseConfig = {
+            apiKey: "AIzaSyDJfcoxchgwdfulQMjQNa8wml-b4f5jHu",
+            authDomain: "dewdrop-shopping.firebaseapp.com",
+            databaseURL: "https://dewdrop-shopping-default-rtdb.firebaseio.com",
+            projectId: "dewdrop-shopping",
+            storageBucket: "dewdrop-shopping.appspot.com",
+            messagingSenderId: "265469043595",
+            appId: "1:265469043595:web:1532d537b0642bf6dac58e"
+        };
+
         // ফায়ারবেজ ইনিশিয়ালাইজ করা
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
@@ -188,19 +201,17 @@
             let memberId = "";
             let memberName = "মেম্বার";
 
-            // খুব নিরাপদে লোকালস্টোরেজ পার্স করার ব্যবস্থা যাতে কোনো এরর না করে
             try {
                 if (rawMemberData.startsWith('{')) {
                     let memberObj = JSON.parse(rawMemberData);
                     memberId = memberObj.memberId || memberObj.id || memberObj.phone || "";
                     memberName = memberObj.name || memberObj.memberName || "মেম্বার";
                 } else {
-                    // যদি সরাসরি স্ট্রিং বা আইডি হিসেবে সেভ হয়ে থাকে
                     memberId = rawMemberData;
-                    memberName = "আইডি: " + rawMemberData;
+                    memberName = "মেম্বার"; // নামের স্থলে পুনরায় শুধু আইডি দেখানোর সমস্যা সমাধান করা হয়েছে
                 }
             } catch (e) {
-                memberId = rawMemberData; // ফেইল করলে র ডেটাকেই আইডি ধরে নেবে
+                memberId = rawMemberData;
             }
 
             if (!memberId) {
@@ -208,14 +219,16 @@
                 return;
             }
 
+            // ১. ছোট বা বড় হাতের অক্ষরের সমস্যা সমাধানের জন্য আইডি বড় হাতের অক্ষরে কনভার্ট করা হলো
+            memberId = memberId.toString().trim().toUpperCase();
+
             document.getElementById('dispMemberId').innerText = memberId;
             document.getElementById('dispMemberName').innerText = memberName;
             memberBox.style.display = 'block';
 
-            let sanitizedId = memberId.toString().replace(/[.#$\/\[\]]/g, "_");
+            let sanitizedId = memberId.replace(/[.#$\/\[\]]/g, "_");
             let ordersRef = database.ref('orders/' + sanitizedId);
 
-            // ফায়ারবেজ থেকে রিয়েল-টাইম ডেটা ফেচ করা
             ordersRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 
@@ -228,28 +241,65 @@
                     return;
                 }
 
+                // ৪ ও ৫. ছকের কলাম বিন্যাস আপডেট করা হয়েছে (১. ক্রমিক নং, ২. তারিখ ও সময়, ৩. পণ্যের নাম, ৪. পরিমাণ, ৫. মোট মূল্য, ৬. বর্তমান অবস্থা)
                 let html = `
                     <table>
                         <thead>
                             <tr>
+                                <th>ক্রমিক নং</th>
+                                <th>তারিখ ও সময়</th>
                                 <th>পণ্যের নাম</th>
                                 <th>পরিমাণ</th>
                                 <th>মোট মূল্য</th>
-                                    <th>তারিখ ও সময়</th>
+                                <th>বর্তমান অবস্থা</th>
                             </tr>
                         </thead>
                         <tbody>
                 `;
 
-                Object.values(data).forEach(order => {
+                let serialNo = 1;
+
+                // ৩. অর্ডারগুলোকে গ্রুপ বা অর্ডার আইডি অনুযায়ী সাজানো
+                Object.entries(data).forEach(([orderKey, orderVal], index) => {
+                    // যদি অর্ডারটি সরাসরি অবজেক্ট হয় অথবা সাব-আইটেম থাকে
+                    let orderItems = [];
+                    let orderDate = orderVal.date || 'প্রযোজ্য নয়';
+                    let orderStatus = orderVal.status || 'সফল';
+                    let statusClass = orderStatus === 'বাতিল' ? 'status-cancelled' : 'status-success';
+                    let displayOrderId = orderVal.orderId || ('ORD-' + (index + 1));
+
+                    if (orderVal.items && Array.isArray(orderVal.items)) {
+                        orderItems = orderVal.items;
+                        orderDate = orderVal.date || orderDate;
+                        orderStatus = orderVal.status || 'সফল';
+                    } else if (orderVal.productName || orderVal.title) {
+                        // একক আইটেম ফরম্যাট হলে
+                        orderItems = [orderVal];
+                    }
+
+                    // প্রতিটি অর্ডার গ্রুপের জন্য হেডার রো
                     html += `
-                        <tr>
-                            <td>${order.productName || order.title || 'পণ্য'}</td>
-                            <td>${order.quantity || 1} টি</td>
-                            <td>${order.totalPrice || order.price || 0} টাকা</td>
-                            <td>${order.date || 'প্রযোজ্য নয়'}</td>
+                        <tr class="order-group-header">
+                            <td colspan="6">অর্ডার আইডি: <strong>${displayOrderId}</strong></td>
                         </tr>
                     `;
+
+                    orderItems.forEach(item => {
+                        let pName = item.productName || item.title || 'পণ্য';
+                        let pQty = (item.quantity || 1) + ' টি';
+                        let pPrice = (item.totalPrice || item.price || 0) + ' টাকা';
+
+                        html += `
+                            <tr>
+                                <td>${serialNo++}</td>
+                                <td>${orderDate}</td>
+                                <td>${pName}</td>
+                                <td>${pQty}</td>
+                                <td>${pPrice}</td>
+                                <td class="${statusClass}">${orderStatus}</td>
+                            </tr>
+                        `;
+                    });
                 });
 
                 html += `</tbody></table>`;
