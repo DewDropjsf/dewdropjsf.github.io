@@ -70,7 +70,61 @@
             margin-bottom: 25px;
             border-radius: 5px;
             font-size: 1.05rem;
+            position: relative; /* ডিলিট বাটনের জন্য */
         }
+        
+        /* ডিলিট বাটনের ডিজাইন */
+        .delete-btn-main {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        .delete-btn-main:hover {
+            background: #b71c1c;
+        }
+        .dropdown {
+            position: absolute;
+            right: 20px;
+            top: 13px;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #fff;
+            min-width: 180px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        .dropdown-content button {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            font-family: 'SolaimanLipi', sans-serif;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        .dropdown-content button:hover {
+            background-color: #ffebee;
+            color: #d32f2f;
+        }
+        .show { display: block; }
+        
         table {
             width: 100%;
             border-collapse: collapse;
@@ -84,12 +138,11 @@
             padding: 12px 10px;
             text-align: center;
             border-bottom: 1px solid #ddd;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
         th {
             background-color: #004d40;
             color: white;
-            font-size: 0.95rem;
         }
         tr:hover {
             background-color: #f1f8f6;
@@ -101,14 +154,9 @@
             color: #2e7d32;
             padding: 10px 15px;
         }
-        .status-success {
-            color: #2e7d32;
-            font-weight: bold;
-        }
-        .status-cancelled {
-            color: #c62828;
-            font-weight: bold;
-        }
+        .status-success { color: #2e7d32; font-weight: bold; }
+        .status-cancelled { color: #c62828; font-weight: bold; }
+        
         .no-history {
             text-align: center;
             padding: 40px;
@@ -118,6 +166,21 @@
             font-size: 1.1rem;
             color: #666;
         }
+        
+        /* ওয়ান বাই ওয়ান ডিলিট কলাম */
+        .action-col { display: none; }
+        .show-actions .action-col { display: table-cell; }
+        .del-item-btn {
+            background: #ff5252;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .del-item-btn:hover { background: #d32f2f; }
+
         footer {
             background: #004d40;
             color: #fff;
@@ -127,9 +190,7 @@
         }
     </style>
 
-    <!-- Firebase App (v8 সিডিএন) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <!-- Firebase Realtime Database -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
 <body>
@@ -150,6 +211,15 @@
         <div id="memberDetailsBox" class="member-info-card" style="display: none;">
             <strong>মেম্বার আইডি:</strong> <span id="dispMemberId"></span> | 
             <strong>নাম:</strong> <span id="dispMemberName"></span>
+            
+            <!-- ডিলিট মেনু বাটন -->
+            <div class="dropdown">
+                <button onclick="toggleDeleteMenu()" class="delete-btn-main">ইতিহাস মুছুন ▾</button>
+                <div id="deleteMenu" class="dropdown-content">
+                    <button onclick="toggleOneByOneDelete()">ওয়ান বাই ওয়ান (বেছে মুছুন)</button>
+                    <button onclick="deleteAllHistory()">সিলেক্ট অল (সব মুছুন)</button>
+                </div>
+            </div>
         </div>
 
         <div id="historyContainer">
@@ -162,7 +232,6 @@
     </footer>
 
     <script>
-        // ফায়ারবেজ কনফিগারেশন
         const firebaseConfig = {
             apiKey: "AIzaSyDJfcoxchgwdfulQMjQNa8wml-b4f5jHu",
             authDomain: "dewdrop-shopping.firebaseapp.com",
@@ -173,15 +242,58 @@
             appId: "1:265469043595:web:1532d537b0642bf6dac58e"
         };
 
-        // ফায়ারবেজ ইনিশিয়ালাইজ করা
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
         const database = firebase.database();
+        let currentSanitizedId = ""; 
+
+        // ইংরেজি সংখ্যাকে বাংলায় রূপান্তর করার ফাংশন
+        const banglaDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
+        function toBnNum(num) {
+            return num.toString().replace(/[0-9]/g, x => banglaDigits[x]);
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
             loadFirebaseOrderHistory();
         });
+
+        // ড্রপডাউন মেনুর কাজ
+        function toggleDeleteMenu() {
+            document.getElementById("deleteMenu").classList.toggle("show");
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.delete-btn-main')) {
+                let dropdowns = document.getElementsByClassName("dropdown-content");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    if (dropdowns[i].classList.contains('show')) {
+                        dropdowns[i].classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        function toggleOneByOneDelete() {
+            let container = document.getElementById("historyContainer");
+            container.classList.toggle("show-actions");
+        }
+
+        function deleteAllHistory() {
+            if(confirm("আপনি কি নিশ্চিত যে সম্পূর্ণ ইতিহাস মুছে ফেলতে চান? এই কাজটি আর ফেরানো যাবে না।")) {
+                if(currentSanitizedId) {
+                    database.ref('orders/' + currentSanitizedId).remove().then(() => {
+                        alert("আপনার সমস্ত কেনাকাটার ইতিহাস সফলভাবে মুছে ফেলা হয়েছে!");
+                    });
+                }
+            }
+        }
+
+        function deleteSingleItem(fbKey) {
+            if(confirm("আপনি কি নিশ্চিত যে এই আইটেমটি মুছতে চান?")) {
+                database.ref('orders/' + currentSanitizedId + '/' + fbKey).remove();
+            }
+        }
 
         function loadFirebaseOrderHistory() {
             const historyContainer = document.getElementById('historyContainer');
@@ -208,10 +320,15 @@
                     memberName = memberObj.name || memberObj.memberName || "মেম্বার";
                 } else {
                     memberId = rawMemberData;
-                    memberName = "মেম্বার"; // নামের স্থলে পুনরায় শুধু আইডি দেখানোর সমস্যা সমাধান করা হয়েছে
                 }
             } catch (e) {
                 memberId = rawMemberData;
+            }
+
+            // নামের ত্রুটি ঠিক করা (যদি নামে 'আইডি' বা 'mti' লেখা থাকে)
+            let lowerName = memberName.toLowerCase();
+            if (lowerName.includes('mti') || lowerName.includes('id') || lowerName.includes('আইডি')) {
+                memberName = "মেম্বার";
             }
 
             if (!memberId) {
@@ -219,15 +336,13 @@
                 return;
             }
 
-            // ১. ছোট বা বড় হাতের অক্ষরের সমস্যা সমাধানের জন্য আইডি বড় হাতের অক্ষরে কনভার্ট করা হলো
             memberId = memberId.toString().trim().toUpperCase();
-
             document.getElementById('dispMemberId').innerText = memberId;
             document.getElementById('dispMemberName').innerText = memberName;
             memberBox.style.display = 'block';
 
-            let sanitizedId = memberId.replace(/[.#$\/\[\]]/g, "_");
-            let ordersRef = database.ref('orders/' + sanitizedId);
+            currentSanitizedId = memberId.replace(/[.#$\/\[\]]/g, "_");
+            let ordersRef = database.ref('orders/' + currentSanitizedId);
 
             ordersRef.on('value', (snapshot) => {
                 const data = snapshot.val();
@@ -241,7 +356,19 @@
                     return;
                 }
 
-                // ৪ ও ৫. ছকের কলাম বিন্যাস আপডেট করা হয়েছে (১. ক্রমিক নং, ২. তারিখ ও সময়, ৩. পণ্যের নাম, ৪. পরিমাণ, ৫. মোট মূল্য, ৬. বর্তমান অবস্থা)
+                let groupedOrders = {};
+                
+                // তারিখ ও সময়ের উপর ভিত্তি করে অর্ডারগুলো গ্রুপ করা
+                Object.entries(data).forEach(([key, item]) => {
+                    let orderDate = item.date || 'তারিখ অজানা';
+                    
+                    if(!groupedOrders[orderDate]) {
+                        groupedOrders[orderDate] = [];
+                    }
+                    item.fbKey = key; // ডিলিট করার সুবিধার জন্য ডাটাবেজ key যুক্ত করা হলো
+                    groupedOrders[orderDate].push(item);
+                });
+
                 let html = `
                     <table>
                         <thead>
@@ -252,58 +379,60 @@
                                 <th>পরিমাণ</th>
                                 <th>মোট মূল্য</th>
                                 <th>বর্তমান অবস্থা</th>
+                                <th class="action-col">অ্যাকশন</th>
                             </tr>
                         </thead>
                         <tbody>
                 `;
 
                 let serialNo = 1;
+                let orderNumber = 1;
 
-                // ৩. অর্ডারগুলোকে গ্রুপ বা অর্ডার আইডি অনুযায়ী সাজানো
-                Object.entries(data).forEach(([orderKey, orderVal], index) => {
-                    // যদি অর্ডারটি সরাসরি অবজেক্ট হয় অথবা সাব-আইটেম থাকে
-                    let orderItems = [];
-                    let orderDate = orderVal.date || 'প্রযোজ্য নয়';
-                    let orderStatus = orderVal.status || 'সফল';
-                    let statusClass = orderStatus === 'বাতিল' ? 'status-cancelled' : 'status-success';
-                    let displayOrderId = orderVal.orderId || ('ORD-' + (index + 1));
-
-                    if (orderVal.items && Array.isArray(orderVal.items)) {
-                        orderItems = orderVal.items;
-                        orderDate = orderVal.date || orderDate;
-                        orderStatus = orderVal.status || 'সফল';
-                    } else if (orderVal.productName || orderVal.title) {
-                        // একক আইটেম ফরম্যাট হলে
-                        orderItems = [orderVal];
-                    }
-
-                    // প্রতিটি অর্ডার গ্রুপের জন্য হেডার রো
+                // প্রতিটি গ্রুপ করা অর্ডার ছকে যুক্ত করা
+                Object.entries(groupedOrders).forEach(([dateString, itemsArray]) => {
+                    
+                    let displayOrderId = "ORD-" + toBnNum(orderNumber++);
+                    
                     html += `
                         <tr class="order-group-header">
                             <td colspan="6">অর্ডার আইডি: <strong>${displayOrderId}</strong></td>
+                            <td class="action-col"></td>
                         </tr>
                     `;
 
-                    orderItems.forEach(item => {
+                    itemsArray.forEach(item => {
                         let pName = item.productName || item.title || 'পণ্য';
-                        let pQty = (item.quantity || 1) + ' টি';
-                        let pPrice = (item.totalPrice || item.price || 0) + ' টাকা';
+                        let pQty = toBnNum(item.quantity || 1) + ' টি';
+                        let pPrice = toBnNum(item.totalPrice || item.price || 0) + ' টাকা';
+                        let orderStatus = item.status || 'সফল';
+                        let statusClass = orderStatus === 'বাতিল' ? 'status-cancelled' : 'status-success';
 
                         html += `
                             <tr>
-                                <td>${serialNo++}</td>
-                                <td>${orderDate}</td>
+                                <td>${toBnNum(serialNo++)}</td>
+                                <td>${dateString}</td>
                                 <td>${pName}</td>
                                 <td>${pQty}</td>
                                 <td>${pPrice}</td>
                                 <td class="${statusClass}">${orderStatus}</td>
+                                <td class="action-col">
+                                    <button onclick="deleteSingleItem('${item.fbKey}')" class="del-item-btn">মুছুন</button>
+                                </td>
                             </tr>
                         `;
                     });
                 });
 
                 html += `</tbody></table>`;
+                
+                // আগে থেকে যদি ওয়ান বাই ওয়ান মোড চালু থাকে তবে সেটি বজায় রাখতে
+                let wasShowActions = historyContainer.classList.contains("show-actions");
                 historyContainer.innerHTML = html;
+                if(wasShowActions) {
+                    historyContainer.classList.add("show-actions");
+                } else {
+                    historyContainer.classList.remove("show-actions");
+                }
 
             }, (error) => {
                 console.error("Firebase Error:", error);
