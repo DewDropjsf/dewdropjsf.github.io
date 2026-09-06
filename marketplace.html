@@ -200,6 +200,17 @@
             background: #b71c1c !important;
         }
 
+        /* শপিং একাউন্ট */
+        .shopping-acct button {
+            background: #004d40;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
         .search-box {
             display: flex;
             align-items: center;
@@ -240,8 +251,8 @@
             z-index: 1000;
         }
         .store-circle-btn {
-            width: 145px;
-            height: 145px;
+            width: 120px;
+            height: 120px;
             background-color: #e65100;
             border: 3px solid #ffffff;
             border-radius: 50%;
@@ -558,7 +569,7 @@
             <a href="index.html">হোম</a>
             
             <div class="dropdown">
-                <button class="dropbtn">তথ্য ও সেবা ▾</button>
+                <button class="dropbtn">তহবিল সেবা ▾</button>
                 <div class="dropdown-content">
                     <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
                     <a href="rules.html">নিয়মাবলি</a>
@@ -576,12 +587,13 @@
                 </div>
             </div>
 
-            <button id="memberAuthBtn" class="btn-member-login" onclick="handleAuthButtonClick()">🔐 মেম্বার লগইন</button>
+            <button id="memberAuthBtn" class="btn-member-login" onclick="handleAuthButtonClick()">🤵 মেম্বার লগইন</button>
         </div>
 
         <div class="search-box">
+           <a href="shoppingsignup.html">শপিং একাউন্ট করুন</a>
             <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
-            <button onclick="searchProducts()">সার্চ</button>
+            <button onclick="searchProducts()">🔍 সার্চ</button>
         </div>
     </nav>
 
@@ -850,7 +862,7 @@
         // সিকিউরড অ্যাডমিন প্যানেল পাসওয়ার্ড প্রম্পট ফাংশন
         function accessAdminPanel() {
             let password = prompt("অ্যাডমিন প্যানেলে প্রবেশ করতে পাসওয়ার্ড দিন:");
-            if (password === "121@Admin") { 
+            if (password === "121@admin") { 
                 window.location.href = 'admin.html';
             } else if (password !== null) {
                 alert("ভুল পাসওয়ার্ড! আপনার প্রবেশাধিকার নেই।");
@@ -862,7 +874,7 @@
             const shopperData = localStorage.getItem('giasStoreUser'); 
 
             if (!memberData && !shopperData) {
-                alert('দয়া করে প্রথমে উপরে থাকা "🔐 মেম্বার লগইন" বাটনে ক্লিক করে আপনার মেম্বার আইডি দিয়ে লগইন করুন!');
+                alert('দয়া করে মেম্বার আইডি বা শপিং একাউন্ট দিয়ে লগইন করুন!');
                 openMemberLoginModal();
                 return;
             }
