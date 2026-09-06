@@ -150,15 +150,15 @@
     </footer>
 
     <script>
-        // আপনার ফায়ারবেজ কনফিগারেশন (সঠিক তথ্য দিয়ে সেট করা)
+        // ফায়ারবেজ কনফিগারেশন
         const firebaseConfig = {
-            apiKey: "AIzaSyD... (আপনার আসল এপিআই কি)",
+            apiKey: "AIzaSyD-xxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             authDomain: "dewdrop-joint-savings-fund.firebaseapp.com",
             databaseURL: "https://dewdrop-joint-savings-fund-default-rtdb.firebaseio.com",
             projectId: "dewdrop-joint-savings-fund",
             storageBucket: "dewdrop-joint-savings-fund.appspot.com",
             messagingSenderId: "367351112443",
-            appId: "1:367351112443:web:..."
+            appId: "1:367351112443:web:abcdef123456"
         };
 
         // ফায়ারবেজ ইনিশিয়ালাইজ করা
@@ -174,9 +174,9 @@
         function loadFirebaseOrderHistory() {
             const historyContainer = document.getElementById('historyContainer');
             const memberBox = document.getElementById('memberDetailsBox');
-            const memberData = localStorage.getItem('dewDropMember');
+            const rawMemberData = localStorage.getItem('dewDropMember');
 
-            if (!memberData) {
+            if (!rawMemberData) {
                 historyContainer.innerHTML = `
                     <div class="no-history">
                         <p style="color: #c62828; margin-bottom: 15px;">⚠️ আপনি মেম্বার হিসেবে লগইন করেননি!</p>
@@ -186,72 +186,80 @@
                 return;
             }
 
-            try {
-                let memberObj = JSON.parse(memberData);
-                let memberId = memberObj.memberId || memberObj.id || memberObj.phone;
-                let memberName = memberObj.name || memberObj.memberName || "মেম্বার";
+            let memberId = "";
+            let memberName = "মেম্বার";
 
-                if (!memberId) {
-                    historyContainer.innerHTML = `<div class="no-history">মেম্বার আইডি পাওয়া যায়নি। দয়া করে আবার লগইন করুন।</div>`;
+            // খুব নিরাপদে লোকালস্টোরেজ পার্স করার ব্যবস্থা যাতে কোনো এরর না করে
+            try {
+                if (rawMemberData.startsWith('{')) {
+                    let memberObj = JSON.parse(rawMemberData);
+                    memberId = memberObj.memberId || memberObj.id || memberObj.phone || "";
+                    memberName = memberObj.name || memberObj.memberName || "মেম্বার";
+                } else {
+                    // যদি সরাসরি স্ট্রিং বা আইডি হিসেবে সেভ হয়ে থাকে
+                    memberId = rawMemberData;
+                    memberName = "আইডি: " + rawMemberData;
+                }
+            } catch (e) {
+                memberId = rawMemberData; // ফেইল করলে র ডেটাকেই আইডি ধরে নেবে
+            }
+
+            if (!memberId) {
+                historyContainer.innerHTML = `<div class="no-history">মেম্বার আইডি পাওয়া যায়নি। দয়া করে আবার লগইন করুন।</div>`;
+                return;
+            }
+
+            document.getElementById('dispMemberId').innerText = memberId;
+            document.getElementById('dispMemberName').innerText = memberName;
+            memberBox.style.display = 'block';
+
+            let sanitizedId = memberId.toString().replace(/[.#$\/\[\]]/g, "_");
+            let ordersRef = database.ref('orders/' + sanitizedId);
+
+            // ফায়ারবেজ থেকে রিয়েল-টাইম ডেটা ফেচ করা
+            ordersRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                
+                if (!data) {
+                    historyContainer.innerHTML = `
+                        <div class="no-history">
+                            <p>আপনার ফায়ারবেজে এখনো কোনো কেনাকাটার ইতিহাস নেই।</p>
+                        </div>
+                    `;
                     return;
                 }
 
-                document.getElementById('dispMemberId').innerText = memberId;
-                document.getElementById('dispMemberName').innerText = memberName;
-                memberBox.style.display = 'block';
-
-                let sanitizedId = memberId.toString().replace(/[.#$\/\[\]]/g, "_");
-                let ordersRef = database.ref('orders/' + sanitizedId);
-
-                // রিয়েল-টাইম ডেটা শো করার জন্য .on() ব্যবহার করা হলো
-                ordersRef.on('value', (snapshot) => {
-                    const data = snapshot.val();
-                    
-                    if (!data) {
-                        historyContainer.innerHTML = `
-                            <div class="no-history">
-                                <p>আপনার ফায়ারবেজে এখনো কোনো কেনাকাটার ইতিহাস নেই।</p>
-                            </div>
-                        `;
-                        return;
-                    }
-
-                    let html = `
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>পণ্যের নাম</th>
-                                    <th>পরিমাণ</th>
-                                    <th>মোট মূল্য</th>
-                                    <th>তারিখ ও সময়</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                    `;
-
-                    Object.values(data).forEach(order => {
-                        html += `
+                let html = `
+                    <table>
+                        <thead>
                             <tr>
-                                <td>${order.productName || order.title || 'পণ্য'}</td>
-                                <td>${order.quantity || 1} টি</td>
-                                <td>${order.totalPrice || order.price || 0} টাকা</td>
-                                <td>${order.date || 'প্রযোজ্য নয়'}</td>
+                                <th>পণ্যের নাম</th>
+                                <th>পরিমাণ</th>
+                                <th>মোট মূল্য</th>
+                                    <th>তারিখ ও সময়</th>
                             </tr>
-                        `;
-                    });
+                        </thead>
+                        <tbody>
+                `;
 
-                    html += `</tbody></table>`;
-                    historyContainer.innerHTML = html;
-
-                }, (error) => {
-                    console.error("Firebase Error:", error);
-                    historyContainer.innerHTML = `<div class="no-history">ডাটা লোড করতে ত্রুটি হয়েছে: ${error.message}</div>`;
+                Object.values(data).forEach(order => {
+                    html += `
+                        <tr>
+                            <td>${order.productName || order.title || 'পণ্য'}</td>
+                            <td>${order.quantity || 1} টি</td>
+                            <td>${order.totalPrice || order.price || 0} টাকা</td>
+                            <td>${order.date || 'প্রযোজ্য নয়'}</td>
+                        </tr>
+                    `;
                 });
 
-            } catch (e) {
-                console.error("Parse Error:", e);
-                historyContainer.innerHTML = `<div class="no-history">ইউজার ডেটা প্রসেস করতে সমস্যা হয়েছে।</div>`;
-            }
+                html += `</tbody></table>`;
+                historyContainer.innerHTML = html;
+
+            }, (error) => {
+                console.error("Firebase Error:", error);
+                historyContainer.innerHTML = `<div class="no-history">ডাটা লোড করতে ত্রুটি হয়েছে: ${error.message}</div>`;
+            });
         }
     </script>
 </body>
