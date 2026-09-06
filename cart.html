@@ -255,7 +255,104 @@
             loadCartItems();
         }
 
-        // অর্ডার কনফার্ম করার সময় হিস্ট্রি সেভ করা এবং সাকসেস পেজ দেখানো
+     <!-- ফায়ারবেজ লাইব্রেরিগুলো নিশ্চিত করুন যে cart.html-এর <head> বা স্ক্রিপ্টে যুক্ত আছে -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+        // ফায়ারবেজ কনফিগারেশন (আপনার প্রোজেক্ট অনুযায়ী)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDJfcoxchgwdfulQMjQNa8wml-b4f5jHu",
+            authDomain: "dewdrop-shopping.firebaseapp.com",
+            databaseURL: "https://dewdrop-shopping-default-rtdb.firebaseio.com",
+            projectId: "dewdrop-shopping",
+            storageBucket: "dewdrop-shopping.appspot.com",
+            messagingSenderId: "265469043595",
+            appId: "1:265469043595:web:1532d537b0642bf6dac58e"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartItems();
+        });
+
+        function loadCartItems() {
+            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
+            let container = document.getElementById('cartTableContainer');
+            let grandTotalSpan = document.getElementById('grandTotal');
+            let actionBtns = document.getElementById('cartActionButtons');
+
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="empty-cart">আপনার কার্টটি বর্তমানে খালি রয়েছে।</div>`;
+                grandTotalSpan.innerText = "0";
+                if(actionBtns) actionBtns.style.display = "none";
+                return;
+            }
+
+            if(actionBtns) actionBtns.style.display = "flex";
+
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>পণ্যের নাম</th>
+                            <th>মূল্য (টাকা)</th>
+                            <th>পরিমাণ</th>
+                            <th>মোট (টাকা)</th>
+                            <th>মুছে ফেলুন</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            let grandTotal = 0;
+            cart.forEach((item, index) => {
+                grandTotal += item.price;
+                html += `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.unitPrice}৳</td>
+                        <td>
+                            <button onclick="updateQty(${index}, -1)" style="padding:2px 8px; cursor:pointer;">-</button>
+                            <span style="margin: 0 8px; font-weight:bold;">${item.quantity}</span>
+                            <button onclick="updateQty(${index}, 1)" style="padding:2px 8px; cursor:pointer;">+</button>
+                        </td>
+                        <td>${item.price}৳</td>
+                        <td><button onclick="removeItem(${index})" style="background:#c62828; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">ডিলিট</button></td>
+                    </tr>
+                `;
+            });
+
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+            grandTotalSpan.innerText = grandTotal;
+        }
+
+        function updateQty(index, change) {
+            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
+            if (cart[index]) {
+                cart[index].quantity += change;
+                if (cart[index].quantity < 1) {
+                    cart[index].quantity = 1;
+                }
+                cart[index].price = cart[index].unitPrice * cart[index].quantity;
+                localStorage.setItem('dewDropCart', JSON.stringify(cart));
+                loadCartItems();
+            }
+        }
+
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('dewDropCart', JSON.stringify(cart));
+            loadCartItems();
+        }
+
+        // অর্ডার কনফার্ম করার নতুন লজিক যা একই অর্ডারের সব আইটেমকে একটি ব্যাচ টাইমস্ট্যাম্পে ফায়ারবেজে পাঠাবে
         function confirmOrder() {
             let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
             if (cart.length === 0) {
@@ -263,33 +360,64 @@
                 return;
             }
 
-            // পণ্যের বিবরণ বা আইটেমগুলোর তালিকা টেক্সট আকারে প্রস্তুত করা
-            let itemsDescription = cart.map(item => `${item.name} (${item.quantity}টি)`).join(', ');
-            let grandTotal = cart.reduce((sum, item) => sum + item.price, 0);
+            // মেম্বার আইডি লোড করা (লোকালস্টোরেজ থেকে)
+            let rawMemberData = localStorage.getItem('dewDropMember');
+            let memberId = "";
+            if (rawMemberData) {
+                try {
+                    if (rawMemberData.startsWith('{')) {
+                        let memberObj = JSON.parse(rawMemberData);
+                        memberId = memberObj.memberId || memberObj.id || memberObj.phone || "";
+                    } else {
+                        memberId = rawMemberData;
+                    }
+                } catch (e) {
+                    memberId = rawMemberData;
+                }
+            }
 
-            // বর্তমান তারিখ ও সময় ফরম্যাট করা
+            if (!memberId) {
+                alert('মেম্বার আইডি পাওয়া যায়নি! অনুগ্রহ করে আগে লগইন করুন।');
+                return;
+            }
+
+            memberId = memberId.toString().trim();
+            let sanitizedMemberId = memberId.replace(/[.#$\/\[\]]/g, "_");
+
+            // বর্তমান সঠিক সময় ও ইউনিক ব্যাচ আইডি তৈরি (মিলিসেকেন্ড সহ, যাতে একই অর্ডারের সব আইটেমের গ্রুপ টাইম এক থাকে)
             let now = new Date();
-            let dateStr = now.toLocaleDateString('bn-BD') + ' ' + now.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit'});
+            let dateStr = now.toLocaleDateString('bn-BD') + ' ' + now.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+            let batchGroupId = now.getTime().toString(); // ইউনিক ব্যাচ আইডি
 
-            // নতুন অর্ডার অবজেক্ট
-            let newOrder = {
-                date: dateStr,
-                itemsList: itemsDescription,
-                totalAmount: grandTotal,
-                status: "অপেক্ষমান" // ডিফল্ট স্ট্যাটাস অপেক্ষমান থাকবে
-            };
+            let updates = {};
 
-            // পূর্বের অর্ডার লিস্টের সাথে নতুন অর্ডার যুক্ত করা
-            let orders = JSON.parse(localStorage.getItem('dewDropOrders')) || [];
-            orders.unshift.push ? orders.unshift(newOrder) : orders.push(newOrder); // নতুন অর্ডার উপরে দেখানোর জন্য unshift ব্যবহার করা হয়েছে
-            localStorage.setItem('dewDropOrders', JSON.stringify(orders));
+            // কার্টের প্রতিটি আইটেমকে একটি কমন ব্যাচ টাইম বা গ্রুপ আইডি দিয়ে ফায়ারবেজের অবজেক্টে সাজানো
+            cart.forEach(item => {
+                let newOrderRef = database.ref('orders/' + sanitizedMemberId).push();
+                let orderData = {
+                    date: dateStr,
+                    batchTime: batchGroupId, // এটি দিয়ে হিস্ট্রি পেজে একই অর্ডারের আইটেমগুলো এক করা হবে
+                    productName: item.name,
+                    quantity: item.quantity,
+                    totalPrice: item.price,
+                    status: "সফল"
+                };
+                updates[newOrderRef.key] = orderData;
+            });
 
-            // কার্ট খালি করে দেওয়া
-            localStorage.removeItem('dewDropCart');
+            // ফায়ারবেজে একসাথে ডাটা সেভ করা
+            database.ref('orders/' + sanitizedMemberId).update(updates)
+                .then(() => {
+                    // কার্ট খালি করে দেওয়া
+                    localStorage.removeItem('dewDropCart');
 
-            // কার্ট সেクション লুকিয়ে সফলতার উইন্ডো দেখানো
-            document.getElementById('cartContentSection').style.display = 'none';
-            document.getElementById('successViewSection').style.display = 'block';
+                    // কার্ট সেকশন লুকিয়ে সফলতার উইন্ডো দেখানো
+                    document.getElementById('cartContentSection').style.display = 'none';
+                    document.getElementById('successViewSection').style.display = 'block';
+                })
+                .catch((error) => {
+                    alert("অর্ডার সেভ করতে সমস্যা হয়েছে: " + error.message);
+                });
         }
     </script>
 </body>
