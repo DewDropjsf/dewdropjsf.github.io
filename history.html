@@ -70,10 +70,9 @@
             margin-bottom: 25px;
             border-radius: 5px;
             font-size: 1.05rem;
-            position: relative; /* ডিলিট বাটনের জন্য */
+            position: relative;
         }
         
-        /* ডিলিট বাটনের ডিজাইন */
         .delete-btn-main {
             background: #d32f2f;
             color: white;
@@ -167,19 +166,19 @@
             color: #666;
         }
         
-        /* ওয়ান বাই ওয়ান ডিলিট কলাম */
         .action-col { display: none; }
         .show-actions .action-col { display: table-cell; }
-        .del-item-btn {
+        .del-order-btn {
             background: #ff5252;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 4px 10px;
             border-radius: 4px;
             cursor: pointer;
             font-size: 0.85rem;
+            float: right;
         }
-        .del-item-btn:hover { background: #d32f2f; }
+        .del-order-btn:hover { background: #d32f2f; }
 
         footer {
             background: #004d40;
@@ -212,7 +211,6 @@
             <strong>মেম্বার আইডি:</strong> <span id="dispMemberId"></span> | 
             <strong>নাম:</strong> <span id="dispMemberName"></span>
             
-            <!-- ডিলিট মেনু বাটন -->
             <div class="dropdown">
                 <button onclick="toggleDeleteMenu()" class="delete-btn-main">ইতিহাস মুছুন ▾</button>
                 <div id="deleteMenu" class="dropdown-content">
@@ -248,7 +246,6 @@
         const database = firebase.database();
         let currentSanitizedId = ""; 
 
-        // ইংরেজি সংখ্যাকে বাংলায় রূপান্তর করার ফাংশন
         const banglaDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
         function toBnNum(num) {
             return num.toString().replace(/[0-9]/g, x => banglaDigits[x]);
@@ -258,7 +255,6 @@
             loadFirebaseOrderHistory();
         });
 
-        // ড্রপডাউন মেনুর কাজ
         function toggleDeleteMenu() {
             document.getElementById("deleteMenu").classList.toggle("show");
         }
@@ -280,18 +276,23 @@
         }
 
         function deleteAllHistory() {
-            if(confirm("আপনি কি নিশ্চিত যে সম্পূর্ণ ইতিহাস মুছে ফেলতে চান? এই কাজটি আর ফেরানো যাবে না।")) {
+            if(confirm("আপনি কি নিশ্চিত যে সম্পূর্ণ ইতিহাস মুছে ফেলতে চান?")) {
                 if(currentSanitizedId) {
                     database.ref('orders/' + currentSanitizedId).remove().then(() => {
-                        alert("আপনার সমস্ত কেনাকাটার ইতিহাস সফলভাবে মুছে ফেলা হয়েছে!");
+                        alert("সমস্ত ইতিহাস মুছে ফেলা হয়েছে!");
                     });
                 }
             }
         }
 
-        function deleteSingleItem(fbKey) {
-            if(confirm("আপনি কি নিশ্চিত যে এই আইটেমটি মুছতে চান?")) {
-                database.ref('orders/' + currentSanitizedId + '/' + fbKey).remove();
+        // নির্দিষ্ট অর্ডার গ্রুপের সব আইটেম একসাথে ডিলিট করার ফাংশন
+        function deleteOrderGroup(keysArray) {
+            if(confirm("আপনি কি এই অর্ডারটির সমস্ত আইটেম মুছে ফেলতে চান?")) {
+                let updates = {};
+                keysArray.forEach(key => {
+                    updates[key] = null;
+                });
+                database.ref('orders/' + currentSanitizedId).update(updates);
             }
         }
 
@@ -325,14 +326,13 @@
                 memberId = rawMemberData;
             }
 
-            // নামের ত্রুটি ঠিক করা (যদি নামে 'আইডি' বা 'mti' লেখা থাকে)
             let lowerName = memberName.toLowerCase();
             if (lowerName.includes('mti') || lowerName.includes('id') || lowerName.includes('আইডি')) {
                 memberName = "মেম্বার";
             }
 
             if (!memberId) {
-                historyContainer.innerHTML = `<div class="no-history">মেম্বার আইডি পাওয়া যায়নি। দয়া করে আবার লগইন করুন।</div>`;
+                historyContainer.innerHTML = `<div class="no-history">মেম্বার আইডি পাওয়া যায়নি।</div>`;
                 return;
             }
 
@@ -358,15 +358,28 @@
 
                 let groupedOrders = {};
                 
-                // তারিখ ও সময়ের উপর ভিত্তি করে অর্ডারগুলো গ্রুপ করা
+                // একই অর্ডারের আইটেমগুলো এক করার জন্য সেকেন্ড বা মিলিসেকেন্ড ইগনোর করে শুধু মিনিট পর্যন্ত সময় বা ডাটা অর্ডারিং গ্রুপ করা
+                // অথবা ফায়ারবেজে সেভ করার সময় যদি একই অর্ডারের প্রতিটির আলাদা ব্যাচ বা গ্রুপ আইডি না থাকে, 
+                // তবে এখানে আমরা কাছাকাছি সময়ের (যেমন একই মিনিটের মধ্যে কনফার্ম করা) আইটেমগুলোকে একটি গ্রুপে ফেলব।
+                
+                let keys = Object.keys(data);
+                let currentGroupKey = "";
+                let lastTimeMinutes = "";
+
+                // সহজ উপায়ে ডাটাগুলোকে ক্রমানুসারে সাজিয়ে একই অর্ডারের আইটেমগুলোকে এক করা
                 Object.entries(data).forEach(([key, item]) => {
-                    let orderDate = item.date || 'তারিখ অজানা';
+                    let fullDate = item.date || 'তারিখ অজানা';
+                    // মিনিট পর্যন্ত নিয়ে গ্রুপ তৈরি করব যেন ১ সেকেন্ড বা ৫ সেকেন্ডের ব্যবধানের আইটেমগুলো একই অর্ডারে পড়ে
+                    let timeMinute = fullDate.substring(0, fullDate.lastIndexOf(':')) || fullDate; 
                     
-                    if(!groupedOrders[orderDate]) {
-                        groupedOrders[orderDate] = [];
+                    if(!groupedOrders[timeMinute]) {
+                        groupedOrders[timeMinute] = {
+                            date: fullDate,
+                            items: []
+                        };
                     }
-                    item.fbKey = key; // ডিলিট করার সুবিধার জন্য ডাটাবেজ key যুক্ত করা হলো
-                    groupedOrders[orderDate].push(item);
+                    item.fbKey = key;
+                    groupedOrders[timeMinute].items.push(item);
                 });
 
                 let html = `
@@ -379,28 +392,31 @@
                                 <th>পরিমাণ</th>
                                 <th>মোট মূল্য</th>
                                 <th>বর্তমান অবস্থা</th>
-                                <th class="action-col">অ্যাকশন</th>
                             </tr>
                         </thead>
                         <tbody>
                 `;
 
                 let serialNo = 1;
-                let orderNumber = 1;
+                let orderNum = 1;
 
-                // প্রতিটি গ্রুপ করা অর্ডার ছকে যুক্ত করা
-                Object.entries(groupedOrders).forEach(([dateString, itemsArray]) => {
-                    
-                    let displayOrderId = "ORD-" + toBnNum(orderNumber++);
-                    
+                Object.values(groupedOrders).forEach(group => {
+                    let displayOrderId = "ORD-" + toBnNum(String(orderNum++).padStart(3, '0'));
+                    let groupKeys = group.items.map(i => i.fbKey);
+                    let keysString = JSON.stringify(groupKeys).replace(/"/g, '&quot;');
+
                     html += `
                         <tr class="order-group-header">
-                            <td colspan="6">অর্ডার আইডি: <strong>${displayOrderId}</strong></td>
-                            <td class="action-col"></td>
+                            <td colspan="6">
+                                অর্ডার আইডি: <strong>${displayOrderId}</strong>
+                                <span class="action-col">
+                                    <button onclick="deleteOrderGroup(${keysString})" class="del-order-btn">এই অর্ডার মুছুন</button>
+                                </span>
+                            </td>
                         </tr>
                     `;
 
-                    itemsArray.forEach(item => {
+                    group.items.forEach(item => {
                         let pName = item.productName || item.title || 'পণ্য';
                         let pQty = toBnNum(item.quantity || 1) + ' টি';
                         let pPrice = toBnNum(item.totalPrice || item.price || 0) + ' টাকা';
@@ -410,14 +426,11 @@
                         html += `
                             <tr>
                                 <td>${toBnNum(serialNo++)}</td>
-                                <td>${dateString}</td>
+                                <td>${item.date || group.date}</td>
                                 <td>${pName}</td>
                                 <td>${pQty}</td>
                                 <td>${pPrice}</td>
                                 <td class="${statusClass}">${orderStatus}</td>
-                                <td class="action-col">
-                                    <button onclick="deleteSingleItem('${item.fbKey}')" class="del-item-btn">মুছুন</button>
-                                </td>
                             </tr>
                         `;
                     });
@@ -425,7 +438,6 @@
 
                 html += `</tbody></table>`;
                 
-                // আগে থেকে যদি ওয়ান বাই ওয়ান মোড চালু থাকে তবে সেটি বজায় রাখতে
                 let wasShowActions = historyContainer.classList.contains("show-actions");
                 historyContainer.innerHTML = html;
                 if(wasShowActions) {
