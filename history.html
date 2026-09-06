@@ -312,7 +312,7 @@
             }
 
             let memberId = "";
-            let memberName = "মেম্বার";
+            let memberName = "";
 
             try {
                 if (rawMemberData.startsWith('{')) {
@@ -336,7 +336,7 @@
                 return;
             }
 
-            memberId = memberId.toString().trim().toUpperCase();
+            memberId = memberId.toString().trim();
             document.getElementById('dispMemberId').innerText = memberId;
             document.getElementById('dispMemberName').innerText = memberName;
             memberBox.style.display = 'block';
