@@ -942,23 +942,7 @@
             document.getElementById('shopLoginError').style.display = 'none';
             document.getElementById('nameError').style.display = 'none';
         }
-
-        async function verifyMemberLogin() {
-            let memberId = document.getElementById('modalMemberId').value.trim();
-            let memberPhone = document.getElementById('modalMemberPhone').value.trim();
-            
-            let shopName = document.getElementById('modalShopName').value.trim();
-            let shopPhone = document.getElementById('modalShopPhone').value.trim();
-
-            let leftError = document.getElementById('loginError');
-            let rightError = document.getElementById('shopLoginError');
-            let nameError = document.getElementById('nameError');
-
-            leftError.style.display = 'none';
-            rightError.style.display = 'none';
-            nameError.style.display = 'none';
-
-         async function verifyMemberLogin() {
+async function verifyMemberLogin() {
     let memberId = document.getElementById('modalMemberId').value.trim();
     let shopName = document.getElementById('modalShopName').value.trim();
     let shopPhone = document.getElementById('modalShopPhone').value.trim();
