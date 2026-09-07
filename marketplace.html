@@ -973,6 +973,14 @@
                     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
                     const response = await fetch(csvUrl);
                     const data = await response.text();
+                 const response = await fetch(csvUrl);
+const data = await response.text();
+
+// কনসোলে শিটের মূল ডেটা দেখতে এটি ব্যবহার করুন
+console.log("Google Sheet Raw Data:", data);
+
+const rows = data.split('\n').map(row => row.split(','));
+console.log("Parsed Rows:", rows);   
                     
                     const rows = data.split('\n').map(row => row.split(','));
                     let isVerified = false;
