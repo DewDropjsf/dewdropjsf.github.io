@@ -171,6 +171,16 @@
     </div>
 
     <script>
+        // পেজ লোড হওয়ার সাথে সাথেই চেক করবে ইউজার রেজিস্টার্ড কি না
+document.addEventListener("DOMContentLoaded", function() {
+    let savedMember = localStorage.getItem('dewDropMember');
+    
+    if (savedMember) {
+        alert('আপনি ইতোমধ্যে নিবন্ধিত!');
+        // চাইলে সরাসরি মার্কেটপ্লেস বা হোমপেজে রিডাইরেক্ট করে দিতে পারেন
+        window.location.href = 'marketplace.html'; 
+    }
+});
         function handleShopperSignup(event) {
             event.preventDefault();
 
