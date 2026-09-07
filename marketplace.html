@@ -99,7 +99,7 @@
             background: #bf360c;
         }
 
-        /* নেভিগেশন বার ও ড্রপ-ডাউন স্টাইল */
+        /* নেভিগেশন বার */
         nav {
             display: flex;
             justify-content: space-between;
@@ -434,7 +434,7 @@
         .btn-whatsapp:hover { background: #1ebe5d; }
         .btn-gmail:hover { background: #d33426; }
         
-        /* দুই কলাম বিশিষ্ট আধুনিক মডাল স্টাইল */
+        /* চিত্র ১ এর আদলে নিখুঁত স্কেচ ডিজাইন মডাল */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -446,75 +446,96 @@
         }
         .modal-container {
             background: #fff;
-            width: 680px;
+            width: 720px;
             max-width: 95%;
-            padding: 30px;
-            border-radius: 8px;
+            padding: 35px 25px;
+            border-radius: 4px;
             position: relative;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1.5px solid #333;
         }
         .close-btn {
             position: absolute;
-            right: 15px;
-            top: 15px;
-            background: none;
-            border: none;
-            font-size: 1.3rem;
+            right: 12px;
+            top: 10px;
+            background: #f1f1f1;
+            border: 1px solid #ccc;
+            padding: 2px 8px;
+            font-size: 1rem;
             cursor: pointer;
-            color: #666;
+            color: #333;
         }
-        .modal-title {
+        .modal-title-area {
             text-align: center;
-            color: #004d40;
             margin-bottom: 25px;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: bold;
+            color: #000;
         }
-        .modal-grid {
+        .sketch-layout {
             display: flex;
-            gap: 25px;
+            position: relative;
+            gap: 20px;
         }
-        .modal-col {
+        .sketch-col {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-        }
-        .divider {
-            width: 1px;
-            background: #ddd;
-        }
-        .modal-col p {
-            font-size: 0.9rem;
-            color: #555;
-            min-height: 40px;
-        }
-        .modal-input {
-            width: 100%;
+            gap: 15px;
             padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        }
+        .sketch-divider {
+            width: 2px;
+            background: #555;
+            align-self: stretch;
+        }
+        .sketch-instruction {
             font-size: 0.95rem;
+            color: #222;
+            line-height: 1.4;
+            min-height: 45px;
+        }
+        .sketch-input {
+            width: 100%;
+            padding: 9px 10px;
+            border: 1.5px solid #444;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            background: #fff;
         }
         .error-msg {
             color: #d32f2f;
             font-size: 0.85rem;
-            margin-top: -6px;
+            margin-top: -10px;
             display: none;
             font-weight: bold;
         }
-        .submit-btn {
-            background: #004d40;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
+        .sketch-btn-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             margin-top: 5px;
         }
-        .submit-btn:hover {
-            background: #00332c;
+        /* চিত্র ১ এর মতো বিশেষ পিল আকৃতির বাটন */
+        .sketch-pill-btn {
+            background: transparent;
+            border: 1.5px solid #333;
+            border-radius: 20px;
+            padding: 6px 25px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            color: #000;
+            transition: background 0.2s;
+        }
+        .sketch-pill-btn:hover {
+            background: #004d40;
+            color: #fff;
+            border-color: #004d40;
+        }
+        .arrow-label {
+            font-size: 0.85rem;
+            color: #444;
         }
 
         footer {
@@ -538,8 +559,8 @@
             header { flex-direction: column; gap: 10px; text-align: center; }
             .header-right { flex-direction: column; gap: 5px; }
             nav { flex-direction: column; gap: 10px; }
-            .modal-grid { flex-direction: column; }
-            .divider { width: 100%; height: 1px; }
+            .sketch-layout { flex-direction: column; }
+            .sketch-divider { width: 100%; height: 2px; }
         }
     </style>
 </head>
@@ -617,32 +638,39 @@
         </div>
     </nav>
 
-    <!-- দুই কলাম বিশিষ্ট শপিং লগইন এবং রেজিস্ট্রেশন পপ-আপ মডাল -->
+    <!-- চিত্র ১ এর স্কেচ অনুযায়ী নিখوঁত মডাল উইন্ডো -->
     <div class="modal-overlay" id="memberLoginModal">
         <div class="modal-container">
             <button class="close-btn" onclick="closeMemberLoginModal()">✖</button>
-            <div class="modal-title">🔐 শপিং লগইন ও একাউন্ট</div>
+            <div class="modal-title-area">🛒 "শপিং লগইন করুন"</div>
             
-            <div class="modal-grid">
-                <!-- বাম পাশ: লগইন সেকশন -->
-                <div class="modal-col">
-                    <p>আপনার সমিতির মেম্বার আইডি এবং মোবাইল নম্বর দিয়ে লগইন করুন।</p>
-                    <input type="text" id="modalMemberId" class="modal-input" placeholder="আপনার মেম্বার আইডি (যেমন: MTI-101)">
-                    <input type="tel" id="modalMemberPhone" class="modal-input" placeholder="আপনার রেজিস্টার্ড মোবাইল নম্বর">
+            <div class="sketch-layout">
+                <!-- বাম পাশ: লগইন সেকশন (চিত্র ১ অনুযায়ী) -->
+                <div class="sketch-col">
+                    <div class="sketch-instruction">আপনার সমিতির মেম্বার আইডি এবং মোবাইল নম্বর দিয়ে লগইন করুন।</div>
+                    <input type="text" id="modalMemberId" class="sketch-input" placeholder="মেম্বার আইডি দিন">
+                    <input type="tel" id="modalMemberPhone" class="sketch-input" placeholder="মোবাইল নম্বর দিন">
                     <div id="loginError" class="error-msg">ভুল তথ্য</div>
-                    <button class="submit-btn" onclick="verifyMemberLogin()">লগইন করুন</button>
+                    
+                    <div class="sketch-btn-container">
+                        <button class="sketch-pill-btn" onclick="verifyMemberLogin()">লগইন</button>
+                        <span class="arrow-label">← বোতাম</span>
+                    </div>
                 </div>
 
-                <div class="divider"></div>
+                <div class="sketch-divider"></div>
 
-                <!-- ডান পাশ: শপিং একাউন্ট খোলার সেকশন -->
-                <div class="modal-col">
-                    <p>নতুন শপিং একাউন্ট করতে তথ্য দিন (নাম অবশ্যই বড় অক্ষরে হতে হবে)।</p>
-                    <input type="text" id="regName" class="modal-input" placeholder="আপনার নাম (বড় অক্ষরে লিখুন)">
+                <!-- ডান পাশ: নতুন শপিং একাউন্ট সেকশন (চিত্র ১ অনুযায়ী) -->
+                <div class="sketch-col">
+                    <div class="sketch-instruction">নতুন শপিং একাউন্ট করতে তথ্য দিন (নাম অবশ্যই বড় অক্ষরে হতে হবে)।</div>
+                    <input type="text" id="regName" class="sketch-input" placeholder="আপনার নাম (বড় অক্ষরে)">
                     <div id="nameError" class="error-msg">বড় অক্ষরে লিখুন</div>
-                    <input type="text" id="regMemberId" class="modal-input" placeholder="আপনার মেম্বার আইডি">
-                    <input type="tel" id="regPhone" class="modal-input" placeholder="মোবাইল নম্বর">
-                    <button class="submit-btn" onclick="handleRegister()">একাউন্ট করুন</button>
+                    <input type="text" id="regMemberId" class="sketch-input" placeholder="মেম্বার আইডি">
+                    <input type="tel" id="regPhone" class="sketch-input" placeholder="মোবাইল নম্বর">
+                    
+                    <div class="sketch-btn-container">
+                        <button class="sketch-pill-btn" onclick="handleRegister()">একাউন্ট করুন</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -782,7 +810,6 @@
             appId: "1:265469043595:web:1532d537b0642bf6dac58e"
         };
 
-        // ফায়ারবেজ ইনিশিয়ালাইজ করা
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
@@ -869,7 +896,7 @@
             document.getElementById('nameError').style.display = 'none';
         }
 
-        // হুবহু ম্যাচিং (కేস-সেন্সিটিভ) সহ লগইন ভেরিফিকেশন
+        // নিখুঁত ভেরিফিকেশন লজিক (সঠিক আইডি ও ফোন নম্বর মেলানো)
         function verifyMemberLogin() {
             let memberId = document.getElementById('modalMemberId').value.trim();
             let memberPhone = document.getElementById('modalMemberPhone').value.trim();
@@ -887,14 +914,14 @@
             if (savedMember) {
                 try {
                     let memberObj = JSON.parse(savedMember);
-                    // বড়/ছোট হাতের অক্ষর নিখুঁতভাবে (Case-sensitive) মিলতে হবে
+                    // বড় ও ছোট হাতের অক্ষর বা মান হুবহু (Case-sensitive) মিলতে হবে
                     if (memberObj.memberId === memberId && memberObj.phone === memberPhone) {
                         isValid = true;
                     }
                 } catch(e) {}
             }
 
-            // টেস্ট অ্যাকাউন্ট হিসেবে ডিফল্ট একটি মান রাখতে পারেন বা লোকাল ডেটার সাথে মেলাবেন
+            // ডিফল্ট টেস্ট অ্যাকাউন্ট যাচাই
             if (memberId === "MTI-101" && memberPhone === "01700000000") {
                 isValid = true;
             }
@@ -911,14 +938,14 @@
             }
         }
 
-        // শপিং একাউন্ট তৈরি এবং নাম বড় হাতের অক্ষর যাচাই লজিক
+        // নতুন শপিং একাউন্ট তৈরি ও নাম বড় হাতের অক্ষরে নিশ্চিত করার লজিক
         function handleRegister() {
             let name = document.getElementById('regName').value;
             let memberId = document.getElementById('regMemberId').value.trim();
             let phone = document.getElementById('regPhone').value.trim();
             let nameError = document.getElementById('nameError');
 
-            // নাম বড় হাতের অক্ষরে আছে কিনা চেক করার রেগুলার এক্সপ্রেশন
+            // শুধুমাত্র বড় হাতের অক্ষর বা স্পেস আছে কিনা তা চেক করার রেগুলার এক্সপ্রেশন
             let isUpperCase = /^[^a-z]*$/.test(name) && name.length > 0;
 
             if (!isUpperCase) {
