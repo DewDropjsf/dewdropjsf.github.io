@@ -434,74 +434,92 @@
         .btn-whatsapp:hover { background: #1ebe5d; }
         .btn-gmail:hover { background: #d33426; }
         
-        /* চিত্র ১ এর আদলে নিখুঁত স্কেচ ডিজাইন মডাল */
+        /* নতুন ডিজাইন অনুযায়ী নিখুঁত পপ-আপ মডাল */
         .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.5);
             z-index: 2000;
             justify-content: center;
             align-items: center;
         }
         .modal-container {
-            background: #fff;
-            width: 720px;
+            background: #eef7f6;
+            width: 680px;
             max-width: 95%;
-            padding: 35px 25px;
-            border-radius: 4px;
+            padding: 30px 25px;
+            border-radius: 12px;
             position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            border: 1.5px solid #333;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border: 1px solid #b2dfdb;
         }
         .close-btn {
             position: absolute;
-            right: 12px;
-            top: 10px;
-            background: #f1f1f1;
-            border: 1px solid #ccc;
-            padding: 2px 8px;
+            right: 15px;
+            top: 15px;
+            background: #00796b;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
             font-size: 1rem;
             cursor: pointer;
-            color: #333;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .close-btn:hover {
+            background: #004d40;
         }
         .modal-title-area {
             text-align: center;
             margin-bottom: 25px;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: bold;
-            color: #000;
+            color: #004d40;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         .sketch-layout {
             display: flex;
             position: relative;
-            gap: 20px;
+            gap: 25px;
         }
         .sketch-col {
             flex: 1;
             display: flex;
             flex-direction: column;
             gap: 15px;
-            padding: 10px;
+            padding: 5px;
         }
         .sketch-divider {
-            width: 2px;
-            background: #555;
+            width: 1px;
+            background: #b2dfdb;
             align-self: stretch;
         }
         .sketch-instruction {
             font-size: 0.95rem;
-            color: #222;
-            line-height: 1.4;
-            min-height: 45px;
+            color: #333;
+            line-height: 1.5;
+            min-height: 48px;
         }
         .sketch-input {
             width: 100%;
-            padding: 9px 10px;
-            border: 1.5px solid #444;
-            border-radius: 3px;
+            padding: 10px 12px;
+            border: 1px solid #80cbc4;
+            border-radius: 6px;
             font-size: 0.9rem;
             background: #fff;
+            color: #333;
+            outline: none;
+        }
+        .sketch-input:focus {
+            border-color: #00796b;
+            box-shadow: 0 0 5px rgba(0,121,107,0.2);
         }
         .error-msg {
             color: #d32f2f;
@@ -510,32 +528,35 @@
             display: none;
             font-weight: bold;
         }
-        .sketch-btn-container {
+        .login-btn-container {
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 10px;
-            margin-top: 5px;
+            margin-top: 25px;
+            position: relative;
         }
-        /* চিত্র ১ এর মতো বিশেষ পিল আকৃতির বাটন */
-        .sketch-pill-btn {
-            background: transparent;
-            border: 1.5px solid #333;
-            border-radius: 20px;
-            padding: 6px 25px;
+        /* ছবির আদলে পিল আকৃতির আকর্ষণীয় লগইন বাটন */
+        .login-pill-btn {
+            background: linear-gradient(to bottom, #f3e5ab, #d4af37);
+            border: 1px solid #b8860b;
+            border-radius: 25px;
+            padding: 10px 45px;
             font-weight: bold;
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             cursor: pointer;
-            color: #000;
-            transition: background 0.2s;
+            color: #222;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.1s;
         }
-        .sketch-pill-btn:hover {
-            background: #004d40;
-            color: #fff;
-            border-color: #004d40;
+        .login-pill-btn:hover {
+            opacity: 0.95;
+            transform: scale(1.02);
         }
-        .arrow-label {
-            font-size: 0.85rem;
-            color: #444;
+        .login-arrow-label {
+            position: absolute;
+            right: 35%;
+            font-size: 0.9rem;
+            color: #666;
         }
 
         footer {
@@ -560,7 +581,8 @@
             .header-right { flex-direction: column; gap: 5px; }
             nav { flex-direction: column; gap: 10px; }
             .sketch-layout { flex-direction: column; }
-            .sketch-divider { width: 100%; height: 2px; }
+            .sketch-divider { width: 100%; height: 1px; }
+            .login-arrow-label { display: none; }
         }
     </style>
 </head>
@@ -638,40 +660,39 @@
         </div>
     </nav>
 
-    <!-- চিত্র ১ এর স্কেচ অনুযায়ী নিখوঁত মডাল উইন্ডো -->
+    <!-- নতুন ডিজাইন অনুযায়ী পপ-আপ মডাল উইন্ডো -->
     <div class="modal-overlay" id="memberLoginModal">
         <div class="modal-container">
-            <button class="close-btn" onclick="closeMemberLoginModal()">✖</button>
-            <div class="modal-title-area">🛒 "শপিং লগইন করুন"</div>
+            <button class="close-btn" onclick="closeMemberLoginModal()">✕</button>
+            <div class="modal-title-area">
+                👑 প্রথমে লগইন করুন 👑
+            </div>
             
             <div class="sketch-layout">
-                <!-- বাম পাশ: লগইন সেকশন (চিত্র ১ অনুযায়ী) -->
+                <!-- বাম পাশ: মেম্বার আইডি ও মোবাইল নম্বর দিয়ে লগইন -->
                 <div class="sketch-col">
-                    <div class="sketch-instruction">আপনার সমিতির মেম্বার আইডি এবং মোবাইল নম্বর দিয়ে লগইন করুন।</div>
+                    <div class="sketch-instruction">আপনার সমিতির মেম্বার আইডি এবং মোবাইল নম্বর দিয়ে ভেরিফাই করুন।</div>
                     <input type="text" id="modalMemberId" class="sketch-input" placeholder="মেম্বার আইডি দিন">
-                    <input type="tel" id="modalMemberPhone" class="sketch-input" placeholder="মোবাইল নম্বর দিন">
+                    <input type="tel" id="modalMemberPhone" class="sketch-input" placeholder="রেজিস্টার্ড মোবাইল নম্বর">
                     <div id="loginError" class="error-msg">ভুল তথ্য</div>
-                    
-                    <div class="sketch-btn-container">
-                        <button class="sketch-pill-btn" onclick="verifyMemberLogin()">লগইন</button>
-                        <span class="arrow-label">← বোতাম</span>
-                    </div>
                 </div>
 
                 <div class="sketch-divider"></div>
 
-                <!-- ডান পাশ: নতুন শপিং একাউন্ট সেকশন (চিত্র ১ অনুযায়ী) -->
+                <!-- ডান পাশ: শপিং একাউন্টের নাম (বড় অক্ষরে) ও মোবাইল নম্বর দিয়ে লগইন -->
                 <div class="sketch-col">
-                    <div class="sketch-instruction">নতুন শপিং একাউন্ট করতে তথ্য দিন (নাম অবশ্যই বড় অক্ষরে হতে হবে)।</div>
-                    <input type="text" id="regName" class="sketch-input" placeholder="আপনার নাম (বড় অক্ষরে)">
-                    <div id="nameError" class="error-msg">বড় অক্ষরে লিখুন</div>
-                    <input type="text" id="regMemberId" class="sketch-input" placeholder="মেম্বার আইডি">
-                    <input type="tel" id="regPhone" class="sketch-input" placeholder="মোবাইল নম্বর">
-                    
-                    <div class="sketch-btn-container">
-                        <button class="sketch-pill-btn" onclick="handleRegister()">একাউন্ট করুন</button>
-                    </div>
+                    <div class="sketch-instruction">আপনার শপিং একাউন্টের নাম এবং মোবাইল নম্বর দিয়ে ভেরিফাই করুন।</div>
+                    <input type="text" id="modalShopName" class="sketch-input" placeholder="আপনার নাম (বড়ো অক্ষরে)">
+                    <div id="nameError" class="error-msg" style="color: #d32f2f; font-size: 0.85rem; display: none;">নাম অবশ্যই বড় অক্ষরে হতে হবে</div>
+                    <input type="tel" id="modalShopPhone" class="sketch-input" placeholder="রেজিস্টার্ড মোবাইল নম্বর">
+                    <div id="shopLoginError" class="error-msg">ভুল তথ্য</div>
                 </div>
+            </div>
+
+            <!-- নিচে কমন লগইন বাটন -->
+            <div class="login-btn-container">
+                <button class="login-pill-btn" onclick="verifyMemberLogin()">লগইন</button>
+                <span class="login-arrow-label">←</span>
             </div>
         </div>
     </div>
@@ -893,84 +914,105 @@
         function closeMemberLoginModal() {
             document.getElementById('memberLoginModal').style.display = 'none';
             document.getElementById('loginError').style.display = 'none';
+            document.getElementById('shopLoginError').style.display = 'none';
             document.getElementById('nameError').style.display = 'none';
         }
 
-        // নিখুঁত ভেরিফিকেশন লজিক (সঠিক আইডি ও ফোন নম্বর মেলানো)
+        // উভয় পাসের জন্য লগইন ভেরিফিকেশন লজিক
         function verifyMemberLogin() {
             let memberId = document.getElementById('modalMemberId').value.trim();
             let memberPhone = document.getElementById('modalMemberPhone').value.trim();
-            let errorDiv = document.getElementById('loginError');
+            
+            let shopName = document.getElementById('modalShopName').value.trim();
+            let shopPhone = document.getElementById('modalShopPhone').value.trim();
 
-            if (!memberId || !memberPhone) {
-                errorDiv.innerText = "ভুল তথ্য";
-                errorDiv.style.display = 'block';
-                return;
-            }
-
-            let savedMember = localStorage.getItem('dewDropMember');
-            let isValid = false;
-
-            if (savedMember) {
-                try {
-                    let memberObj = JSON.parse(savedMember);
-                    // বড় ও ছোট হাতের অক্ষর বা মান হুবহু (Case-sensitive) মিলতে হবে
-                    if (memberObj.memberId === memberId && memberObj.phone === memberPhone) {
-                        isValid = true;
-                    }
-                } catch(e) {}
-            }
-
-            // ডিফল্ট টেস্ট অ্যাকাউন্ট যাচাই
-            if (memberId === "MTI-101" && memberPhone === "01700000000") {
-                isValid = true;
-            }
-
-            if (isValid) {
-                errorDiv.style.display = 'none';
-                alert('লগইন সফল হয়েছে!');
-                closeMemberLoginModal();
-                checkLoginStatus();
-                location.reload();
-            } else {
-                errorDiv.innerText = "ভুল তথ্য";
-                errorDiv.style.display = 'block';
-            }
-        }
-
-        // নতুন শপিং একাউন্ট তৈরি ও নাম বড় হাতের অক্ষরে নিশ্চিত করার লজিক
-        function handleRegister() {
-            let name = document.getElementById('regName').value;
-            let memberId = document.getElementById('regMemberId').value.trim();
-            let phone = document.getElementById('regPhone').value.trim();
+            let leftError = document.getElementById('loginError');
+            let rightError = document.getElementById('shopLoginError');
             let nameError = document.getElementById('nameError');
 
-            // শুধুমাত্র বড় হাতের অক্ষর বা স্পেস আছে কিনা তা চেক করার রেগুলার এক্সপ্রেশন
-            let isUpperCase = /^[^a-z]*$/.test(name) && name.length > 0;
+            leftError.style.display = 'none';
+            rightError.style.display = 'none';
+            nameError.style.display = 'none';
 
-            if (!isUpperCase) {
-                nameError.style.display = 'block';
+            // যদি বাম পাশ পূরণ করা হয়
+            if (memberId !== "" || memberPhone !== "") {
+                if (!memberId || !memberPhone) {
+                    leftError.innerText = "মেম্বার আইডি এবং মোবাইল নম্বর উভয়ই দিন";
+                    leftError.style.display = 'block';
+                    return;
+                }
+
+                let savedMember = localStorage.getItem('dewDropMember');
+                let isValid = false;
+
+                if (savedMember) {
+                    try {
+                        let memberObj = JSON.parse(savedMember);
+                        if (memberObj.memberId === memberId && memberObj.phone === memberPhone) {
+                            isValid = true;
+                        }
+                    } catch(e) {}
+                }
+
+                // টেস্ট একাউন্ট চেক
+                if (memberId === "MTI-101" && memberPhone === "01700000000") {
+                    isValid = true;
+                }
+
+                if (isValid) {
+                    alert('লগইন সফল হয়েছে!');
+                    closeMemberLoginModal();
+                    checkLoginStatus();
+                    location.reload();
+                } else {
+                    leftError.innerText = "ভুল তথ্য";
+                    leftError.style.display = 'block';
+                }
                 return;
-            } else {
-                nameError.style.display = 'none';
             }
 
-            if (!memberId || !phone) {
-                alert('দয়া করে মেম্বার আইডি এবং মোবাইল নম্বর প্রদান করুন!');
+            // যদি ডান পাশ পূরণ করা হয়
+            if (shopName !== "" || shopPhone !== "") {
+                // নাম বড় হাতের অক্ষরে আছে কিনা চেক
+                let isUpperCase = /^[^a-z]*$/.test(shopName) && shopName.length > 0;
+                if (!isUpperCase) {
+                    nameError.style.display = 'block';
+                    return;
+                }
+
+                if (!shopName || !shopPhone) {
+                    rightError.innerText = "নাম এবং মোবাইল নম্বর উভয়ই দিন";
+                    rightError.style.display = 'block';
+                    return;
+                }
+
+                let savedMember = localStorage.getItem('dewDropMember');
+                let isValid = false;
+
+                if (savedMember) {
+                    try {
+                        let memberObj = JSON.parse(savedMember);
+                        if (memberObj.name === shopName && memberObj.phone === shopPhone) {
+                            isValid = true;
+                        }
+                    } catch(e) {}
+                }
+
+                if (isValid) {
+                    alert('লগইন সফল হয়েছে!');
+                    closeMemberLoginModal();
+                    checkLoginStatus();
+                    location.reload();
+                } else {
+                    rightError.innerText = "ভুল তথ্য বা একাউন্ট পাওয়া যায়নি";
+                    rightError.style.display = 'block';
+                }
                 return;
             }
 
-            let memberObj = {
-                memberId: memberId,
-                name: name,
-                phone: phone
-            };
-
-            localStorage.setItem('dewDropMember', JSON.stringify(memberObj));
-            alert('শপিং একাউন্ট সফলভাবে তৈরি হয়েছে!');
-            closeMemberLoginModal();
-            checkLoginStatus();
-            location.reload();
+            // যদি কোনো পাশই পূরণ না করা হয়
+            leftError.innerText = "দয়া করে তথ্য প্রদান করুন";
+            leftError.style.display = 'block';
         }
 
         function openOrderHistory() {
