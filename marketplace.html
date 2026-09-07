@@ -199,6 +199,29 @@
             background: #b71c1c !important;
         }
 
+        /* সার্চ বার এলাকার কন্টেইনার এবং নতুন শপিং একাউন্ট বাটন */
+        .search-area-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .create-account-btn {
+            background: #ffb300;
+            color: #000;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border: 1px solid #ffa000;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .create-account-btn:hover {
+            background: #ffa000;
+            color: #000;
+        }
+
         .search-box {
             display: flex;
             align-items: center;
@@ -434,7 +457,7 @@
         .btn-whatsapp:hover { background: #1ebe5d; }
         .btn-gmail:hover { background: #d33426; }
         
-        /* নতুন ডিজাইন অনুযায়ী নিখুঁত পপ-আপ মডাল */
+        /* পপ-আপ মডাল উইন্ডো */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -535,7 +558,6 @@
             margin-top: 25px;
             position: relative;
         }
-        /* ছবির আদলে পিল আকৃতির আকর্ষণীয় লগইন বাটন */
         .login-pill-btn {
             background: linear-gradient(to bottom, #f3e5ab, #d4af37);
             border: 1px solid #b8860b;
@@ -583,6 +605,7 @@
             .sketch-layout { flex-direction: column; }
             .sketch-divider { width: 100%; height: 1px; }
             .login-arrow-label { display: none; }
+            .search-area-wrapper { width: 100%; justify-content: center; flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -654,13 +677,17 @@
             <button id="memberAuthBtn" class="btn-member-login" onclick="handleAuthButtonClick()">🛒 শপিং লগইন</button>
         </div>
 
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
-            <button onclick="searchProducts()">🔍 সার্চ</button>
+        <!-- সার্চ বারের বাম পাশে "শপিং একাউন্ট করুন" বাটন সহ সার্চ এরিয়া -->
+        <div class="search-area-wrapper">
+            <a href="shoppingsignup.html" class="create-account-btn">📝 শপিং একাউন্ট করুন</a>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
+                <button onclick="searchProducts()">🔍 সার্চ</button>
+            </div>
         </div>
     </nav>
 
-    <!-- নতুন ডিজাইন অনুযায়ী পপ-আপ মডাল উইন্ডো -->
+    <!-- পপ-আপ মডাল উইন্ডো -->
     <div class="modal-overlay" id="memberLoginModal">
         <div class="modal-container">
             <button class="close-btn" onclick="closeMemberLoginModal()">✕</button>
@@ -820,7 +847,6 @@
 
     <!-- জাভাস্ক্রিপ্ট লজিক -->
     <script>
-        // ফায়ারবেজ কনফিগারেশন সেটআপ
         const firebaseConfig = {
             apiKey: "AIzaSyDJfcoxchgwdfulQMjQNa8wml-b4f5jHu",
             authDomain: "dewdrop-shopping.firebaseapp.com",
@@ -918,7 +944,6 @@
             document.getElementById('nameError').style.display = 'none';
         }
 
-        // উভয় পাসের জন্য লগইন ভেরিফিকেশন লজিক
         function verifyMemberLogin() {
             let memberId = document.getElementById('modalMemberId').value.trim();
             let memberPhone = document.getElementById('modalMemberPhone').value.trim();
@@ -934,7 +959,6 @@
             rightError.style.display = 'none';
             nameError.style.display = 'none';
 
-            // যদি বাম পাশ পূরণ করা হয়
             if (memberId !== "" || memberPhone !== "") {
                 if (!memberId || !memberPhone) {
                     leftError.innerText = "মেম্বার আইডি এবং মোবাইল নম্বর উভয়ই দিন";
@@ -954,7 +978,6 @@
                     } catch(e) {}
                 }
 
-                // টেস্ট একাউন্ট চেক
                 if (memberId === "MTI-101" && memberPhone === "01700000000") {
                     isValid = true;
                 }
@@ -971,9 +994,7 @@
                 return;
             }
 
-            // যদি ডান পাশ পূরণ করা হয়
             if (shopName !== "" || shopPhone !== "") {
-                // নাম বড় হাতের অক্ষরে আছে কিনা চেক
                 let isUpperCase = /^[^a-z]*$/.test(shopName) && shopName.length > 0;
                 if (!isUpperCase) {
                     nameError.style.display = 'block';
@@ -1010,7 +1031,6 @@
                 return;
             }
 
-            // যদি কোনো পাশই পূরণ না করা হয়
             leftError.innerText = "দয়া করে তথ্য প্রদান করুন";
             leftError.style.display = 'block';
         }
