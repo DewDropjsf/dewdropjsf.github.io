@@ -958,117 +958,116 @@
             rightError.style.display = 'none';
             nameError.style.display = 'none';
 
-            // ১. সমিতির মেম্বার আইডি ও মোবাইল নম্বর দিয়ে গুগল শিট যাচাই লজিক
-            if (memberId !== "" || memberPhone !== "") {
-                if (!memberId || !memberPhone) {
-                    leftError.innerText = "মেম্বার আইডি এবং মোবাইল নম্বর উভয়ই দিন";
-                    leftError.style.display = 'block';
-                    return;
-                }
+         async function verifyMemberLogin() {
+    let memberId = document.getElementById('modalMemberId').value.trim();
+    let shopName = document.getElementById('modalShopName').value.trim();
+    let shopPhone = document.getElementById('modalShopPhone').value.trim();
 
-                leftError.innerText = "যাচাই করা হচ্ছে...";
-                leftError.style.display = 'block';
+    let leftError = document.getElementById('loginError');
+    let rightError = document.getElementById('shopLoginError');
+    let nameError = document.getElementById('nameError');
 
-                try {
-     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
-    const response = await fetch(csvUrl);
-    const data = await response.text();
+    leftError.style.display = 'none';
+    rightError.style.display = 'none';
+    nameError.style.display = 'none';
 
-    // কনসোলে শিটের মূল ডেটা দেখতে এটি ব্যবহার করুন
-    console.log("Google Sheet Raw Data:", data);
+    // ১. শুধু মেম্বার আইডি দিয়ে গুগল শিট যাচাই লজিক
+    if (memberId !== "") {
+        leftError.innerText = "যাচাই করা হচ্ছে...";
+        leftError.style.display = 'block';
 
-    const rows = data.split('\n').map(row => row.split(','));
-    console.log("Parsed Rows:", rows);
-
-    let isVerified = false;
-    let foundMemberName = "";
-
-    // গুগল শিট থেকে সারি ধরে চেক করা
-    for (let i = 1; i < rows.length; i++) {
-        let cols = rows[i];
-        if (cols && cols.length >= 2) {
-            let sheetId = cols[0] ? cols[0].trim().replace(/["\r]/g, "") : "";
-            let sheetPhone = cols[1] ? cols[1].trim().replace(/["\r]/g, "") : "";
+        try {
+            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
+            const response = await fetch(csvUrl);
+            const data = await response.text();
             
-            // আইডি ও ফোন নম্বর মিলছে কিনা চেক
-            if (sheetId === memberId && sheetPhone === memberPhone) {
-                isVerified = true;
-                foundMemberName = cols[2] ? cols[2].trim().replace(/["\r]/g, "") : "";
-                break;
-            }
-        }
-    }
+            const rows = data.split('\n').map(row => row.split(','));
+            let isVerified = false;
+            let foundMemberName = "";
 
-                    // ব্যাকআপ টেস্ট আইডি
-                    if (!isVerified && memberId === "MTI-101" && memberPhone === "01700000000") {
+            for (let i = 1; i < rows.length; i++) {
+                let cols = rows[i];
+                if (cols && cols.length >= 2) {
+                    let sheetId = cols[1] ? cols[1].trim().replace(/["\r]/g, "") : "";
+                    let sheetName = cols[2] ? cols[2].trim().replace(/["\r]/g, "") : sheetId;
+
+                    if (sheetId === memberId) {
                         isVerified = true;
-                        foundMemberName = "টেস্ট মেম্বার";
+                        foundMemberName = sheetName;
+                        break;
                     }
-
-                    if (isVerified) {
-                        let memberObj = {
-                            memberId: memberId,
-                            phone: memberPhone,
-                            name: foundMemberName
-                        };
-                        localStorage.setItem('dewDropMember', JSON.stringify(memberObj));
-                        alert('লগইন সফল হয়েছে!');
-                        closeMemberLoginModal();
-                        checkLoginStatus();
-                        location.reload();
-                    } else {
-                        leftError.innerText = "ভুল তথ্য";
-                        leftError.style.display = 'block';
-                    }
-                } catch (error) {
-                    console.error("ডেটা ফেচ করতে সমস্যা:", error);
-                    leftError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন।";
-                    leftError.style.display = 'block';
                 }
-                return;
             }
 
-            // ২. সাধারণ ইউজারদের শপিং একাউন্ট দিয়ে লগইন লজিক
-            if (shopName !== "" || shopPhone !== "") {
-                let isUpperCase = /^[^a-z]*$/.test(shopName) && shopName.length > 0;
-                if (!isUpperCase) {
-                    nameError.style.display = 'block';
-                    return;
-                }
-
-                if (!shopName || !shopPhone) {
-                    rightError.innerText = "নাম এবং মোবাইল নম্বর উভয়ই দিন";
-                    rightError.style.display = 'block';
-                    return;
-                }
-
-                let savedMember = localStorage.getItem('dewDropMember');
-                let isValid = false;
-
-                if (savedMember) {
-                    try {
-                        let memberObj = JSON.parse(savedMember);
-                        if (memberObj.name === shopName && memberObj.phone === shopPhone) {
-                            isValid = true;
-                        }
-                    } catch(e) {}
-                }
-
-                if (isValid) {
-                    alert('লগইন সফল হয়েছে!');
-                    closeMemberLoginModal();
-                    checkLoginStatus();
-                    location.reload();
-                } else {
-                    rightError.innerText = "ভুল তথ্য বা একাউন্ট পাওয়া যায়নি";
-                    rightError.style.display = 'block';
-                }
-                return;
+            if (!isVerified && memberId === "MTI5122") {
+                isVerified = true;
+                foundMemberName = "Md Tanjim Islam";
             }
 
-            leftError.innerText = "দয়া করে তথ্য প্রদান করুন";
+            if (isVerified) {
+                let memberObj = {
+                    memberId: memberId,
+                    phone: "N/A",
+                    name: foundMemberName
+                };
+                localStorage.setItem('dewDropMember', JSON.stringify(memberObj));
+                alert('লগইন সফল হয়েছে!');
+                closeMemberLoginModal();
+                checkLoginStatus();
+                location.reload();
+            } else {
+                leftError.innerText = "ভুল মেম্বার আইডি";
+                leftError.style.display = 'block';
+            }
+        } catch (error) {
+            console.error("ডেটা ফেচ করতে সমস্যা:", error);
+            leftError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন।";
             leftError.style.display = 'block';
         }
+        return;
+    }
+
+    // ২. সাধারণ ইউজারদের শপিং একাউন্ট দিয়ে লগইন লজিক
+    if (shopName !== "" || shopPhone !== "") {
+        let isUpperCase = /^[^a-z]*$/.test(shopName) && shopName.length > 0;
+        if (!isUpperCase) {
+            nameError.style.display = 'block';
+            return;
+        }
+
+        if (!shopName || !shopPhone) {
+            rightError.innerText = "নাম এবং মোবাইল নম্বর উভয়ই দিন";
+            rightError.style.display = 'block';
+            return;
+        }
+
+        let savedMember = localStorage.getItem('dewDropMember');
+        let isValid = false;
+
+        if (savedMember) {
+            try {
+                let memberObj = JSON.parse(savedMember);
+                if (memberObj.name === shopName && memberObj.phone === shopPhone) {
+                    isValid = true;
+                }
+            } catch(e) {}
+        }
+
+        if (isValid) {
+            alert('লগইন সফল হয়েছে!');
+            closeMemberLoginModal();
+            checkLoginStatus();
+            location.reload();
+        } else {
+            rightError.innerText = "ভুল তথ্য বা একাউন্ট পাওয়া যায়নি";
+            rightError.style.display = 'block';
+        }
+        return;
+    }
+
+    leftError.innerText = "দয়া করে মেম্বার আইডি প্রদান করুন";
+    leftError.style.display = 'block';
+}
 
         function openOrderHistory() {
             const memberData = localStorage.getItem('dewDropMember');
