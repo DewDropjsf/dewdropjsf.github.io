@@ -970,7 +970,7 @@
                 leftError.style.display = 'block';
 
                 try {
-                    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
+     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
     const response = await fetch(csvUrl);
     const data = await response.text();
 
@@ -981,28 +981,23 @@
     console.log("Parsed Rows:", rows);
 
     let isVerified = false;
-    let foundMemberName = "";  
-                    
-                    const rows = data.split('\n').map(row => row.split(','));
-                    let isVerified = false;
-                    let foundMemberName = "";
+    let foundMemberName = "";
 
-                    // গুগল শিট থেকে সারি ধরে চেক করা (আইডি ও ফোন নম্বর মেলানো)
-                    for (let i = 1; i < rows.length; i++) {
-                        let cols = rows[i];
-                        if (cols && cols.length >= 2) {
-                            let sheetId = cols[0] ? cols[0].trim().replace(/["r]/g, "") : "";
-                            let sheetPhone = cols[1] ? cols[1].trim().replace(/["r]/g, "") : "";
-                            let sheetName = cols[2] ? cols[2].trim().replace(/["r]/g, "") : sheetId;
-
-                            // হুবহু ম্যাচ (Case-sensitive আইডি যাচাই)
-                            if (sheetId === memberId && sheetPhone === memberPhone) {
-                                isVerified = true;
-                                foundMemberName = sheetName;
-                                break;
-                            }
-                        }
-                    }
+    // গুগল শিট থেকে সারি ধরে চেক করা
+    for (let i = 1; i < rows.length; i++) {
+        let cols = rows[i];
+        if (cols && cols.length >= 2) {
+            let sheetId = cols[0] ? cols[0].trim().replace(/["\r]/g, "") : "";
+            let sheetPhone = cols[1] ? cols[1].trim().replace(/["\r]/g, "") : "";
+            
+            // আইডি ও ফোন নম্বর মিলছে কিনা চেক
+            if (sheetId === memberId && sheetPhone === memberPhone) {
+                isVerified = true;
+                foundMemberName = cols[2] ? cols[2].trim().replace(/["\r]/g, "") : "";
+                break;
+            }
+        }
+    }
 
                     // ব্যাকআপ টেস্ট আইডি
                     if (!isVerified && memberId === "MTI-101" && memberPhone === "01700000000") {
