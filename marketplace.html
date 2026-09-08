@@ -607,6 +607,63 @@
             .login-arrow-label { display: none; }
             .search-area-wrapper { width: 100%; justify-content: center; flex-wrap: wrap; }
         }
+        /* ড্রপডাউন কন্টেইনার */
+.market-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* মূল বাটন */
+.market-dropbtn {
+    background-color: #e67e22; /* আপনার বর্তমান বাটনের কালার অনুযায়ী পরিবর্তন করতে পারেন */
+    color: white;
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ড্রপডাউন কনটেন্ট (লুকানো থাকবে) */
+.market-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 230px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+    z-index: 1000;
+    border-radius: 6px;
+    overflow: hidden;
+    right: 0;
+    margin-top: 5px;
+    border: 1px solid #e0e0e0;
+}
+
+/* ড্রপডাউন লিংকসমূহ */
+.market-dropdown-content a {
+    color: #2c3e50;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+    text-align: left;
+}
+
+.market-dropdown-content a:hover {
+    background-color: #f8f9fa;
+    color: #d35400;
+}
+
+/* হোভার করলে ড্রপডাউন দেখাবে */
+.market-dropdown:hover .market-dropdown-content {
+    display: block;
+}
     </style>
 </head>
 <body>
@@ -679,7 +736,16 @@
 
         <!-- সার্চ বারের বাম পাশে "শপিং একাউন্ট করুন" বাটন সহ সার্চ এরিয়া -->
         <div class="search-area-wrapper">
-            <a href="shoppingsignup.html" class="create-account-btn">📝 শপিং একাউন্ট করুন</a>
+           
+           <div class="market-dropdown">
+    <button class="market-dropbtn">
+        🛍️ শপিং অ্যাকাউন্ট করুন ▾
+    </button>
+    <div class="market-dropdown-content">
+        <a href="shoppingsignup.html">১. নতুন শপিং অ্যাকাউন্ট করুন</a>
+        <a href="member-update.html">২. মেম্বার আইডি দিয়ে প্রোফাইল আপডেট করুন</a>
+    </div>
+</div>
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
                 <button onclick="searchProducts()">🔍 সার্চ</button>
