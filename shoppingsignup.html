@@ -134,7 +134,7 @@
             <p>আপনার তথ্য দিয়ে দ্রুত শপিং প্রোফাইল তৈরি করুন</p>
         </div>
 
-        <div id="success-msg">সফলভাবে আপনার অ্যাকাউন্ট তৈরি হয়েছে! হোম পেজে নিয়ে যাওয়া হচ্ছে...</div>
+        <div id="success-msg">সফলভাবে আপনার অ্যাকাউন্ট তৈরি হয়েছে! শিটে সেভ করা হচ্ছে...</div>
 
         <form id="shopperSignupForm" onsubmit="handleShopperSignup(event)">
             <div class="form-group">
@@ -149,12 +149,12 @@
 
             <div class="form-group">
                 <label for="shopperEmail">৩. জিমেইল আইডি:</label>
-                <input type="email" id="shopperEmail" placeholder="example@gmail.com"autocomplete="off" required>
+                <input type="email" id="shopperEmail" placeholder="example@gmail.com" autocomplete="off" required>
             </div>
 
             <div class="form-group">
                 <label for="shopperPassword">৪. পাসওয়ার্ড সেট করুন:</label>
-                <input type="password" id="shopperPassword" placeholder="একটি গোপন পাসওয়ার্ড দিন"autocomplete="off" required>
+                <input type="password" id="shopperPassword" placeholder="একটি গোপন পাসওয়ার্ড দিন" autocomplete="off" required>
             </div>
 
             <div class="form-group">
@@ -171,16 +171,19 @@
     </div>
 
     <script>
+        // আপনার গুগল স্ক্রিপ্ট ওয়েব অ্যাপ ইউআরএল এখানে যুক্ত করা হলো
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxddYaliZTnVW_iWgxX0vlp6hQ_U8xHnqxgGwTgzDF24vLIszuEXOdUrKU6cQrxf9IzxQ/exec';
+
         // পেজ লোড হওয়ার সাথে সাথেই চেক করবে ইউজার রেজিস্টার্ড কি না
-document.addEventListener("DOMContentLoaded", function() {
-    let savedMember = localStorage.getItem('dewDropMember');
-    
-    if (savedMember) {
-        alert('আপনি ইতোমধ্যে নিবন্ধিত!');
-        // চাইলে সরাসরি মার্কেটপ্লেস বা হোমপেজে রিডাইরেক্ট করে দিতে পারেন
-        window.location.href = 'marketplace.html'; 
-    }
-});
+        document.addEventListener("DOMContentLoaded", function() {
+            let savedMember = localStorage.getItem('dewDropMember');
+            
+            if (savedMember) {
+                alert('আপনি ইতোমধ্যে নিবন্ধিত!');
+                window.location.href = 'marketplace.html'; 
+            }
+        });
+
         function handleShopperSignup(event) {
             event.preventDefault();
 
@@ -190,27 +193,31 @@ document.addEventListener("DOMContentLoaded", function() {
             const password = document.getElementById('shopperPassword').value;
             const address = document.getElementById('shopperAddress').value;
 
-            // শপার প্রোফাইল অবজেক্ট
-            const shopperData = {
-                name: name,
-                phone: phone,
-                email: email,
-                password: password,
-                address: address,
-                type: 'General Shopper'
-            };
-
-            // ব্রাউজারের LocalStorage-এ সেভ করা
-            localStorage.setItem('giasStoreUser', JSON.stringify(shopperData));
+            // ফর্ম ডাটা অবজেক্ট তৈরি
+            const formData = new URLSearchParams();
+            formData.append('name', name);
+            formData.append('phone', phone);
+            formData.append('email', email);
+            formData.append('password', password);
+            formData.append('address', address);
 
             // সফল মেসেজ দেখানো
             document.getElementById('success-msg').style.display = 'block';
             document.getElementById('shopperSignupForm').style.display = 'none';
 
-            // ২ সেকেন্ড পর শপিং মার্টে রিডাইরেক্ট করা
-            setTimeout(function() {
-                window.location.href = 'marketplace.html';
-            }, 2000);
+            // গুগল শিটে ডেটা পাঠানো (Fetch API)
+            fetch(scriptURL, { method: 'POST', body: formData })
+                .then(response => {
+                    // ২ সেকেন্ড পর শপিং মার্টে রিডাইরেক্ট করা
+                    setTimeout(function() {
+                        window.location.href = 'marketplace.html';
+                    }, 2000);
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert('ডাটা সেভ করার সময় সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।');
+                    window.location.reload();
+                });
         }
     </script>
 
