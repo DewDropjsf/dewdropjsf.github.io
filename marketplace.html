@@ -205,6 +205,23 @@
             align-items: center;
             gap: 10px;
         }
+        .create-account-btn {
+            background: #ffb300;
+            color: #000;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border: 1px solid #ffa000;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .create-account-btn:hover {
+            background: #ffa000;
+            color: #000;
+        }
+
         .search-box {
             display: flex;
             align-items: center;
@@ -557,6 +574,12 @@
             opacity: 0.95;
             transform: scale(1.02);
         }
+        .login-arrow-label {
+            position: absolute;
+            right: 35%;
+            font-size: 0.9rem;
+            color: #666;
+        }
 
         footer {
             background: #004d40;
@@ -581,58 +604,67 @@
             nav { flex-direction: column; gap: 10px; }
             .sketch-layout { flex-direction: column; }
             .sketch-divider { width: 100%; height: 1px; }
+            .login-arrow-label { display: none; }
             .search-area-wrapper { width: 100%; justify-content: center; flex-wrap: wrap; }
         }
-
         /* ড্রপডাউন কন্টেইনার */
-        .market-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        .market-dropbtn {
-            background-color: #e67e22;
-            color: white;
-            padding: 10px 18px;
-            font-size: 15px;
-            font-weight: bold;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .market-dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #ffffff;
-            min-width: 230px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
-            z-index: 1000;
-            border-radius: 6px;
-            overflow: hidden;
-            right: 0;
-            margin-top: 0px;
-            padding-top: 10px;
-            border: 1px solid #e0e0e0;
-        }
-        .market-dropdown-content a {
-            color: #2c3e50;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            transition: background 0.2s;
-            text-align: left;
-        }
-        .market-dropdown-content a:hover {
-            background-color: #f8f9fa;
-            color: #d35400;
-        }
-        .market-dropdown:hover .market-dropdown-content {
-            display: block;
-        }
+.market-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* মূল বাটন */
+.market-dropbtn {
+    background-color: #e67e22; /* আপনার বর্তমান বাটনের কালার অনুযায়ী পরিবর্তন করতে পারেন */
+    color: white;
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ড্রপডাউন কনটেন্ট (লুকানো থাকবে) */
+.market-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 230px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+    z-index: 1000;
+    border-radius: 6px;
+    overflow: hidden;
+    right: 0;
+    margin-top: 0px;
+    padding-top: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+/* ড্রপডাউন লিংকসমূহ */
+.market-dropdown-content a {
+    color: #2c3e50;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+    text-align: left;
+}
+
+.market-dropdown-content a:hover {
+    background-color: #f8f9fa;
+    color: #d35400;
+}
+
+/* হোভার করলে ড্রপডাউন দেখাবে */
+.market-dropdown:hover .market-dropdown-content {
+    display: block;
+}
     </style>
 </head>
 <body>
@@ -705,15 +737,16 @@
 
         <!-- সার্চ বারের বাম পাশে "শপিং একাউন্ট করুন" বাটন সহ সার্চ এরিয়া -->
         <div class="search-area-wrapper">
+           
            <div class="market-dropdown">
-                <button class="market-dropbtn">
-                    🛍️ শপিং অ্যাকাউন্ট করুন ▾
-                </button>
-                <div class="market-dropdown-content">
-                    <a href="shoppingsignup.html">১. নতুন শপিং অ্যাকাউন্ট করুন</a>
-                    <a href="member-update.html">২. মেম্বার আইডি দিয়ে প্রোফাইল আপডেট করুন</a>
-                </div>
-            </div>
+    <button class="market-dropbtn">
+        🛍️ শপিং অ্যাকাউন্ট করুন ▾
+    </button>
+    <div class="market-dropdown-content">
+        <a href="shoppingsignup.html">১. নতুন শপিং অ্যাকাউন্ট করুন</a>
+        <a href="member-update.html">২. মেম্বার আইডি দিয়ে প্রোফাইল আপডেট করুন</a>
+    </div>
+</div>
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
                 <button onclick="searchProducts()">🔍 সার্চ</button>
@@ -724,30 +757,29 @@
     <!-- পপ-আপ মডাল উইন্ডো -->
     <div class="modal-overlay" id="memberLoginModal">
         <div class="modal-container">
-            <button class="close-btn" onclick="closeMemberLoginModal()">&times;</button>
+            <button class="close-btn" onclick="closeMemberLoginModal()">✕</button>
             <div class="modal-title-area">
-                🛒 প্রথমে লগইন করুন 🛒
+                🔐 প্রথমে লগইন করুন 🔐
             </div>
             
             <div class="sketch-layout">
-                <!-- বাম পাশ: মেম্বার আইডি ও পাসওয়ার্ড দিয়ে লগইন -->
+                <!-- বাম পাশ: মেম্বার আইডি ও মোবাইল নম্বর দিয়ে লগইন -->
                 <div class="sketch-col">
-                    <div class="sketch-instruction">আপনার সমিতির মেম্বার আইডি এবং পাসওয়ার্ড দিয়ে ভেরিফাই করুন।</div>
+                    <div class="sketch-instruction">আপনার সমিতির মেম্বার আইডি এবং মোবাইল নম্বর দিয়ে ভেরিফাই করুন।</div>
                     <input type="text" id="modalMemberId" class="sketch-input" placeholder="মেম্বার আইডি দিন">
-                    <input type="password" id="modalMemberPassword" class="sketch-input" placeholder="পাসওয়ার্ড দিন" style="margin-top: 8px;">
-                    <div id="loginError" class="error-msg" style="display:none;">ভুল তথ্য</div>
+                    <input type="tel" id="modalShopPhone" class="sketch-input" placeholder="রেজিস্টার্ড মোবাইল নম্বর">
+                    <div id="loginError" class="error-msg">ভুল তথ্য</div>
                 </div>
 
                 <div class="sketch-divider"></div>
 
-                <!-- ডান পাশ: শপিং একাউন্টের নাম (বড় অক্ষরে), পাসওয়ার্ড ও মোবাইল নম্বর দিয়ে লগইন -->
+                <!-- ডান পাশ: শপিং একাউন্টের নাম (বড় অক্ষরে) ও মোবাইল নম্বর দিয়ে লগইন -->
                 <div class="sketch-col">
-                    <div class="sketch-instruction">আপনার শপিং একাউন্টের নাম এবং পাসওয়ার্ড দিয়ে ভেরিফাই করুন।</div>
-                    <input type="text" id="modalShopName" class="sketch-input" placeholder="আপনার নাম (বড় অক্ষরে)">
-                    <div id="nameError" class="error-msg" style="color: #d32f2f; font-size: 0.85rem; display: none;">নাম অবশ্যই বড় হাতের অক্ষরে হতে হবে</div>
-                    <input type="password" id="modalShopPassword" class="sketch-input" placeholder="পাসওয়ার্ড দিন" style="margin-top: 8px;">
-                    <input type="tel" id="modalShopPhoneInput" class="sketch-input" placeholder="রেজিস্টার্ড মোবাইল নম্বর" style="margin-top: 8px;">
-                    <div id="shopLoginError" class="error-msg" style="display:none;">ভুল তথ্য</div>
+                    <div class="sketch-instruction">আপনার শপিং একাউন্টের নাম এবং মোবাইল নম্বর দিয়ে ভেরিফাই করুন।</div>
+                    <input type="text" id="modalShopName" class="sketch-input" placeholder="আপনার নাম (বড়ো অক্ষরে)">
+                    <div id="nameError" class="error-msg" style="color: #d32f2f; font-size: 0.85rem; display: none;">নাম অবশ্যই বড় অক্ষরে হতে হবে</div>
+                    <input type="tel" id="modalShopPhone" class="sketch-input" placeholder="রেজিস্টার্ড মোবাইল নম্বর">
+                    <div id="shopLoginError" class="error-msg">ভুল তথ্য</div>
                 </div>
             </div>
 
@@ -864,7 +896,20 @@
                 </div>
             </div>
         </div>
+
     </div>
+
+    <footer>
+       <div class="developer-footer">
+            Website Developed by:<br>
+            <strong>Md Tanjim Islam</strong><br>
+            <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a>
+        </div>
+        
+        <div class="copyright-bar">
+            &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
+        </div>
+    </footer>
 
     <!-- জাভাস্ক্রিপ্ট লজিক -->
     <script>
@@ -922,7 +967,7 @@
         }
 
         function checkLoginStatus() {
-            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper');
+            const memberData = localStorage.getItem('dewDropMember');
             const authBtn = document.getElementById('memberAuthBtn');
             const nameSpan = document.getElementById('loggedUserName');
 
@@ -943,14 +988,12 @@
         }
 
         function handleAuthButtonClick() {
-            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper');
+            const memberData = localStorage.getItem('dewDropMember');
             if (memberData) {
                 if (confirm('আপনি কি সত্যিই লগআউট করতে চান?')) {
                     localStorage.removeItem('dewDropMember');
-                    localStorage.removeItem('generalShopper');
                     checkLoginStatus();
                     alert('সফলভাবে লগআউট করা হয়েছে।');
-                    location.reload();
                 }
             } else {
                 openMemberLoginModal();
@@ -966,154 +1009,121 @@
             document.getElementById('shopLoginError').style.display = 'none';
             document.getElementById('nameError').style.display = 'none';
         }
+async function verifyMemberLogin() {
+    let memberId = document.getElementById('modalMemberId').value.trim();
+    let shopName = document.getElementById('modalShopName').value.trim();
+    let shopPhone = document.getElementById('modalShopPhone').value.trim();
 
-        async function verifyMemberLogin() {
-            let memberId = document.getElementById('modalMemberId').value.trim();
-            let memberPass = document.getElementById('modalMemberPassword').value.trim();
-            
-            let shopName = document.getElementById('modalShopName').value.trim();
-            let shopPass = document.getElementById('modalShopPassword').value.trim();
-            let shopPhone = document.getElementById('modalShopPhoneInput').value.trim();
+    let leftError = document.getElementById('loginError');
+    let rightError = document.getElementById('shopLoginError');
+    let nameError = document.getElementById('nameError');
 
-            let leftError = document.getElementById('loginError');
-            let rightError = document.getElementById('shopLoginError');
-            let nameError = document.getElementById('nameError');
+    leftError.style.display = 'none';
+    rightError.style.display = 'none';
+    nameError.style.display = 'none';
 
-            leftError.style.display = 'none';
-            rightError.style.display = 'none';
-            nameError.style.display = 'none';
+    // ১. শুধু মেম্বার আইডি দিয়ে গুগল শিট যাচাই লজিক
+    if (memberId !== "") {
+        leftError.innerText = "যাচাই করা হচ্ছে...";
+        leftError.style.display = 'block';
 
+        try {
             const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
+            const response = await fetch(csvUrl);
+            const data = await response.text();
+            
+            const rows = data.split('\n').map(row => row.split(','));
+            let isVerified = false;
+            let foundMemberName = "";
 
-            // ১. বাম পাশ: মেম্বার আইডি এবং পাসওয়ার্ড দিয়ে লগইন যাচাই
-            if (memberId !== "" || memberPass !== "") {
-                if (!memberId || !memberPass) {
-                    leftError.innerText = "মেম্বার আইডি এবং পাসওয়ার্ড উভয়ই দিন";
-                    leftError.style.display = 'block';
-                    return;
-                }
+            for (let i = 1; i < rows.length; i++) {
+                let cols = rows[i];
+                if (cols && cols.length >= 2) {
+                    let sheetId = cols[1] ? cols[1].trim().replace(/["\r]/g, "") : "";
+                    let sheetName = cols[2] ? cols[2].trim().replace(/["\r]/g, "") : sheetId;
 
-                leftError.innerText = "যাচাই করা হচ্ছে...";
-                leftError.style.display = 'block';
-
-                try {
-                    const response = await fetch(csvUrl);
-                    const data = await response.text();
-                    const rows = data.split('\n').map(row => row.split(','));
-                    
-                    let isVerified = false;
-                    let foundMemberName = "";
-
-                    for (let i = 1; i < rows.length; i++) {
-                        let cols = rows[i];
-                        if (cols && cols.length >= 3) {
-                            let sheetId = cols[1] ? cols[1].trim().replace(/["\r]/g, "") : "";
-                            let sheetName = cols[2] ? cols[2].trim().replace(/["\r]/g, "") : sheetId;
-                            let sheetPass = cols[5] ? cols[5].trim().replace(/["\r]/g, "") : ""; // পাসওয়ার্ড কলাম
-
-                            if (sheetId === memberId && (sheetPass === memberPass || memberPass === "1234")) {
-                                isVerified = true;
-                                foundMemberName = sheetName;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (!isVerified && memberId === "MTI5122" && memberPass === "1234") {
+                    if (sheetId === memberId) {
                         isVerified = true;
-                        foundMemberName = "Md Tanjim Islam";
+                        foundMemberName = sheetName;
+                        break;
                     }
-
-                    if (isVerified) {
-                        let memberObj = {
-                            memberId: memberId,
-                            name: foundMemberName
-                        };
-                        localStorage.setItem('dewDropMember', JSON.stringify(memberObj));
-                        alert('লগইন সফল হয়েছে!');
-                        closeMemberLoginModal();
-                        checkLoginStatus();
-                        location.reload();
-                    } else {
-                        leftError.innerText = "ভুল মেম্বার আইডি অথবা পাসওয়ার্ড";
-                        leftError.style.display = 'block';
-                    }
-                } catch (error) {
-                    console.error("ত্রুটি:", error);
-                    leftError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন।";
-                    leftError.style.display = 'block';
                 }
-                return;
             }
 
-            // ২. ডান পাশ: সাধারণ শপিং একাউন্ট (নাম, পাসওয়ার্ড ও ফোন) দিয়ে লগইন যাচাই
-            if (shopName !== "" || shopPass !== "" || shopPhone !== "") {
-                let isUpperCase = /^[^a-z]*$/.test(shopName) && shopName.length > 0;
-                if (!isUpperCase) {
-                    nameError.style.display = 'block';
-                    return;
-                }
-
-                if (!shopName || !shopPass || !shopPhone) {
-                    rightError.innerText = "নাম, পাসওয়ার্ড এবং মোবাইল নম্বর দিন";
-                    rightError.style.display = 'block';
-                    return;
-                }
-
-                rightError.innerText = "যাচাই করা হচ্ছে...";
-                rightError.style.display = 'block';
-
-                try {
-                    const response = await fetch(csvUrl);
-                    const data = await response.text();
-                    const rows = data.split('\n').map(row => row.split(','));
-                    
-                    let isShopperVerified = false;
-
-                    for (let i = 1; i < rows.length; i++) {
-                        let cols = rows[i];
-                        if (cols && cols.length >= 4) {
-                            let colC = cols[2] ? cols[2].trim().replace(/["\r]/g, "") : ""; // Name
-                            let colD = cols[3] ? cols[3].trim().replace(/["\r]/g, "") : ""; // Phone
-                            let colPass = cols[4] ? cols[4].trim().replace(/["\r]/g, "") : ""; // Password
-
-                            if ((colC.toUpperCase() === shopName.toUpperCase()) && (colD === shopPhone)) {
-                                isShopperVerified = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (isShopperVerified) {
-                        let shopperObj = {
-                            name: shopName,
-                            phone: shopPhone
-                        };
-                        localStorage.setItem('generalShopper', JSON.stringify(shopperObj));
-                        alert('লগইন সফল হয়েছে!');
-                        closeMemberLoginModal();
-                        checkLoginStatus();
-                        location.reload();
-                    } else {
-                        rightError.innerText = "ভুল তথ্য বা একাউন্ট পাওয়া যায়নি";
-                        rightError.style.display = 'block';
-                    }
-                } catch (error) {
-                    console.error("ত্রুটি:", error);
-                    rightError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন।";
-                    rightError.style.display = 'block';
-                }
-                return;
+            if (!isVerified && memberId === "MTI5122") {
+                isVerified = true;
+                foundMemberName = "Md Tanjim Islam";
             }
 
-            leftError.innerText = "দয়া করে লগইন তথ্য প্রদান করুন";
+            if (isVerified) {
+                let memberObj = {
+                    memberId: memberId,
+                    phone: "N/A",
+                    name: foundMemberName
+                };
+                localStorage.setItem('dewDropMember', JSON.stringify(memberObj));
+                alert('লগইন সফল হয়েছে!');
+                closeMemberLoginModal();
+                checkLoginStatus();
+                location.reload();
+            } else {
+                leftError.innerText = "ভুল মেম্বার আইডি";
+                leftError.style.display = 'block';
+            }
+        } catch (error) {
+            console.error("ডেটা ফেচ করতে সমস্যা:", error);
+            leftError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন।";
             leftError.style.display = 'block';
         }
+        return;
+    }
+
+    // ২. সাধারণ ইউজারদের শপিং একাউন্ট দিয়ে লগইন লজিক
+    if (shopName !== "" || shopPhone !== "") {
+        let isUpperCase = /^[^a-z]*$/.test(shopName) && shopName.length > 0;
+        if (!isUpperCase) {
+            nameError.style.display = 'block';
+            return;
+        }
+
+        if (!shopName || !shopPhone) {
+            rightError.innerText = "নাম এবং মোবাইল নম্বর উভয়ই দিন";
+            rightError.style.display = 'block';
+            return;
+        }
+
+        let savedMember = localStorage.getItem('generalShopper');
+        let isValid = false;
+
+        if (savedMember) {
+            try {
+                let memberObj = JSON.parse(savedMember);
+                if (memberObj.name === shopName && memberObj.phone === shopPhone) {
+                    isValid = true;
+                }
+            } catch(e) {}
+        }
+
+        if (isValid) {
+            alert('লগইন সফল হয়েছে!');
+            closeMemberLoginModal();
+            checkLoginStatus();
+            location.reload();
+        } else {
+            rightError.innerText = "ভুল তথ্য বা একাউন্ট পাওয়া যায়নি";
+            rightError.style.display = 'block';
+        }
+        return;
+    }
+
+    leftError.innerText = "দয়া করে মেম্বার আইডি প্রদান করুন";
+    leftError.style.display = 'block';
+}
 
         function openOrderHistory() {
-            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper');
+            const memberData = localStorage.getItem('dewDropMember');
             if (!memberData) {
-                alert('দয়া করে প্রথমে "🛒 শপিং লগইন" করে আপনার একাউন্ট ভেরিফাই করুন!');
+                alert('দয়া করে প্রথমে "🛒 শপিং লগইন" করে আপনার আইডি ভেরিফাই করুন!');
                 openMemberLoginModal();
                 return;
             }
@@ -1130,7 +1140,7 @@
         }
 
         function handleShoppingAction(actionType, productName, unitPrice, productId) {
-            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper'); 
+            const memberData = localStorage.getItem('dewDropMember'); 
 
             if (!memberData) {
                 alert('দয়া করে শপিং লগইন বা একাউন্ট করুন!');
@@ -1159,8 +1169,8 @@
             updateCartCount();
 
             let memberObj = JSON.parse(memberData);
-            let identifier = memberObj.memberId || memberObj.name || memberObj.phone;
-            let sanitizedId = identifier.toString().replace(/[.#$\/\[\]]/g, "_");
+            let memberId = memberObj.memberId || memberObj.phone;
+            let sanitizedId = memberId.toString().replace(/[.#$\/\[\]]/g, "_");
             let currentDate = new Date().toLocaleString('bn-BD', { timeZone: 'Asia/Dhaka' });
 
             let orderData = {
@@ -1207,17 +1217,5 @@
             }
         }
     </script>
-    
-    <footer>
-       <div class="developer-footer">
-            Website Developed by:<br>
-            <strong>Md Tanjim Islam</strong><br>
-            <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a>
-        </div>
-        
-        <div class="copyright-bar">
-            &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
-        </div>
-    </footer>
 </body>
 </html>
