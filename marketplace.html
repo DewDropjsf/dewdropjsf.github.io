@@ -899,18 +899,108 @@
 
     </div>
 
-    <footer>
-       <div class="developer-footer">
-            Website Developed by:<br>
-            <strong>Md Tanjim Islam</strong><br>
-            <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a>
-        </div>
-        
-        <div class="copyright-bar">
-            &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
-        </div>
-    </footer>
-async function verifyMemberLogin() {
+<!-- জাভাস্ক্রিপ্ট লজিক -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDJfcoxchgwdfulQMjQNa8wml-b4f5jHu",
+            authDomain: "dewdrop-shopping.firebaseapp.com",
+            databaseURL: "https://dewdrop-shopping-default-rtdb.firebaseio.com",
+            projectId: "dewdrop-shopping",
+            storageBucket: "dewdrop-shopping.appspot.com",
+            messagingSenderId: "265469043595",
+            appId: "1:265469043595:web:1532d537b0642bf6dac58e"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            resetAllQuantities();
+            updateCartCount();
+            checkLoginStatus();
+        });
+
+        function resetAllQuantities() {
+            const products = [
+                { id: 1, unitPrice: 1200 },
+                { id: 2, unitPrice: 220 },
+                { id: 3, unitPrice: 1250 }
+            ];
+
+            products.forEach(p => {
+                let qtySpan = document.getElementById('qty-' + p.id);
+                let priceSpan = document.getElementById('price-' + p.id);
+                if (qtySpan && priceSpan) {
+                    qtySpan.innerText = "1";
+                    priceSpan.innerText = p.unitPrice;
+                }
+            });
+        }
+
+        function changeQuantity(productId, change, unitPrice) {
+            let qtySpan = document.getElementById('qty-' + productId);
+            let priceSpan = document.getElementById('price-' + productId);
+            
+            let currentQty = parseInt(qtySpan.innerText);
+            let newQty = currentQty + change;
+
+            if (newQty < 1) {
+                newQty = 1;
+            }
+
+            qtySpan.innerText = newQty;
+            priceSpan.innerText = unitPrice * newQty;
+        }
+
+        function checkLoginStatus() {
+            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper');
+            const authBtn = document.getElementById('memberAuthBtn');
+            const nameSpan = document.getElementById('loggedUserName');
+
+            if (memberData) {
+                try {
+                    let memberObj = JSON.parse(memberData);
+                    authBtn.innerText = "🚪 লগ আউট করুন";
+                    authBtn.className = "btn-member-login btn-member-logout";
+
+                    nameSpan.innerText = "👤 " + (memberObj.name || memberObj.memberId);
+                    nameSpan.style.display = "inline-block";
+                } catch(e) {}
+            } else {
+                authBtn.innerText = "🛒 শপিং লগইন";
+                authBtn.className = "btn-member-login";
+                nameSpan.style.display = "none";
+            }
+        }
+
+        function handleAuthButtonClick() {
+            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper');
+            if (memberData) {
+                if (confirm('আপনি কি সত্যিই লগআউট করতে চান?')) {
+                    localStorage.removeItem('dewDropMember');
+                    localStorage.removeItem('generalShopper');
+                    checkLoginStatus();
+                    alert('সফলভাবে লগআউট করা হয়েছে।');
+                    location.reload();
+                }
+            } else {
+                openMemberLoginModal();
+            }
+        }
+
+        function openMemberLoginModal() {
+            document.getElementById('memberLoginModal').style.display = 'flex';
+        }
+        function closeMemberLoginModal() {
+            document.getElementById('memberLoginModal').style.display = 'none';
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('shopLoginError').style.display = 'none';
+            document.getElementById('nameError').style.display = 'none';
+        }
+
+      async function verifyMemberLogin() {
             let memberId = document.getElementById('modalMemberId').value.trim();
             let shopName = document.getElementById('modalShopName').value.trim();
             let shopPhone = document.getElementById('modalShopPhoneInput').value.trim();
@@ -1064,6 +1154,115 @@ async function verifyMemberLogin() {
             leftError.innerText = "দয়া করে মেম্বার আইডি অথবা শপিং একাউন্টের তথ্য প্রদান করুন";
             leftError.style.display = 'block';
         }
+        function openOrderHistory() {
+            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper');
+            if (!memberData) {
+                alert('দয়া করে প্রথমে "🛒 শপিং লগইন" করে আপনার একাউন্ট ভেরিফাই করুন!');
+                openMemberLoginModal();
+                return;
+            }
+            window.location.href = 'history.html'; 
+        }
+
+        function accessAdminPanel() {
+            let password = prompt("অ্যাডমিন প্যানেলে প্রবেশ করতে পাসওয়ার্ড দিন:");
+            if (password === "121@admin") { 
+                window.location.href = 'admin.html';
+            } else if (password !== null) {
+                alert("ভুল পাসওয়ার্ড! আপনার প্রবেশাধিকার নেই।");
+            }
+        }
+
+        function handleShoppingAction(actionType, productName, unitPrice, productId) {
+            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper'); 
+
+            if (!memberData) {
+                alert('দয়া করে শপিং লগইন বা একাউন্ট করুন!');
+                openMemberLoginModal();
+                return;
+            }
+
+            let quantity = parseInt(document.getElementById('qty-' + productId).innerText);
+            let totalPrice = unitPrice * quantity;
+
+            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
+            let existingItem = cart.find(item => item.name === productName);
+            
+            if (existingItem) {
+                existingItem.quantity += quantity;
+                existingItem.price = unitPrice * existingItem.quantity;
+            } else {
+                cart.push({
+                    name: productName,
+                    unitPrice: unitPrice,
+                    price: totalPrice,
+                    quantity: quantity
+                });
+            }
+            localStorage.setItem('dewDropCart', JSON.stringify(cart));
+            updateCartCount();
+
+            let memberObj = JSON.parse(memberData);
+            let identifier = memberObj.memberId || memberObj.name || memberObj.phone;
+            let sanitizedId = identifier.toString().replace(/[.#$\/\[\]]/g, "_");
+            let currentDate = new Date().toLocaleString('bn-BD', { timeZone: 'Asia/Dhaka' });
+
+            let orderData = {
+                productName: productName + " (" + quantity + "টি)",
+                quantity: quantity,
+                totalPrice: totalPrice,
+                date: currentDate
+            };
+
+            database.ref('orders/' + sanitizedId).push(orderData)
+                .then(() => {
+                    if (actionType === 'buy') {
+                        window.location.href = 'cart.html';
+                    } else {
+                        alert('"' + productName + ' (' + quantity + 'টি)" সফলভাবে কার্টে যোগ করা হয়েছে!');
+                    }
+                })
+                .catch((error) => {
+                    console.error("ফায়ারবেজে অর্ডার সেভ করতে সমস্যা:", error);
+                    alert("কার্টে যোগ হলেও ফায়ারবেজে ডেটা সেভ করা যায়নি।");
+                });
+        }
+
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
+            let totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const badge = document.getElementById('cartCount');
+            if(badge) {
+                badge.innerText = totalCount;
+            }
+        }
+
+        function searchProducts() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('product-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let name = cards[i].getAttribute('data-name').toLowerCase();
+                if (name.includes(input)) {
+                    cards[i].style.display = "block";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+    
+    <footer>
+       <div class="developer-footer">
+            Website Developed by:<br>
+            <strong>Md Tanjim Islam</strong><br>
+            <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a>
+        </div>
+        
+        <div class="copyright-bar">
+            &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
+        </div>
+    </footer
     
 </body>
 </html>
