@@ -755,31 +755,32 @@
     </nav>
 
     <!-- পপ-আপ মডাল উইন্ডো -->
-    <div class="modal-overlay" id="memberLoginModal">
+   <div class="modal-overlay" id="memberLoginModal">
         <div class="modal-container">
-            <button class="close-btn" onclick="closeMemberLoginModal()">✕</button>
+            <button class="close-btn" onclick="closeMemberLoginModal()">&times;</button>
             <div class="modal-title-area">
-                🔐 প্রথমে লগইন করুন 🔐
+                🛒 প্রথমে লগইন করুন 🛒
             </div>
             
             <div class="sketch-layout">
-                <!-- বাম পাশ: মেম্বার আইডি ও মোবাইল নম্বর দিয়ে লগইন -->
+                <!-- বাম পাশ: মেম্বার আইডি ও পাসওয়ার্ড দিয়ে লগইন -->
                 <div class="sketch-col">
-                    <div class="sketch-instruction">আপনার সমিতির মেম্বার আইডি এবং মোবাইল নম্বর দিয়ে ভেরিফাই করুন।</div>
+                    <div class="sketch-instruction">আপনার সমিতির মেম্বার আইডি এবং পাসওয়ার্ড দিয়ে ভেরিফাই করুন।</div>
                     <input type="text" id="modalMemberId" class="sketch-input" placeholder="মেম্বার আইডি দিন">
-                    <input type="tel" id="modalShopPhone" class="sketch-input" placeholder="রেজিস্টার্ড মোবাইল নম্বর">
-                    <div id="loginError" class="error-msg">ভুল তথ্য</div>
+                    <input type="password" id="modalMemberPassword" class="sketch-input" placeholder="পাসওয়ার্ড দিন" style="margin-top: 8px;">
+                    <div id="loginError" class="error-msg" style="display:none;">ভুল তথ্য</div>
                 </div>
 
                 <div class="sketch-divider"></div>
 
-                <!-- ডান পাশ: শপিং একাউন্টের নাম (বড় অক্ষরে) ও মোবাইল নম্বর দিয়ে লগইন -->
+                <!-- ডান পাশ: শপিং একাউন্টের নাম (বড় অক্ষরে), পাসওয়ার্ড ও মোবাইল নম্বর দিয়ে লগইন -->
                 <div class="sketch-col">
-                    <div class="sketch-instruction">আপনার শপিং একাউন্টের নাম এবং মোবাইল নম্বর দিয়ে ভেরিফাই করুন।</div>
-                    <input type="text" id="modalShopName" class="sketch-input" placeholder="আপনার নাম (বড়ো অক্ষরে)">
-                    <div id="nameError" class="error-msg" style="color: #d32f2f; font-size: 0.85rem; display: none;">নাম অবশ্যই বড় অক্ষরে হতে হবে</div>
-                    <input type="tel" id="modalShopPhoneInput" class="sketch-input" placeholder="রেজিস্টার্ড মোবাইল নম্বর">
-                    <div id="shopLoginError" class="error-msg">ভুল তথ্য</div>
+                    <div class="sketch-instruction">আপনার শপিং একাউন্টের নাম এবং পাসওয়ার্ড দিয়ে ভেরিফাই করুন।</div>
+                    <input type="text" id="modalShopName" class="sketch-input" placeholder="আপনার নাম (বড় অক্ষরে)">
+                    <div id="nameError" class="error-msg" style="color: #d32f2f; font-size: 0.85rem; display: none;">নাম অবশ্যই বড় হাতের অক্ষরে হতে হবে</div>
+                    <input type="password" id="modalShopPassword" class="sketch-input" placeholder="পাসওয়ার্ড দিন" style="margin-top: 8px;">
+                    <input type="tel" id="modalShopPhoneInput" class="sketch-input" placeholder="রেজিস্টার্ড মোবাইল নম্বর" style="margin-top: 8px;">
+                    <div id="shopLoginError" class="error-msg" style="display:none;">ভুল তথ্য</div>
                 </div>
             </div>
 
