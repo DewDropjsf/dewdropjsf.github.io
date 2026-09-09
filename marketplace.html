@@ -778,7 +778,7 @@
                     <div class="sketch-instruction">আপনার শপিং একাউন্টের নাম এবং মোবাইল নম্বর দিয়ে ভেরিফাই করুন।</div>
                     <input type="text" id="modalShopName" class="sketch-input" placeholder="আপনার নাম (বড়ো অক্ষরে)">
                     <div id="nameError" class="error-msg" style="color: #d32f2f; font-size: 0.85rem; display: none;">নাম অবশ্যই বড় অক্ষরে হতে হবে</div>
-                    <input type="tel" id="modalShopPhone" class="sketch-input" placeholder="রেজিস্টার্ড মোবাইল নম্বর">
+                    <input type="tel" id="modalShopPhoneInput" class="sketch-input" placeholder="রেজিস্টার্ড মোবাইল নম্বর">
                     <div id="shopLoginError" class="error-msg">ভুল তথ্য</div>
                 </div>
             </div>
@@ -910,8 +910,7 @@
             &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
         </div>
     </footer>
-
-    <!-- জাভাস্ক্রিপ্ট লজিক -->
+<!-- জাভাস্ক্রিপ্ট লজিক -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyDJfcoxchgwdfulQMjQNa8wml-b4f5jHu",
@@ -967,7 +966,7 @@
         }
 
         function checkLoginStatus() {
-            const memberData = localStorage.getItem('dewDropMember');
+            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper');
             const authBtn = document.getElementById('memberAuthBtn');
             const nameSpan = document.getElementById('loggedUserName');
 
@@ -988,12 +987,14 @@
         }
 
         function handleAuthButtonClick() {
-            const memberData = localStorage.getItem('dewDropMember');
+            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper');
             if (memberData) {
                 if (confirm('আপনি কি সত্যিই লগআউট করতে চান?')) {
                     localStorage.removeItem('dewDropMember');
+                    localStorage.removeItem('generalShopper');
                     checkLoginStatus();
                     alert('সফলভাবে লগআউট করা হয়েছে।');
+                    location.reload();
                 }
             } else {
                 openMemberLoginModal();
@@ -1009,121 +1010,123 @@
             document.getElementById('shopLoginError').style.display = 'none';
             document.getElementById('nameError').style.display = 'none';
         }
-async function verifyMemberLogin() {
-    let memberId = document.getElementById('modalMemberId').value.trim();
-    let shopName = document.getElementById('modalShopName').value.trim();
-    let shopPhone = document.getElementById('modalShopPhone').value.trim();
 
-    let leftError = document.getElementById('loginError');
-    let rightError = document.getElementById('shopLoginError');
-    let nameError = document.getElementById('nameError');
+        async function verifyMemberLogin() {
+            let memberId = document.getElementById('modalMemberId').value.trim();
+            let shopName = document.getElementById('modalShopName').value.trim();
+            let shopPhone = document.getElementById('modalShopPhoneInput').value.trim(); // সঠিক আইডি ধরা হলো
 
-    leftError.style.display = 'none';
-    rightError.style.display = 'none';
-    nameError.style.display = 'none';
+            let leftError = document.getElementById('loginError');
+            let rightError = document.getElementById('shopLoginError');
+            let nameError = document.getElementById('nameError');
 
-    // ১. শুধু মেম্বার আইডি দিয়ে গুগল শিট যাচাই লজিক
-    if (memberId !== "") {
-        leftError.innerText = "যাচাই করা হচ্ছে...";
-        leftError.style.display = 'block';
+            leftError.style.display = 'none';
+            rightError.style.display = 'none';
+            nameError.style.display = 'none';
 
-        try {
-            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
-            const response = await fetch(csvUrl);
-            const data = await response.text();
-            
-            const rows = data.split('\n').map(row => row.split(','));
-            let isVerified = false;
-            let foundMemberName = "";
-
-            for (let i = 1; i < rows.length; i++) {
-                let cols = rows[i];
-                if (cols && cols.length >= 2) {
-                    let sheetId = cols[1] ? cols[1].trim().replace(/["\r]/g, "") : "";
-                    let sheetName = cols[2] ? cols[2].trim().replace(/["\r]/g, "") : sheetId;
-
-                    if (sheetId === memberId) {
-                        isVerified = true;
-                        foundMemberName = sheetName;
-                        break;
-                    }
-                }
-            }
-
-            if (!isVerified && memberId === "MTI5122") {
-                isVerified = true;
-                foundMemberName = "Md Tanjim Islam";
-            }
-
-            if (isVerified) {
-                let memberObj = {
-                    memberId: memberId,
-                    phone: "N/A",
-                    name: foundMemberName
-                };
-                localStorage.setItem('dewDropMember', JSON.stringify(memberObj));
-                alert('লগইন সফল হয়েছে!');
-                closeMemberLoginModal();
-                checkLoginStatus();
-                location.reload();
-            } else {
-                leftError.innerText = "ভুল মেম্বার আইডি";
+            // ১. শুধু মেম্বার আইডি দিয়ে গুগল শিট যাচাই লজিক
+            if (memberId !== "") {
+                leftError.innerText = "যাচাই করা হচ্ছে...";
                 leftError.style.display = 'block';
+
+                try {
+                    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
+                    const response = await fetch(csvUrl);
+                    const data = await response.text();
+                    
+                    const rows = data.split('\n').map(row => row.split(','));
+                    let isVerified = false;
+                    let foundMemberName = "";
+
+                    for (let i = 1; i < rows.length; i++) {
+                        let cols = rows[i];
+                        if (cols && cols.length >= 2) {
+                            let sheetId = cols[1] ? cols[1].trim().replace(/["\r]/g, "") : "";
+                            let sheetName = cols[2] ? cols[2].trim().replace(/["\r]/g, "") : sheetId;
+
+                            if (sheetId === memberId) {
+                                isVerified = true;
+                                foundMemberName = sheetName;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!isVerified && memberId === "MTI5122") {
+                        isVerified = true;
+                        foundMemberName = "Md Tanjim Islam";
+                    }
+
+                    if (isVerified) {
+                        let memberObj = {
+                            memberId: memberId,
+                            phone: "N/A",
+                            name: foundMemberName
+                        };
+                        localStorage.setItem('dewDropMember', JSON.stringify(memberObj));
+                        alert('লগইন সফল হয়েছে!');
+                        closeMemberLoginModal();
+                        checkLoginStatus();
+                        location.reload();
+                    } else {
+                        leftError.innerText = "ভুল মেম্বার আইডি";
+                        leftError.style.display = 'block';
+                    }
+                } catch (error) {
+                    console.error("ডেটা ফেচ করতে সমস্যা:", error);
+                    leftError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন।";
+                    leftError.style.display = 'block';
+                }
+                return;
             }
-        } catch (error) {
-            console.error("ডেটা ফেচ করতে সমস্যা:", error);
-            leftError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন।";
+
+            // ২. সাধারণ ইউজারদের শপিং একাউন্ট দিয়ে লগইন লজিক
+            if (shopName !== "" || shopPhone !== "") {
+                let isUpperCase = /^[^a-z]*$/.test(shopName) && shopName.length > 0;
+                if (!isUpperCase) {
+                    nameError.style.display = 'block';
+                    return;
+                }
+
+                if (!shopName || !shopPhone) {
+                    rightError.innerText = "নাম এবং মোবাইল নম্বর উভয়ই দিন";
+                    rightError.style.display = 'block';
+                    return;
+                }
+
+                let savedMember = localStorage.getItem('generalShopper');
+                let isValid = false;
+
+                if (savedMember) {
+                    try {
+                        let memberObj = JSON.parse(savedMember);
+                        // সাইন-আপ করা নাম ও ফোন নম্বরের সাথে মেলানো
+                        if (memberObj.name.trim() === shopName && memberObj.phone.trim() === shopPhone) {
+                            isValid = true;
+                        }
+                    } catch(e) {}
+                }
+
+                if (isValid) {
+                    alert('লগইন সফল হয়েছে!');
+                    closeMemberLoginModal();
+                    checkLoginStatus();
+                    location.reload();
+                } else {
+                    rightError.innerText = "ভুল তথ্য বা একাউন্ট পাওয়া যায়নি";
+                    rightError.style.display = 'block';
+                }
+                return;
+            }
+
+            leftError.innerText = "দয়া করে মেম্বার আইডি অথবা শপিং একাউন্টের তথ্য প্রদান করুন";
             leftError.style.display = 'block';
         }
-        return;
-    }
-
-    // ২. সাধারণ ইউজারদের শপিং একাউন্ট দিয়ে লগইন লজিক
-    if (shopName !== "" || shopPhone !== "") {
-        let isUpperCase = /^[^a-z]*$/.test(shopName) && shopName.length > 0;
-        if (!isUpperCase) {
-            nameError.style.display = 'block';
-            return;
-        }
-
-        if (!shopName || !shopPhone) {
-            rightError.innerText = "নাম এবং মোবাইল নম্বর উভয়ই দিন";
-            rightError.style.display = 'block';
-            return;
-        }
-
-        let savedMember = localStorage.getItem('generalShopper');
-        let isValid = false;
-
-        if (savedMember) {
-            try {
-                let memberObj = JSON.parse(savedMember);
-                if (memberObj.name === shopName && memberObj.phone === shopPhone) {
-                    isValid = true;
-                }
-            } catch(e) {}
-        }
-
-        if (isValid) {
-            alert('লগইন সফল হয়েছে!');
-            closeMemberLoginModal();
-            checkLoginStatus();
-            location.reload();
-        } else {
-            rightError.innerText = "ভুল তথ্য বা একাউন্ট পাওয়া যায়নি";
-            rightError.style.display = 'block';
-        }
-        return;
-    }
-
-    leftError.innerText = "দয়া করে মেম্বার আইডি প্রদান করুন";
-    leftError.style.display = 'block';
-}
 
         function openOrderHistory() {
-            const memberData = localStorage.getItem('dewDropMember');
+            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper');
             if (!memberData) {
-                alert('দয়া করে প্রথমে "🛒 শপিং লগইন" করে আপনার আইডি ভেরিফাই করুন!');
+                alert('দয়া করে প্রথমে "🛒 শপিং লগইন" করে আপনার একাউন্ট ভেরিফাই করুন!');
                 openMemberLoginModal();
                 return;
             }
@@ -1140,7 +1143,7 @@ async function verifyMemberLogin() {
         }
 
         function handleShoppingAction(actionType, productName, unitPrice, productId) {
-            const memberData = localStorage.getItem('dewDropMember'); 
+            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper'); 
 
             if (!memberData) {
                 alert('দয়া করে শপিং লগইন বা একাউন্ট করুন!');
@@ -1169,8 +1172,8 @@ async function verifyMemberLogin() {
             updateCartCount();
 
             let memberObj = JSON.parse(memberData);
-            let memberId = memberObj.memberId || memberObj.phone;
-            let sanitizedId = memberId.toString().replace(/[.#$\/\[\]]/g, "_");
+            let identifier = memberObj.memberId || memberObj.name || memberObj.phone;
+            let sanitizedId = identifier.toString().replace(/[.#$\/\[\]]/g, "_");
             let currentDate = new Date().toLocaleString('bn-BD', { timeZone: 'Asia/Dhaka' });
 
             let orderData = {
@@ -1217,5 +1220,6 @@ async function verifyMemberLogin() {
             }
         }
     </script>
+    
 </body>
 </html>
