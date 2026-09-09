@@ -211,7 +211,7 @@ const shopperData = {
     type: 'General Shopper'
 };
             // গুগল শিটে ডেটা পাঠানো (Fetch API)
-            localStorage.setItem('giasStoreUser', JSON.stringify(shopperData));
+            localStorage.setItem('generalShopper', JSON.stringify(shopperData));
 fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
                     // ২ সেকেন্ড পর শপিং মার্টে রিডাইরেক্ট করা
