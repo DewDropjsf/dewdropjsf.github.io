@@ -204,9 +204,15 @@
             // সফল মেসেজ দেখানো
             document.getElementById('success-msg').style.display = 'block';
             document.getElementById('shopperSignupForm').style.display = 'none';
-
+// ব্রাউজারে শপারের তথ্য সেভ করে রাখা (যাতে বারবার লগইন না চায়)
+const shopperData = {
+    name: name,
+    phone: phone,
+    type: 'General Shopper'
+};
             // গুগল শিটে ডেটা পাঠানো (Fetch API)
-            fetch(scriptURL, { method: 'POST', body: formData })
+            localStorage.setItem('giasStoreUser', JSON.stringify(shopperData));
+fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => {
                     // ২ সেকেন্ড পর শপিং মার্টে রিডাইরেক্ট করা
                     setTimeout(function() {
