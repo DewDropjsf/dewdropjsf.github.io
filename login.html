@@ -104,10 +104,7 @@
                 <label for="login_input">মেম্বার আইডি অথবা ইমেইল</label>
                 <input type="text" id="login_input" name="login_input" placeholder="মেম্বার আইডি বা ইমেইল দিন" required>
             </div>
-            <div class="form-group">
-                <label for="password">পাসওয়ার্ড</label>
-                <input type="password" id="password" name="password" placeholder="আপনার পাসওয়ার্ড দিন" required>
-            </div>
+            
             <button type="submit" id="loginBtn" class="btn-submit">লগইন করুন</button>
         </form>
         <div style="margin-top: 10px;">
@@ -160,6 +157,15 @@
                     alert('মেম্বার আইডি/ইমেইল এবং পাসওয়ার্ড দিন!');
                     return;
                 }
+
+                function togglePassword() {
+    var passwordInput = document.getElementById("login_password");
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+    } else {
+        passwordInput.type = "password";
+    }
+}
 
                 loginBtn.innerText = 'অপেক্ষা করুন...';
                 loginBtn.disabled = true;
