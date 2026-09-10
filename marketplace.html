@@ -711,7 +711,6 @@
                 </button>
                 <div class="market-dropdown-content">
                     <a href="shoppingsignup.html">১. নতুন শপিং অ্যাকাউন্ট করুন</a>
-                    
                 </div>
             </div>
             <div class="search-box">
@@ -734,7 +733,11 @@
                 <div class="sketch-col">
                     <div class="sketch-instruction">আপনার সমিতির মেম্বার আইডি এবং পাসওয়ার্ড দিয়ে ভেরিফাই করুন।</div>
                     <input type="text" id="modalMemberId" class="sketch-input" placeholder="মেম্বার আইডি দিন">
-                    <input type="password" id="modalMemberPassword" class="sketch-input" placeholder="পাসওয়ার্ড দিন" style="margin-top: 8px;">
+                    <!-- পাসওয়ার্ড ফিল্ডে চোখের আইকন সহ সংশোধন -->
+                    <div style="position: relative; margin-top: 8px;">
+                        <input type="password" id="modalMemberPassword" class="sketch-input" placeholder="পাসওয়ার্ড দিন" style="padding-right: 40px;">
+                        <span onclick="toggleModalPassword('modalMemberPassword')" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; user-select: none; font-size: 16px;">👁️</span>
+                    </div>
                     <div id="loginError" class="error-msg" style="display:none;">ভুল তথ্য</div>
                 </div>
 
@@ -746,7 +749,11 @@
                     <input type="text" id="modalShopName" class="sketch-input" placeholder="আপনার নাম (বড় অক্ষরে)">
                     <div id="nameError" class="error-msg" style="color: #d32f2f; font-size: 0.85rem; display: none;">নাম অবশ্যই বড় হাতের অক্ষরে হতে হবে</div>
                     <input type="tel" id="modalShopPhoneInput" class="sketch-input" placeholder="রেজিস্টার্ড মোবাইল নম্বর" style="margin-top: 8px;">
-                    <input type="password" id="modalShopPassword" class="sketch-input" placeholder="পাসওয়ার্ড দিন" style="margin-top: 8px;">
+                    <!-- পাসওয়ার্ড ফিল্ডে চোখের আইকন সহ সংশোধন -->
+                    <div style="position: relative; margin-top: 8px;">
+                        <input type="password" id="modalShopPassword" class="sketch-input" placeholder="পাসওয়ার্ড দিন" style="padding-right: 40px;">
+                        <span onclick="toggleModalPassword('modalShopPassword')" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; user-select: none; font-size: 16px;">👁️</span>
+                    </div>
                     <div id="shopLoginError" class="error-msg" style="display:none;">ভুল তথ্য</div>
                 </div>
             </div>
@@ -889,6 +896,16 @@
             checkLoginStatus();
         });
 
+        // পাসওয়ার্ড দেখার টগল ফাংশন
+        function toggleModalPassword(fieldId) {
+            const passwordInput = document.getElementById(fieldId);
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        }
+
         function resetAllQuantities() {
             const products = [
                 { id: 1, unitPrice: 1200 },
@@ -1006,12 +1023,12 @@
 
                     for (let i = 1; i < rows.length; i++) {
                         let cols = rows[i];
-                        if (cols && cols.length >= 3) {
+                        if (cols && cols.length >= 6) {
                             let sheetId = cols[1] ? cols[1].trim().replace(/["\r]/g, "") : "";
                             let sheetName = cols[2] ? cols[2].trim().replace(/["\r]/g, "") : sheetId;
                             let sheetPass = cols[5] ? cols[5].trim().replace(/["\r]/g, "") : ""; // পাসওয়ার্ড কলাম
 
-                            if (sheetId === memberId && (sheetPass === memberPass || memberPass === "1234")) {
+                            if (sheetId.toUpperCase() === memberId.toUpperCase() && (sheetPass === memberPass || memberPass === "1234")) {
                                 isVerified = true;
                                 foundMemberName = sheetName;
                                 break;
@@ -1030,7 +1047,7 @@
                             name: foundMemberName
                         };
                         localStorage.setItem('dewDropMember', JSON.stringify(memberObj));
-                        alert('লগইন সফল হয়েছে!');
+                        alert('লগইন সফল হয়েছে! স্বাগতম ' + foundMemberName);
                         closeMemberLoginModal();
                         checkLoginStatus();
                         location.reload();
@@ -1046,7 +1063,7 @@
                 return;
             }
 
-            // ২. ডান পাশ: সাধারণ শপিং একাউন্ট (নাম, পাসওয়ার্ড ও ফোন) দিয়ে লগইন যাচাই
+            // ২. ডান পাশ: সাধারণ শপিং একাউন্ট দিয়ে লগইন যাচাই
             if (shopName !== "" || shopPass !== "" || shopPhone !== "") {
                 let isUpperCase = /^[^a-z]*$/.test(shopName) && shopName.length > 0;
                 if (!isUpperCase) {
@@ -1072,12 +1089,12 @@
 
                     for (let i = 1; i < rows.length; i++) {
                         let cols = rows[i];
-                        if (cols && cols.length >= 4) {
+                        if (cols && cols.length >= 6) {
                             let colC = cols[2] ? cols[2].trim().replace(/["\r]/g, "") : ""; // Name
                             let colD = cols[3] ? cols[3].trim().replace(/["\r]/g, "") : ""; // Phone
-                            let colPass = cols[4] ? cols[4].trim().replace(/["\r]/g, "") : ""; // Password
+                            let colPass = cols[5] ? cols[5].trim().replace(/["\r]/g, "") : ""; // Password
 
-                            if ((colC.toUpperCase() === shopName.toUpperCase()) && (colD === shopPhone)) {
+                            if ((colC.toUpperCase() === shopName.toUpperCase()) && (colD === shopPhone) && (colPass === shopPass)) {
                                 isShopperVerified = true;
                                 break;
                             }
@@ -1090,7 +1107,7 @@
                             phone: shopPhone
                         };
                         localStorage.setItem('generalShopper', JSON.stringify(shopperObj));
-                        alert('লগইন সফল হয়েছে!');
+                        alert('লগইন সফল হয়েছে! স্বাগতম ' + shopName);
                         closeMemberLoginModal();
                         checkLoginStatus();
                         location.reload();
