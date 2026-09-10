@@ -985,147 +985,124 @@
         }
 
         async function verifyMemberLogin() {
-            let memberId = document.getElementById('modalMemberId').value.trim();
-            let memberPass = document.getElementById('modalMemberPassword').value.trim();
-            
-            let shopName = document.getElementById('modalShopName').value.trim();
-            let shopPass = document.getElementById('modalShopPassword').value.trim();
-            let shopPhone = document.getElementById('modalShopPhoneInput').value.trim();
+    let memberId = document.getElementById('modalMemberId').value.trim();
+    let memberPass = document.getElementById('modalMemberPassword').value.trim();
+    
+    let shopName = document.getElementById('modalShopName').value.trim();
+    let shopPass = document.getElementById('modalShopPassword').value.trim();
+    let shopPhone = document.getElementById('modalShopPhoneInput').value.trim();
 
-            let leftError = document.getElementById('loginError');
-            let rightError = document.getElementById('shopLoginError');
-            let nameError = document.getElementById('nameError');
+    let leftError = document.getElementById('loginError');
+    let rightError = document.getElementById('shopLoginError');
+    let nameError = document.getElementById('nameError');
 
-            leftError.style.display = 'none';
-            rightError.style.display = 'none';
-            nameError.style.display = 'none';
+    leftError.style.display = 'none';
+    rightError.style.display = 'none';
+    nameError.style.display = 'none';
 
-            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
+    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
 
-            // ১. বাম পাশ: মেম্বার আইডি এবং পাসওয়ার্ড দিয়ে লগইন যাচাই
-            if (memberId !== "" || memberPass !== "") {
-                if (!memberId || !memberPass) {
-                    leftError.innerText = "মেম্বার আইডি এবং পাসওয়ার্ড উভয়ই দিন";
-                    leftError.style.display = 'block';
-                    return;
-                }
+    try {
+        const response = await fetch(csvUrl);
+        const data = await response.text();
+        const rows = data.split('\n').map(row => row.split(','));
 
-                leftError.innerText = "যাচাই করা হচ্ছে...";
-                leftError.style.display = 'block';
-
-                try {
-                    const response = await fetch(csvUrl);
-                    const data = await response.text();
-                    const rows = data.split('\n').map(row => row.split(','));
-                    
-                    let isVerified = false;
-                    let foundMemberName = "";
-
-                    for (let i = 1; i < rows.length; i++) {
-                        let cols = rows[i];
-                        if (cols && cols.length >= 6) {
-                            let sheetId = cols[1] ? cols[1].trim().replace(/["\r]/g, "") : "";
-                            let sheetName = cols[2] ? cols[2].trim().replace(/["\r]/g, "") : sheetId;
-                            let sheetPass = cols[5] ? cols[5].trim().replace(/["\r]/g, "") : ""; // পাসওয়ার্ড কলাম
-
-                            if (sheetId.toUpperCase() === memberId.toUpperCase() && (sheetPass === memberPass || memberPass === "1234")) {
-                                isVerified = true;
-                                foundMemberName = sheetName;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (!isVerified && memberId === "test" && memberPass === "1234") {
-                        isVerified = true;
-                        foundMemberName = "Md Tanjim Islam";
-                    }
-
-                    if (isVerified) {
-                        let memberObj = {
-                            memberId: memberId,
-                            name: foundMemberName
-                        };
-                        localStorage.setItem('dewDropMember', JSON.stringify(memberObj));
-                        alert('লগইন সফল হয়েছে! স্বাগতম ' + foundMemberName);
-                        closeMemberLoginModal();
-                        checkLoginStatus();
-                        location.reload();
-                    } else {
-                        leftError.innerText = "ভুল মেম্বার আইডি অথবা পাসওয়ার্ড";
-                        leftError.style.display = 'block';
-                    }
-                } catch (error) {
-                    console.error("ত্রুটি:", error);
-                    leftError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন।";
-                    leftError.style.display = 'block';
-                }
-                return;
-            }
-
-            // ২. ডান পাশ: সাধারণ শপিং একাউন্ট দিয়ে লগইন যাচাই
-            if (shopName !== "" || shopPass !== "" || shopPhone !== "") {
-                let isUpperCase = /^[^a-z]*$/.test(shopName) && shopName.length > 0;
-                if (!isUpperCase) {
-                    nameError.style.display = 'block';
-                    return;
-                }
-
-                if (!shopName || !shopPass || !shopPhone) {
-                    rightError.innerText = "নাম, পাসওয়ার্ড এবং মোবাইল নম্বর দিন";
-                    rightError.style.display = 'block';
-                    return;
-                }
-
-                rightError.innerText = "যাচাই করা হচ্ছে...";
-                rightError.style.display = 'block';
-
-                try {
-                    const response = await fetch(csvUrl);
-                    const data = await response.text();
-                    const rows = data.split('\n').map(row => row.split(','));
-                    
-                    let isShopperVerified = false;
-
-                    for (let i = 1; i < rows.length; i++) {
-                        let cols = rows[i];
-                        if (cols && cols.length >= 6) {
-                            let colC = cols[2] ? cols[2].trim().replace(/["\r]/g, "") : ""; // Name
-                            let colD = cols[3] ? cols[3].trim().replace(/["\r]/g, "") : ""; // Phone
-                            let colPass = cols[5] ? cols[5].trim().replace(/["\r]/g, "") : ""; // Password
-
-                            if ((colC.toUpperCase() === shopName.toUpperCase()) && (colD === shopPhone) && (colPass === shopPass)) {
-                                isShopperVerified = true;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (isShopperVerified) {
-                        let shopperObj = {
-                            name: shopName,
-                            phone: shopPhone
-                        };
-                        localStorage.setItem('generalShopper', JSON.stringify(shopperObj));
-                        alert('লগইন সফল হয়েছে! স্বাগতম ' + shopName);
-                        closeMemberLoginModal();
-                        checkLoginStatus();
-                        location.reload();
-                    } else {
-                        rightError.innerText = "ভুল তথ্য বা একাউন্ট পাওয়া যায়নি";
-                        rightError.style.display = 'block';
-                    }
-                } catch (error) {
-                    console.error("ত্রুটি:", error);
-                    rightError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন।";
-                    rightError.style.display = 'block';
-                }
-                return;
-            }
-
-            leftError.innerText = "দয়া করে লগইন তথ্য প্রদান করুন";
+        // ১. মেম্বার আইডি দিয়ে লগইন চেক
+        if (memberId !== "" && memberPass !== "") {
+            leftError.innerText = "যাচাই করা হচ্ছে...";
             leftError.style.display = 'block';
+
+            let isVerified = false;
+            let foundName = "";
+
+            for (let i = 1; i < rows.length; i++) {
+                let cols = rows[i];
+                if (cols && cols.length > 0) {
+                    let rowString = cols.join(" ").toUpperCase();
+                    if (rowString.includes(memberId.toUpperCase())) {
+                        // মেম্বার আইডি পেলে পাসওয়ার্ড চেক বা টেস্ট পাসওয়ার্ড এলাও করা
+                        if (rowString.includes(memberPass) || memberPass === "1234") {
+                            isVerified = true;
+                            foundName = cols[2] ? cols[2].replace(/["\r]/g, "").trim() : memberId;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // টেস্ট আইডি ব্যাকআপ
+            if (!isVerified && memberId.toUpperCase() === "MT15122" && (memberPass === "1234" || memberPass === "")) {
+                isVerified = true;
+                foundName = "Tanjim Islam";
+            }
+
+            if (isVerified) {
+                localStorage.setItem('dewDropMember', JSON.stringify({ memberId: memberId, name: foundName }));
+                alert('লগইন সফল হয়েছে! স্বাগতম ' + foundName);
+                closeMemberLoginModal();
+                checkLoginStatus();
+                location.reload();
+            } else {
+                leftError.innerText = "ভুল মেম্বার আইডি অথবা পাসওয়ার্ড";
+                leftError.style.display = 'block';
+            }
+            return;
         }
+
+        // ২. শপিং একাউন্ট দিয়ে লগইন চেক
+        if (shopName !== "" || shopPass !== "" || shopPhone !== "") {
+            let isUpperCase = /^[^a-z]*$/.test(shopName) && shopName.length > 0;
+            if (!isUpperCase) {
+                nameError.style.display = 'block';
+                return;
+            }
+
+            if (!shopName || !shopPass || !shopPhone) {
+                rightError.innerText = "সকল ফিল্ড পূরণ করুন";
+                rightError.style.display = 'block';
+                return;
+            }
+
+            rightError.innerText = "যাচাই করা হচ্ছে...";
+            rightError.style.display = 'block';
+
+            let isShopperVerified = false;
+            for (let i = 1; i < rows.length; i++) {
+                let cols = rows[i];
+                if (cols && cols.length >= 6) {
+                    let colC = cols[2] ? cols[2].replace(/["\r]/g, "").trim() : "";
+                    let colD = cols[3] ? cols[3].replace(/["\r]/g, "").trim() : "";
+                    let colPass = cols[5] ? cols[5].replace(/["\r]/g, "").trim() : "";
+
+                    if (colC.toUpperCase() === shopName.toUpperCase() && colD === shopPhone && colPass === shopPass) {
+                        isShopperVerified = true;
+                        break;
+                    }
+                }
+            }
+
+            if (isShopperVerified) {
+                localStorage.setItem('generalShopper', JSON.stringify({ name: shopName, phone: shopPhone }));
+                alert('লগইন সফল হয়েছে! স্বাগতম ' + shopName);
+                closeMemberLoginModal();
+                checkLoginStatus();
+                location.reload();
+            } else {
+                rightError.innerText = "ভুল তথ্য বা একাউন্ট পাওয়া যায়নি";
+                rightError.style.display = 'block';
+            }
+            return;
+        }
+
+        leftError.innerText = "দয়া করে লগইন তথ্য প্রদান করুন";
+        leftError.style.display = 'block';
+
+    } catch (error) {
+        console.error("ত্রুটি:", error);
+        leftError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন।";
+        leftError.style.display = 'block';
+    }
+}
 
         function openOrderHistory() {
             const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper');
