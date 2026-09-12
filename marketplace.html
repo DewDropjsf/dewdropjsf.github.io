@@ -1049,32 +1049,25 @@
             return;
         }
 
-        // ২. শপিং একাউন্ট দিয়ে লগইন চেক
-        if (shopName !== "" || shopPass !== "" || shopPhone !== "") {
-            let isUpperCase = /^[^a-z]*$/.test(shopName) && shopName.length > 0;
-            if (!isUpperCase) {
-                nameError.style.display = 'block';
-                return;
-            }
-
-            if (!shopName || !shopPass || !shopPhone) {
-                rightError.innerText = "সকল ফিল্ড পূরণ করুন";
-                rightError.style.display = 'block';
-                return;
-            }
-
-            rightError.innerText = "যাচাই করা হচ্ছে...";
-            rightError.style.display = 'block';
-
-            let isShopperVerified = false;
+        let isShopperVerified = false;
             for (let i = 1; i < rows.length; i++) {
                 let cols = rows[i];
                 if (cols && cols.length >= 6) {
-                    let colC = cols[2] ? cols[2].replace(/["\r]/g, "").trim() : "";
-                    let colD = cols[3] ? cols[3].replace(/["\r]/g, "").trim() : "";
-                    let colPass = cols[5] ? cols[5].replace(/["\r]/g, "").trim() : "";
+                    // শিটের ডেটা থেকে সিঙ্গেল কোট, ডাবল কোট এবং ক্যারেজ রিটার্ন রিমুভ করা
+                    let colC = cols[2] ? cols[2].replace(/['"\r]/g, "").trim() : ""; // নাম
+                    let colD = cols[3] ? cols[3].replace(/['"\r]/g, "").trim() : ""; // ফোন নম্বর (যেমন: '015... থেকে কোট রিমুভ হবে)
+                    let colPass = cols[5] ? cols[5].replace(/['"\r]/g, "").trim() : ""; // পাসওয়ার্ড
 
-                    if (colC.toUpperCase() === shopName.toUpperCase() && colD === shopPhone && colPass === shopPass) {
+                    // ইউজার যে ইনপুট দিয়েছে তা ক্লিন করা
+                    let cleanInputPhone = shopPhone.replace(/['"\r]/g, "").trim();
+                    let cleanInputPass = shopPass.replace(/['"\r]/g, "").trim();
+
+                    // নাম, ফোন এবং পাসওয়ার্ড নিখুঁতভাবে মিলিয়ে দেখা
+                    if (
+                        colC.toUpperCase() === shopName.toUpperCase() && 
+                        colD === cleanInputPhone && 
+                        colPass === cleanInputPass
+                    ) {
                         isShopperVerified = true;
                         break;
                     }
