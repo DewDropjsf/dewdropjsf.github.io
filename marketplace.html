@@ -540,14 +540,15 @@
             align-items: center;
             margin-top: 25px;
             position: relative;
+            gap: 20px;
         }
         .login-pill-btn {
             background: linear-gradient(to bottom, #f3e5ab, #d4af37);
             border: 1px solid #b8860b;
             border-radius: 25px;
-            padding: 10px 45px;
+            padding: 10px 35px;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             cursor: pointer;
             color: #222;
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
@@ -758,9 +759,10 @@
                 </div>
             </div>
 
-            <!-- নিচে কমন লগইন বাটন -->
+            <!-- নিচে আলাদা দুটি লগইন বাটন (সমিতি মেম্বার এবং শপিং অ্যাকাউন্ট আলাদা করার জন্য) -->
             <div class="login-btn-container">
-                <button class="login-pill-btn" onclick="verifyMemberLogin()">লগইন</button>
+                <button class="login-pill-btn" onclick="verifyMemberLogin()">সমিতি মেম্বার লগইন</button>
+                <button class="login-pill-btn" onclick="verifyShopLogin()" style="background: linear-gradient(to bottom, #80cbc4, #00796b); color: #fff; border-color: #004d40;">শপিং অ্যাকাউন্ট লগইন</button>
             </div>
         </div>
     </div>
@@ -983,7 +985,8 @@
             document.getElementById('shopLoginError').style.display = 'none';
             document.getElementById('nameError').style.display = 'none';
         }
-// ১. বাম পাশের লগইন (DDSignup Sheet থেকে মেম্বার যাচাই)
+
+        // ১. বাম পাশের লগইন (DDSignup Sheet থেকে মেম্বার যাচাই)
         async function verifyMemberLogin() {
             let memberId = document.getElementById('modalMemberId').value.trim();
             let memberPass = document.getElementById('modalMemberPassword').value.trim();
@@ -997,9 +1000,8 @@
                 return;
             }
 
-            // DDSignup Sheet-এর CSV লিংক
-            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTR7ShbG0jdF3OGqxBbbPFMLSfY1mUoegPRWC9EBXoXta3o6UoZEY5nMOKl9ruRHqwA4sr5Pb2-OjoX/pub?output=csv
-';
+            // DDSignup Sheet-এর সঠিক CSV লিংক
+            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTR7ShbG0jdF3OGqxBbbPFMLSfY1mUoegPRWC9EBXoXta306UoZEY5nMOKl9ruRHqwA4sr5Pb2-OjoX/pub?output=csv';
 
             try {
                 leftError.innerText = "যাচাই করা হচ্ছে...";
@@ -1024,7 +1026,7 @@
                     }
                 }
 
-                // বিশেষ আইডি চেক (প্রয়োজনে রাখতে পারেন)
+                // বিশেষ আইডি চেক
                 if (!isVerified && memberId.toUpperCase() === "MT15122") {
                     isVerified = true;
                     foundName = "Tanjim Islam";
@@ -1074,8 +1076,8 @@
                 return;
             }
 
-            // SoppingSignupDetails শিট-এর CSV লিংক এখানে বসবে
-            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRbL9cDJxYk_cv89mh5g2sB6m9HHrXNrnl_Avi5UhZHXXhbJkFRLB05K6miKs-_pGPL3KVpZNXTAnSm/pub?output=csv';
+            // SoppingSignupDetails শিট-এর সঠিক CSV লিংক
+            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRbL9cDJxYk_cv89mh5g2sB6m9HHrXNrnl_Avi5UhZHXXhbJkFRLB05K6mikS-_pGPL3KVpZNXTAnSm/pub?output=csv';
 
             try {
                 rightError.innerText = "যাচাই করা হচ্ছে...";
@@ -1083,7 +1085,25 @@
 
                 const response = await fetch(csvUrl);
                 const data = await response.text();
-                const rows = data.split('\n').map(row => row.split(','));
+                
+                // কোটেশন ও কমা নিরাপদে হ্যান্ডেল করার পার্সিং
+                const rows = data.split('\n').map(row => {
+                    let chars = row.split('');
+                    let insideQuote = false;
+                    let entries = [];
+                    let currentEntry = '';
+                    for (let c of chars) {
+                        if (c === '"') insideQuote = !insideQuote;
+                        else if (c === ',' && !insideQuote) {
+                            entries.push(currentEntry);
+                            currentEntry = '';
+                        } else {
+                            currentEntry += c;
+                        }
+                    }
+                    entries.push(currentEntry);
+                    return entries;
+                });
 
                 let isShopperVerified = false;
                 for (let i = 1; i < rows.length; i++) {
