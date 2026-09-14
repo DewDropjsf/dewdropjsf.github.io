@@ -1,3 +1,4 @@
+06.09.2611.47pm
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -54,7 +55,7 @@
             background: #ffa000;
         }
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 40px auto;
             padding: 0 20px;
         }
@@ -70,60 +71,7 @@
             margin-bottom: 25px;
             border-radius: 5px;
             font-size: 1.05rem;
-            position: relative;
         }
-        
-        .delete-btn-main {
-            background: #d32f2f;
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
-        .delete-btn-main:hover {
-            background: #b71c1c;
-        }
-        .dropdown {
-            position: absolute;
-            right: 20px;
-            top: 13px;
-            display: inline-block;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: #fff;
-            min-width: 180px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 5px;
-        }
-        .dropdown-content button {
-            color: #333;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
-            font-family: 'SolaimanLipi', sans-serif;
-            font-size: 0.95rem;
-            border-bottom: 1px solid #f1f1f1;
-        }
-        .dropdown-content button:hover {
-            background-color: #ffebee;
-            color: #d32f2f;
-        }
-        .show { display: block; }
-        
         table {
             width: 100%;
             border-collapse: collapse;
@@ -134,28 +82,22 @@
             margin-bottom: 30px;
         }
         th, td {
-            padding: 12px 10px;
+            padding: 12px 15px;
             text-align: center;
             border-bottom: 1px solid #ddd;
-            font-size: 0.95rem;
         }
         th {
             background-color: #004d40;
             color: white;
+            font-size: 0.95rem;
+        }
+        td {
+            font-size: 0.95rem;
+            color: #444;
         }
         tr:hover {
             background-color: #f1f8f6;
         }
-        .order-group-header {
-            background-color: #e8f5e9 !important;
-            font-weight: bold;
-            text-align: left;
-            color: #2e7d32;
-            padding: 10px 15px;
-        }
-        .status-success { color: #2e7d32; font-weight: bold; }
-        .status-cancelled { color: #c62828; font-weight: bold; }
-        
         .no-history {
             text-align: center;
             padding: 40px;
@@ -165,21 +107,6 @@
             font-size: 1.1rem;
             color: #666;
         }
-        
-        .action-col { display: none; }
-        .show-actions .action-col { display: table-cell; }
-        .del-order-btn {
-            background: #ff5252;
-            color: white;
-            border: none;
-            padding: 4px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            float: right;
-        }
-        .del-order-btn:hover { background: #d32f2f; }
-
         footer {
             background: #004d40;
             color: #fff;
@@ -189,7 +116,9 @@
         }
     </style>
 
+    <!-- Firebase App (v8 সিডিএন) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <!-- Firebase Realtime Database -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
 <body>
@@ -210,14 +139,6 @@
         <div id="memberDetailsBox" class="member-info-card" style="display: none;">
             <strong>মেম্বার আইডি:</strong> <span id="dispMemberId"></span> | 
             <strong>নাম:</strong> <span id="dispMemberName"></span>
-            
-            <div class="dropdown">
-                <button onclick="toggleDeleteMenu()" class="delete-btn-main">ইতিহাস মুছুন ▾</button>
-                <div id="deleteMenu" class="dropdown-content">
-                    <button onclick="toggleOneByOneDelete()">ওয়ান বাই ওয়ান (বেছে মুছুন)</button>
-                    <button onclick="deleteAllHistory()">সিলেক্ট অল (সব মুছুন)</button>
-                </div>
-            </div>
         </div>
 
         <div id="historyContainer">
@@ -230,71 +151,25 @@
     </footer>
 
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyDJfcoxchgwdfulQMjQNa8wml-b4f5jHu",
-            authDomain: "dewdrop-shopping.firebaseapp.com",
-            databaseURL: "https://dewdrop-shopping-default-rtdb.firebaseio.com",
-            projectId: "dewdrop-shopping",
-            storageBucket: "dewdrop-shopping.appspot.com",
-            messagingSenderId: "265469043595",
-            appId: "1:265469043595:web:1532d537b0642bf6dac58e"
-        };
-
+        // ফায়ারবেজ কনফিগারেশন
+       const firebaseConfig = {
+    apiKey: "AIzaSyDJfcoxchgwdfulQMjQNa8wml-b4f5jHu",
+    authDomain: "dewdrop-shopping.firebaseapp.com",
+    databaseURL: "https://dewdrop-shopping-default-rtdb.firebaseio.com",
+    projectId: "dewdrop-shopping",
+    storageBucket: "dewdrop-shopping.appspot.com",
+    messagingSenderId: "265469043595",
+    appId: "1:265469043595:web:1532d537b0642bf6dac58e"
+};
+        // ফায়ারবেজ ইনিশিয়ালাইজ করা
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
         const database = firebase.database();
-        let currentSanitizedId = ""; 
-
-        const banglaDigits = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
-        function toBnNum(num) {
-            return num.toString().replace(/[0-9]/g, x => banglaDigits[x]);
-        }
 
         document.addEventListener('DOMContentLoaded', function() {
             loadFirebaseOrderHistory();
         });
-
-        function toggleDeleteMenu() {
-            document.getElementById("deleteMenu").classList.toggle("show");
-        }
-
-        window.onclick = function(event) {
-            if (!event.target.matches('.delete-btn-main')) {
-                let dropdowns = document.getElementsByClassName("dropdown-content");
-                for (let i = 0; i < dropdowns.length; i++) {
-                    if (dropdowns[i].classList.contains('show')) {
-                        dropdowns[i].classList.remove('show');
-                    }
-                }
-            }
-        }
-
-        function toggleOneByOneDelete() {
-            let container = document.getElementById("historyContainer");
-            container.classList.toggle("show-actions");
-        }
-
-        function deleteAllHistory() {
-            if(confirm("আপনি কি নিশ্চিত যে সম্পূর্ণ ইতিহাস মুছে ফেলতে চান?")) {
-                if(currentSanitizedId) {
-                    database.ref('orders/' + currentSanitizedId).remove().then(() => {
-                        alert("সমস্ত ইতিহাস মুছে ফেলা হয়েছে!");
-                    });
-                }
-            }
-        }
-
-        // নির্দিষ্ট অর্ডার গ্রুপের সব আইটেম একসাথে ডিলিট করার ফাংশন
-        function deleteOrderGroup(keysArray) {
-            if(confirm("আপনি কি এই অর্ডারটির সমস্ত আইটেম মুছে ফেলতে চান?")) {
-                let updates = {};
-                keysArray.forEach(key => {
-                    updates[key] = null;
-                });
-                database.ref('orders/' + currentSanitizedId).update(updates);
-            }
-        }
 
         function loadFirebaseOrderHistory() {
             const historyContainer = document.getElementById('historyContainer');
@@ -312,38 +187,36 @@
             }
 
             let memberId = "";
-            let memberName = "";
+            let memberName = "মেম্বার";
 
+            // খুব নিরাপদে লোকালস্টোরেজ পার্স করার ব্যবস্থা যাতে কোনো এরর না করে
             try {
                 if (rawMemberData.startsWith('{')) {
                     let memberObj = JSON.parse(rawMemberData);
                     memberId = memberObj.memberId || memberObj.id || memberObj.phone || "";
                     memberName = memberObj.name || memberObj.memberName || "মেম্বার";
                 } else {
+                    // যদি সরাসরি স্ট্রিং বা আইডি হিসেবে সেভ হয়ে থাকে
                     memberId = rawMemberData;
+                    memberName = "আইডি: " + rawMemberData;
                 }
             } catch (e) {
-                memberId = rawMemberData;
-            }
-
-            let lowerName = memberName.toLowerCase();
-            if (lowerName.includes('mti') || lowerName.includes('id') || lowerName.includes('আইডি')) {
-                memberName = "মেম্বার";
+                memberId = rawMemberData; // ফেইল করলে র ডেটাকেই আইডি ধরে নেবে
             }
 
             if (!memberId) {
-                historyContainer.innerHTML = `<div class="no-history">মেম্বার আইডি পাওয়া যায়নি।</div>`;
+                historyContainer.innerHTML = `<div class="no-history">মেম্বার আইডি পাওয়া যায়নি। দয়া করে আবার লগইন করুন।</div>`;
                 return;
             }
 
-            memberId = memberId.toString().trim();
             document.getElementById('dispMemberId').innerText = memberId;
             document.getElementById('dispMemberName').innerText = memberName;
             memberBox.style.display = 'block';
 
-            currentSanitizedId = memberId.replace(/[.#$\/\[\]]/g, "_");
-            let ordersRef = database.ref('orders/' + currentSanitizedId);
+            let sanitizedId = memberId.toString().replace(/[.#$\/\[\]]/g, "_");
+            let ordersRef = database.ref('orders/' + sanitizedId);
 
+            // ফায়ারবেজ থেকে রিয়েল-টাইম ডেটা ফেচ করা
             ordersRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 
@@ -356,95 +229,32 @@
                     return;
                 }
 
-                let groupedOrders = {};
-                
-                // একই অর্ডারের আইটেমগুলো এক করার জন্য সেকেন্ড বা মিলিসেকেন্ড ইগনোর করে শুধু মিনিট পর্যন্ত সময় বা ডাটা অর্ডারিং গ্রুপ করা
-                // অথবা ফায়ারবেজে সেভ করার সময় যদি একই অর্ডারের প্রতিটির আলাদা ব্যাচ বা গ্রুপ আইডি না থাকে, 
-                // তবে এখানে আমরা কাছাকাছি সময়ের (যেমন একই মিনিটের মধ্যে কনফার্ম করা) আইটেমগুলোকে একটি গ্রুপে ফেলব।
-                
-                let keys = Object.keys(data);
-                let currentGroupKey = "";
-                let lastTimeMinutes = "";
-
-                // সহজ উপায়ে ডাটাগুলোকে ক্রমানুসারে সাজিয়ে একই অর্ডারের আইটেমগুলোকে এক করা
-                Object.entries(data).forEach(([key, item]) => {
-                    let fullDate = item.date || 'তারিখ অজানা';
-                    // মিনিট পর্যন্ত নিয়ে গ্রুপ তৈরি করব যেন ১ সেকেন্ড বা ৫ সেকেন্ডের ব্যবধানের আইটেমগুলো একই অর্ডারে পড়ে
-                    let timeMinute = fullDate.substring(0, fullDate.lastIndexOf(':')) || fullDate; 
-                    
-                    if(!groupedOrders[timeMinute]) {
-                        groupedOrders[timeMinute] = {
-                            date: fullDate,
-                            items: []
-                        };
-                    }
-                    item.fbKey = key;
-                    groupedOrders[timeMinute].items.push(item);
-                });
-
                 let html = `
                     <table>
                         <thead>
                             <tr>
-                                <th>ক্রমিক নং</th>
-                                <th>তারিখ ও সময়</th>
                                 <th>পণ্যের নাম</th>
                                 <th>পরিমাণ</th>
                                 <th>মোট মূল্য</th>
-                                <th>বর্তমান অবস্থা</th>
+                                    <th>তারিখ ও সময়</th>
                             </tr>
                         </thead>
                         <tbody>
                 `;
 
-                let serialNo = 1;
-                let orderNum = 1;
-
-                Object.values(groupedOrders).forEach(group => {
-                    let displayOrderId = "ORD-" + toBnNum(String(orderNum++).padStart(3, '0'));
-                    let groupKeys = group.items.map(i => i.fbKey);
-                    let keysString = JSON.stringify(groupKeys).replace(/"/g, '&quot;');
-
+                Object.values(data).forEach(order => {
                     html += `
-                        <tr class="order-group-header">
-                            <td colspan="6">
-                                অর্ডার আইডি: <strong>${displayOrderId}</strong>
-                                <span class="action-col">
-                                    <button onclick="deleteOrderGroup(${keysString})" class="del-order-btn">এই অর্ডার মুছুন</button>
-                                </span>
-                            </td>
+                        <tr>
+                            <td>${order.productName || order.title || 'পণ্য'}</td>
+                            <td>${order.quantity || 1} টি</td>
+                            <td>${order.totalPrice || order.price || 0} টাকা</td>
+                            <td>${order.date || 'প্রযোজ্য নয়'}</td>
                         </tr>
                     `;
-
-                    group.items.forEach(item => {
-                        let pName = item.productName || item.title || 'পণ্য';
-                        let pQty = toBnNum(item.quantity || 1) + ' টি';
-                        let pPrice = toBnNum(item.totalPrice || item.price || 0) + ' টাকা';
-                        let orderStatus = item.status || 'সফল';
-                        let statusClass = orderStatus === 'বাতিল' ? 'status-cancelled' : 'status-success';
-
-                        html += `
-                            <tr>
-                                <td>${toBnNum(serialNo++)}</td>
-                                <td>${item.date || group.date}</td>
-                                <td>${pName}</td>
-                                <td>${pQty}</td>
-                                <td>${pPrice}</td>
-                                <td class="${statusClass}">${orderStatus}</td>
-                            </tr>
-                        `;
-                    });
                 });
 
                 html += `</tbody></table>`;
-                
-                let wasShowActions = historyContainer.classList.contains("show-actions");
                 historyContainer.innerHTML = html;
-                if(wasShowActions) {
-                    historyContainer.classList.add("show-actions");
-                } else {
-                    historyContainer.classList.remove("show-actions");
-                }
 
             }, (error) => {
                 console.error("Firebase Error:", error);
