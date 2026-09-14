@@ -360,43 +360,52 @@
                 return;
             }
 
-            // মেম্বার আইডি লোড করা (লোকালস্টোরেজ থেকে)
+            let userId = "";
             let rawMemberData = localStorage.getItem('dewDropMember');
-            let memberId = "";
+            let rawShopperData = localStorage.getItem('generalShopper');
+
+            // ১. প্রথমে মেম্বার আইডি চেক করা
             if (rawMemberData) {
                 try {
                     if (rawMemberData.startsWith('{')) {
                         let memberObj = JSON.parse(rawMemberData);
-                        memberId = memberObj.memberId || memberObj.id || memberObj.phone || "";
+                        userId = memberObj.memberId || memberObj.id || memberObj.phone || "";
                     } else {
-                        memberId = rawMemberData;
+                        userId = rawMemberData;
                     }
                 } catch (e) {
-                    memberId = rawMemberData;
+                    userId = rawMemberData;
+                }
+            } 
+            // ২. মেম্বার না থাকলে generalShopper (ফোন নম্বর) চেক করা
+            else if (rawShopperData) {
+                try {
+                    let shopperObj = JSON.parse(rawShopperData);
+                    userId = shopperObj.phone || shopperObj.name || "";
+                } catch (e) {
+                    userId = "";
                 }
             }
 
-            if (!memberId) {
-                alert('মেম্বার আইডি পাওয়া যায়নি! অনুগ্রহ করে আগে লগইন করুন।');
+            if (!userId) {
+                alert('লগইন তথ্য পাওয়া যায়নি! অনুগ্রহ করে আগে লগইন করুন।');
                 return;
             }
 
-            memberId = memberId.toString().trim();
-            let sanitizedMemberId = memberId.replace(/[.#$\/\[\]]/g, "_");
+            userId = userId.toString().trim();
+            let sanitizedUserId = userId.replace(/[.#$\/\[\]]/g, "_");
 
-            // বর্তমান সঠিক সময় ও ইউনিক ব্যাচ আইডি তৈরি (মিলিসেকেন্ড সহ, যাতে একই অর্ডারের সব আইটেমের গ্রুপ টাইম এক থাকে)
             let now = new Date();
             let dateStr = now.toLocaleDateString('bn-BD') + ' ' + now.toLocaleTimeString('bn-BD', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
-            let batchGroupId = now.getTime().toString(); // ইউনিক ব্যাচ আইডি
+            let batchGroupId = now.getTime().toString();
 
             let updates = {};
 
-            // কার্টের প্রতিটি আইটেমকে একটি কমন ব্যাচ টাইম বা গ্রুপ আইডি দিয়ে ফায়ারবেজের অবজেক্টে সাজানো
             cart.forEach(item => {
-                let newOrderRef = database.ref('orders/' + sanitizedMemberId).push();
+                let newOrderRef = database.ref('orders/' + sanitizedUserId).push();
                 let orderData = {
                     date: dateStr,
-                    batchTime: batchGroupId, // এটি দিয়ে হিস্ট্রি পেজে একই অর্ডারের আইটেমগুলো এক করা হবে
+                    batchTime: batchGroupId,
                     productName: item.name,
                     quantity: item.quantity,
                     totalPrice: item.price,
@@ -405,13 +414,9 @@
                 updates[newOrderRef.key] = orderData;
             });
 
-            // ফায়ারবেজে একসাথে ডাটা সেভ করা
-            database.ref('orders/' + sanitizedMemberId).update(updates)
+            database.ref('orders/' + sanitizedUserId).update(updates)
                 .then(() => {
-                    // কার্ট খালি করে দেওয়া
                     localStorage.removeItem('dewDropCart');
-
-                    // কার্ট সেকশন লুকিয়ে সফলতার উইন্ডো দেখানো
                     document.getElementById('cartContentSection').style.display = 'none';
                     document.getElementById('successViewSection').style.display = 'block';
                 })
