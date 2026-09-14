@@ -357,7 +357,7 @@
             document.getElementById('dispMemberId').innerText = userId;
             memberBox.style.display = 'block';
 
-            // যদি লোকালস্টোরেজে নাম না থাকে, তবে গুগল শিট থেকে নাম ফেচ করে নিয়ে আসা
+            // যদি লোকালস্টোরেজে নাম না থাকে, তবে গুগল শিট থেকে নাম ফেচ করবে (শূন্য বা জিরো সমস্যা সমাধান সহ)
             if (!userName || userName === userId) {
                 userName = await fetchNameFromGoogleSheet(userId);
             }
@@ -368,7 +368,7 @@
             loadFirebaseOrderHistory();
         }
 
-        // গুগল শিটের CSV লিঙ্ক থেকে মেম্বার আইডি বা মোবাইল দিয়ে নাম খুঁজে বের করার ফাংশন
+        // গুগল শিট থেকে নাম খোঁজার ফাংশন (সামনের শূন্য বা ০ হ্যান্ডেল করার লজিকসহ)
         async function fetchNameFromGoogleSheet(userId) {
             const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTR7ShbGOjdF3OGqxBbbPFMLSfy1mUoegPRWC9EBXoXta3o6UoZEY5nMOKI9ruRHqa4sr5pb2-OjoX/pub?output=csv";
             try {
@@ -376,14 +376,19 @@
                 let data = await response.text();
                 let rows = data.split("\n");
                 
+                // ইউজার আইডি বা মোবাইলের সামনের শূন্য বাদ দিয়ে ক্লিন করে নেওয়া
+                let cleanInputId = userId.toString().trim().replace(/^0+/, '');
+
                 for (let i = 1; i < rows.length; i++) {
                     let cols = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                     if (cols.length >= 3) {
                         let sheetName = cols[1] ? cols[1].replace(/"/g, "").trim() : "";
                         let sheetMobile = cols[2] ? cols[2].replace(/"/g, "").trim() : "";
                         
-                        // মোবাইল নম্বর বা আইডি মিলে গেলে সেই নাম রিটার্ন করবে
-                        if (sheetMobile.includes(userId) || userId.includes(sheetMobile)) {
+                        let cleanSheetMobile = sheetMobile.replace(/^0+/, '');
+
+                        // উভয় পাশের শূন্য বাদ দিয়ে পারফেক্ট ম্যাচিং চেক করা
+                        if (cleanSheetMobile === cleanInputId || sheetMobile.includes(userId) || userId.includes(sheetMobile)) {
                             return sheetName;
                         }
                     }
@@ -409,6 +414,12 @@
                     `;
                     return;
                 }
+
+                Object.values(data).forEach(item => {
+                    if (item.memberName && document.getElementById('dispMemberName').innerText.includes("মেম্বার")) {
+                        document.getElementById('dispMemberName').innerText = item.memberName;
+                    }
+                });
 
                 let groupedOrders = {};
                 Object.entries(data).forEach(([key, item]) => {
@@ -468,7 +479,7 @@
 
                         html += `
                             <tr>
-                                ${toBnNum(serialNo++)} <!-- syntax safe -->
+                                <td>${toBnNum(serialNo++)}</td>
                                 <td>${item.date || group.date}</td>
                                 <td>${pName}</td>
                                 <td>${pQty}</td>
