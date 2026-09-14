@@ -132,6 +132,10 @@
             margin-bottom: 20px;
         }
     </style>
+
+    <!-- ফায়ারবেজ লাইব্রেরিগুলো হেড ট্যাগের ভেতরে যুক্ত করা হলো -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 </head>
 <body>
 
@@ -179,88 +183,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            loadCartItems();
-        });
-
-        function loadCartItems() {
-            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
-            let container = document.getElementById('cartTableContainer');
-            let grandTotalSpan = document.getElementById('grandTotal');
-            let actionBtns = document.getElementById('cartActionButtons');
-
-            if (cart.length === 0) {
-                container.innerHTML = `<div class="empty-cart">আপনার কার্টটি বর্তমানে খালি রয়েছে।</div>`;
-                grandTotalSpan.innerText = "0";
-                if(actionBtns) actionBtns.style.display = "none";
-                return;
-            }
-
-            if(actionBtns) actionBtns.style.display = "flex";
-
-            let html = `
-                <table>
-                    <thead>
-                        <tr>
-                            <th>পণ্যের নাম</th>
-                            <th>মূল্য (টাকা)</th>
-                            <th>পরিমাণ</th>
-                            <th>মোট (টাকা)</th>
-                            <th>মুছে ফেলুন</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
-
-            let grandTotal = 0;
-            cart.forEach((item, index) => {
-                grandTotal += item.price;
-                html += `
-                    <tr>
-                        <td>${item.name}</td>
-                        <td>${item.unitPrice}৳</td>
-                        <td>
-                            <button onclick="updateQty(${index}, -1)" style="padding:2px 8px; cursor:pointer;">-</button>
-                            <span style="margin: 0 8px; font-weight:bold;">${item.quantity}</span>
-                            <button onclick="updateQty(${index}, 1)" style="padding:2px 8px; cursor:pointer;">+</button>
-                        </td>
-                        <td>${item.price}৳</td>
-                        <td><button onclick="removeItem(${index})" style="background:#c62828; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">ডিলিট</button></td>
-                    </tr>
-                `;
-            });
-
-            html += `</tbody></table>`;
-            container.innerHTML = html;
-            grandTotalSpan.innerText = grandTotal;
-        }
-
-        function updateQty(index, change) {
-            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
-            if (cart[index]) {
-                cart[index].quantity += change;
-                if (cart[index].quantity < 1) {
-                    cart[index].quantity = 1;
-                }
-                cart[index].price = cart[index].unitPrice * cart[index].quantity;
-                localStorage.setItem('dewDropCart', JSON.stringify(cart));
-                loadCartItems();
-            }
-        }
-
-        function removeItem(index) {
-            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
-            cart.splice(index, 1);
-            localStorage.setItem('dewDropCart', JSON.stringify(cart));
-            loadCartItems();
-        }
-
-     <!-- ফায়ারবেজ লাইব্রেরিগুলো নিশ্চিত করুন যে cart.html-এর <head> বা স্ক্রিপ্টে যুক্ত আছে -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
-    <script>
-        // ফায়ারবেজ কনফিগারেশন (আপনার প্রোজেক্ট অনুযায়ী)
+        // ফায়ারবেজ কনফিগারেশন
         const firebaseConfig = {
             apiKey: "AIzaSyDJfcoxchgwdfulQMjQNa8wml-b4f5jHu",
             authDomain: "dewdrop-shopping.firebaseapp.com",
@@ -352,7 +275,7 @@
             loadCartItems();
         }
 
-        // অর্ডার কনফার্ম করার নতুন লজিক যা একই অর্ডারের সব আইটেমকে একটি ব্যাচ টাইমস্ট্যাম্পে ফায়ারবেজে পাঠাবে
+        // অর্ডার কনফার্ম করার লজিক (মেম্বার ও শপিং ইউজার উভয় সাপোর্টেড)
         function confirmOrder() {
             let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
             if (cart.length === 0) {
@@ -364,7 +287,6 @@
             let rawMemberData = localStorage.getItem('dewDropMember');
             let rawShopperData = localStorage.getItem('generalShopper');
 
-            // ১. প্রথমে মেম্বার আইডি চেক করা
             if (rawMemberData) {
                 try {
                     if (rawMemberData.startsWith('{')) {
@@ -377,7 +299,6 @@
                     userId = rawMemberData;
                 }
             } 
-            // ২. মেম্বার না থাকলে generalShopper (ফোন নম্বর) চেক করা
             else if (rawShopperData) {
                 try {
                     let shopperObj = JSON.parse(rawShopperData);
