@@ -27,7 +27,7 @@
         .header-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
         .header-left img {
             width: 45px;
@@ -40,12 +40,23 @@
             font-size: 1.2rem;
             font-weight: bold;
         }
-        .header-right {
-            display: flex;
-            gap: 10px;
+        .home-btn {
+            background: #ffb300;
+            color: #000;
+            padding: 6px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: inline-flex;
             align-items: center;
+            gap: 5px;
         }
-        .home-btn, .back-btn {
+        .home-btn:hover {
+            background: #ffa000;
+        }
+        .back-btn {
             background: #ffb300;
             color: #000;
             padding: 8px 16px;
@@ -55,7 +66,7 @@
             font-size: 0.9rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .home-btn:hover, .back-btn:hover {
+        .back-btn:hover {
             background: #ffa000;
         }
         .container {
@@ -203,9 +214,9 @@
         <div class="header-left">
             <img src="gldlogo.png" alt="Logo">
             <span>DewDrop Shopping Mart</span>
-        </div>
-        <div class="header-right">
             <a href="index.html" class="home-btn">🏠 হোম</a>
+        </div>
+        <div>
             <a href="marketplace.html" class="back-btn">← শপিং মার্কেট</a>
         </div>
     </header>
@@ -215,7 +226,7 @@
         
         <div id="memberDetailsBox" class="member-info-card" style="display: none;">
             <strong>মেম্বার আইডি:</strong> <span id="dispMemberId"></span> | 
-            <strong>নাম:</strong> <span id="dispMemberName"></span>
+            <strong>নাম:</strong> <span id="dispMemberName">লোড হচ্ছে...</span>
             
             <div class="dropdown">
                 <button onclick="toggleDeleteMenu()" class="delete-btn-main">ইতিহাস মুছুন ▾</button>
@@ -316,20 +327,18 @@
                     if (rawMemberData.startsWith('{')) {
                         let memberObj = JSON.parse(rawMemberData);
                         userId = memberObj.memberId || memberObj.id || memberObj.phone || "";
-                        userName = memberObj.name || memberObj.memberName || memberObj.fullName || "মেম্বার";
+                        userName = memberObj.name || memberObj.fullName || memberObj.memberName || "";
                     } else {
                         userId = rawMemberData;
-                        userName = "মেম্বার";
                     }
                 } catch (e) {
                     userId = rawMemberData;
-                    userName = "মেম্বার";
                 }
             } else if (rawShopperData) {
                 try {
                     let shopperObj = JSON.parse(rawShopperData);
                     userId = shopperObj.phone || "";
-                    userName = shopperObj.name || "শপিং ইউজার";
+                    userName = shopperObj.name || "";
                 } catch (e) {
                     userId = "";
                 }
@@ -346,8 +355,35 @@
             }
 
             document.getElementById('dispMemberId').innerText = userId;
-            document.getElementById('dispMemberName').innerText = userName;
             memberBox.style.display = 'block';
+
+            // যদি লোকালস্টোরেজে নাম না থাকে, তবে সরাসরি ফায়ারবেজের মেম্বার ডাটাবেজ থেকে নাম খুঁজে বের করার চেষ্টা করা হবে
+            if (!userName || userName === userId) {
+                database.ref('members').orderByChild('memberId').equalTo(userId).once('value', (snapshot) => {
+                    let found = false;
+                    if (snapshot.exists()) {
+                        snapshot.forEach((childSnap) => {
+                            let mData = childSnap.val();
+                            if (mData.name) {
+                                document.getElementById('dispMemberName').innerText = mData.name;
+                                found = true;
+                            }
+                        });
+                    }
+                    if (!found) {
+                        // যদি members টেবিলে সরাসরি না পাওয়া যায়, অন্য পাথে চেক করা যেতে পারে
+                        database.ref('members/' + userId).once('value', (s) => {
+                            if (s.exists() && s.val().name) {
+                                document.getElementById('dispMemberName').innerText = s.val().name;
+                            } else {
+                                document.getElementById('dispMemberName').innerText = "মেম্বার (" + userId + ")";
+                            }
+                        });
+                    }
+                });
+            } else {
+                document.getElementById('dispMemberName').innerText = userName;
+            }
 
             currentSanitizedId = userId.toString().trim().replace(/[.#$\/\[\]]/g, "_");
             let ordersRef = database.ref('orders/' + currentSanitizedId);
@@ -385,7 +421,7 @@
                             <tr>
                                 <th>ক্রমিক নং</th>
                                 <th>তারিখ ও সময়</th>
-                                <th>পণ্যের নাম</th>
+                                <th>পণ্য ও পরিমাণ</th>
                                 <th>পরিমাণ</th>
                                 <th>মোট মূল্য</th>
                                 <th>বর্তমান অবস্থা</th>
