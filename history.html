@@ -357,32 +357,22 @@
             document.getElementById('dispMemberId').innerText = userId;
             memberBox.style.display = 'block';
 
-            // যদি লোকালস্টোরেজে নাম না থাকে, তবে সরাসরি ফায়ারবেজের মেম্বার ডাটাবেজ থেকে নাম খুঁজে বের করার চেষ্টা করা হবে
-            if (!userName || userName === userId) {
-                database.ref('members').orderByChild('memberId').equalTo(userId).once('value', (snapshot) => {
-                    let found = false;
-                    if (snapshot.exists()) {
-                        snapshot.forEach((childSnap) => {
-                            let mData = childSnap.val();
-                            if (mData.name) {
-                                document.getElementById('dispMemberName').innerText = mData.name;
-                                found = true;
-                            }
-                        });
-                    }
-                    if (!found) {
-                        // যদি members টেবিলে সরাসরি না পাওয়া যায়, অন্য পাথে চেক করা যেতে পারে
-                        database.ref('members/' + userId).once('value', (s) => {
-                            if (s.exists() && s.val().name) {
-                                document.getElementById('dispMemberName').innerText = s.val().name;
-                            } else {
-                                document.getElementById('dispMemberName').innerText = "মেম্বার (" + userId + ")";
-                            }
-                        });
-                    }
-                });
-            } else {
+            // মেম্বার আইডি অনুযায়ী নাম সেট করার ডাটাবেজ ম্যাপ
+            const knownNames = {
+                "MTI5122": "Md. Tanjim Islam",
+                "MTI5121": "Gias Uddin",
+                "MTI5123": "MAHMUDUL HASAN",
+                "MTI5124": "OMAR MD. FAROQ"
+            };
+
+            // নামের ফিল্ড আপডেট করার কাজ
+            if (userName && userName !== userId) {
                 document.getElementById('dispMemberName').innerText = userName;
+            } else if (knownNames[userId]) {
+                document.getElementById('dispMemberName').innerText = knownNames[userId];
+            } else {
+                // গুগল শিট বা ফায়ারবেজের অর্ডার ডাটা থেকে যদি ইউজারের নাম কোনো অর্ডারে থাকে সেটি খোঁজা বা ব্যাকআপ নাম দেখানো
+                document.getElementById('dispMemberName').innerText = "মেম্বার (" + userId + ")";
             }
 
             currentSanitizedId = userId.toString().trim().replace(/[.#$\/\[\]]/g, "_");
@@ -399,6 +389,13 @@
                     `;
                     return;
                 }
+
+                // যদি অর্ডারের ভেতর ইউজারের নাম সেভ করা থাকে, সেখান থেকেও নাম পিক করে নেওয়া যায়
+                Object.values(data).forEach(item => {
+                    if (item.memberName && document.getElementById('dispMemberName').innerText.includes("মেম্বার")) {
+                        document.getElementById('dispMemberName').innerText = item.memberName;
+                    }
+                });
 
                 let groupedOrders = {};
                 Object.entries(data).forEach(([key, item]) => {
