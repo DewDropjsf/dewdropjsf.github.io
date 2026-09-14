@@ -269,7 +269,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            loadFirebaseOrderHistory();
+            initHistoryPage();
         });
 
         function toggleDeleteMenu() {
@@ -312,7 +312,7 @@
             }
         }
 
-        function loadFirebaseOrderHistory() {
+        async function initHistoryPage() {
             const historyContainer = document.getElementById('historyContainer');
             const memberBox = document.getElementById('memberDetailsBox');
             
@@ -357,25 +357,45 @@
             document.getElementById('dispMemberId').innerText = userId;
             memberBox.style.display = 'block';
 
-            // মেম্বার আইডি অনুযায়ী নাম সেট করার ডাটাবেজ ম্যাপ
-            const knownNames = {
-                "MTI5122": "Md. Tanjim Islam",
-                "MTI5121": "Gias Uddin",
-                "MTI5123": "MAHMUDUL HASAN",
-                "MTI5124": "OMAR MD. FAROQ"
-            };
-
-            // নামের ফিল্ড আপডেট করার কাজ
-            if (userName && userName !== userId) {
-                document.getElementById('dispMemberName').innerText = userName;
-            } else if (knownNames[userId]) {
-                document.getElementById('dispMemberName').innerText = knownNames[userId];
-            } else {
-                // গুগল শিট বা ফায়ারবেজের অর্ডার ডাটা থেকে যদি ইউজারের নাম কোনো অর্ডারে থাকে সেটি খোঁজা বা ব্যাকআপ নাম দেখানো
-                document.getElementById('dispMemberName').innerText = "মেম্বার (" + userId + ")";
+            // যদি লোকালস্টোরেজে নাম না থাকে, তবে গুগল শিট থেকে নাম ফেচ করে নিয়ে আসা
+            if (!userName || userName === userId) {
+                userName = await fetchNameFromGoogleSheet(userId);
             }
 
+            document.getElementById('dispMemberName').innerText = userName || ("মেম্বার (" + userId + ")");
+
             currentSanitizedId = userId.toString().trim().replace(/[.#$\/\[\]]/g, "_");
+            loadFirebaseOrderHistory();
+        }
+
+        // গুগল শিটের CSV লিঙ্ক থেকে মেম্বার আইডি বা মোবাইল দিয়ে নাম খুঁজে বের করার ফাংশন
+        async function fetchNameFromGoogleSheet(userId) {
+            const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTR7ShbGOjdF3OGqxBbbPFMLSfy1mUoegPRWC9EBXoXta3o6UoZEY5nMOKI9ruRHqa4sr5pb2-OjoX/pub?output=csv";
+            try {
+                let response = await fetch(csvUrl);
+                let data = await response.text();
+                let rows = data.split("\n");
+                
+                for (let i = 1; i < rows.length; i++) {
+                    let cols = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    if (cols.length >= 3) {
+                        let sheetName = cols[1] ? cols[1].replace(/"/g, "").trim() : "";
+                        let sheetMobile = cols[2] ? cols[2].replace(/"/g, "").trim() : "";
+                        
+                        // মোবাইল নম্বর বা আইডি মিলে গেলে সেই নাম রিটার্ন করবে
+                        if (sheetMobile.includes(userId) || userId.includes(sheetMobile)) {
+                            return sheetName;
+                        }
+                    }
+                }
+            } catch (err) {
+                console.log("Sheet fetch error: ", err);
+            }
+            return null;
+        }
+
+        function loadFirebaseOrderHistory() {
+            const historyContainer = document.getElementById('historyContainer');
             let ordersRef = database.ref('orders/' + currentSanitizedId);
 
             ordersRef.on('value', (snapshot) => {
@@ -389,13 +409,6 @@
                     `;
                     return;
                 }
-
-                // যদি অর্ডারের ভেতর ইউজারের নাম সেভ করা থাকে, সেখান থেকেও নাম পিক করে নেওয়া যায়
-                Object.values(data).forEach(item => {
-                    if (item.memberName && document.getElementById('dispMemberName').innerText.includes("মেম্বার")) {
-                        document.getElementById('dispMemberName').innerText = item.memberName;
-                    }
-                });
 
                 let groupedOrders = {};
                 Object.entries(data).forEach(([key, item]) => {
@@ -455,7 +468,7 @@
 
                         html += `
                             <tr>
-                                <td>${toBnNum(serialNo++)}</td>
+                                ${toBnNum(serialNo++)} <!-- syntax safe -->
                                 <td>${item.date || group.date}</td>
                                 <td>${pName}</td>
                                 <td>${pQty}</td>
