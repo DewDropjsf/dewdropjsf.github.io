@@ -40,7 +40,12 @@
             font-size: 1.2rem;
             font-weight: bold;
         }
-        .back-btn {
+        .header-right {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .home-btn, .back-btn {
             background: #ffb300;
             color: #000;
             padding: 8px 16px;
@@ -50,7 +55,7 @@
             font-size: 0.9rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .back-btn:hover {
+        .home-btn:hover, .back-btn:hover {
             background: #ffa000;
         }
         .container {
@@ -199,8 +204,9 @@
             <img src="gldlogo.png" alt="Logo">
             <span>DewDrop Shopping Mart</span>
         </div>
-        <div>
-            <a href="marketplace.html" class="back-btn">← শপিং মার্টে ফিরে যান</a>
+        <div class="header-right">
+            <a href="index.html" class="home-btn">🏠 হোম</a>
+            <a href="marketplace.html" class="back-btn">← শপিং মার্কেট</a>
         </div>
     </header>
 
@@ -285,7 +291,6 @@
             }
         }
 
-        // নির্দিষ্ট অর্ডার গ্রুপের সব আইটেম একসাথে ডিলিট করার ফাংশন
         function deleteOrderGroup(keysArray) {
             if(confirm("আপনি কি এই অর্ডারটির সমস্ত আইটেম মুছে ফেলতে চান?")) {
                 let updates = {};
@@ -296,7 +301,7 @@
             }
         }
 
-     function loadFirebaseOrderHistory() {
+        function loadFirebaseOrderHistory() {
             const historyContainer = document.getElementById('historyContainer');
             const memberBox = document.getElementById('memberDetailsBox');
             
@@ -311,7 +316,7 @@
                     if (rawMemberData.startsWith('{')) {
                         let memberObj = JSON.parse(rawMemberData);
                         userId = memberObj.memberId || memberObj.id || memberObj.phone || "";
-                        userName = memberObj.name || memberObj.memberName || "মেম্বার";
+                        userName = memberObj.name || memberObj.memberName || memberObj.fullName || "মেম্বার";
                     } else {
                         userId = rawMemberData;
                         userName = "মেম্বার";
@@ -347,8 +352,6 @@
             currentSanitizedId = userId.toString().trim().replace(/[.#$\/\[\]]/g, "_");
             let ordersRef = database.ref('orders/' + currentSanitizedId);
 
-            // এরপরের বাকি কোড আগের মতোই থাকবে (ordersRef.on('value', ...))
-
             ordersRef.on('value', (snapshot) => {
                 const data = snapshot.val();
                 
@@ -362,19 +365,8 @@
                 }
 
                 let groupedOrders = {};
-                
-                // একই অর্ডারের আইটেমগুলো এক করার জন্য সেকেন্ড বা মিলিসেকেন্ড ইগনোর করে শুধু মিনিট পর্যন্ত সময় বা ডাটা অর্ডারিং গ্রুপ করা
-                // অথবা ফায়ারবেজে সেভ করার সময় যদি একই অর্ডারের প্রতিটির আলাদা ব্যাচ বা গ্রুপ আইডি না থাকে, 
-                // তবে এখানে আমরা কাছাকাছি সময়ের (যেমন একই মিনিটের মধ্যে কনফার্ম করা) আইটেমগুলোকে একটি গ্রুপে ফেলব।
-                
-                let keys = Object.keys(data);
-                let currentGroupKey = "";
-                let lastTimeMinutes = "";
-
-                // সহজ উপায়ে ডাটাগুলোকে ক্রমানুসারে সাজিয়ে একই অর্ডারের আইটেমগুলোকে এক করা
                 Object.entries(data).forEach(([key, item]) => {
                     let fullDate = item.date || 'তারিখ অজানা';
-                    // মিনিট পর্যন্ত নিয়ে গ্রুপ তৈরি করব যেন ১ সেকেন্ড বা ৫ সেকেন্ডের ব্যবধানের আইটেমগুলো একই অর্ডারে পড়ে
                     let timeMinute = fullDate.substring(0, fullDate.lastIndexOf(':')) || fullDate; 
                     
                     if(!groupedOrders[timeMinute]) {
