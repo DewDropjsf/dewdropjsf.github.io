@@ -1003,66 +1003,77 @@
             document.getElementById('nameError').style.display = 'none';
         }
 
-        // সমিতি মেম্বার লগইন যাচাই
-        async function verifyMemberLogin() {
-            let memberId = document.getElementById('modalMemberId').value.trim();
-            let memberPass = document.getElementById('modalMemberPassword').value.trim();
-            let leftError = document.getElementById('loginError');
+        
+       // সমিতি মেম্বার লগইন হ্যান্ডলার
+async function handleSocietyLogin() {
+    const memberIdInput = document.getElementById('societyMemberId').value.trim(); // আপনার ইনপুট ফিল্ডের আইডি অনুযায়ী এটি পরিবর্তন হতে পারে
+    const passwordInput = document.getElementById('societyPassword').value.trim(); // পাসওয়ার্ড ইনপুট ফিল্ডের আইডি
+    
+    if (!memberIdInput || !passwordInput) {
+        alert("দয়া করে মেম্বার আইডি এবং পাসওয়ার্ড উভয়ই দিন।");
+        return;
+    }
 
-            leftError.style.display = 'none';
+    // ক্লিন ইনপুট (সামনের শূন্য বা জিরো হ্যান্ডেল করার জন্য)
+    let cleanInputId = memberIdInput.replace(/^0+/, '');
 
-            if (memberId === "" || memberPass === "") {
-                leftError.innerText = "দয়া করে মেম্বার আইডি এবং পাসওয়ার্ড দিন";
-                leftError.style.display = 'block';
-                return;
-            }
+    // ১. প্রথমে পরিচিত ব্যাকআপ মেম্বার লিস্ট চেক করা যেতে পারে (যদি পাসওয়ার্ড সেট করা থাকে)
+    // অথবা সরাসরি গুগল শিট থেকে চেক করা সবচেয়ে নিরাপদ
+    
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTR7ShbGOjdF3OGqxBbbPFMLSfy1mUoegPRWC9EBXoXta3o6UoZEY5nMOKI9ruRHqa4sr5pb2-OjoX/pub?output=csv";
+    
+    try {
+        let response = await fetch(csvUrl);
+        let data = await response.text();
+        let rows = data.split("\n");
+        
+        let loginSuccess = false;
+        let matchedMemberName = "";
 
-            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTR7ShbG0jdF3OGqxBbbPFMLSfY1mUoegPRWC9EBXoXta3o6UoZEY5nMOKl9ruRHqwA4sr5Pb2-OjoX/pub?output=csv';
-
-            try {
-                leftError.innerText = "যাচাই করা হচ্ছে...";
-                leftError.style.display = 'block';
-
-                const response = await fetch(csvUrl);
-                const data = await response.text();
-                const rows = data.split('\n').map(row => row.split(','));
-
-                let isVerified = false;
-                let foundName = "";
-
-                for (let i = 1; i < rows.length; i++) {
-                    let cols = rows[i];
-                    if (cols && cols.length > 0) {
-                        let rowString = cols.join(" ").toUpperCase();
-                        if (rowString.includes(memberId.toUpperCase())) {
-                            isVerified = true;
-                            foundName = cols[1] ? cols[1].replace(/["\r]/g, "").trim() : memberId;
-                            break;
-                        }
-                    }
+        for (let i = 1; i < rows.length; i++) {
+            let rowText = rows[i];
+            let cols = rowText.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+            
+            if (cols.length >= 3) {
+                let sheetName = cols[1] ? cols[1].replace(/"/g, "").trim() : "";
+                let sheetMobile = cols[2] ? cols[2].replace(/"/g, "").trim() : "";
+                let cleanSheetMobile = sheetMobile.replace(/^0+/, '');
+                
+                // শিটে যদি পাসওয়ার্ডের কলাম থাকে (ধরে নিচ্ছি পাসওয়ার্ড কলামটি ৩ বা ৪ নম্বর কলামে আছে, অথবা যদি পাসওয়ার্ড চেক না থাকে শুধু আইডি চেক হয়)
+                // যদি শিটে পাসওয়ার্ড কলাম না থাকে, তবে অন্তত আইডি ভ্যালিড হতে হবে। 
+                // নিচে আইডি বা মোবাইল নম্বর নিখুঁত মিলছে কি না তা চেক করা হচ্ছে:
+                
+                if (sheetMobile === memberIdInput || cleanSheetMobile === cleanInputId || sheetMobile.includes(memberIdInput)) {
+                    // এখানে আইডি মিলে গেছে। যদি পাসওয়ার্ড ভেরিফিকেশন রাখতে চান:
+                    // (যদি শিটে পাসওয়ার্ড কলাম থাকে, তবে cols[পাসওয়ার্ড_ইনডেক্স] চেক করবেন। না থাকলে শুধু আইডি মিললেই পাসওয়ার্ড ম্যাচ করাবেন)
+                    
+                    loginSuccess = true;
+                    matchedMemberName = sheetName;
+                    break;
                 }
-
-                if (!isVerified && memberId.toUpperCase() === "MT15122") {
-                    isVerified = true;
-                    foundName = "Tanjim Islam";
-                }
-
-                if (isVerified) {
-                    localStorage.setItem('dewDropMember', JSON.stringify({ memberId: memberId, name: foundName }));
-                    alert('লগইন সফল হয়েছে! স্বাগতম ' + foundName);
-                    closeMemberLoginModal();
-                    checkLoginStatus();
-                    location.reload();
-                } else {
-                    leftError.innerText = "ভুল মেম্বার আইডি অথবা তথ্য পাওয়া যায়নি";
-                    leftError.style.display = 'block';
-                }
-            } catch (error) {
-                console.error("ত্রুটি:", error);
-                leftError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন।";
-                leftError.style.display = 'block';
             }
         }
+
+        if (loginSuccess) {
+            // লগইন সফল হলে লোকালস্টোরেজে ডেটা সেভ করা এবং সাকসেসিভ কাজ
+            let memberData = {
+                memberId: memberIdInput,
+                name: matchedMemberName
+            };
+            localStorage.setItem('dewDropMember', JSON.stringify(memberData));
+            
+            alert("লগইন সফল হয়েছে, " + matchedMemberName + "!");
+            // এখানে আপনার রিডাইরেক্ট বা মডাল বন্ধ করার কোড বসবে
+            location.reload(); 
+        } else {
+            alert("ভুল মেম্বার আইডি অথবা পাসওয়ার্ড! দয়া করে সঠিক তথ্য দিন।");
+        }
+
+    } catch (err) {
+        console.error("Login validation error: ", err.message);
+        alert("সার্ভার থেকে ডেটা যাচাই করতে সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।");
+    }
+}
 
        // শপিং অ্যাকাউন্ট লগইন যাচাই
 async function verifyShopLogin() {
