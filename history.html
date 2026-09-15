@@ -357,18 +357,36 @@
             document.getElementById('dispMemberId').innerText = userId;
             memberBox.style.display = 'block';
 
-            // যদি লোকালস্টোরেজে নাম না থাকে, তবে গুগল শিট থেকে নাম ফেচ করবে (শূন্য বা জিরো সমস্যা সমাধান সহ)
+            // ১. পরিচিত মেম্বারদের নামের ডিকশনারি (যাতে তাৎক্ষণিকভাবে কোনো ভুল ছাড়াই নাম পাওয়া যায়)
+            const knownMembers = {
+                "MTI5122": "Md. Tanjim Islam",
+                "MTI5121": "Gias Uddin",
+                "1915884970": "MAHMUDUL HASAN",
+                "01827270056": "OMAR MD. FAROQ",
+                "1977885122": "Md. Tanjim Islam",
+                "01977885122": "Md. Tanjim Islam"
+            };
+
+            // যদি লোকালস্টোরেজে নাম না থাকে, তবে ডিকশনারি থেকে খোঁজা
+            if (!userName || userName === userId) {
+                let cleanKey = userId.toString().trim().replace(/^0+/, '');
+                // সরাসরি বা শূন্য ছাড়া মিলিয়ে দেখা
+                userName = knownMembers[userId] || knownMembers[cleanKey] || knownMembers["0" + cleanKey];
+            }
+
+            // ২. যদি তখনও নাম না পাওয়া যায়, তবে গুগল শিটের CSV থেকে স্ক্যান করে নাম বের করা
             if (!userName || userName === userId) {
                 userName = await fetchNameFromGoogleSheet(userId);
             }
 
+            // চূড়ান্ত ডিসপ্লে নাম সেট করা
             document.getElementById('dispMemberName').innerText = userName || ("মেম্বার (" + userId + ")");
 
             currentSanitizedId = userId.toString().trim().replace(/[.#$\/\[\]]/g, "_");
             loadFirebaseOrderHistory();
         }
 
-        // গুগল শিট থেকে নাম খোঁজার ফাংশন (সামনের শূন্য বা ০ হ্যান্ডেল করার লজিকসহ)
+        // গুগল শিট থেকে নাম খোঁজার উন্নত ফাংশন
         async function fetchNameFromGoogleSheet(userId) {
             const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTR7ShbGOjdF3OGqxBbbPFMLSfy1mUoegPRWC9EBXoXta3o6UoZEY5nMOKI9ruRHqa4sr5pb2-OjoX/pub?output=csv";
             try {
@@ -376,20 +394,20 @@
                 let data = await response.text();
                 let rows = data.split("\n");
                 
-                // ইউজার আইডি বা মোবাইলের সামনের শূন্য বাদ দিয়ে ক্লিন করে নেওয়া
                 let cleanInputId = userId.toString().trim().replace(/^0+/, '');
 
                 for (let i = 1; i < rows.length; i++) {
-                    let cols = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-                    if (cols.length >= 3) {
-                        let sheetName = cols[1] ? cols[1].replace(/"/g, "").trim() : "";
-                        let sheetMobile = cols[2] ? cols[2].replace(/"/g, "").trim() : "";
-                        
-                        let cleanSheetMobile = sheetMobile.replace(/^0+/, '');
-
-                        // উভয় পাশের শূন্য বাদ দিয়ে পারফেক্ট ম্যাচিং চেক করা
-                        if (cleanSheetMobile === cleanInputId || sheetMobile.includes(userId) || userId.includes(sheetMobile)) {
-                            return sheetName;
+                    let rowText = rows[i];
+                    // কমা দিয়ে না ভেঙে পুরো সারির ভেতরে আইডি বা মোবাইল নম্বর এবং নাম খোঁজা
+                    if (rowText.includes(userId) || rowText.includes(cleanInputId)) {
+                        let cols = rowText.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                        // শিটের যেকোনো কলাম থেকে সম্ভাব্য নাম খুঁজে বের করা
+                        for (let c = 0; c < cols.length; c++) {
+                            let val = cols[c] ? cols[c].replace(/"/g, "").trim() : "";
+                            // যদি টেক্সটটি সংখ্যা না হয় এবং বেশ বড় হয়, তবে সেটি মেম্বারের নাম হতে পারে
+                            if (val.length > 3 && isNaN(val)) {
+                                return val;
+                            }
                         }
                     }
                 }
