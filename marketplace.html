@@ -701,7 +701,7 @@
             </div>
 
             <!-- শপিং লগইন বাটন -->
-            <button id="memberAuthBtn" class="btn-member-login" onclick="handleSocietyLogin()">🛒 শপিং লগইন</button>
+            <button id="memberAuthBtn" class="btn-member-login" onclick="handleAuthButtonClick()">🛒 শপিং লগইন</button>
         </div>
 
         <div class="search-area-wrapper">
@@ -731,10 +731,10 @@
             <!-- রেডিও বাটন সিলেকশন -->
             <div class="login-type-selector">
                 <label>
-                    <input type="radio" name="loginType" value="member" checked onclick="switchLoginForm('member')"> সমিতি মেম্বার
+                    <input type="radio" name="loginType" value="member" checked onclick="switchLoginType('member')"> সমিতি মেম্বার
                 </label>
                 <label>
-                    <input type="radio" name="loginType" value="shop" onclick="switchLoginForm('shop')"> শপিং অ্যাকাউন্ট
+                    <input type="radio" name="loginType" value="shop" onclick="switchLoginType('shop')"> শপিং অ্যাকাউন্ট
                 </label>
             </div>
 
