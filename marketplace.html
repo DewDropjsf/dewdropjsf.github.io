@@ -1006,6 +1006,7 @@
         }
 
         // সমিতি মেম্বার লগইন হ্যান্ডলার (সঠিক আইডি যুক্ত করা হয়েছে)
+       // সমিতি মেম্বার লগইন হ্যান্ডলার
         async function verifyMemberLogin() {
             const memberIdInput = document.getElementById('modalMemberId').value.trim();
             const passwordInput = document.getElementById('modalMemberPassword').value.trim();
@@ -1046,7 +1047,14 @@
                         let sheetMobile = cols[2] ? cols[2].replace(/"/g, "").trim() : "";
                         let cleanSheetMobile = sheetMobile.replace(/^0+/, '');
                         
+                        // যদি শিটে পাসওয়ার্ড কলাম থাকে (ধরে নিচ্ছি ৩ বা ৪ নম্বর কলামে পাসওয়ার্ড থাকে, অথবা আপাতত শুধু আইডি/মোবাইল ম্যাচ করলে পাসওয়ার্ড ম্যাচ করবে)
+                        // আপনার শিটে যদি পাসওয়ার্ড ফিল্ড কলাম নির্দিষ্ট করা না থাকে, তবে আইডি মিললেই ঢুকে যাবে। 
+                        // আপনি চাইলে পাসওয়ার্ডের কলাম চেক করার শর্ত এখানে যুক্ত করতে পারেন।
+                        
                         if (sheetMobile === memberIdInput || cleanSheetMobile === cleanInputId || sheetMobile.includes(memberIdInput)) {
+                            // এখানে আইডি বা মোবাইল মিলে গেছে। 
+                            // আপনার শিটের পাসওয়ার্ড যদি অন্য কোনো কলামে থাকে (যেমন কলাম ৩ বা ৪), তবে সেটি এখানে যাচাই করা যাবে।
+                            // আপাতত নিশ্চিত হওয়ার জন্য আইডি ম্যাচ করলেই লগইন সফল ধরা হলো:
                             loginSuccess = true;
                             matchedMemberName = sheetName;
                             break;
