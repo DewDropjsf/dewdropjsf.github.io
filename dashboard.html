@@ -15,10 +15,10 @@
             padding: 0; 
         }
 
-        /* Header & Navigation Bar (Home Page Style) */
+        /* Home Page Style Header & Navigation Bar */
         .site-header {
-            background-color: #ffffff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            background-color: #0d3b2e; /* হোম পেজের সাথে মিল রেখে গাঢ় সবুজ থিম */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -30,12 +30,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 12px 20px;
         }
 
         .logo-area {
             font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-            color: #0077b6;
+            color: #ffffff;
             font-size: 22px;
             font-weight: bold;
             text-decoration: none;
@@ -52,14 +52,17 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #333333;
+            color: #ffffff;
             font-weight: bold;
             font-size: 15px;
             transition: color 0.2s;
+            padding: 6px 12px;
+            border-radius: 4px;
         }
 
         .nav-links a:hover, .nav-links a.active {
-            color: #0077b6;
+            background-color: #14533d;
+            color: #ffffff;
         }
 
         .dashboard-container { 
@@ -276,21 +279,18 @@
                 padding: 15px;
                 margin: 15px;
             }
-            .nav-links {
-                display: none; /* মোবাইল রেসপনসিবের জন্য চাইলে মেনু লুকানোর ব্যবস্থা বা হ্যামবার্গার রাখা যেতে পারে */
-            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header & Navigation Bar -->
+    <!-- Home Page Style Header & Navigation Bar (Without extra buttons) -->
     <header class="site-header">
         <div class="nav-container">
-            <a href="index.html" class="logo-area">DewDrop JSF</a>
+            <a href="index.html" class="logo-area">DewDrop Joint Savings Fund</a>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="index.html">হোম</a></li>
+                <li><a href="dashboard.html" class="active">ড্যাশবোর্ড</a></li>
             </ul>
         </div>
     </header>
@@ -463,7 +463,7 @@
 
             } catch (error) {
                 console.error('ডেটা লোড করতে সমস্যা হয়েছে:', error);
-                alert('ডেটা ফেচ করতে সমস্যা হয়েছে। ইন্টারনেট কানেকশন চেক করুন।');
+                alert('ডেটা ফেচ করতে সমস্যা হয়েছে। ইন্টারনেট কানেকشن চেক করুন।');
                 resetAccountDetails();
             }
         }
