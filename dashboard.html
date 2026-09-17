@@ -12,13 +12,60 @@
             font-family: 'Times New Roman', Times, serif; 
             background-color: #f0f4f8; 
             margin: 0; 
-            padding: 20px; 
+            padding: 0; 
+        }
+
+        /* Header & Navigation Bar (Home Page Style) */
+        .site-header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo-area {
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+            color: #0077b6;
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333333;
+            font-weight: bold;
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #0077b6;
         }
 
         .dashboard-container { 
             background: #ffffff; 
             max-width: 900px; 
-            margin: 20px auto; 
+            margin: 30px auto; 
             padding: 30px; 
             border-radius: 16px; 
             box-shadow: 0 6px 20px rgba(0,0,0,0.08); 
@@ -227,11 +274,26 @@
             }
             .dashboard-container {
                 padding: 15px;
+                margin: 15px;
+            }
+            .nav-links {
+                display: none; /* মোবাইল রেসপনসিবের জন্য চাইলে মেনু লুকানোর ব্যবস্থা বা হ্যামবার্গার রাখা যেতে পারে */
             }
         }
     </style>
 </head>
 <body>
+
+    <!-- Header & Navigation Bar -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo-area">DewDrop JSF</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+            </ul>
+        </div>
+    </header>
 
     <div class="dashboard-container">
         <h1 class="fund-title">DewDrop Joint Savings Fund</h1>
@@ -283,6 +345,12 @@
                     <strong>Any Due:</strong> <span id="anyDue">বাটনে ক্লিক করুন</span>
                 </div>
                 <div class="info-item">
+                    <strong>Unpaid Lump Sum Amount:</strong> <span id="unpaidLumpSum">বাটনে ক্লিক করুন</span>
+                </div>
+                <div class="info-item">
+                    <strong>Paid Lump Sum Amount:</strong> <span id="paidLumpSum">বাটনে ক্লিক করুন</span>
+                </div>
+                <div class="info-item">
                     <strong>Total Savings:</strong> <span id="totalSavings">বাটনে ক্লিক করুন</span>
                 </div>
             </div>
@@ -330,7 +398,6 @@
 
         // Check A/C Button Event
         document.getElementById('checkAcBtn').addEventListener('click', () => {
-            // যদি আগের কোনো টাইমার চালু থাকে তা বাতিল করে দেবো, যাতে বারবার ক্লিক করলে সময় রিসেট হয়
             if (hideTimer) {
                 clearTimeout(hideTimer);
             }
@@ -345,6 +412,8 @@
             document.getElementById('lastTxAmount').innerText = 'লোড হচ্ছে...';
             document.getElementById('lastTxDate').innerText = 'লোড হচ্ছে...';
             document.getElementById('anyDue').innerText = 'লোড হচ্ছে...';
+            document.getElementById('unpaidLumpSum').innerText = 'লোড হচ্ছে...';
+            document.getElementById('paidLumpSum').innerText = 'লোড হচ্ছে...';
             document.getElementById('totalSavings').innerText = 'লোড হচ্ছে...';
 
             try {
@@ -374,6 +443,8 @@
                         document.getElementById('lastTxDate').innerText = cols[4] || 'তথ্য নেই';
                         document.getElementById('anyDue').innerText = cols[5] ? cols[5] + ' Taka' : '০.০০ Taka';
                         document.getElementById('totalSavings').innerText = cols[6] ? cols[6] + ' Taka' : '০.০০ Taka';
+                        document.getElementById('unpaidLumpSum').innerText = cols[7] ? cols[7] + ' Taka' : '০.০০ Taka';
+                        document.getElementById('paidLumpSum').innerText = cols[8] ? cols[8] + ' Taka' : '০.০০ Taka';
                         
                         break;
                     }
@@ -385,7 +456,7 @@
                     return;
                 }
 
-                // তথ্য সফলভাবে প্রদর্শিত হওয়ার পর ১৫ সেকেন্ড (১৫০০০ মিলিসেকেন্ড) টাইমার শুরু হবে
+                // ১৫ সেকেন্ড পর ডেটা রিসেট হওয়ার টাইমার
                 hideTimer = setTimeout(() => {
                     resetAccountDetails();
                 }, 15000);
@@ -397,11 +468,12 @@
             }
         }
 
-        // অ্যাকাউন্ট ডিটেইলস ফিল্ডগুলো আগের অবস্থায় ফিরিয়ে নেওয়ার ফাংশন
         function resetAccountDetails() {
             document.getElementById('lastTxAmount').innerText = 'বাটনে ক্লিক করুন';
             document.getElementById('lastTxDate').innerText = 'বাটনে ক্লিক করুন';
             document.getElementById('anyDue').innerText = 'বাটনে ক্লিক করুন';
+            document.getElementById('unpaidLumpSum').innerText = 'বাটনে ক্লিক করুন';
+            document.getElementById('paidLumpSum').innerText = 'বাটনে ক্লিক করুন';
             document.getElementById('totalSavings').innerText = 'বাটনে ক্লিক করুন';
         }
     </script>
