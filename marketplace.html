@@ -1004,6 +1004,7 @@
         }
 
         // সমিতি মেম্বার লগইন যাচাই (সঠিক কলাম ইনডেক্স ও পাসওয়ার্ড চেকিং সহ)
+        // সমিতি মেম্বার লগইন যাচাই (ডাবাগিং সংস্করণ)
         async function verifyMemberLogin() {
             let memberId = document.getElementById('modalMemberId').value.trim();
             let memberPass = document.getElementById('modalMemberPassword').value.trim();
@@ -1026,7 +1027,9 @@
                 const response = await fetch(csvUrl);
                 const data = await response.text();
                 
-                // শিটের ডেটাকে সঠিকভাবে পার্স করা (কোমা ও কোটেশন হ্যান্ডেল করার জন্য)
+                console.log("--- Google Sheet Raw Data ---");
+                console.log(data); // ব্রাউজার কনসোলে শিটের পুরো ডেটা দেখতে পাবেন
+
                 const rows = data.split('\n').map(row => {
                     let chars = row.split('');
                     let insideQuote = false;
@@ -1051,13 +1054,13 @@
                 for (let i = 1; i < rows.length; i++) {
                     let cols = rows[i];
                     if (cols && cols.length >= 6) {
-                        // আপনার শিট অনুযায়ী: Col B = Name (1), Col C = Mobile (2), Col E = MemberID (4), Col F = Password (5)
                         let sheetName = cols[1] ? cols[1].replace(/['"\r]/g, "").trim() : "";
                         let sheetMobile = cols[2] ? cols[2].replace(/['"\r]/g, "").trim() : "";
                         let sheetMemberId = cols[4] ? cols[4].replace(/['"\r]/g, "").trim() : "";
                         let sheetPassword = cols[5] ? cols[5].replace(/['"\r]/g, "").trim() : "";
 
-                        // মেম্বার আইডি অথবা মোবাইল নম্বর এবং পাসওয়ার্ড উভয়ই মিলতে হবে
+                        console.log(`Row ${i} -> ID: [${sheetMemberId}], Pass: [${sheetPassword}]`); // কনসোলে প্রতিটি রো-এর আইডি ও পাসওয়ার্ড দেখাবে
+
                         let isIdMatch = (sheetMemberId.toUpperCase() === memberId.toUpperCase() || sheetMobile === memberId);
                         let isPassMatch = (sheetPassword === memberPass);
 
@@ -1085,7 +1088,6 @@
                 leftError.style.display = 'block';
             }
         }
-
         // শপিং অ্যাকাউন্ট লগইন যাচাই
         async function verifyShopLogin() {
             let shopName = document.getElementById('modalShopName').value.trim();
