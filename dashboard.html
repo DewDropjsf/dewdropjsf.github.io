@@ -15,9 +15,9 @@
             padding: 0; 
         }
 
-        /* Header & Navigation Bar (Home Page Match) */
+        /* Header & Navigation Bar Style */
         .site-header {
-            background-color: #1b4332; /* হোম পেজের কালারের সাথে সামঞ্জস্যপূর্ণ গাঢ় সবুজ */
+            background-color: #1b4332; 
             color: #ffffff;
             box-shadow: 0 3px 10px rgba(0,0,0,0.15);
             position: sticky;
@@ -31,52 +31,34 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
+            padding: 10px 20px;
         }
 
         .logo-area {
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-            color: #ffffff;
-            font-size: 22px;
-            font-weight: bold;
-            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .logo-image {
+            height: 40px;
+            width: auto;
+            border-radius: 50%;
+        }
+
+        .brand-title {
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
         }
 
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 25px;
-        }
-
-        /* Marquee for Shopping Mart */
-        .shopping-mart-marquee {
-            width: 160px;
-            overflow: hidden;
-            white-space: nowrap;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 4px 8px;
-            border-radius: 4px;
-        }
-
-        .shopping-mart-marquee a {
-            color: #ffb703;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-            display: inline-block;
-            animation: marquee 8s linear infinite;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        .shopping-mart-marquee:hover a {
-            animation-play-state: paused;
+            gap: 20px;
         }
 
         /* Dropdown Menu for About Us */
@@ -101,7 +83,7 @@
             position: absolute;
             right: 0;
             background-color: #ffffff;
-            min-width: 160px;
+            min-width: 170px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
             border-radius: 6px;
@@ -341,7 +323,7 @@
             }
             .nav-container {
                 flex-direction: column;
-                gap: 10px;
+                gap: 12px;
             }
         }
     </style>
@@ -349,25 +331,32 @@
 <body>
 
     <!-- Header & Navigation Bar -->
- <div class="logo-container">
-            <img src="gldlogo.png" alt="logo" class="logo-image">
-            <h1>DewDrop Joint Savings Fund</h1>
-            
-            <a href="marketplace.html" class="btn-market" style="background: #009a80; color: #fff; padding: 10px 15px; border-radius: 4px; text-decoration: none; display: inline-block; overflow: hidden; width: 140px;">
-    <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
-</a>
-             
+    <header class="site-header">
+        <div class="nav-container">
+            <!-- Left: Logo & Brand Name -->
+            <a href="index.html" class="logo-area">
+                <img src="gldlogo.png" alt="Logo" class="logo-image">
+                <h1 class="brand-title">DewDrop Joint Savings Fund</h1>
+            </a>
+
+            <!-- Right: Shopping Mart (Marquee) & About Us (Dropdown) -->
+            <div class="nav-right">
+                <a href="marketplace.html" class="btn-market" style="background: #009a80; color: #fff; padding: 8px 12px; border-radius: 4px; text-decoration: none; display: inline-block; overflow: hidden; width: 130px;">
+                    <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
+                </a>
+                
                 <!-- About Us Dropdown -->
                 <div class="dropdown">
                     <button class="dropbtn">আমাদের সম্পর্কে ▾</button>
                     <div class="dropdown-content">
                         <a href="index.html#about-section">ডিউড্রপ সম্পর্কে</a>
                         <a href="board.html">পরিচালনা পর্ষদ</a>
-                         <a href="developer.html">ডেভেলপার সম্পর্কে </a>
+                        <a href="developer.html">ডেভেলপার সম্পর্কে</a>
                     </div>
                 </div>
             </div>
-            </header>
+        </div>
+    </header>
 
     <div class="dashboard-container">
         <h1 class="fund-title">DewDrop Joint Savings Fund</h1>
@@ -537,7 +526,7 @@
 
             } catch (error) {
                 console.error('ডেটা লোড করতে সমস্যা হয়েছে:', error);
-                alert('ডেটা ফেচ করতে সমস্যা হয়েছে। ইন্টারনেট কানেকشن চেক করুন।');
+                alert('ডেটা ফেচ করতে সমস্যা হয়েছে। ইন্টারনেট কানেকশন চেক করুন।');
                 resetAccountDetails();
             }
         }
