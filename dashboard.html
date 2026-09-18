@@ -19,6 +19,9 @@
         .site-header {
             background-color: #1b4332; 
             color: #ffffff;
+            padding: 12px 30px
+            justify-content: space-between;
+            align-items: center;
             box-shadow: 0 3px 10px rgba(0,0,0,0.15);
             position: sticky;
             top: 0;
@@ -42,11 +45,12 @@
             color: #ffffff;
         }
 
-        .logo-image {
-            height: 40px;
-            width: auto;
-            border-radius: 50%;
-        }
+      .logo-image {
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 
         .brand-title {
             font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
@@ -334,7 +338,6 @@
     <header class="site-header">
         <div class="nav-container">
             <!-- Left: Logo & Brand Name -->
-            <a href="index.html" class="logo-area">
                 <img src="gldlogo.png" alt="Logo" class="logo-image">
                 <h1 class="brand-title">DewDrop Joint Savings Fund</h1>
             </a>
@@ -378,7 +381,7 @@
                     <button class="btn-logout" id="logoutBtn">Log out</button>
                 </div>
                 
-                <div class="welcome-msg">স্বাগতম, <span id="userName">...</span>!</div>
+                <div class="welcome-msg">Welcome, <span id="userName">...</span>!</div>
                 
                 <div class="info-item">
                     <strong>Member ID:</strong> <span id="memberId">...</span>
