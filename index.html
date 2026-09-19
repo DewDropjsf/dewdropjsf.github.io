@@ -110,6 +110,71 @@
         background-color: #005f73;
     }
 
+    /* --- Promotional Ad Banner Section (Custom Ad Space) --- */
+    .ad-section-container {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 0 20px;
+    }
+    .promo-ad-card {
+        background: #ffffff;
+        border: 2px dashed #0077b6;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        text-align: center;
+        position: relative;
+        transition: transform 0.2s ease;
+    }
+    .promo-ad-card:hover {
+        transform: translateY(-3px);
+    }
+    .ad-badge {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        background-color: #e76f51;
+        color: white;
+        font-size: 11px;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .promo-ad-card h3 {
+        color: #004d40;
+        font-size: 22px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .promo-ad-card .doctor-title {
+        color: #d62828;
+        font-size: 15px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+    .promo-ad-card .chamber-details {
+        font-size: 15px;
+        color: #333;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+    .promo-ad-card .chamber-timing {
+        background-color: #f1faee;
+        border-left: 4px solid #2a9d8f;
+        padding: 10px;
+        margin: 15px 0;
+        text-align: left;
+        font-size: 14px;
+        border-radius: 4px;
+    }
+    .promo-ad-card .ad-footer-note {
+        font-size: 13px;
+        color: #e63946;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
     /* --- Features / Cards Container --- */
     .features-container {
         display: grid;
@@ -321,31 +386,30 @@
             <h1>DewDrop Joint Savings Fund</h1>
         </div>
         <nav>
-            <!-- ইউজারের প্রোফাইল ছবি / ডিফল্ট লোগো -->
+            <!-- ইউজারের প্রোফাইল ছবি / ডেমো আইকন -->
             <img id="headerUserAvatar" src="prflogo.jpeg" alt="User Avatar" class="user-avatar">
             
             <a href="#">হোম</a>
             <a href="marketplace.html" class="btn-market" style="background: #009a80; color: #fff; padding: 10px 15px; border-radius: 4px; text-decoration: none; display: inline-block; overflow: hidden; width: 140px;">
-    <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
-</a>
+                <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
+            </a>
             <div class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">আমাদের সম্পর্কে ▾</a>
                 <div class="dropdown-content">
                     <a href="#about-section">ডিউড্রপ সম্পর্কে</a>
                     <a href="board.html">পরিচালনা পর্ষদ</a>
-                     <a href="developer.html">ডেভেলপার সম্পর্কে</a>
+                    <a href="developer.html">ডেভেলপার সম্পর্কে</a>
                 </div>
             </div>
              <div class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">তহবিল সেবা ▾</button>
+                <a href="javascript:void(0)" class="dropbtn">তহবিল সেবা ▾</a>
                 <div class="dropdown-content">
-                   <a href="rules.html">নিয়মাবলি</a> 
+                    <a href="rules.html">নিয়মাবলি</a> 
                     <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
-                     <a href="shoppingsignup.html">সদস্য হোন (সাইন-আপ)</a>
+                    <a href="shoppingsignup.html">সদস্য হোন (সাইন-আপ)</a>
                     <a href="dashboard.html">রিপোর্ট দেখুন</a>
                 </div>
             </div>
-            
             
             <a href="login.html" id="navAuthBtn">লগইন</a>
             <a href="signup.html">সাইন আপ</a>
@@ -359,34 +423,74 @@
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSetuzjdN6khHN9-AVMfFWpD11Yn9u1i90lIBsgX8qx1gATkRQ/viewform?usp=header" class="btn">সদস্য হোন</a>
     </div>
 
+    /* ======================================================== */
+    /* --- Start: Custom Promotional Ad / Banner Section ---    */
+    /* ======================================================== */
+    <div class="ad-section-container">
+        <div class="promo-ad-card">
+            <!-- অ্যাড বা স্পন্সরড ট্যাগ -->
+            <span class="ad-badge">বিশেষ বিজ্ঞাপন / প্রমোশন</span>
+
+            <!-- চিকিৎসকের নাম ও পদবি -->
+            <h3>ডা. মতিউর রহমান</h3>
+            <div class="doctor-title">রেজিস্টার্ড হোমিওপ্যাথ ও ডায়েটিশিয়ান[span_1](start_span)[span_1](end_span)</div>
+
+            <!-- চেম্বারের নাম ও ঠিকানা -->
+            <div class="chamber-details">
+                <strong>চেম্বার : সামস হোমিও হল</strong>[span_2](start_span)[span_2](end_span)<br>
+                বাড়ী নং-৬, ব্লক-এ, রোড নং-০১, দক্ষিণ বনশ্রী, সবুজবাগ, ঢাকা।<br>
+                <em>(লেগুনা স্ট্যান্ড উত্তরা ব্যাংকের পরের গলি)</em>[span_3](start_span)[span_3](end_span)<br>
+                📞 মোবাইল: <a href="tel:01913492389" style="color: #0077b6; font-weight: bold;">০১৯১৩-৪৯২৩৮৯</a>[span_4](start_span)[span_4](end_span)
+            </div>
+
+            <!-- রোগী দেখার সময়সূচি -->
+            <div class="chamber-timing">
+                <strong>🏥 রোগী দেখার সময় :</strong><br>
+                রবিবার থেকে শুক্রবার[span_5](start_span)[span_5](end_span)<br>
+                সকাল- ১০টা থেকে দুপুর ১টা এবং বিকাল-বাদ আসর থেকে রাত ১০টা[span_6](start_span)[span_6](end_span)
+            </div>
+
+            <!-- সোশ্যাল মিডিয়া লিংক ও বিশেষ নির্দেশনা -->
+            <div style="font-size: 14px; color: #444; margin-bottom: 10px;">
+                📘 FB: Motiur Rahman | Page: Shams homeo hall | 📺 Dr. Motiur Rahman[span_7](start_span)[span_7](end_span)
+            </div>
+            <div class="ad-footer-note">
+                ⚠️ রোগীর দেখানোর জন্য একদিন আগে সিরিয়াল নিতে হবে এবং পূর্বের সকল টেস্টের রিপোর্ট নিয়ে আসতে হবে।[span_8](start_span)[span_8](end_span)
+            </div>
+        </div>
+    </div>
+    /* ======================================================== */
+    /* --- End: Custom Promotional Ad / Banner Section ---      */
+    /* ======================================================== */
+
     <!-- Features Section -->
-   <div class="features-container">
-    <!-- কার্ড ১: স্বচ্ছ হিসাব-নিকাশ -->
-    <div class="feature-box">
-        <h3>স্বচ্ছ হিসাব-নিকাশ</h3>
-        <p>ফান্ডের প্রতিটি আয়-ব্যয় এবং সদস্যদের হিসাব রাখা হয় সম্পূর্ণ স্বচ্ছতার সাথে।</p>
-    </div>
+    <div class="features-container">
+        <!-- কার্ড ১: স্বচ্ছ হিসাব-নিকাশ -->
+        <div class="feature-box">
+            <h3>স্বচ্ছ হিসাব-নিকাশ</h3>
+            <p>ফান্ডের প্রতিটি আয়-ব্যয় এবং সদস্যদের হিসাব রাখা হয় সম্পূর্ণ স্বচ্ছতার সাথে।</p>
+        </div>
 
-    <!-- কার্ড ২: নিরাপদ সঞ্চয় -->
-    <div class="feature-box">
-        <h3>নিরাপদ সঞ্চয়</h3>
-        <p>সবার সম্মিলিত প্রচেষ্টায় একটি নির্ভরযোগ্য ও সুরক্ষিত আর্থিক ভিত্তি তৈরি করা।</p>
-    </div>
+        <!-- কার্ড ২: নিরাপদ সঞ্চয় -->
+        <div class="feature-box">
+            <h3>নিরাপদ সঞ্চয়</h3>
+            <p>সবার সম্মিলিত প্রচেষ্টায় একটি নির্ভরযোগ্য ও সুরক্ষিত আর্থিক ভিত্তি তৈরি করা।</p>
+        </div>
 
-    <!-- নতুন কার্ড ৩: সঞ্চয় পরিকল্পনা (বাটনসহ) -->
-    <div class="feature-box">
-        <h3>সঞ্চয় পরিকল্পনা</h3>
-        <p>সদস্যদের আর্থিক সামর্থ্য অনুযায়ী ৪টি ভিন্ন মেয়াদী আকর্ষণীয় সঞ্চয় স্কিম।</p>
-        <a href="savings-plan.html" class="feature-btn">প্ল্যান দেখুন</a>
-    </div>
+        <!-- নতুন কার্ড ৩: সঞ্চয় পরিকল্পনা (বাটনসহ) -->
+        <div class="feature-box">
+            <h3>সঞ্চয় পরিকল্পনা</h3>
+            <p>সদস্যদের আর্থিক সামর্থ্য অনুযায়ী ৪টি ভিন্ন মেয়াদী আকর্ষণীয় সঞ্চয় স্কিম।</p>
+            <a href="savings-plan.html" class="feature-btn">প্ল্যান দেখুন</a>
+        </div>
 
-    <!-- কার্ড ৪: সহজ পরিচালনা -->
-    <div class="feature-box">
-        <h3>সহজ পরিচালনা</h3>
-        <p>যেকোনো সময় নিজেদের ফান্ডের বর্তমান অবস্থা ও রিপোর্ট দেখে নেওয়ার সুবিধা।</p>
-        <a href="dashboard.html" class="feature-btn">রিপোর্ট দেখুন</a>
+        <!-- কার্ড ৪: সহজ পরিচালনা -->
+        <div class="feature-box">
+            <h3>সহজ পরিচালনা</h3>
+            <p>যেকোনো সময় নিজেদের ফান্ডের বর্তমান অবস্থা ও রিপোর্ট দেখে নেওয়ার সুবিধা।</p>
+            <a href="dashboard.html" class="feature-btn">রিপোর্ট দেখুন</a>
+        </div>
     </div>
-</div>
 
     <!-- আমাদের সম্পর্কে ও যোগাযোগের সেকশন -->
     <div id="about-section" class="about-section">
