@@ -310,6 +310,217 @@
             grid-template-columns: 1fr;
         }
     }
+.ad-marquee-header {
+    background-color: #0077b6;
+    color: #ffffff;
+    padding: 10px 0;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    margin: 15px 0;
+}
+
+.professional-ad-wrapper {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+.ad-main-card {
+    display: flex;
+    background: #ffffff;
+    border: 2px solid #0077b6;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.ad-main-card.fade-out {
+    opacity: 0;
+}
+
+.ad-left-section {
+    flex: 1;
+    padding: 20px;
+    border-right: 1px dashed #b0c4de;
+    background-color: #fcfcfc;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.doctor-name {
+    font-size: 22px;
+    color: #1d3557;
+    font-weight: bold;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+.doctor-title {
+    color: #d62828;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.chamber-info {
+    font-size: 13.5px;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.chamber-timing {
+    background-color: #f1faee;
+    border-left: 4px solid #2a9d8f;
+    padding: 8px;
+    font-size: 13px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin: 12px 0;
+}
+
+.social-links a {
+    width: 30px;
+    height: 30px;
+    background: #0077b6;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.social-links a:hover {
+    background-color: #d62828;
+}
+
+.ad-warning {
+    font-size: 12px;
+    color: #e63946;
+    font-weight: bold;
+    background: #fff5f5;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #fed7d7;
+    text-align: center;
+}
+
+.ad-right-section {
+    flex: 1.2;
+    padding: 20px;
+    background-color: #ffffff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ad-badge {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background-color: #e76f51;
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.service-page {
+    display: none;
+}
+
+.service-page.active-page {
+    display: block;
+    animation: fadeInPage 0.8s ease-in-out;
+}
+
+@keyframes fadeInPage {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.service-title {
+    font-size: 16px;
+    color: #2b2d42;
+    font-weight: bold;
+    border-bottom: 2px solid #0077b6;
+    padding-bottom: 5px;
+    margin-bottom: 12px;
+}
+
+.service-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 13px;
+    color: #4a4e69;
+    line-height: 1.6;
+}
+
+.service-list li {
+    margin-bottom: 5px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.service-list li::before {
+    content: "▪";
+    color: #e76f51;
+    position: absolute;
+    left: 0;
+}
+
+.ad-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.ctrl-btn {
+    background-color: #e2e8f0;
+    border: none;
+    padding: 5px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #334155;
+    transition: background 0.2s;
+}
+
+.ctrl-btn:hover {
+    background-color: #0077b6;
+    color: white;
+}
+
+.page-indicators {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: bold;
+}
+        
 </style>
 </head>
 <body>
@@ -358,7 +569,97 @@
         <p>সহকর্মীদের সাথে মিলে একটি সুন্দর ভবিষ্যতের জন্য আমাদের এই যৌথ সঞ্চয় উদ্যোগ। স্বচ্ছতা ও পারস্পরিক সহযোগিতার মাধ্যমে আমরা এগিয়ে যেতে চাই।</p>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSetuzjdN6khHN9-AVMfFWpD11Yn9u1i90lIBsgX8qx1gATkRQ/viewform?usp=header" class="btn">সদস্য হোন</a>
     </div>
+<!-- মারকিউ হেডার (যদি হেডার আগেই থাকে, তবে এটি বাদ দিতে পারেন) -->
+<div class="ad-marquee-header">
+    <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
+        📢 Call for your Advertisements | আপনার বিজ্ঞাপনের জন্য যোগাযোগ করুন | DewDrop Joint Savings Fund 📢
+    </marquee>
+</div>
 
+<!-- মূল বিজ্ঞাপন কাঠামো (যা আপনার হোম পেজের বাকী সবকিছুর নিচে ও সদস্য হোন বাটনের পরে শো করবে) -->
+<div class="professional-ad-wrapper">
+    <div class="ad-main-card" id="mainAdCard">
+        
+        <!-- বাম পাশের ফিক্সড সেকশন (ডাক্তার সাহেবের তথ্য) -->
+        <div class="ad-left-section">
+            <div>
+                <h2 class="doctor-name">ডা. মতিউর রহমান</h2>
+                <div class="doctor-title">রেজিস্টার্ড হোমিওপ্যাথ ও ডায়েটিশিয়ান</div>
+                
+                <div class="chamber-info">
+                    <strong>চেম্বার : সামস হোমিও হল</strong><br>
+                    বাড়ী নং-৬, ব্লক-এ, রোড নং-০১, দক্ষিণ বনশ্রী, সবুজবাগ, ঢাকা।<br>
+                    <em>(লেগুনা স্ট্যান্ড উত্তরা ব্যাংকের পরের গলি)</em><br>
+                    📞 <a href="tel:01913492389" style="color: #0077b6; text-decoration: none; font-weight: bold;">০১৯১৩-৪৯২৩৮৯</a>
+                </div>
+
+                <div class="chamber-timing">
+                    <strong>🏥 রোগী দেখার সময় :</strong><br>
+                    রবিবার থেকে শুক্রবার<br>
+                    সকাল- ১০টা থেকে দুপুর ১টা এবং বিকাল-বাদ আসর থেকে রাত ১০টা
+                </div>
+            </div>
+
+            <div>
+                <!-- সোশ্যাল মিডিয়া লোগো ও লিংক -->
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank" title="Facebook Profile"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://facebook.com/page" target="_blank" title="Facebook Page"><i class="fa-solid fa-flag"></i></a>
+                    <a href="https://youtube.com" target="_blank" title="YouTube Channel"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+
+                <!-- সতর্কতা -->
+                <div class="ad-warning">
+                    ⚠️ রোগীর দেখানোর জন্য ১ দিন আগে সিরিয়াল নিতে হবে এবং পূর্বের সকল টেস্টের রিপোর্ট নিয়ে আসতে হবে।
+                </div>
+            </div>
+        </div>
+
+        <!-- ডান পাশের ডাইনামিক পেজ সেকশন -->
+        <div class="ad-right-section" id="adRightContainer">
+            <span class="ad-badge" id="adBadgeText">বিশেষ প্রমোশন</span>
+
+            <!-- পেজ ১: চিকিৎসা সেবা - ১ -->
+            <div class="service-page active-page" data-page="0">
+                <div class="service-title">যে সকল জটিল ও বংশগত রোগের চিকিৎসা (১)</div>
+                <ul class="service-list">
+                    <li><strong>পাকস্থলী ও অন্ত্রের রোগ:</strong> গ্যাস্ট্রিক, আলসার, পিত্তথলির পাথর, পেটব্যথা, মূত্রপাথুরী, আই.বি.স, জন্ডিস, অর্শ/গোজ, ভগন্দর।</li>
+                    <li><strong>নাক, কান, গলা ও চোখের রোগ:</strong> টাইফয়েড জ্বর, কানপাকা, মাম্পস, টনসিল, চোখউঠা, গ্লুকোমা।</li>
+                    <li><strong>চর্ম ও শ্বাসতন্ত্রের রোগ:</strong> ব্রণ, এলার্জি, হাঁপানি, কাশি, সাইনাস ও মাইগ্রেনের মাথাব্যথা।</li>
+                </ul>
+            </div>
+
+            <!-- পেজ ২: চিকিৎসা সেবা - ২ -->
+            <div class="service-page" data-page="1">
+                <div class="service-title">যে সকল জটিল ও বংশগত রোগের চিকিৎসা (২)</div>
+                <ul class="service-list">
+                    <li><strong>স্ত্রী রোগ ও প্রসূতি:</strong> লিউকোরিয়া, অনিয়মিত ঋতুস্রাব, জরায়ু টিউমার, বিয়ের পর বাচ্চা না হওয়া, গর্ভপাত ও জটিলতা।</li>
+                    <li><strong>মেটাবলিক ও হাড়ের রোগ:</strong> ডায়াবেটিস, হার্ট ডিজিজ, ফ্যাটি লিভার, লিভার সিরোসিস, কিডনি ডিজিজ, বাতের ব্যথা।</li>
+                    <li><strong>মস্তিষ্ক ও মানসিক রোগ:</strong> ব্রেন স্ট্রোক, বেলস পালসি, স্পাইনাল ডিস্ক ডিজঅর্ডার, মেনিনজাইটিস, নিউরালজিক ডিজঅর্ডার।</li>
+                </ul>
+            </div>
+
+            <!-- পেজ ৩: ভুল ধারণা ও জবাব -->
+            <div class="service-page" data-page="2">
+                <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
+                <ul class="service-list">
+                    <li><strong>ভুল ধারণা:</strong> যেকোনো রোগের চিকিৎসায় অনেক দীর্ঘ সময় প্রয়োজন।</li>
+                    <li><strong>জবাব:</strong> উচ্চ তাপমাত্রার জ্বর, ডায়ারিয়া, নিউমোনিয়া ২৪-৭২ ঘণ্টার মধ্যেই নিয়মিত আরোগ্য হয় ইনশাআল্লাহ।</li>
+                    <li><strong>দীর্ঘমেয়াদী রোগ:</strong> ৩ যুগ যাবৎ ডায়াবেটিস ও হার্ট ডিজিজের রোগী কিংবা কেমোথেরাপি নেওয়া রোগীর শরীরেও হোমিওপ্যাথি সমান কাজ করে।</li>
+                </ul>
+            </div>
+
+            <!-- কন্ট্রোল বাটন ও পেজ ইন্ডিকেটর -->
+            <div class="ad-controls" id="adFooterControls">
+                <button class="ctrl-btn" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i> পূর্ববর্তী</button>
+                <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ৩ (৩০ সেকেন্ড)</span>
+                <button class="ctrl-btn" onclick="nextPage()">পরবর্তী <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+    </div>
+</div>
+    
     <!-- Features Section -->
    <div class="features-container">
     <!-- কার্ড ১: স্বচ্ছ হিসাব-নিকাশ -->
@@ -476,6 +777,121 @@
                 }
             }
         });
+        let currentPage = 0;
+const totalPages = 3;
+const pageDuration = 30000; // ৩০ সেকেন্ড
+let slideInterval;
+let isFallbackMode = false;
+
+const doctorAdHTML = `
+    <span class="ad-badge" id="adBadgeText">বিশেষ প্রমোশন</span>
+    <div class="service-page active-page" data-page="0">
+        <div class="service-title">যে সকল জটিল ও বংশগত রোগের চিকিৎসা (১)</div>
+        <ul class="service-list">
+            <li><strong>পাকস্থলী ও অন্ত্রের রোগ:</strong> গ্যাস্ট্রিক, আলসার, পিত্তথলির পাথর, পেটব্যথা, মূত্রপাথুরী, আই.বি.স, জন্ডিস, অর্শ/গোজ, ভগন্দর।</li>
+            <li><strong>নাক, কান, গলা ও চোখের রোগ:</strong> টাইফয়েড জ্বর, কানপাকা, মাম্পস, টনসিল, চোখউঠা, গ্লুকোমা।</li>
+            <li><strong>চর্ম ও শ্বাসতন্ত্রের রোগ:</strong> ব্রণ, এলার্জি, হাঁপানি, কাশি, সাইনাস ও মাইগ্রেনের মাথাব্যথা।</li>
+        </ul>
+    </div>
+    <div class="service-page" data-page="1">
+        <div class="service-title">যে সকল জটিল ও বংশগত রোগের চিকিৎসা (২)</div>
+        <ul class="service-list">
+            <li><strong>স্ত্রী রোগ ও প্রসূতি:</strong> লিউকোরিয়া, অনিয়মিত ঋতুস্রাব, জরায়ু টিউমার, বিয়ের পর বাচ্চা না হওয়া, গর্ভপাত ও জটিলতা।</li>
+            <li><strong>মেটাবলিক ও হাড়ের রোগ:</strong> ডায়াবেটিস, হার্ট ডিজিজ, ফ্যাটি লিভার, লিভার সিরোসিস, কিডনি ডিজিজ, বাতের ব্যথা।</li>
+            <li><strong>মস্তিষ্ক ও মানসিক রোগ:</strong> ব্রেন স্ট্রোক, বেলস পালসি, স্পাইনাল ডিস্ক ডিজঅর্ডার, মেনিনজাইটিস, নিউরালজিক ডিজঅর্ডার।</li>
+        </ul>
+    </div>
+    <div class="service-page" data-page="2">
+        <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
+        <ul class="service-list">
+            <li><strong>ভুল ধারণা:</strong> যেকোনো রোগের চিকিৎসায় অনেক দীর্ঘ সময় প্রয়োজন।</li>
+            <li><strong>জবাব:</strong> উচ্চ তাপমাত্রার জ্বর, ডায়ারিয়া, নিউমোনিয়া ২৪-৭২ ঘণ্টার মধ্যেই নিয়মিত আরোগ্য হয় ইনশাআল্লাহ।</li>
+            <li><strong>দীর্ঘমেয়াদী রোগ:</strong> ৩ যুগ যাবৎ ডায়াবেটিস ও হার্ট ডিজিজের রোগী কিংবা কেমোথেরাপি নেওয়া রোগীর শরীরেও হোমিওপ্যাথি সমান কাজ করে।</li>
+        </ul>
+    </div>
+    <div class="ad-controls" id="adFooterControls">
+        <button class="ctrl-btn" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i> পূর্ববর্তী</button>
+        <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ৩ (৩০ সেকেন্ড)</span>
+        <button class="ctrl-btn" onclick="nextPage()">পরবর্তী <i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+`;
+
+function showPage(index) {
+    if (isFallbackMode) return;
+    const pages = document.querySelectorAll('.service-page');
+    if (pages.length === 0) return;
+    
+    pages.forEach(p => p.classList.remove('active-page'));
+    currentPage = (index + totalPages) % totalPages;
+    pages[currentPage].classList.add('active-page');
+    
+    const indicator = document.getElementById('pageIndicatorText');
+    if (indicator) {
+        indicator.innerText = `পেজ ${currentPage + 1} / ${totalPages} (${pageDuration/1000} সে.)`;
+    }
+}
+
+function nextPage() {
+    if (!isFallbackMode) {
+        showPage(currentPage + 1);
+        resetTimer();
+    }
+}
+
+function prevPage() {
+    if (!isFallbackMode) {
+        showPage(currentPage - 1);
+        resetTimer();
+    }
+}
+
+function autoSlide() {
+    if (!isFallbackMode) {
+        if (currentPage < totalPages - 1) {
+            showPage(currentPage + 1);
+        } else {
+            triggerFadeOutAndSwitch();
+        }
+    } else {
+        triggerFadeOutAndSwitch();
+    }
+}
+
+function triggerFadeOutAndSwitch() {
+    const card = document.getElementById('mainAdCard');
+    if (!card) return;
+    card.classList.add('fade-out');
+
+    setTimeout(() => {
+        const rightSec = document.getElementById('adRightContainer');
+        if (!rightSec) return;
+        
+        if (!isFallbackMode) {
+            isFallbackMode = true;
+            rightSec.innerHTML = `
+                <span class="ad-badge" style="background-color: #2a9d8f;">বিজ্ঞাপন খালি আছে</span>
+                <div style="text-align: center; margin: auto; padding: 20px;">
+                    <h2 style="color: #0077b6; margin-bottom: 10px; font-size: 22px;">Live Your Advertisements</h2>
+                    <p style="font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.5;">আপনার বা আপনার প্রতিষ্ঠানের আকর্ষণীয় বিজ্ঞাপনটি এখানে প্রচার করতে আজই আমাদের সাথে যোগাযোগ করুন।</p>
+                    <a href="tel:01913492389" style="background: #e76f51; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-block;">Call for Ad</a>
+                </div>
+            `;
+        } else {
+            isFallbackMode = false;
+            rightSec.innerHTML = doctorAdHTML;
+            currentPage = 0;
+        }
+
+        card.classList.remove('fade-out');
+    }, 1500);
+}
+
+function resetTimer() {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(autoSlide, pageDuration);
+}
+
+slideInterval = setInterval(autoSlide, pageDuration);
     </script>
     
 </body>
