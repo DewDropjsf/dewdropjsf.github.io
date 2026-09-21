@@ -3,31 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Dynamic Advertisement Banner</title>
-    <!-- FontAwesome for Social Icons -->
+    <title>Professional Dynamic Advertisement</title>
+    <!-- ফন্ট-অসম আইকন সিডিএন (FontAwesome Icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         /* ======================================================== */
-        /* --- Top Marquee Header Styles ---                      */
+        /* --- Professional Dynamic Ad Banner Styles ---            */
         /* ======================================================== */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            font-family: 'SolaimanLipi', Arial, sans-serif;
+        }
+
         .ad-marquee-header {
             background-color: #0077b6;
             color: #ffffff;
-            padding: 8px 0;
+            padding: 10px 0;
             font-size: 15px;
             font-weight: bold;
-            font-family: 'SolaimanLipi', sans-serif;
+            text-align: center;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
 
-        /* ======================================================== */
-        /* --- Main Ad Container & Fade Transition Styles ---       */
-        /* ======================================================== */
         .professional-ad-wrapper {
             max-width: 900px;
-            margin: 30px auto;
+            margin: 20px auto;
             padding: 10px;
-            font-family: 'SolaimanLipi', sans-serif;
         }
 
         .ad-main-card {
@@ -46,9 +51,6 @@
             opacity: 0;
         }
 
-        /* ======================================================== */
-        /* --- Left Column: Fixed Content Styles ---                */
-        /* ======================================================== */
         .ad-left-section {
             flex: 1;
             padding: 20px;
@@ -91,22 +93,20 @@
             margin-bottom: 10px;
         }
 
-        /* Social Icons */
         .social-links {
             display: flex;
-            gap: 10px;
-            align-items: center;
+            gap: 12px;
             justify-content: center;
-            margin: 10px 0;
+            margin: 12px 0;
         }
 
         .social-links a {
-            display: inline-flex;
-            width: 32px;
-            height: 32px;
-            background-color: #0077b6;
+            width: 30px;
+            height: 30px;
+            background: #0077b6;
             color: white;
             border-radius: 50%;
+            display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
@@ -129,9 +129,6 @@
             text-align: center;
         }
 
-        /* ======================================================== */
-        /* --- Right Column: Dynamic Pages Styles ---               */
-        /* ======================================================== */
         .ad-right-section {
             flex: 1.2;
             padding: 20px;
@@ -156,12 +153,12 @@
         }
 
         .service-page {
-            display: none; /* জাভাস্ক্রিপ্ট দিয়ে একটি করে পেজ দেখানো হবে */
-            animation: fadeInPage 0.8s ease-in-out;
+            display: none;
         }
 
         .service-page.active-page {
             display: block;
+            animation: fadeInPage 0.8s ease-in-out;
         }
 
         @keyframes fadeInPage {
@@ -200,7 +197,6 @@
             left: 0;
         }
 
-        /* --- Manual Navigation Buttons --- */
         .ad-controls {
             display: flex;
             justify-content: space-between;
@@ -236,7 +232,7 @@
 </head>
 <body>
 
-    <!-- ১. প্রথম রোতে মারকিউ স্টাইল -->
+    <!-- মারকিউ হেডার -->
     <div class="ad-marquee-header">
         <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
             📢 Call for your Advertisements | আপনার বিজ্ঞাপনের জন্য যোগাযোগ করুন | DewDrop Joint Savings Fund 📢
@@ -247,7 +243,7 @@
     <div class="professional-ad-wrapper">
         <div class="ad-main-card" id="mainAdCard">
             
-            <!-- ৩. বাম পাশের ফিক্সড সেকশন -->
+            <!-- বাম পাশের ফিক্সড সেকশন (ডাক্তার সাহেবের তথ্য) -->
             <div class="ad-left-section">
                 <div>
                     <h2 class="doctor-name">ডা. মতিউর রহমান</h2>
@@ -268,22 +264,22 @@
                 </div>
 
                 <div>
-                    <!-- ৪. বিভিন্ন সোশ্যাল মিডিয়া লোগো ও লিংক -->
+                    <!-- সোশ্যাল মিডিয়া লোগো ও লিংক -->
                     <div class="social-links">
                         <a href="https://facebook.com" target="_blank" title="Facebook Profile"><i class="fa-brands fa-facebook-f"></i></a>
                         <a href="https://facebook.com/page" target="_blank" title="Facebook Page"><i class="fa-solid fa-flag"></i></a>
                         <a href="https://youtube.com" target="_blank" title="YouTube Channel"><i class="fa-brands fa-youtube"></i></a>
                     </div>
 
-                    <!-- ৫. সর্বশেষ সতর্কতা -->
+                    <!-- সতর্কতা -->
                     <div class="ad-warning">
                         ⚠️ রোগীর দেখানোর জন্য ১ দিন আগে সিরিয়াল নিতে হবে এবং পূর্বের সকল টেস্টের রিপোর্ট নিয়ে আসতে হবে।
                     </div>
                 </div>
             </div>
 
-            <!-- ডান পাশের ডাইনামিক পেজ সেকশন (চিকিৎসা সেবা ও ভুল ধারণা) -->
-            <div class="ad-right-section">
+            <!-- ডান পাশের ডাইনামিক পেজ সেকশন -->
+            <div class="ad-right-section" id="adRightContainer">
                 <span class="ad-badge" id="adBadgeText">বিশেষ প্রমোশন</span>
 
                 <!-- পেজ ১: চিকিৎসা সেবা - ১ -->
@@ -317,7 +313,7 @@
                 </div>
 
                 <!-- কন্ট্রোল বাটন ও পেজ ইন্ডিকেটর -->
-                <div class="ad-controls">
+                <div class="ad-controls" id="adFooterControls">
                     <button class="ctrl-btn" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i> পূর্ববর্তী</button>
                     <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ৩ (৩০ সেকেন্ড)</span>
                     <button class="ctrl-btn" onclick="nextPage()">পরবর্তী <i class="fa-solid fa-chevron-right"></i></button>
@@ -327,76 +323,117 @@
         </div>
     </div>
 
-    <!-- ট্রানজিশন ও টাইমিং লজিক স্ক্রিপ্ট -->
+    <!-- জাভাস্ক্রিপ্ট লজিক -->
     <script>
         let currentPage = 0;
         const totalPages = 3;
         const pageDuration = 30000; // প্রতি পেজ ৩০ সেকেন্ড (মোট ৯০ সেকেন্ড)
         let slideInterval;
-        let isDefaultAd = false; // এখানে ফলব্যাক বা অন্য এড চেক করার ফ্ল্যাগ রাখতে পারেন
+        let isFallbackMode = false; // ফলব্যাক মোড ট্র্যাক করার জন্য
+
+        // ডাক্তার বিজ্ঞাপনের কনটেন্ট টেমপ্লেট
+        const doctorAdHTML = `
+            <span class="ad-badge" id="adBadgeText">বিশেষ প্রমোশন</span>
+            <div class="service-page active-page" data-page="0">
+                <div class="service-title">যে সকল জটিল ও বংশগত রোগের চিকিৎসা (১)</div>
+                <ul class="service-list">
+                    <li><strong>পাকস্থলী ও অন্ত্রের রোগ:</strong> গ্যাস্ট্রিক, আলসার, পিত্তথলির পাথর, পেটব্যথা, মূত্রপাথুরী, আই.বি.স, জন্ডিস, অর্শ/গোজ, ভগন্দর।</li>
+                    <li><strong>নাক, কান, গলা ও চোখের রোগ:</strong> টাইফয়েড জ্বর, কানপাকা, মাম্পস, টনসিল, চোখউঠা, গ্লুকোমা।</li>
+                    <li><strong>চর্ম ও শ্বাসতন্ত্রের রোগ:</strong> ব্রণ, এলার্জি, হাঁপানি, কাশি, সাইনাস ও মাইগ্রেনের মাথাব্যথা।</li>
+                </ul>
+            </div>
+            <div class="service-page" data-page="1">
+                <div class="service-title">যে সকল জটিল ও বংশগত রোগের চিকিৎসা (২)</div>
+                <ul class="service-list">
+                    <li><strong>স্ত্রী রোগ ও প্রসূতি:</strong> লিউকোরিয়া, অনিয়মিত ঋতুস্রাব, জরায়ু টিউমার, বিয়ের পর বাচ্চা না হওয়া, গর্ভপাত ও জটিলতা।</li>
+                    <li><strong>মেটাবলিক ও হাড়ের রোগ:</strong> ডায়াবেটিস, হার্ট ডিজিজ, ফ্যাটি লিভার, লিভার সিরোসিস, কিডনি ডিজিজ, বাতের ব্যথা।</li>
+                    <li><strong>মস্তিষ্ক ও মানসিক রোগ:</strong> ব্রেন স্ট্রোক, বেলস পালসি, স্পাইনাল ডিস্ক ডিজঅর্ডার, মেনিনজাইটিস, নিউরালজিক ডিজঅর্ডার।</li>
+                </ul>
+            </div>
+            <div class="service-page" data-page="2">
+                <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
+                <ul class="service-list">
+                    <li><strong>ভুল ধারণা:</strong> যেকোনো রোগের চিকিৎসায় অনেক দীর্ঘ সময় প্রয়োজন।</li>
+                    <li><strong>জবাব:</strong> উচ্চ তাপমাত্রার জ্বর, ডায়ারিয়া, নিউমোনিয়া ২৪-৭২ ঘণ্টার মধ্যেই নিয়মিত আরোগ্য হয় ইনশাআল্লাহ।</li>
+                    <li><strong>দীর্ঘমেয়াদী রোগ:</strong> ৩ যুগ যাবৎ ডায়াবেটিস ও হার্ট ডিজিজের রোগী কিংবা কেমোথেরাপি নেওয়া রোগীর শরীরেও হোমিওপ্যাথি সমান কাজ করে।</li>
+                </ul>
+            </div>
+            <div class="ad-controls" id="adFooterControls">
+                <button class="ctrl-btn" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i> পূর্ববর্তী</button>
+                <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ৩ (৩০ সেকেন্ড)</span>
+                <button class="ctrl-btn" onclick="nextPage()">পরবর্তী <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        `;
 
         function showPage(index) {
+            if (isFallbackMode) return;
             const pages = document.querySelectorAll('.service-page');
-            pages.forEach(p => p.classList.remove('active-page'));
+            if (pages.length === 0) return;
             
+            pages.forEach(p => p.classList.remove('active-page'));
             currentPage = (index + totalPages) % totalPages;
             pages[currentPage].classList.add('active-page');
             
-            document.getElementById('pageIndicatorText').innerText = `পেজ ${currentPage + 1} / ${totalPages} (${pageDuration/1000} সে.)`;
+            const indicator = document.getElementById('pageIndicatorText');
+            if (indicator) {
+                indicator.innerText = `পেজ ${currentPage + 1} / ${totalPages} (${pageDuration/1000} সে.)`;
+            }
         }
 
         function nextPage() {
-            showPage(currentPage + 1);
-            resetTimer();
+            if (!isFallbackMode) {
+                showPage(currentPage + 1);
+                resetTimer();
+            }
         }
 
         function prevPage() {
-            showPage(currentPage - 1);
-            resetTimer();
+            if (!isFallbackMode) {
+                showPage(currentPage - 1);
+                resetTimer();
+            }
         }
 
         // অটো স্লাইড উইথ ৯০ সেকেন্ড সাইকেল লজিক
         function autoSlide() {
-            if (currentPage < totalPages - 1) {
-                showPage(currentPage + 1);
+            if (!isFallbackMode) {
+                if (currentPage < totalPages - 1) {
+                    showPage(currentPage + 1);
+                } else {
+                    triggerFadeOutAndSwitch();
+                }
             } else {
-                // ৯০ সেকেন্ড পূর্ণ হওয়ার পর ফেড আউট ইফেক্ট শুরু করা
-                triggerFadeOutAndReset();
+                triggerFadeOutAndSwitch();
             }
         }
 
-        function triggerFadeOutAndReset() {
+        function triggerFadeOutAndSwitch() {
             const card = document.getElementById('mainAdCard');
-            card.classList.add('fade-out'); // ধীরে ধীরে ঝাপসা হওয়া
+            card.classList.add('fade-out'); // ফেড আউট হওয়া
 
             setTimeout(() => {
-                // এখানে যদি অন্য কোনো প্রতিষ্ঠানের এড থাকে তা লোড করতে পারেন, 
-                // অথবা ডিফল্ট "Call for Ad" / "Live Your Advertisements" দেখাতে পারেন।
-                if (isDefaultAd) {
-                    // ডাক্তার সাহেবের এড ফিরিয়ে আনা
-                    document.getElementById('adBadgeText').innerText = "বিশেষ প্রমোশন";
-                    showPage(0);
+                const rightSec = document.getElementById('adRightContainer');
+                
+                if (!isFallbackMode) {
+                    // ৯০ সেকেন্ড পর ফলব্যাক বা খালি বিজ্ঞাপনের স্লট দেখানো
+                    isFallbackMode = true;
+                    rightSec.innerHTML = `
+                        <span class="ad-badge" style="background-color: #2a9d8f;">বিজ্ঞাপন খালি আছে</span>
+                        <div style="text-align: center; margin: auto; padding: 20px;">
+                            <h2 style="color: #0077b6; margin-bottom: 10px; font-size: 22px;">Live Your Advertisements</h2>
+                            <p style="font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.5;">আপনার বা আপনার প্রতিষ্ঠানের আকর্ষণীয় বিজ্ঞাপনটি এখানে প্রচার করতে আজই আমাদের সাথে যোগাযোগ করুন।</p>
+                            <a href="tel:01913492389" style="background: #e76f51; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-block;">Call for Ad</a>
+                        </div>
+                    `;
                 } else {
-                    // ফলব্যাক বা ডিফল্ট মোড (Call for Ad)
-                    setFallbackDefaultAd();
+                    // পুনরায় আবার প্রথম বিজ্ঞাপনে ফিরে আসা এবং লুপ চালু রাখা
+                    isFallbackMode = false;
+                    rightSec.innerHTML = doctorAdHTML;
+                    currentPage = 0;
                 }
 
-                card.classList.remove('fade-out'); // আবার ঝাপসা থেকে স্পষ্ট হওয়া (Fade In)
-            }, 1500); // ১.৫ সেকেন্ড ফেড ট্রানজিশন সময়
-        }
-
-        function setFallbackDefaultAd() {
-            document.getElementById('adBadgeText').innerText = "বিজ্ঞাপন খালি আছে";
-            // আপনি চাইলে ডান বা বাম পাশের কন্টেন্ট পরিবর্তন করে "Call for Ad" ও "Live Your Advertisements" বসাতে পারেন
-            const rightSec = document.querySelector('.ad-right-section');
-            rightSec.innerHTML = `
-                <div style="text-align: center; margin: auto; padding: 20px;">
-                    <h2 style="color: #0077b6; margin-bottom: 10px;">Live Your Advertisements</h2>
-                    <p style="font-size: 16px; color: #555; margin-bottom: 20px;">আপনার বা আপনার প্রতিষ্ঠানের বিজ্ঞাপন এখানে প্রচার করতে আজই যোগাযোগ করুন।</p>
-                    <a href="tel:01913492389" style="background: #e76f51; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">Call for Ad</a>
-                </div>
-            `;
-            isDefaultAd = true;
+                card.classList.remove('fade-out'); // ফেড ইন বা স্পষ্ট হওয়া
+            }, 1500);
         }
 
         function resetTimer() {
