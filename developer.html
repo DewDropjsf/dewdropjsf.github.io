@@ -225,12 +225,29 @@
                 Website Developed by <strong>Md Tanjim Islam</strong>
             </div>
         </div>
+        
         <!-- ট্রায়াল রুম বাটন (এখানে যুক্ত করা হলো) -->
-<div style="text-align: right; margin-top: 8px; border-top: 1px solid #e2e8f0; padding-top: 6px;">
-    <a href="#" style="font-size: 11px; color: #94a3b8; text-decoration: none;">
+        
+<div style="text-align: right; margin-top: 8px; border-top: 1px solid #e2e8f0; padding-top: 6px; font-size: 13px; color: #475569;">
+    Website Developed by <strong>Md Tanjim Islam</strong><br>
+    <span style="font-size: 12px; color: #64748b;">© २०२৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।</span>
+    <br>
+    <!-- পাসওয়ার্ড প্রটেক্টেড ট্রায়াল রুম লিংক -->
+    <a href="javascript:void(0);" onclick="checkPassword()" style="font-size: 11px; color: #94a3b8; text-decoration: none;">
         🧪 TrialRoom
     </a>
 </div>
+
+<script>
+function checkPassword() {
+    let password = prompt("অনুগ্রহ করে পাসওয়ার্ড দিন:");
+    if (password === "197788") { 
+        window.location.href = "trial.html";
+    } else if (password !== null) {
+        alert("ভুল পাসওয়ার্ড! প্রবেশাধিকার সংরক্ষিত।");
+    }
+}
+</script>
     </div>
 
 </body>
