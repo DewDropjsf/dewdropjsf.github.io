@@ -236,12 +236,49 @@
         <div class="footer-action-area">
             <a href="index.html" class="btn-home">হোম পেজে ফিরে যান</a>
              <!-- ট্রায়াল রুম বাটন (এখানে যুক্ত করা হলো) -->
-            <div style="font-size: 13px; color: #475569; text-align: right;">
-                    <a href="javascript:void(0);" onclick="checkPassword()" style="font-size: 15px; color: #94a3b8; text-decoration: none;">
+            <div style="text-align: right; margin-top: 8px; border-top: 1px solid #e2e8f0; padding-top: 6px; font-size: 13px; color: #475569;">
+    Website Developed by <strong>Md Tanjim Islam</strong><br>
+    <span style="font-size: 12px; color: #64748b;">© २०२৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।</span>
+    <br>
+    <!-- পাসওয়ার্ড প্রটেক্টেড ট্রায়াল রুম লিংক -->
+    <a href="javascript:void(0);" onclick="openPasswordModal()" style="font-size: 11px; color: #94a3b8; text-decoration: none;">
         🧪 TrialRoom
     </a>
-            </div>
-        </div>
+</div>
+
+<!-- পাসওয়ার্ড চাওয়ার সুন্দর পপ-আপ বক্স (Modal) -->
+<div id="passwordModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); text-align: center; width: 280px;">
+        <h3 style="margin-top: 0; color: #333; font-size: 16px;">সিক্রেট পাসওয়ার্ড দিন</h3>
+        <!-- এখানে type="password" দেওয়ার কারণে অক্ষরগুলো ডট (***) দেখাবে -->
+        <input type="password" id="trialPasswordInput" placeholder="পাসওয়ার্ড লিখুন..." style="width: 85%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+        <br>
+        <button onclick="verifyPassword()" style="background: #0077b6; color: white; border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">প্রবেশ করুন</button>
+        <button onclick="closePasswordModal()" style="background: #ccc; color: #333; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; margin-left: 5px;">বাতিল</button>
+    </div>
+</div>
+
+<script>
+function openPasswordModal() {
+    document.getElementById('passwordModal').style.display = 'flex';
+    document.getElementById('trialPasswordInput').value = '';
+    document.getElementById('trialPasswordInput').focus();
+}
+
+function closePasswordModal() {
+    document.getElementById('passwordModal').style.display = 'none';
+}
+
+function verifyPassword() {
+    let pass = document.getElementById('trialPasswordInput').value;
+    if (pass === "1234") { // এখানে আপনার কাঙ্ক্ষিত পাসওয়ার্ড দিতে পারেন
+        window.location.href = "trial.html";
+    } else {
+        alert("ভুল পাসওয়ার্ড! প্রবেশাধিকার সংরক্ষিত।");
+        document.getElementById('trialPasswordInput').value = '';
+    }
+}
+</script>
         
        
      <!-- ৩. ফুটার -->
@@ -254,16 +291,7 @@
     <!-- পাসওয়ার্ড প্রটেক্টেড ট্রায়াল রুম লিংক -->
 </div>
 
-<script>
-function checkPassword() {
-    let password = prompt("অনুগ্রহ করে পাসওয়ার্ড দিন:");
-    if (password === "197788") { 
-        window.location.href = "trial.html";
-    } else if (password !== null) {
-        alert("ভুল পাসওয়ার্ড! প্রবেশাধিকার সংরক্ষিত।");
-    }
-}
-</script>
+
     </div>
 
 </body>
