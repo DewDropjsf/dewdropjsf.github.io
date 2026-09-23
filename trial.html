@@ -326,7 +326,6 @@
         background: #023D54;
     }
 
-    /* মারকিউ অংশ এখন টেবিলের নিজস্ব কাঠামোর ভেতরে সীমাবদ্ধ */
     .ad-table-marquee {
         background-color: #0077b6;
         color: #ffffff;
@@ -375,6 +374,42 @@
         color: #C0D2E6;
         line-height: 1.5;
         margin-bottom: 10px;
+    }
+
+    /* --- ফাইবার/ফোন লোগো অ্যানিমেশন ও লাল রঙ স্টাইল --- */
+    .vibrant-phone-icon {
+        color: #ff4d4d !important; /* পিসিতে বা সব জায়গায় লাল রঙ নিশ্চিত করতে */
+        display: inline-block;
+        animation: shakePhone 1.2s infinite ease-in-out;
+    }
+
+    @keyframes shakePhone {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        15% { transform: translate(-2px, 2px) rotate(-10deg); }
+        30% { transform: translate(2px, -2px) rotate(10deg); }
+        45% { transform: translate(-2px, -1px) rotate(-10deg); }
+        60% { transform: translate(2px, 2px) rotate(10deg); }
+        75% { transform: translate(0, 0) rotate(0deg); }
+        100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    /* --- WhatsApp লোগো স্টাইল --- */
+    .whatsapp-icon-link {
+        display: inline-flex;
+        align-items: center;
+        margin-left: 8px;
+        vertical-align: middle;
+    }
+
+    .whatsapp-logo-img {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+        transition: transform 0.2s ease;
+    }
+
+    .whatsapp-logo-img:hover {
+        transform: scale(1.15);
     }
 
     .chamber-timing {
@@ -431,7 +466,6 @@
         transition: background-color 0.5s ease;
     }
         
-    /* পেজ ভেদে ভিন্ন ব্যাকগ্রাউন্ড কালার */
     .bg-page-0 { background-color: #57d9c9; }
     .bg-page-1 { background-color: #a8dadc; }
     .bg-page-2 { background-color: #f1faee; }
@@ -450,7 +484,6 @@
         text-transform: uppercase;
     }
 
-    /* ডান দিক থেকে স্লাইড অ্যানিমেশন 효과 */
     .service-page {
         display: none;
         opacity: 0;
@@ -581,11 +614,10 @@
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSetuzjdN6khHN9-AVMfFWpD11Yn9u1i90lIBsgX8qx1gATkRQ/viewform?usp=header" class="btn">সদস্য হোন</a>
     </div>
 
-    <!-- মূল বিজ্ঞাপন কাঠামো (টেবিলের ভেতরে মারকিউসহ) -->
+    <!-- মূল বিজ্ঞাপন কাঠামো -->
     <div class="professional-ad-wrapper">
         <div class="ad-card-container">
             
-            <!-- ১. মারকিউ হেডার (এখন টেবিলের বাউন্ডারির ভেতরে সীমাবদ্ধ) -->
             <div class="ad-table-marquee">
                 <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
                     📢 Call for your Advertisements | আপনার বিজ্ঞাপনের জন্য যোগাযোগ করুন | DewDrop Joint Savings Fund 📢
@@ -594,7 +626,7 @@
 
             <div class="ad-main-card" id="mainAdCard">
                 
-                <!-- বাম পাশের ফিক্সড সেকশন (ডাক্তার সাহেবের তথ্য ও লোগো) -->
+                <!-- বাম পাশের ফিক্সড সেকশন -->
                 <div class="ad-left-section">
                     <div>
                         <h2 class="doctor-name">ডা. মতিউর রহমান</h2>
@@ -605,7 +637,14 @@
                             <strong>চেম্বার : সামস হোমিও হল</strong><br>
                             বাড়ী নং-৬, ব্লক-এ, রোড নং-০১, দক্ষিণ বনশ্রী, সবুজবাগ, ঢাকা।<br>
                             <em>(লেগুনা স্ট্যান্ড উত্তরা ব্যাংকের পরের গলি)</em><br>
-                            📞 <a href="tel:01913492389" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01913492389</a>
+                            
+                            <!-- এখানে অ্যানিমেটেড লাল ফোন লোগো এবং হোয়াটসঅ্যাপ লোগো যুক্ত করা হয়েছে -->
+                            <span class="vibrant-phone-icon">📞</span> 
+                            <a href="tel:01913492389" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01913492389</a>
+                            
+                            <a href="https://wa.me/8801913492389" target="_blank" class="whatsapp-icon-link" title="WhatsApp এ যোগাযোগ করুন">
+                                <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
+                            </a>
                         </div>
 
                         <div class="chamber-timing">
@@ -616,7 +655,6 @@
                     </div>
 
                     <div>
-                        <!-- ফেসবুক ও ইউটিউব লোগো সংযোজন (GitHub থেকে ফাইল ও আসল লিংকসহ) -->
                         <div class="social-links">
                             <a href="https://www.facebook.com/share/1Eh8YcZ6cr/" target="_blank" title="Facebook">
                                 <img src="fblogo.png" alt="Facebook" class="social-logo">
@@ -626,7 +664,6 @@
                             </a>
                         </div>
 
-                        <!-- সতর্কতা -->
                         <div class="ad-warning">
                             ⚠️ রোগীর দেখানোর জন্য ১ দিন আগে সিরিয়াল নিতে হবে এবং পূর্বের সকল টেস্টের রিপোর্ট নিয়ে আসতে হবে।
                         </div>
@@ -637,7 +674,6 @@
                 <div class="ad-right-section bg-page-0" id="adRightContainer">
                     <span class="ad-badge" id="adBadgeText">বিশেষ প্রমোশন</span>
 
-                    <!-- পেজ ১: চিকিৎসা সেবা - ১ -->
                     <div class="service-page active-page" data-page="0">
                         <div class="service-title">(০১) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
                         <ul class="service-list">
@@ -647,7 +683,6 @@
                         </ul>
                     </div>
 
-                    <!-- পেজ ২: চিকিৎসা সেবা - ২ -->
                     <div class="service-page" data-page="1">
                         <div class="service-title">(০২) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
                         <ul class="service-list">
@@ -657,7 +692,6 @@
                         </ul>
                     </div>
 
-                    <!-- পেজ ৩: ভুল ধারণা ও জবাব -->
                     <div class="service-page" data-page="2">
                         <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
                         <ul class="service-list">
@@ -667,7 +701,6 @@
                         </ul>
                     </div>
 
-                    <!-- কন্ট্রোল বাটন ও পেজ ইন্ডিকেটর -->
                     <div class="ad-controls" id="adFooterControls">
                         <button class="ctrl-btn" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i> পূর্ববর্তী</button>
                         <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ৩</span>
@@ -828,7 +861,6 @@
             const rightSec = document.getElementById('adRightContainer');
             if (!rightSec) return;
             
-            // সব ব্যাকগ্রাউন্ড ক্লাস রিমूव করা
             rightSec.classList.remove('bg-page-0', 'bg-page-1', 'bg-page-2', 'bg-empty');
 
             if (isFallback) {
