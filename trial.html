@@ -310,221 +310,231 @@
             grid-template-columns: 1fr;
         }
     }
-.ad-marquee-header {
-    background-color: #0077b6;
-    color: #ffffff;
-    padding: 10px 0;
-    font-size: 15px;
-    font-weight: bold;
-    text-align: center;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-    margin: 15px 0;
-}
 
-.professional-ad-wrapper {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 10px;
-}
+    /* --- Professional Advertisement Wrapper & Marquee --- */
+    .professional-ad-wrapper {
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 10px;
+    }
+
+    .ad-card-container {
+        border: 2px solid #0077b6;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        background: #023D54;
+    }
+
+    /* মারকিউ অংশ এখন টেবিলের নিজস্ব কাঠামোর ভেতরে সীমাবদ্ধ */
+    .ad-table-marquee {
+        background-color: #0077b6;
+        color: #ffffff;
+        padding: 8px 10px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        border-bottom: 1px solid #005f73;
+    }
         
-/*---ad.Left Hand Side---*/
-.ad-main-card {
-    display: flex;
-    background: #023D54;
-    border: 2px solid #0077b6;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    position: relative;
-    overflow: hidden;
-    opacity: 1;
-    transition: opacity 1.5s ease-in-out;
-}
+    /* --- Ad Main Card Layout --- */
+    .ad-main-card {
+        display: flex;
+        position: relative;
+        overflow: hidden;
+    }
 
-.ad-main-card.fade-out {
-    opacity: 0;
-}
+    .ad-left-section {
+        flex: 1;
+        padding: 20px;
+        border-right: 1px dashed #b0c4de;
+        background-color: #023D54;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
-.ad-left-section {
-    flex: 1;
-    padding: 20px;
-    border-right: 1px dashed #b0c4de;
-    background-color: A44BA3;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+    .doctor-name {
+        font-size: 22px;
+        color: #94DEA5;
+        font-weight: bold;
+        margin-bottom: 2px;
+        text-align: center;
+    }
 
-.doctor-name {
-    font-size: 22px;
-    color: #94DEA5;
-    font-weight: bold;
-    margin-bottom: 2px;
-    text-align: center;
-}
+    .doctor-title {
+        color: #ffff66;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 12px;
+        text-align: center;
+    }
 
-.doctor-title {
-    color: #ffff66;
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 12px;
-    text-align: center;
-}
+    .chamber-info {
+        font-size: 13.5px;
+        color: #C0D2E6;
+        line-height: 1.5;
+        margin-bottom: 10px;
+    }
 
-.chamber-info {
-    font-size: 13.5px;
-    color: #C0D2E6;
-    line-height: 1.5;
-    margin-bottom: 10px;
-}
+    .chamber-timing {
+        background-color: #baeafd;
+        border-left: 4px solid #2a9d8f;
+        padding: 8px;
+        font-size: 13px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        color: #001219;
+    }
 
-.chamber-timing {
-    background-color: #baeafd;
-    border-left: 4px solid #2a9d8f;
-    padding: 8px;
-    font-size: 13px;
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
+    /* সোশ্যাল মিডিয়া লোগো স্টাইল */
+    .social-links {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin: 12px 0;
+        align-items: center;
+    }
 
-.social-links {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    margin: 12px 0;
-}
+    .social-logo {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
 
-.social-links a {
-    width: 30px;
-    height: 30px;
-    background: #0077b6;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 14px;
-    transition: background 0.3s;
-}
+    .social-logo:hover {
+        transform: scale(1.1);
+    }
 
-.social-links a:hover {
-    background-color: #d62828;
-}
+    .ad-warning {
+        font-size: 12px;
+        color: #e63946;
+        font-weight: bold;
+        background: #baeafd;
+        padding: 6px;
+        border-radius: 4px;
+        border: 1px solid #fed7d7;
+        text-align: center;
+    }
 
-.ad-warning {
-    font-size: 12px;
-    color: #e63946;
-    font-weight: bold;
-    background: #baeafd;
-    padding: 6px;
-    border-radius: 4px;
-    border: 1px solid #fed7d7;
-    text-align: center;
-}
-
-        /*----ad.Right Hand Side---*/
-.ad-right-section {
-    flex: 1.2;
-    padding: 20px;
-    background-color: #57d9c9;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+    /* --- Ad Right Hand Side & Dynamic Backgrounds --- */
+    .ad-right-section {
+        flex: 1.2;
+        padding: 20px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: background-color 0.5s ease;
+    }
         
-/*---Ad.SideNote----*/
-.ad-badge {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background-color: #e76f51;
-    color: white;
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
+    /* পেজ ভেদে ভিন্ন ব্যাকগ্রাউন্ড কালার */
+    .bg-page-0 { background-color: #57d9c9; }
+    .bg-page-1 { background-color: #a8dadc; }
+    .bg-page-2 { background-color: #f1faee; }
+    .bg-empty  { background-color: #e2e8f0; }
 
-.service-page {
-    display: none;
-}
+    .ad-badge {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        background-color: #e76f51;
+        color: white;
+        font-size: 10px;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
 
-.service-page.active-page {
-    display: block;
-    animation: fadeInPage 0.8s ease-in-out;
-}
+    /* ডান দিক থেকে স্লাইড অ্যানিমেশন 효과 */
+    .service-page {
+        display: none;
+        opacity: 0;
+    }
 
-@keyframes fadeInPage {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+    .service-page.active-page {
+        display: block;
+        animation: slideInFromRight 0.8s forwards ease-in-out;
+    }
 
-.service-title {
-    font-size: 20px;
-    color: #2b2d42;
-    font-weight: bold;
-    border-bottom: 2px solid #0077b6;
-    padding-bottom: 5px;
-    margin-bottom: 12px;
-}
+    @keyframes slideInFromRight {
+        0% {
+            opacity: 0;
+            transform: translateX(60px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
 
-.service-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 16px;
-    color: #4a4e69;
-    line-height: 1.6;
-}
+    .service-title {
+        font-size: 20px;
+        color: #2b2d42;
+        font-weight: bold;
+        border-bottom: 2px solid #0077b6;
+        padding-bottom: 5px;
+        margin-bottom: 12px;
+    }
 
-.service-list li {
-    margin-bottom: 5px;
-    position: relative;
-    padding-left: 15px;
-}
+    .service-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 15px;
+        color: #2b2d42;
+        line-height: 1.6;
+    }
 
-.service-list li::before {
-    content: "▪";
-    color: #e76f51;
-    position: absolute;
-    left: 0;
-}
+    .service-list li {
+        margin-bottom: 8px;
+        position: relative;
+        padding-left: 15px;
+    }
 
-.ad-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
-    border-top: 1px solid #eee;
-    padding-top: 10px;
-}
+    .service-list li::before {
+        content: "▪";
+        color: #e76f51;
+        position: absolute;
+        left: 0;
+    }
 
-.ctrl-btn {
-    background-color: #e2e8f0;
-    border: none;
-    padding: 5px 12px;
-    font-size: 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #334155;
-    transition: background 0.2s;
-}
+    .ad-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+        border-top: 1px solid rgba(0,0,0,0.1);
+        padding-top: 10px;
+    }
 
-.ctrl-btn:hover {
-    background-color: #0077b6;
-    color: white;
-}
+    .ctrl-btn {
+        background-color: rgba(255, 255, 255, 0.7);
+        border: none;
+        padding: 5px 12px;
+        font-size: 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        color: #334155;
+        transition: background 0.2s;
+    }
 
-.page-indicators {
-    font-size: 12px;
-    color: #64748b;
-    font-weight: bold;
-}
-        
-</style>
+    .ctrl-btn:hover {
+        background-color: #0077b6;
+        color: white;
+    }
+
+    .page-indicators {
+        font-size: 12px;
+        color: #1e293b;
+        font-weight: bold;
+    }
+    </style>
 </head>
 <body>
 
@@ -535,31 +545,29 @@
             <h1>DewDrop Joint Savings Fund</h1>
         </div>
         <nav>
-            <!-- ইউজারের প্রোফাইল ছবি / ডিফল্ট লোগো -->
             <img id="headerUserAvatar" src="prflogo.jpeg" alt="User Avatar" class="user-avatar">
             
             <a href="#">হোম</a>
             <a href="marketplace.html" class="btn-market" style="background: #009a80; color: #fff; padding: 10px 15px; border-radius: 4px; text-decoration: none; display: inline-block; overflow: hidden; width: 140px;">
-    <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
-</a>
+                <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
+            </a>
             <div class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">আমাদের সম্পর্কে ▾</a>
                 <div class="dropdown-content">
                     <a href="#about-section">ডিউড্রপ সম্পর্কে</a>
                     <a href="board.html">পরিচালনা পর্ষদ</a>
-                     <a href="developer.html">ডেভেলপার সম্পর্কে</a>
+                    <a href="developer.html">ডেভেলপার সম্পর্কে</a>
                 </div>
             </div>
              <div class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">তহবিল সেবা ▾</button>
+                <a href="javascript:void(0)" class="dropbtn">তহবিল সেবা ▾</a>
                 <div class="dropdown-content">
-                   <a href="rules.html">নিয়মাবলি</a> 
+                    <a href="rules.html">নিয়মাবলি</a> 
                     <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
-                     <a href="shoppingsignup.html">সদস্য হোন (সাইন-আপ)</a>
+                    <a href="shoppingsignup.html">সদস্য হোন (সাইন-আপ)</a>
                     <a href="dashboard.html">রিপোর্ট দেখুন</a>
                 </div>
             </div>
-            
             
             <a href="login.html" id="navAuthBtn">লগইন</a>
             <a href="signup.html">সাইন আপ</a>
@@ -572,126 +580,126 @@
         <p>সহকর্মীদের সাথে মিলে একটি সুন্দর ভবিষ্যতের জন্য আমাদের এই যৌথ সঞ্চয় উদ্যোগ। স্বচ্ছতা ও পারস্পরিক সহযোগিতার মাধ্যমে আমরা এগিয়ে যেতে চাই।</p>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSetuzjdN6khHN9-AVMfFWpD11Yn9u1i90lIBsgX8qx1gATkRQ/viewform?usp=header" class="btn">সদস্য হোন</a>
     </div>
-<!-- মারকিউ হেডার (যদি হেডার আগেই থাকে, তবে এটি বাদ দিতে পারেন) -->
-<div class="ad-marquee-header">
-    <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
-        📢 Call for your Advertisements | আপনার বিজ্ঞাপনের জন্য যোগাযোগ করুন | DewDrop Joint Savings Fund 📢
-    </marquee>
-</div>
 
-<!-- মূল বিজ্ঞাপন কাঠামো (যা আপনার হোম পেজের বাকী সবকিছুর নিচে ও সদস্য হোন বাটনের পরে শো করবে) -->
-<div class="professional-ad-wrapper">
-    <div class="ad-main-card" id="mainAdCard">
-        
-        <!-- বাম পাশের ফিক্সড সেকশন (ডাক্তার সাহেবের তথ্য) -->
-        <div class="ad-left-section">
-            <div>
-                <h2 class="doctor-name">ডা. মতিউর রহমান</h2>
-                <div class="doctor-title">রেজিস্টার্ড হোমিওপ্যাথ ও ডায়েটিশিয়ান</div>
-                <div class="doctor-title">MBS, DHMS(BHMC),MPH in Nutrition(NUB)</div>
+    <!-- মূল বিজ্ঞাপন কাঠামো (টেবিলের ভেতরে মারকিউসহ) -->
+    <div class="professional-ad-wrapper">
+        <div class="ad-card-container">
+            
+            <!-- ১. মারকিউ হেডার (এখন টেবিলের বাউন্ডারির ভেতরে সীমাবদ্ধ) -->
+            <div class="ad-table-marquee">
+                <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
+                    📢 Call for your Advertisements | আপনার বিজ্ঞাপনের জন্য যোগাযোগ করুন | DewDrop Joint Savings Fund 📢
+                </marquee>
+            </div>
 
+            <div class="ad-main-card" id="mainAdCard">
                 
-                <div class="chamber-info">
-                    <strong>চেম্বার : সামস হোমিও হল</strong><br>
-                    বাড়ী নং-৬, ব্লক-এ, রোড নং-০১, দক্ষিণ বনশ্রী, সবুজবাগ, ঢাকা।<br>
-                    <em>(লেগুনা স্ট্যান্ড উত্তরা ব্যাংকের পরের গলি)</em><br>
-                    📞 <a href="tel:01913492389" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01913492389</a>
+                <!-- বাম পাশের ফিক্সড সেকশন (ডাক্তার সাহেবের তথ্য ও লোগো) -->
+                <div class="ad-left-section">
+                    <div>
+                        <h2 class="doctor-name">ডা. মতিউর রহমান</h2>
+                        <div class="doctor-title">রেজিস্টার্ড হোমিওপ্যাথ ও ডায়েটিশিয়ান</div>
+                        <div class="doctor-title">MBS, DHMS(BHMC),MPH in Nutrition(NUB)</div>
+                        
+                        <div class="chamber-info">
+                            <strong>চেম্বার : সামস হোমিও হল</strong><br>
+                            বাড়ী নং-৬, ব্লক-এ, রোড নং-০১, দক্ষিণ বনশ্রী, সবুজবাগ, ঢাকা।<br>
+                            <em>(লেগুনা স্ট্যান্ড উত্তরা ব্যাংকের পরের গলি)</em><br>
+                            📞 <a href="tel:01913492389" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01913492389</a>
+                        </div>
+
+                        <div class="chamber-timing">
+                            <strong>🏥 রোগী দেখার সময় :</strong><br>
+                            রবিবার থেকে শুক্রবার<br>
+                            সকাল- ১০টা থেকে দুপুর ১টা এবং বিকাল-বাদ আসর থেকে রাত ১০টা
+                        </div>
+                    </div>
+
+                    <div>
+                        <!-- ফেসবুক ও ইউটিউব লোগো সংযোজন (GitHub থেকে ফাইল ও আসল লিংকসহ) -->
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/share/1Eh8YcZ6cr/" target="_blank" title="Facebook">
+                                <img src="fblogo.png" alt="Facebook" class="social-logo">
+                            </a>
+                            <a href="https://youtube.com/@drmotiurrahmanbd" target="_blank" title="YouTube">
+                                <img src="utubelogo.png" alt="YouTube" class="social-logo">
+                            </a>
+                        </div>
+
+                        <!-- সতর্কতা -->
+                        <div class="ad-warning">
+                            ⚠️ রোগীর দেখানোর জন্য ১ দিন আগে সিরিয়াল নিতে হবে এবং পূর্বের সকল টেস্টের রিপোর্ট নিয়ে আসতে হবে।
+                        </div>
+                    </div>
                 </div>
 
-                <div class="chamber-timing">
-                    <strong>🏥 রোগী দেখার সময় :</strong><br>
-                    রবিবার থেকে শুক্রবার<br>
-                    সকাল- ১০টা থেকে দুপুর ১টা এবং বিকাল-বাদ আসর থেকে রাত ১০টা
-                </div>
-            </div>
+                <!-- ডান পাশের ডাইনামিক পেজ ও ব্যাকগ্রাউন্ড সেকশন -->
+                <div class="ad-right-section bg-page-0" id="adRightContainer">
+                    <span class="ad-badge" id="adBadgeText">বিশেষ প্রমোশন</span>
 
-            <div>
-                <!-- সোশ্যাল মিডিয়া লোগো ও লিংক -->
-                <div class="social-links">
-                    <a href="https://www.facebook.com/share/1Eh8YcZ6cr/"></i></a>
-                    <a href="https://youtube.com/@drmotiurrahmanbd"></i></a>
+                    <!-- পেজ ১: চিকিৎসা সেবা - ১ -->
+                    <div class="service-page active-page" data-page="0">
+                        <div class="service-title">(০১) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
+                        <ul class="service-list">
+                            <li><strong>পাকস্থলী ও অন্ত্রের রোগ:</strong> গ্যাস্ট্রিক, আলসার, পিত্তথলির পাথর, পেটব্যথা, মূত্রপাথুরী, আই.বি.স, জন্ডিস, অর্শ/গোজ, ভগন্দর।</li>
+                            <li><strong>নাক, কান, গলা ও চোখের রোগ:</strong> টাইফয়েড জ্বর, কানপাকা, মাম্পস, টনসিল, চোখউঠা, গ্লুকোমা।</li>
+                            <li><strong>চর্ম ও শ্বাসতন্ত্রের রোগ:</strong> ব্রণ, এলার্জি, হাঁপানি, কাশি, সাইনাস ও মাইগ্রেনের মাথাব্যথা।</li>
+                        </ul>
+                    </div>
+
+                    <!-- পেজ ২: চিকিৎসা সেবা - ২ -->
+                    <div class="service-page" data-page="1">
+                        <div class="service-title">(০২) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
+                        <ul class="service-list">
+                            <li><strong>স্ত্রী রোগ ও প্রসূতি:</strong> লিউকোরিয়া, অনিয়মিত ঋতুস্রাব, জরায়ু টিউমার, বিয়ের পর বাচ্চা না হওয়া, গর্ভপাত ও জটিলতা।</li>
+                            <li><strong>মেটাবলিক ও হাড়ের রোগ:</strong> ডায়াবেটিস, হার্ট ডিজিজ, ফ্যাটি লিভার, লিভার সিরোসিস, কিডনি ডিজিজ, বাতের ব্যথা।</li>
+                            <li><strong>মস্তিষ্ক ও মানসিক রোগ:</strong> ব্রেন স্ট্রোক, বেলস পালসি, স্পাইনাল ডিস্ক ডিজঅর্ডার, মেনিনজাইটিস, নিউরালজিক ডিজঅর্ডার।</li>
+                        </ul>
+                    </div>
+
+                    <!-- পেজ ৩: ভুল ধারণা ও জবাব -->
+                    <div class="service-page" data-page="2">
+                        <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
+                        <ul class="service-list">
+                            <li><strong>ভুল ধারণা:</strong> যেকোনো রোগের চিকিৎসায় অনেক দীর্ঘ সময় প্রয়োজন।</li>
+                            <li><strong>জবাব:</strong> উচ্চ তাপমাত্রার জ্বর, ডায়ারিয়া, নিউমোনিয়া ২৪-৭২ ঘণ্টার মধ্যেই নিয়মিত আরোগ্য হয় ইনশাআল্লাহ।</li>
+                            <li><strong>দীর্ঘমেয়াদী রোগ:</strong> ৩ যুগ যাবৎ ডায়াবেটিস ও হার্ট ডিজিজের রোগী কিংবা কেমোথেরাপি নেওয়া রোগীর শরীরেও হোমিওপ্যাথি সমান কাজ করে।</li>
+                        </ul>
+                    </div>
+
+                    <!-- কন্ট্রোল বাটন ও পেজ ইন্ডিকেটর -->
+                    <div class="ad-controls" id="adFooterControls">
+                        <button class="ctrl-btn" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i> পূর্ববর্তী</button>
+                        <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ৩</span>
+                        <button class="ctrl-btn" onclick="nextPage()">পরবর্তী <i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
                 </div>
 
-                <!-- সতর্কতা -->
-                <div class="ad-warning">
-                    ⚠️ রোগীর দেখানোর জন্য ১ দিন আগে সিরিয়াল নিতে হবে এবং পূর্বের সকল টেস্টের রিপোর্ট নিয়ে আসতে হবে।
-                </div>
             </div>
         </div>
-
-        <!-- ডান পাশের ডাইনামিক পেজ সেকশন -->
-        <div class="ad-right-section" id="adRightContainer">
-            <span class="ad-badge" id="adBadgeText">বিশেষ প্রমোশন</span>
-
-            <!-- পেজ ১: চিকিৎসা সেবা - ১ -->
-            <div class="service-page active-page" data-page="0">
-                <div class="service-title">(১) যে সকল জটিল ও বংশগত রোগের চিকিৎসা </div>
-                <ul class="service-list">
-                    <li><strong>পাকস্থলী ও অন্ত্রের রোগ:</strong> গ্যাস্ট্রিক, আলসার, পিত্তথলির পাথর, পেটব্যথা, মূত্রপাথুরী, আই.বি.স, জন্ডিস, অর্শ/গোজ, ভগন্দর।</li>
-                    <li><strong>নাক, কান, গলা ও চোখের রোগ:</strong> টাইফয়েড জ্বর, কানপাকা, মাম্পস, টনসিল, চোখউঠা, গ্লুকোমা।</li>
-                    <li><strong>চর্ম ও শ্বাসতন্ত্রের রোগ:</strong> ব্রণ, এলার্জি, হাঁপানি, কাশি, সাইনাস ও মাইগ্রেনের মাথাব্যথা।</li>
-                </ul>
-            </div>
-
-            <!-- পেজ ২: চিকিৎসা সেবা - ২ -->
-            <div class="service-page" data-page="1">
-                <div class="service-title">(২) যে সকল জটিল ও বংশগত রোগের চিকিৎসা </div>
-                <ul class="service-list">
-                    <li><strong>স্ত্রী রোগ ও প্রসূতি:</strong> লিউকোরিয়া, অনিয়মিত ঋতুস্রাব, জরায়ু টিউমার, বিয়ের পর বাচ্চা না হওয়া, গর্ভপাত ও জটিলতা।</li>
-                    <li><strong>মেটাবলিক ও হাড়ের রোগ:</strong> ডায়াবেটিস, হার্ট ডিজিজ, ফ্যাটি লিভার, লিভার সিরোসিস, কিডনি ডিজিজ, বাতের ব্যথা।</li>
-                    <li><strong>মস্তিষ্ক ও মানসিক রোগ:</strong> ব্রেন স্ট্রোক, বেলস পালসি, স্পাইনাল ডিস্ক ডিজঅর্ডার, মেনিনজাইটিস, নিউরালজিক ডিজঅর্ডার।</li>
-                </ul>
-            </div>
-
-            <!-- পেজ ৩: ভুল ধারণা ও জবাব -->
-            <div class="service-page" data-page="2">
-                <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
-                <ul class="service-list">
-                    <li><strong>ভুল ধারণা:</strong> যেকোনো রোগের চিকিৎসায় অনেক দীর্ঘ সময় প্রয়োজন।</li>
-                    <li><strong>জবাব:</strong> উচ্চ তাপমাত্রার জ্বর, ডায়ারিয়া, নিউমোনিয়া ২৪-৭২ ঘণ্টার মধ্যেই নিয়মিত আরোগ্য হয় ইনশাআল্লাহ।</li>
-                    <li><strong>দীর্ঘমেয়াদী রোগ:</strong> ৩ যুগ যাবৎ ডায়াবেটিস ও হার্ট ডিজিজের রোগী কিংবা কেমোথেরাপি নেওয়া রোগীর শরীরেও হোমিওপ্যাথি সমান কাজ করে।</li>
-                </ul>
-            </div>
-
-            <!-- কন্ট্রোল বাটন ও পেজ ইন্ডিকেটর -->
-            <div class="ad-controls" id="adFooterControls">
-                <button class="ctrl-btn" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i> পূর্ববর্তী</button>
-                <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ৩ </span>
-                <button class="ctrl-btn" onclick="nextPage()">পরবর্তী <i class="fa-solid fa-chevron-right"></i></button>
-            </div>
-        </div>
-
     </div>
-</div>
     
     <!-- Features Section -->
-   <div class="features-container">
-    <!-- কার্ড ১: স্বচ্ছ হিসাব-নিকাশ -->
-    <div class="feature-box">
-        <h3>স্বচ্ছ হিসাব-নিকাশ</h3>
-        <p>ফান্ডের প্রতিটি আয়-ব্যয় এবং সদস্যদের হিসাব রাখা হয় সম্পূর্ণ স্বচ্ছতার সাথে।</p>
+    <div class="features-container">
+        <div class="feature-box">
+            <h3>স্বচ্ছ হিসাব-নিকাশ</h3>
+            <p>ফান্ডের প্রতিটি আয়-ব্যয় এবং সদস্যদের হিসাব রাখা হয় সম্পূর্ণ স্বচ্ছতার সাথে।</p>
+        </div>
+        <div class="feature-box">
+            <h3>নিরাপদ সঞ্চয়</h3>
+            <p>সবার সম্মিলিত প্রচেষ্টায় একটি নির্ভরযোগ্য ও সুরক্ষিত আর্থিক ভিত্তি তৈরি করা।</p>
+        </div>
+        <div class="feature-box">
+            <h3>সঞ্চয় পরিকল্পনা</h3>
+            <p>সদস্যদের আর্থিক সামর্থ্য অনুযায়ী ৪টি ভিন্ন মেয়াদী আকর্ষণীয় সঞ্চয় স্কিম।</p>
+            <a href="savings-plan.html" class="feature-btn">প্ল্যান দেখুন</a>
+        </div>
+        <div class="feature-box">
+            <h3>সহজ পরিচালনা</h3>
+            <p>যেকোনো সময় নিজেদের ফান্ডের বর্তমান অবস্থা ও রিপোর্ট দেখে নেওয়ার সুবিধা।</p>
+            <a href="dashboard.html" class="feature-btn">রিপোর্ট দেখুন</a>
+        </div>
     </div>
-
-    <!-- কার্ড ২: নিরাপদ সঞ্চয় -->
-    <div class="feature-box">
-        <h3>নিরাপদ সঞ্চয়</h3>
-        <p>সবার সম্মিলিত প্রচেষ্টায় একটি নির্ভরযোগ্য ও সুরক্ষিত আর্থিক ভিত্তি তৈরি করা।</p>
-    </div>
-
-    <!-- নতুন কার্ড ৩: সঞ্চয় পরিকল্পনা (বাটনসহ) -->
-    <div class="feature-box">
-        <h3>সঞ্চয় পরিকল্পনা</h3>
-        <p>সদস্যদের আর্থিক সামর্থ্য অনুযায়ী ৪টি ভিন্ন মেয়াদী আকর্ষণীয় সঞ্চয় স্কিম।</p>
-        <a href="savings-plan.html" class="feature-btn">প্ল্যান দেখুন</a>
-    </div>
-
-    <!-- কার্ড ৪: সহজ পরিচালনা -->
-    <div class="feature-box">
-        <h3>সহজ পরিচালনা</h3>
-        <p>যেকোনো সময় নিজেদের ফান্ডের বর্তমান অবস্থা ও রিপোর্ট দেখে নেওয়ার সুবিধা।</p>
-        <a href="dashboard.html" class="feature-btn">রিপোর্ট দেখুন</a>
-    </div>
-</div>
 
     <!-- আমাদের সম্পর্কে ও যোগাযোগের সেকশন -->
     <div id="about-section" class="about-section">
@@ -719,13 +727,12 @@
             <strong>Md Tanjim Islam</strong><br>
             <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
         </div>
-        
         <div class="copyright-bar">
             &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
         </div>
     </footer>
 
-    <!-- সেশন ও প্রোফাইল জাভাস্ক্রিপ্ট -->
+    <!-- জাভাস্ক্রিপ্ট লজিক -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const rawData = localStorage.getItem("loggedInUser");
@@ -747,7 +754,6 @@
             }
 
             if (isLoggedIn && user) {
-                // ১. লগইন অবস্থায়: ইউজারের নিজস্ব ছবি (না থাকলে prflogo.jpeg)
                 if (headerUserAvatar) {
                     headerUserAvatar.src = user.photoUrl || user.image || "prflogo.jpeg";
                     headerUserAvatar.onerror = function() {
@@ -755,8 +761,6 @@
                     };
                     headerUserAvatar.title = user.name || "প্রোফাইল";
                 }
-
-                // ২. লগইন বাটন পরিবর্তন করে "লগআউট" করা
                 if (navAuthBtn) {
                     navAuthBtn.innerText = "লগআউট";
                     navAuthBtn.href = "javascript:void(0)";
@@ -769,7 +773,6 @@
                     };
                 }
             } else {
-                // ৩. লগইন না থাকলে: prflogo.jpeg ছবি দেখাবে এবং "লগইন" বাটন থাকবে
                 if (headerUserAvatar) {
                     headerUserAvatar.src = "prflogo.jpeg";
                     headerUserAvatar.title = "গেস্ট প্রোফাইল";
@@ -781,122 +784,142 @@
                 }
             }
         });
+
         let currentPage = 0;
-const totalPages = 3;
-const pageDuration = 15000; // ১৫ সেকেন্ড
-let slideInterval;
-let isFallbackMode = false;
+        const totalPages = 3;
+        const pageDuration = 15000; // ১৫ সেকেন্ড
+        let slideInterval;
+        let isFallbackMode = false;
 
-const doctorAdHTML = `
-    <span class="ad-badge" id="adBadgeText">বিশেষ প্রমোশন</span>
-    <div class="service-page active-page" data-page="0">
-        <div class="service-title">(0১)যে সকল জটিল ও বংশগত রোগের চিকিৎসা </div>
-        <ul class="service-list">
-            <li><strong>পাকস্থলী ও অন্ত্রের রোগ:</strong> গ্যাস্ট্রিক, আলসার, পিত্তথলির পাথর, পেটব্যথা, মূত্রপাথুরী, আই.বি.স, জন্ডিস, অর্শ/গোজ, ভগন্দর।</li>
-            <li><strong>নাক, কান, গলা ও চোখের রোগ:</strong> টাইফয়েড জ্বর, কানপাকা, মাম্পস, টনসিল, চোখউঠা, গ্লুকোমা।</li>
-            <li><strong>চর্ম ও শ্বাসতন্ত্রের রোগ:</strong> ব্রণ, এলার্জি, হাঁপানি, কাশি, সাইনাস ও মাইগ্রেনের মাথাব্যথা।</li>
-        </ul>
-    </div>
-    <div class="service-page" data-page="1">
-        <div class="service-title">(0২)যে সকল জটিল ও বংশগত রোগের চিকিৎসা </div>
-        <ul class="service-list">
-            <li><strong>স্ত্রী রোগ ও প্রসূতি:</strong> লিউকোরিয়া, অনিয়মিত ঋতুস্রাব, জরায়ু টিউমার, বিয়ের পর বাচ্চা না হওয়া, গর্ভপাত ও জটিলতা।</li>
-            <li><strong>মেটাবলিক ও হাড়ের রোগ:</strong> ডায়াবেটিস, হার্ট ডিজিজ, ফ্যাটি লিভার, লিভার সিরোসিস, কিডনি ডিজিজ, বাতের ব্যথা।</li>
-            <li><strong>মস্তিষ্ক ও মানসিক রোগ:</strong> ব্রেন স্ট্রোক, বেলস পালসি, স্পাইনাল ডিস্ক ডিজঅর্ডার, মেনিনজাইটিস, নিউরালজিক ডিজঅর্ডার।</li>
-        </ul>
-    </div>
-    <div class="service-page" data-page="2">
-        <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
-        <ul class="service-list">
-            <li><strong>ভুল ধারণা:</strong> যেকোনো রোগের চিকিৎসায় অনেক দীর্ঘ সময় প্রয়োজন।</li>
-            <li><strong>জবাব:</strong> উচ্চ তাপমাত্রার জ্বর, ডায়ারিয়া, নিউমোনিয়া ২৪-৭২ ঘণ্টার মধ্যেই নিয়মিত আরোগ্য হয় ইনশাআল্লাহ।</li>
-            <li><strong>দীর্ঘমেয়াদী রোগ:</strong> ৩ যুগ যাবৎ ডায়াবেটিস ও হার্ট ডিজিজের রোগী কিংবা কেমোথেরাপি নেওয়া রোগীর শরীরেও হোমিওপ্যাথি সমান কাজ করে।</li>
-        </ul>
-    </div>
-    <div class="ad-controls" id="adFooterControls">
-        <button class="ctrl-btn" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i> পূর্ববর্তী</button>
-        <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ৩</span>
-        <button class="ctrl-btn" onclick="nextPage()">পরবর্তী <i class="fa-solid fa-chevron-right"></i></button>
-    </div>
-`;
+        const doctorAdHTML = `
+            <span class="ad-badge" id="adBadgeText">বিশেষ প্রমোশন</span>
+            <div class="service-page active-page" data-page="0">
+                <div class="service-title">(০১) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
+                <ul class="service-list">
+                    <li><strong>পাকস্থলী ও অন্ত্রের রোগ:</strong> গ্যাস্ট্রিক, আলসার, পিত্তথলির পাথর, পেটব্যথা, মূত্রপাথুরী, আই.বি.স, জন্ডিস, অর্শ/গোজ, ভগন্দর।</li>
+                    <li><strong>নাক, কান, গলা ও চোখের রোগ:</strong> টাইফয়েড জ্বর, কানপাকা, মাম্পস, টনসিল, চোখউঠা, গ্লুকোমা।</li>
+                    <li><strong>চর্ম ও শ্বাসতন্ত্রের রোগ:</strong> ব্রণ, এলার্জি, হাঁপানি, কাশি, সাইনাস ও মাইগ্রেনের মাথাব্যথা।</li>
+                </ul>
+            </div>
+            <div class="service-page" data-page="1">
+                <div class="service-title">(০২) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
+                <ul class="service-list">
+                    <li><strong>স্ত্রী রোগ ও প্রসূতি:</strong> লিউকোরিয়া, অনিয়মিত ঋতুস্রাব, জরায়ু টিউমার, বিয়ের পর বাচ্চা না হওয়া, গর্ভপাত ও জটিলতা।</li>
+                    <li><strong>মেটাবলিক ও হাড়ের রোগ:</strong> ডায়াবেটিস, হার্ট ডিজিজ, ফ্যাটি লিভার, লিভার সিরোসিস, কিডনি ডিজিজ, বাতের ব্যথা।</li>
+                    <li><strong>মস্তিষ্ক ও মানসিক রোগ:</strong> ব্রেন স্ট্রোক, বেলস পালসি, স্পাইনাল ডিস্ক ডিজঅর্ডার, মেনিনজাইটিস, নিউরালজিক ডিজঅর্ডার।</li>
+                </ul>
+            </div>
+            <div class="service-page" data-page="2">
+                <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
+                <ul class="service-list">
+                    <li><strong>ভুল ধারণা:</strong> যেকোনো রোগের চিকিৎসায় অনেক দীর্ঘ সময় প্রয়োজন।</li>
+                    <li><strong>জবাব:</strong> উচ্চ তাপমাত্রার জ্বর, ডায়ারিয়া, নিউমোনিয়া ২৪-৭২ ঘণ্টার মধ্যেই নিয়মিত আরোগ্য হয় ইনশাআল্লাহ।</li>
+                    <li><strong>দীর্ঘমেয়াদী রোগ:</strong> ৩ যুগ যাবৎ ডায়াবেটিস ও হার্ট ডিজিজের রোগী কিংবা কেমোথেরাপি নেওয়া রোগীর শরীরেও হোমিওপ্যাথি সমান কাজ করে।</li>
+                </ul>
+            </div>
+            <div class="ad-controls" id="adFooterControls">
+                <button class="ctrl-btn" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i> পূর্ববর্তী</button>
+                <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ৩</span>
+                <button class="ctrl-btn" onclick="nextPage()">পরবর্তী <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        `;
 
-function showPage(index) {
-    if (isFallbackMode) return;
-    const pages = document.querySelectorAll('.service-page');
-    if (pages.length === 0) return;
-    
-    pages.forEach(p => p.classList.remove('active-page'));
-    currentPage = (index + totalPages) % totalPages;
-    pages[currentPage].classList.add('active-page');
-    
-    const indicator = document.getElementById('pageIndicatorText');
-    if (indicator) {
-        indicator.innerText = `পেজ ${currentPage + 1} / ${totalPages} (${pageDuration/1000} সে.)`;
-    }
-}
+        function updateBackground(pageIndex, isFallback) {
+            const rightSec = document.getElementById('adRightContainer');
+            if (!rightSec) return;
+            
+            // সব ব্যাকগ্রাউন্ড ক্লাস রিমूव করা
+            rightSec.classList.remove('bg-page-0', 'bg-page-1', 'bg-page-2', 'bg-empty');
 
-function nextPage() {
-    if (!isFallbackMode) {
-        showPage(currentPage + 1);
-        resetTimer();
-    }
-}
-
-function prevPage() {
-    if (!isFallbackMode) {
-        showPage(currentPage - 1);
-        resetTimer();
-    }
-}
-
-function autoSlide() {
-    if (!isFallbackMode) {
-        if (currentPage < totalPages - 1) {
-            showPage(currentPage + 1);
-        } else {
-            triggerFadeOutAndSwitch();
-        }
-    } else {
-        triggerFadeOutAndSwitch();
-    }
-}
-
-function triggerFadeOutAndSwitch() {
-    const card = document.getElementById('mainAdCard');
-    if (!card) return;
-    card.classList.add('fade-out');
-
-    setTimeout(() => {
-        const rightSec = document.getElementById('adRightContainer');
-        if (!rightSec) return;
-        
-        if (!isFallbackMode) {
-            isFallbackMode = true;
-            rightSec.innerHTML = `
-                <span class="ad-badge" style="background-color: #2a9d8f;">বিজ্ঞাপন খালি আছে</span>
-                <div style="text-align: center; margin: auto; padding: 20px;">
-                    <h2 style="color: #0077b6; margin-bottom: 10px; font-size: 22px;">Live Your Advertisements</h2>
-                    <p style="font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.5;">আপনার বা আপনার প্রতিষ্ঠানের আকর্ষণীয় বিজ্ঞাপনটি এখানে প্রচার করতে আজই আমাদের সাথে যোগাযোগ করুন।</p>
-                    <a href="tel:01977885122" style="background: #e76f51; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-block;">Call for Ad</a>
-                </div>
-            `;
-        } else {
-            isFallbackMode = false;
-            rightSec.innerHTML = doctorAdHTML;
-            currentPage = 0;
+            if (isFallback) {
+                rightSec.classList.add('bg-empty');
+            } else {
+                if (pageIndex === 0) rightSec.classList.add('bg-page-0');
+                else if (pageIndex === 1) rightSec.classList.add('bg-page-1');
+                else if (pageIndex === 2) rightSec.classList.add('bg-page-2');
+            }
         }
 
-        card.classList.remove('fade-out');
-    }, 1500);
-}
+        function showPage(index) {
+            if (isFallbackMode) return;
+            const pages = document.querySelectorAll('.service-page');
+            if (pages.length === 0) return;
+            
+            pages.forEach(p => p.classList.remove('active-page'));
+            currentPage = (index + totalPages) % totalPages;
+            pages[currentPage].classList.add('active-page');
+            
+            updateBackground(currentPage, false);
 
-function resetTimer() {
-    clearInterval(slideInterval);
-    slideInterval = setInterval(autoSlide, pageDuration);
-}
+            const indicator = document.getElementById('pageIndicatorText');
+            if (indicator) {
+                indicator.innerText = `পেজ ${currentPage + 1} / ${totalPages} (${pageDuration/1000} সে.)`;
+            }
+        }
 
-slideInterval = setInterval(autoSlide, pageDuration);
+        function nextPage() {
+            if (!isFallbackMode) {
+                showPage(currentPage + 1);
+                resetTimer();
+            }
+        }
+
+        function prevPage() {
+            if (!isFallbackMode) {
+                showPage(currentPage - 1);
+                resetTimer();
+            }
+        }
+
+        function autoSlide() {
+            if (!isFallbackMode) {
+                if (currentPage < totalPages - 1) {
+                    showPage(currentPage + 1);
+                } else {
+                    triggerFadeOutAndSwitch();
+                }
+            } else {
+                triggerFadeOutAndSwitch();
+            }
+        }
+
+        function triggerFadeOutAndSwitch() {
+            const card = document.getElementById('mainAdCard');
+            if (!card) return;
+            card.classList.add('fade-out');
+
+            setTimeout(() => {
+                const rightSec = document.getElementById('adRightContainer');
+                if (!rightSec) return;
+                
+                if (!isFallbackMode) {
+                    isFallbackMode = true;
+                    updateBackground(0, true);
+                    rightSec.innerHTML = `
+                        <span class="ad-badge" style="background-color: #2a9d8f;">বিজ্ঞাপন খালি আছে</span>
+                        <div style="text-align: center; margin: auto; padding: 20px;">
+                            <h2 style="color: #0077b6; margin-bottom: 10px; font-size: 22px;">Live Your Advertisements</h2>
+                            <p style="font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.5;">আপনার বা আপনার প্রতিষ্ঠানের আকর্ষণীয় বিজ্ঞাপনটি এখানে প্রচার করতে আজই আমাদের সাথে যোগাযোগ করুন।</p>
+                            <a href="tel:01977885122" style="background: #e76f51; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-block;">Call for Ad</a>
+                        </div>
+                    `;
+                } else {
+                    isFallbackMode = false;
+                    rightSec.innerHTML = doctorAdHTML;
+                    currentPage = 0;
+                    updateBackground(0, false);
+                }
+
+                card.classList.remove('fade-out');
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(autoSlide, pageDuration);
+        }
+
+        slideInterval = setInterval(autoSlide, pageDuration);
     </script>
-    
 </body>
 </html>
