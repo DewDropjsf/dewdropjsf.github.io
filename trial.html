@@ -67,7 +67,6 @@
         color: #e9d8a6;
     }
 
-    /* প্রোফাইল ছবি / ডেমো আইকন */
     .user-avatar {
         width: 36px;
         height: 36px;
@@ -225,7 +224,6 @@
         text-align: justify;
     }
         
-    /* --- Contact Info Section --- */
     .contact-info {
         margin-top: 30px;
         padding-top: 20px;
@@ -336,7 +334,6 @@
         border-bottom: 1px solid #005f73;
     }
         
-    /* --- Ad Main Card Layout --- */
     .ad-main-card {
         display: flex;
         position: relative;
@@ -353,30 +350,51 @@
         justify-content: space-between;
     }
 
-    .doctor-name {
-        font-size: 22px;
+    /* --- Flat For Sale শেকিং ও বড় শিরোনাম --- */
+    .flat-sale-title {
+        font-size: 26px;
         color: #94DEA5;
         font-weight: bold;
-        margin-bottom: 2px;
+        margin-bottom: 10px;
         text-align: center;
+        display: inline-block;
+        width: 100%;
+        animation: shakeFlat 1.2s infinite ease-in-out;
     }
 
-    .doctor-title {
-        color: #ffff66;
-        font-size: 14px;
-        font-weight: bold;
-        margin-bottom: 12px;
-        text-align: center;
+    @keyframes shakeFlat {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        15% { transform: translate(-2px, 2px) rotate(-2deg); }
+        30% { transform: translate(2px, -2px) rotate(2deg); }
+        45% { transform: translate(-2px, -1px) rotate(-1deg); }
+        60% { transform: translate(2px, 2px) rotate(1deg); }
+        75% { transform: translate(0, 0) rotate(0deg); }
+        100% { transform: translate(0, 0) rotate(0deg); }
     }
 
-    .chamber-info {
+    .flat-sale-desc {
         font-size: 13.5px;
         color: #C0D2E6;
-        line-height: 1.5;
-        margin-bottom: 10px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        text-align: justify;
     }
 
-    /* --- ফোন লোগো অ্যানিমেশন ও লাল রঙ --- */
+    .contact-owner-box {
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+
+    .owner-name {
+        font-size: 16px;
+        color: #ffff66;
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+
     .vibrant-phone-icon {
         color: #ff4d4d !important;
         display: inline-block;
@@ -393,7 +411,6 @@
         100% { transform: translate(0, 0) rotate(0deg); }
     }
 
-    /* --- WhatsApp লোগো ও টেক্সট স্টাইল --- */
     .whatsapp-container {
         display: flex;
         align-items: center;
@@ -423,55 +440,10 @@
         text-decoration: underline;
     }
 
-    .chamber-timing {
-        background-color: #baeafd;
-        border-left: 4px solid #2a9d8f;
-        padding: 8px;
-        font-size: 15px;
-        border-radius: 4px;
-        margin-bottom: 10px;
-        color: #001219;
-    }
-
-    /* সোশ্যাল মিডিয়া সেকশন ও টেক্সট */
-    .social-section-title {
-        color: #ffff66;
+    .office-address {
+        margin-top: 8px;
         font-size: 13px;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 6px;
-    }
-
-    .social-links {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        margin-bottom: 12px;
-        align-items: center;
-    }
-
-    .social-logo {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        object-fit: cover;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-
-    .social-logo:hover {
-        transform: scale(1.1);
-    }
-
-    .ad-warning {
-        font-size: 12px;
-        color: #e63946;
-        font-weight: bold;
-        background: #baeafd;
-        padding: 6px;
-        border-radius: 4px;
-        border: 1px solid #fed7d7;
-        text-align: center;
+        color: #baeafd;
     }
 
     /* --- Ad Right Hand Side & Dynamic Backgrounds --- */
@@ -485,10 +457,8 @@
         transition: background-color 0.5s ease;
     }
         
-    .bg-page-0 { background-color: #57d9c9; }
-    .bg-page-1 { background-color: #a8dadc; }
-    .bg-page-2 { background-color: #f1faee; }
-    .bg-empty  { background-color: #e2e8f0; }
+    .bg-page-0 { background-color: #a8dadc; }
+    .bg-page-1 { background-color: #f1faee; }
 
     .ad-badge {
         position: absolute;
@@ -525,8 +495,8 @@
     }
 
     .service-title {
-        font-size: 20px;
-        color: #2b2d42;
+        font-size: 19px;
+        color: #1d3557;
         font-weight: bold;
         border-bottom: 2px solid #0077b6;
         padding-bottom: 5px;
@@ -537,15 +507,15 @@
         list-style: none;
         padding: 0;
         margin: 0;
-        font-size: 15px;
+        font-size: 14.5px;
         color: #2b2d42;
         line-height: 1.6;
     }
 
     .service-list li {
-        margin-bottom: 8px;
+        margin-bottom: 10px;
         position: relative;
-        padding-left: 15px;
+        padding-left: 18px;
     }
 
     .service-list li::before {
@@ -633,13 +603,13 @@
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSetuzjdN6khHN9-AVMfFWpD11Yn9u1i90lIBsgX8qx1gATkRQ/viewform?usp=header" class="btn">সদস্য হোন</a>
     </div>
 
-    <!-- মূল বিজ্ঞাপন কাঠামো -->
+    <!-- ২য় বিজ্ঞাপন কাঠামো (Flat For Sale) -->
     <div class="professional-ad-wrapper">
         <div class="ad-card-container">
             
             <div class="ad-table-marquee">
                 <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
-                    📢 Call for your Advertisements | আপনার বিজ্ঞাপনের জন্য যোগাযোগ করুন | DewDrop Joint Savings Fund 📢
+                    🏢 Flat For Sale | ফ্ল্যাট বিক্রয় বিজ্ঞপ্তি | DewDrop Joint Savings Fund 🏢
                 </marquee>
             </div>
 
@@ -648,86 +618,68 @@
                 <!-- বাম পাশের ফিক্সড সেকশন -->
                 <div class="ad-left-section">
                     <div>
-                        <h2 class="doctor-name">ডা. মতিউর রহমান</h2>
-                        <div class="doctor-title">রেজিস্টার্ড হোমিওপ্যাথ ও ডায়েটিশিয়ান</div>
-                        <div class="doctor-title">MBS, DHMS(BHMC),MPH in Nutrition(NUB)</div>
+                        <div class="flat-sale-title">Flat For Sale</div>
+                        <div class="flat-sale-desc">
+                            ফ্ল্যাটটি সরাসরি দেখতে অথবা বিস্তারিত জানতে আজই আমাদের সাথে যোগাযোগ করুন। আপনার স্বপ্নকে বাস্তবে রূপ দিতে আমরা আছি আপনার পাশে।
+                        </div>
                         
-                        <div class="chamber-info">
-                            <strong>চেম্বার : সামস হোমিও হল</strong><br>
-                            বাড়ী নং-৬, ব্লক-এ, রোড নং-০১, দক্ষিণ বনশ্রী, সবুজবাগ, ঢাকা।<br>
-                            <em>(লেগুনা স্ট্যান্ড উত্তরা ব্যাংকের পরের গলি)</em><br>
+                        <div class="contact-owner-box">
+                            <div class="owner-name">মো: তানযীম ইসলাম</div>
                             
                             <!-- অ্যানিমেটেড লাল ফোন লোগো এবং ফোন নম্বর -->
-                            <span class="vibrant-phone-icon">📞</span> 
-                            <a href="tel:01913492389" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01913492389</a>
+                            <div style="margin: 4px 0;">
+                                <span class="vibrant-phone-icon">📞</span> 
+                                <a href="tel:01977995122" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01977995122</a>
+                            </div>
                             
                             <!-- WhatsApp লোগো ও ডানে "Contact with WhatsApp" লেখা -->
-                            <a href="https://wa.me/8801913492389" target="_blank" class="whatsapp-container" title="WhatsApp এ যোগাযোগ করুন">
+                            <a href="https://wa.me/8801977995122" target="_blank" class="whatsapp-container" title="WhatsApp এ যোগাযোগ করুন">
                                 <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
                                 <span class="whatsapp-text">Contact with WhatsApp</span>
                             </a>
-                        </div>
 
-                        <div class="chamber-timing">
-                            <strong>🏥 রোগী দেখার সময় :</strong><br>
-                            রবিবার থেকে শুক্রবার<br>
-                            সকাল- ১০টা থেকে দুপুর ১টা এবং বিকাল-বাদ আসর থেকে রাত ১০টা
-                        </div>
-                    </div>
-
-                    <div>
-                        <!-- সোশ্যাল মিডিয়ার আগে Subscribe our channels: লেখা -->
-                        <div class="social-section-title">Subscribe our channels:</div>
-                        <div class="social-links">
-                            <a href="https://www.facebook.com/share/1Eh8YcZ6cr/" target="_blank" title="Facebook">
-                                <img src="fblogo.png" alt="Facebook" class="social-logo">
-                            </a>
-                            <a href="https://youtube.com/@drmotiurrahmanbd" target="_blank" title="YouTube">
-                                <img src="utubelogo.png" alt="YouTube" class="social-logo">
-                            </a>
-                        </div>
-
-                        <div class="ad-warning">
-                            ⚠️ রোগীর দেখানোর জন্য ১ দিন আগে সিরিয়াল নিতে হবে এবং পূর্বের সকল টেস্টের রিপোর্ট নিয়ে আসতে হবে।
+                            <!-- ইমেইল ও ঠিকানা -->
+                            <div style="margin-top: 6px; font-size: 12.5px;">
+                                ✉️ <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a>
+                            </div>
+                            <div class="office-address">
+                                📍 <strong>অফিস ঠিকানা:</strong> মাদারটেক, বাসাবো, ঢাকা।
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- ডান পাশের ডাইনামিক পেজ ও ব্যাকগ্রাউন্ড সেকশন -->
+                <!-- ডান পাশের ডাইনামিক পেজ ও ব্যাকগ্রাউন্ড সেকশন (২টি পেজ) -->
                 <div class="ad-right-section bg-page-0" id="adRightContainer">
-                    <span class="ad-badge" id="adBadgeText">বিশেষ প্রমোশন</span>
+                    <span class="ad-badge" id="adBadgeText">রিয়েল এস্টেট</span>
 
+                    <!-- পেজ ১ -->
                     <div class="service-page active-page" data-page="0">
-                        <div class="service-title">(০১) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
+                        <div class="service-title">Flat For Sale! আপনার স্বপ্নের ঠিকানায় স্বাগতম</div>
+                        <p style="font-size: 13.5px; color: #2b2d42; line-height: 1.5; margin-bottom: 10px;">
+                            আপনি কি ঢাকা শহরের একটি আদর্শ এবং স্বাচ্ছন্দ্যময় ঠিকানার খোঁজ করছেন? আপনার ও আপনার পরিবারের জীবনযাত্রাকে আরও সুন্দর ও নিরাপদ করতে আমরা নিয়ে এসেছি একটি চমৎকার অ্যাপার্টমেন্ট। আধুনিক সুযোগ-সুবিধা এবং চমৎকার লোকেশনে এটি হতে পারে আপনার পরবর্তী স্থায়ী ঠিকানা।
+                        </p>
                         <ul class="service-list">
-                            <li><strong>পাকস্থলী ও অন্ত্রের রোগ:</strong> গ্যাস্ট্রিক, আলসার, পিত্তথলির পাথর, পেটব্যথা, মূত্রপাথুরী, আই.বি.স, জন্ডিস, অর্শ/গোজ, ভগন্দর।</li>
-                            <li><strong>নাক, কান, গলা ও চোখের রোগ:</strong> টাইফয়েড জ্বর, কানপাকা, মাম্পস, টনসিল, চোখউঠা, গ্লুকোমা।</li>
-                            <li><strong>চর্ম ও শ্বাসতন্ত্রের রোগ:</strong> ব্রণ, এলার্জি, হাঁপানি, কাশি, সাইনাস ও মাইগ্রেনের মাথাব্যথা।</li>
+                            <li><strong>আয়তন:</strong> ১২০০ স্কয়ার ফিট সুপরিসর ফ্ল্যাট।</li>
+                            <li><strong>রুম বিন্যাস:</strong> ৩টি চমৎকার বেডরুম, খোলামেলা ড্রয়িং ও ডাইনিং রুম।</li>
+                            <li><strong>বারান্দা ও বাথরুম:</strong> প্রতিটি ফ্ল্যাটে রয়েছে ৩টি করে প্রশস্ত বারান্দা এবং আধুনিক ফিটিংসযুক্ত ৩টি ওয়াশরুম।</li>
                         </ul>
                     </div>
 
+                    <!-- পেজ ২ -->
                     <div class="service-page" data-page="1">
-                        <div class="service-title">(০২) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
-                        <ul class="service-list">
-                            <li><strong>স্ত্রী রোগ ও প্রসূতি:</strong> লিউকোরিয়া, অনিয়মিত ঋতুস্রাব, জরায়ু টিউমার, বিয়ের পর বাচ্চা না হওয়া, গর্ভপাত ও জটিলতা।</li>
-                            <li><strong>মেটাবলিক ও হাড়ের রোগ:</strong> ডায়াবেটিস, হার্ট ডিজিজ, ফ্যাটি লিভার, লিভার সিরোসিস, কিডনি ডিজিজ, বাতের ব্যথা।</li>
-                            <li><strong>মস্তিষ্ক ও মানসিক রোগ:</strong> ব্রেন স্ট্রোক, বেলস পালসি, স্পাইনাল ডিস্ক ডিজঅর্ডার, মেনিনজাইটিস, নিউরালজিক ডিজঅর্ডার।</li>
-                        </ul>
-                    </div>
-
-                    <div class="service-page" data-page="2">
-                        <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
-                        <ul class="service-list">
-                            <li><strong>ভুল ধারণা:</strong> যেকোনো রোগের চিকিৎসায় অনেক দীর্ঘ সময় প্রয়োজন।</li>
-                            <li><strong>জবাব:</strong> উচ্চ তাপমাত্রার জ্বর, ডায়ারিয়া, নিউমোনিয়া ২৪-৭২ ঘণ্টার মধ্যেই নিয়মিত আরোগ্য হয় ইনশাআল্লাহ।</li>
-                            <li><strong>দীর্ঘমেয়াদী রোগ:</strong> ৩ যুগ যাবৎ ডায়াবেটিস ও হার্ট ডিজিজের রোগী কিংবা কেমোথেরাপি নেওয়া রোগীর শরীরেও হোমিওপ্যাথি সমান কাজ করে।</li>
+                        <div class="service-title">Flat For Sale! আপনার স্বপ্নের ঠিকানায় স্বাগতম</div>
+                        <ul class="service-list" style="margin-top: 15px;">
+                            <li><strong>পার্কিং ও যাতায়াত:</strong> গাড়ির জন্য সুরক্ষিত গ্যারেজ সুবিধা এবং যাতায়াতের জন্য প্রশস্ত রাস্তা।</li>
+                            <li><strong>ইউটিলিটি সার্ভিস:</strong> নিরবচ্ছিন্ন জীবনযাপনের জন্য সার্বক্ষণিক পানি, বিদ্যুৎ এবং এলপি গ্যাসের সুব্যবস্থা।</li>
+                            <li><strong>মূল্য ও পেমেন্ট:</strong> অত্যন্ত আকর্ষণীয় ও বাজারবান্ধব মূল্য, সাথে রয়েছে সহজ কিস্তিতে ক্রয়ের সুবিধা!</li>
                         </ul>
                     </div>
 
                     <div class="ad-controls" id="adFooterControls">
-                        <button class="ctrl-btn" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i> পূর্ববর্তী</button>
-                        <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ৩</span>
-                        <button class="ctrl-btn" onclick="nextPage()">পরবর্তী <i class="fa-solid fa-chevron-right"></i></button>
+                        <button class="ctrl-btn" onclick="prevPage()">পূর্ববর্তী</button>
+                        <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ২</span>
+                        <button class="ctrl-btn" onclick="nextPage()">পরবর্তী</button>
                     </div>
                 </div>
 
@@ -788,7 +740,7 @@
         </div>
     </footer>
 
-    <!-- জাভাস্ক্রিপ্ট লজিক -->
+    <!-- জাভাস্ক্রিপ্ট লজিক (২টি পেজের জন্য) -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const rawData = localStorage.getItem("loggedInUser");
@@ -842,61 +794,20 @@
         });
 
         let currentPage = 0;
-        const totalPages = 3;
-        const pageDuration = 15000; // ১৫ সেকেন্ড
+        const totalPages = 2; // মোট পেজ সংখ্যা ২
+        const pageDuration = 12000; // ১২ সেকেন্ড পর পর পেজ পরিবর্তন হবে
         let slideInterval;
-        let isFallbackMode = false;
 
-        const doctorAdHTML = `
-            <span class="ad-badge" id="adBadgeText">বিশেষ প্রমোশন</span>
-            <div class="service-page active-page" data-page="0">
-                <div class="service-title">(০১) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
-                <ul class="service-list">
-                    <li><strong>পাকস্থলী ও অন্ত্রের রোগ:</strong> গ্যাস্ট্রিক, আলসার, পিত্তথলির পাথর, পেটব্যথা, মূত্রপাথুরী, আই.বি.স, জন্ডিস, অর্শ/গোজ, ভগন্দর।</li>
-                    <li><strong>নাক, কান, গলা ও চোখের রোগ:</strong> টাইফয়েড জ্বর, কানপাকা, মাম্পস, টনসিল, চোখউঠা, গ্লুকোমা।</li>
-                    <li><strong>চর্ম ও শ্বাসতন্ত্রের রোগ:</strong> ব্রণ, এলার্জি, হাঁপানি, কাশি, সাইনাস ও মাইগ্রেনের মাথাব্যথা।</li>
-                </ul>
-            </div>
-            <div class="service-page" data-page="1">
-                <div class="service-title">(০২) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
-                <ul class="service-list">
-                    <li><strong>স্ত্রী রোগ ও প্রসূতি:</strong> লিউকোরিয়া, অনিয়মিত ঋতুস্রাব, জরায়ু টিউমার, বিয়ের পর বাচ্চা না হওয়া, গর্ভপাত ও জটিলতা।</li>
-                    <li><strong>মেটাবলিক ও হাড়ের রোগ:</strong> ডায়াবেটিস, হার্ট ডিজিজ, ফ্যাটি লিভার, লিভার সিরোসিস, কিডনি ডিজিজ, বাতের ব্যথা।</li>
-                    <li><strong>মস্তিষ্ক ও মানসিক রোগ:</strong> ব্রেন স্ট্রোক, বেলস পালসি, স্পাইনাল ডিস্ক ডিজঅর্ডার, মেনিনজাইটিস, নিউরালজিক ডিজঅর্ডার।</li>
-                </ul>
-            </div>
-            <div class="service-page" data-page="2">
-                <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
-                <ul class="service-list">
-                    <li><strong>ভুল ধারণা:</strong> যেকোনো রোগের চিকিৎসায় অনেক দীর্ঘ সময় প্রয়োজন।</li>
-                    <li><strong>জবাব:</strong> উচ্চ তাপমাত্রার জ্বর, ডায়ারিয়া, নিউমোনিয়া ২৪-৭২ ঘণ্টার মধ্যেই নিয়মিত আরোগ্য হয় ইনশাআল্লাহ।</li>
-                    <li><strong>দীর্ঘমেয়াদী রোগ:</strong> ৩ যুগ যাবৎ ডায়াবেটিস ও হার্ট ডিজিজের রোগী কিংবা কেমোথেরাপি নেওয়া রোগীর শরীরেও হোমিওপ্যাথি সমান কাজ করে।</li>
-                </ul>
-            </div>
-            <div class="ad-controls" id="adFooterControls">
-                <button class="ctrl-btn" onclick="prevPage()"><i class="fa-solid fa-chevron-left"></i> পূর্ববর্তী</button>
-                <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ৩</span>
-                <button class="ctrl-btn" onclick="nextPage()">পরবর্তী <i class="fa-solid fa-chevron-right"></i></button>
-            </div>
-        `;
-
-        function updateBackground(pageIndex, isFallback) {
+        function updateBackground(pageIndex) {
             const rightSec = document.getElementById('adRightContainer');
             if (!rightSec) return;
             
-            rightSec.classList.remove('bg-page-0', 'bg-page-1', 'bg-page-2', 'bg-empty');
-
-            if (isFallback) {
-                rightSec.classList.add('bg-empty');
-            } else {
-                if (pageIndex === 0) rightSec.classList.add('bg-page-0');
-                else if (pageIndex === 1) rightSec.classList.add('bg-page-1');
-                else if (pageIndex === 2) rightSec.classList.add('bg-page-2');
-            }
+            rightSec.classList.remove('bg-page-0', 'bg-page-1');
+            if (pageIndex === 0) rightSec.classList.add('bg-page-0');
+            else if (pageIndex === 1) rightSec.classList.add('bg-page-1');
         }
 
         function showPage(index) {
-            if (isFallbackMode) return;
             const pages = document.querySelectorAll('.service-page');
             if (pages.length === 0) return;
             
@@ -904,69 +815,26 @@
             currentPage = (index + totalPages) % totalPages;
             pages[currentPage].classList.add('active-page');
             
-            updateBackground(currentPage, false);
+            updateBackground(currentPage);
 
             const indicator = document.getElementById('pageIndicatorText');
             if (indicator) {
-                indicator.innerText = `পেজ ${currentPage + 1} / ${totalPages} (${pageDuration/1000} সে.)`;
+                indicator.innerText = `পেজ ${currentPage + 1} / ${totalPages}`;
             }
         }
 
         function nextPage() {
-            if (!isFallbackMode) {
-                showPage(currentPage + 1);
-                resetTimer();
-            }
+            showPage(currentPage + 1);
+            resetTimer();
         }
 
         function prevPage() {
-            if (!isFallbackMode) {
-                showPage(currentPage - 1);
-                resetTimer();
-            }
+            showPage(currentPage - 1);
+            resetTimer();
         }
 
         function autoSlide() {
-            if (!isFallbackMode) {
-                if (currentPage < totalPages - 1) {
-                    showPage(currentPage + 1);
-                } else {
-                    triggerFadeOutAndSwitch();
-                }
-            } else {
-                triggerFadeOutAndSwitch();
-            }
-        }
-
-        function triggerFadeOutAndSwitch() {
-            const card = document.getElementById('mainAdCard');
-            if (!card) return;
-            card.classList.add('fade-out');
-
-            setTimeout(() => {
-                const rightSec = document.getElementById('adRightContainer');
-                if (!rightSec) return;
-                
-                if (!isFallbackMode) {
-                    isFallbackMode = true;
-                    updateBackground(0, true);
-                    rightSec.innerHTML = `
-                        <span class="ad-badge" style="background-color: #2a9d8f;">বিজ্ঞাপন খালি আছে</span>
-                        <div style="text-align: center; margin: auto; padding: 20px;">
-                            <h2 style="color: #0077b6; margin-bottom: 10px; font-size: 22px;">Live Your Advertisements</h2>
-                            <p style="font-size: 14px; color: #555; margin-bottom: 20px; line-height: 1.5;">আপনার বা আপনার প্রতিষ্ঠানের আকর্ষণীয় বিজ্ঞাপনটি এখানে প্রচার করতে আজই আমাদের সাথে যোগাযোগ করুন।</p>
-                            <a href="tel:01977885122" style="background: #e76f51; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-block;">Call for Ad</a>
-                        </div>
-                    `;
-                } else {
-                    isFallbackMode = false;
-                    rightSec.innerHTML = doctorAdHTML;
-                    currentPage = 0;
-                    updateBackground(0, false);
-                }
-
-                card.classList.remove('fade-out');
-            }, 1000);
+            showPage(currentPage + 1);
         }
 
         function resetTimer() {
