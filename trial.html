@@ -309,26 +309,11 @@
         }
     }
 
-    /* --- Master Advertisement Carousel Wrapper --- */
+    /* --- Professional Advertisement Wrapper & Marquee --- */
     .professional-ad-wrapper {
         max-width: 900px;
         margin: 30px auto;
         padding: 10px;
-    }
-
-    .ad-master-container {
-        position: relative;
-        display: none;
-    }
-
-    .ad-master-container.active-ad {
-        display: block;
-        animation: fadeInAd 0.8s ease-in-out;
-    }
-
-    @keyframes fadeInAd {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
     }
 
     .ad-card-container {
@@ -365,9 +350,9 @@
         justify-content: space-between;
     }
 
-    /* --- সাধারণ হেডিং ও টেক্সট স্টাইল --- */
+    /* --- Flat For Sale শেকিং ও বড় শিরোনাম --- */
     .flat-sale-title {
-        font-size: 24px;
+        font-size: 26px;
         color: #94DEA5;
         font-weight: bold;
         margin-bottom: 10px;
@@ -469,9 +454,9 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        background-color: #f1faee;
+        transition: background-color 0.5s ease;
     }
-
+        
     .bg-page-0 { background-color: #a8dadc; }
     .bg-page-1 { background-color: #f1faee; }
 
@@ -495,16 +480,22 @@
 
     .service-page.active-page {
         display: block;
-        animation: slideInFromRight 0.6s forwards ease-in-out;
+        animation: slideInFromRight 0.8s forwards ease-in-out;
     }
 
     @keyframes slideInFromRight {
-        0% { opacity: 0; transform: translateX(40px); }
-        100% { opacity: 1; transform: translateX(0); }
+        0% {
+            opacity: 0;
+            transform: translateX(60px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
     }
 
     .service-title {
-        font-size: 18px;
+        font-size: 19px;
         color: #1d3557;
         font-weight: bold;
         border-bottom: 2px solid #0077b6;
@@ -516,7 +507,7 @@
         list-style: none;
         padding: 0;
         margin: 0;
-        font-size: 14px;
+        font-size: 14.5px;
         color: #2b2d42;
         line-height: 1.6;
     }
@@ -565,27 +556,6 @@
         color: #1e293b;
         font-weight: bold;
     }
-
-    /* --- Global Master Ad Controls (Switching between Ad 1 and Ad 2) --- */
-    .global-ad-switcher {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        margin-top: 10px;
-    }
-    .ad-dot {
-        width: 10px;
-        height: 10px;
-        background-color: #94a3b8;
-        border-radius: 50%;
-        display: inline-block;
-        cursor: pointer;
-        transition: background 0.3s;
-    }
-    .ad-dot.active-dot {
-        background-color: #0077b6;
-        transform: scale(1.2);
-    }
     </style>
 </head>
 <body>
@@ -633,137 +603,88 @@
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSetuzjdN6khHN9-AVMfFWpD11Yn9u1i90lIBsgX8qx1gATkRQ/viewform?usp=header" class="btn">সদস্য হোন</a>
     </div>
 
-    <!-- মাল্টিপল বিজ্ঞাপন র‍্যাপার (১ম বিজ্ঞাপন: ডাক্তার চেম্বার ও ২য় বিজ্ঞাপন: ফ্ল্যাট সেল) -->
+    <!-- ২য় বিজ্ঞাপন কাঠামো (Flat For Sale) -->
     <div class="professional-ad-wrapper">
-        
-        <!-- বিজ্ঞাপন ১: ডাক্তার চেম্বার -->
-        <div class="ad-master-container active-ad" id="masterAd0">
-            <div class="ad-card-container">
-                <div class="ad-table-marquee">
-                    <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
-                        🩺 Doctor's Chamber | বিশেষজ্ঞ ডাক্তার চেম্বার ও স্বাস্থ্য সেবা | DewDrop Joint Savings Fund 🩺
-                    </marquee>
-                </div>
-                <div class="ad-main-card">
-                    <div class="ad-left-section">
-                        <div>
-                            <div class="flat-sale-title" style="color: #68d8d6;">Doctor's Chamber</div>
-                            <div class="flat-sale-desc">
-                                অভিজ্ঞ বিশেষজ্ঞ চিকিৎসকের পরামর্শ নিন এবং আপনার ও আপনার পরিবারের সুস্বাস্থ্য নিশ্চিত করুন। আধুনিক চেম্বারে সাশ্রয়ী মূল্যে চিকিৎসা সেবা প্রদান করা হয়।
-                            </div>
-                            <div class="contact-owner-box">
-                                <div class="owner-name">ডা: এম. এ. রহমান (এমবিবিএস)</div>
-                                <div style="margin: 4px 0;">
-                                    <span class="vibrant-phone-icon">📞</span> 
-                                    <a href="tel:01711223344" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01711223344</a>
-                                </div>
-                                <div class="office-address">
-                                    📍 <strong>চেম্বারের ঠিকানা:</strong> মাদারটেক বাজার রোড, ঢাকা।
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ad-right-section bg-page-0">
-                        <span class="ad-badge">মেডিকেল সেবা</span>
-                        <div class="service-title">বিশেষজ্ঞ চিকিৎসাসেবা ও পরামর্শ</div>
-                        <ul class="service-list">
-                            <li><strong>সেবা সময়:</strong> প্রতিদিন বিকাল ৪টা থেকে রাত ৯টা পর্যন্ত (শুক্রবার বন্ধ)।</li>
-                            <li><strong>বিশেষজ্ঞতা:</strong> মেডিসিন ও চর্মরোগ বিশেষজ্ঞ।</li>
-                            <li><strong>সুবিধাবাদি:</strong> ফান্ডের সদস্যদের জন্য ভিজিটে বিশেষ ছাড়ের ব্যবস্থা রয়েছে।</li>
-                        </ul>
-                        <div class="ad-controls">
-                            <span style="font-size: 12px; font-weight: bold; color: #1e293b;">বিজ্ঞাপন ১ / ২</span>
-                            <button class="ctrl-btn" onclick="nextMasterAd()">পরবর্তী বিজ্ঞাপন ➔</button>
-                        </div>
-                    </div>
-                </div>
+        <div class="ad-card-container">
+            
+            <div class="ad-table-marquee">
+                <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
+                    🏢 Flat For Sale | ফ্ল্যাট বিক্রয় বিজ্ঞপ্তি | DewDrop Joint Savings Fund 🏢
+                </marquee>
             </div>
-        </div>
 
-        <!-- বিজ্ঞাপন ২: ফ্ল্যাট বিক্রয় (Flat For Sale) -->
-        <div class="ad-master-container" id="masterAd1">
-            <div class="ad-card-container">
-                <div class="ad-table-marquee">
-                    <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
-                        🏢 Flat For Sale | ফ্ল্যাট বিক্রয় বিজ্ঞপ্তি | DewDrop Joint Savings Fund 🏢
-                    </marquee>
-                </div>
-
-                <div class="ad-main-card" id="mainAdCard">
-                    <!-- বাম পাশের ফিক্সড সেকশন -->
-                    <div class="ad-left-section">
-                        <div>
-                            <div class="flat-sale-title">Flat For Sale</div>
-                            <div class="flat-sale-desc">
-                                ফ্ল্যাটটি সরাসরি দেখতে অথবা বিস্তারিত জানতে আজই আমাদের সাথে যোগাযোগ করুন। আপনার স্বপ্নকে বাস্তবে রূপ দিতে আমরা আছি আপনার পাশে।
+            <div class="ad-main-card" id="mainAdCard">
+                
+                <!-- বাম পাশের ফিক্সড সেকশন -->
+                <div class="ad-left-section">
+                    <div>
+                        <div class="flat-sale-title">Flat For Sale</div>
+                        <div class="flat-sale-desc">
+                            ফ্ল্যাটটি সরাসরি দেখতে অথবা বিস্তারিত জানতে আজই আমাদের সাথে যোগাযোগ করুন। আপনার স্বপ্নকে বাস্তবে রূপ দিতে আমরা আছি আপনার পাশে।
+                        </div>
+                        
+                        <div class="contact-owner-box">
+                            <div class="owner-name">মো: তানযীম ইসলাম</div>
+                            
+                            <!-- অ্যানিমেটেড লাল ফোন লোগো এবং ফোন নম্বর -->
+                            <div style="margin: 4px 0;">
+                                <span class="vibrant-phone-icon">📞</span> 
+                                <a href="tel:01977995122" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01977995122</a>
                             </div>
                             
-                            <div class="contact-owner-box">
-                                <div class="owner-name">মো: তানযীম ইসলাম</div>
-                                
-                                <div style="margin: 4px 0;">
-                                    <span class="vibrant-phone-icon">📞</span> 
-                                    <a href="tel:01977995122" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01977995122</a>
-                                </div>
-                                
-                                <a href="https://wa.me/8801977995122" target="_blank" class="whatsapp-container" title="WhatsApp এ যোগাযোগ করুন">
-                                    <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
-                                    <span class="whatsapp-text">Contact with WhatsApp</span>
-                                </a>
+                            <!-- WhatsApp লোগো ও ডানে "Contact with WhatsApp" লেখা -->
+                            <a href="https://wa.me/8801977995122" target="_blank" class="whatsapp-container" title="WhatsApp এ যোগাযোগ করুন">
+                                <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
+                                <span class="whatsapp-text">Contact with WhatsApp</span>
+                            </a>
 
-                                <div style="margin-top: 6px; font-size: 12.5px;">
-                                    ✉️ <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a>
-                                </div>
-                                <div class="office-address">
-                                    📍 <strong>অফিস ঠিকানা:</strong> মাদারটেক, বাসাবো, ঢাকা।
-                                </div>
+                            <!-- ইমেইল ও ঠিকানা -->
+                            <div style="margin-top: 6px; font-size: 12.5px;">
+                                ✉️ <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a>
+                            </div>
+                            <div class="office-address">
+                                📍 <strong>অফিস ঠিকানা:</strong> মাদারটেক, বাসাবো, ঢাকা।
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- ডান পাশের ডাইনামিক পেজ ও ব্যাকগ্রাউন্ড সেকশন (ফ্ল্যাটের ২ টি পেজ) -->
-                    <div class="ad-right-section bg-page-0" id="adRightContainer">
-                        <span class="ad-badge" id="adBadgeText">রিয়েল এস্টেট</span>
+                <!-- ডান পাশের ডাইনামিক পেজ ও ব্যাকগ্রাউন্ড সেকশন (২টি পেজ) -->
+                <div class="ad-right-section bg-page-0" id="adRightContainer">
+                    <span class="ad-badge" id="adBadgeText">রিয়েল এস্টেট</span>
 
-                        <!-- পেজ ১ -->
-                        <div class="service-page active-page" data-page="0">
-                            <div class="service-title">Flat For Sale! আপনার স্বপ্নের ঠিকানায় স্বাগতম</div>
-                            <p style="font-size: 13.5px; color: #2b2d42; line-height: 1.5; margin-bottom: 10px;">
-                                আপনি কি ঢাকা শহরের একটি আদর্শ এবং স্বাচ্ছন্দ্যময় ঠিকানার খোঁজ করছেন? আপনার ও আপনার পরিবারের জীবনযাত্রাকে আরও সুন্দর ও নিরাপদ করতে আমরা নিয়ে এসেছি একটি চমৎকার অ্যাপার্টমেন্ট।
-                            </p>
-                            <ul class="service-list">
-                                <li><strong>আয়তন:</strong> ১২০০ স্কয়ার ফিট সুপরিসর ফ্ল্যাট।</li>
-                                <li><strong>রুম বিন্যাস:</strong> ৩টি চমৎকার বেডরুম, খোলামেলা ড্রয়িং ও ডাইনিং রুম।</li>
-                                <li><strong>বারান্দা ও বাথরুম:</strong> প্রতিটি ফ্ল্যাটে রয়েছে ৩টি করে প্রশস্ত বারান্দা এবং আধুনিক ওয়াশরুম।</li>
-                            </ul>
-                        </div>
+                    <!-- পেজ ১ -->
+                    <div class="service-page active-page" data-page="0">
+                        <div class="service-title">Flat For Sale! আপনার স্বপ্নের ঠিকানায় স্বাগতম</div>
+                        <p style="font-size: 13.5px; color: #2b2d42; line-height: 1.5; margin-bottom: 10px;">
+                            আপনি কি ঢাকা শহরের একটি আদর্শ এবং স্বাচ্ছন্দ্যময় ঠিকানার খোঁজ করছেন? আপনার ও আপনার পরিবারের জীবনযাত্রাকে আরও সুন্দর ও নিরাপদ করতে আমরা নিয়ে এসেছি একটি চমৎকার অ্যাপার্টমেন্ট। আধুনিক সুযোগ-সুবিধা এবং চমৎকার লোকেশনে এটি হতে পারে আপনার পরবর্তী স্থায়ী ঠিকানা।
+                        </p>
+                        <ul class="service-list">
+                            <li><strong>আয়তন:</strong> ১২০০ স্কয়ার ফিট সুপরিসর ফ্ল্যাট।</li>
+                            <li><strong>রুম বিন্যাস:</strong> ৩টি চমৎকার বেডরুম, খোলামেলা ড্রয়িং ও ডাইনিং রুম।</li>
+                            <li><strong>বারান্দা ও বাথরুম:</strong> প্রতিটি ফ্ল্যাটে রয়েছে ৩টি করে প্রশস্ত বারান্দা এবং আধুনিক ফিটিংসযুক্ত ৩টি ওয়াশরুম।</li>
+                        </ul>
+                    </div>
 
-                        <!-- পেজ ২ -->
-                        <div class="service-page" data-page="1">
-                            <div class="service-title">Flat For Sale! আপনার স্বপ্নের ঠিকানায় স্বাগতম</div>
-                            <ul class="service-list" style="margin-top: 15px;">
-                                <li><strong>পার্কিং ও যাতায়াত:</strong> গাড়ির জন্য সুরক্ষিত গ্যারেজ সুবিধা এবং প্রশস্ত রাস্তা।</li>
-                                <li><strong>ইউটিলিটি সার্ভিস:</strong> নিরবচ্ছিন্ন জীবনের জন্য সার্বক্ষণিক পানি, বিদ্যুৎ ও গ্যাস।</li>
-                                <li><strong>মূল্য ও পেমেন্ট:</strong> আকর্ষণীয় ও বাজারবান্ধব মূল্য, সহজ কিস্তিতে ক্রয়ের সুবিধা!</li>
-                            </ul>
-                        </div>
+                    <!-- পেজ ২ -->
+                    <div class="service-page" data-page="1">
+                        <div class="service-title">Flat For Sale! আপনার স্বপ্নের ঠিকানায় স্বাগতম</div>
+                        <ul class="service-list" style="margin-top: 15px;">
+                            <li><strong>পার্কিং ও যাতায়াত:</strong> গাড়ির জন্য সুরক্ষিত গ্যারেজ সুবিধা এবং যাতায়াতের জন্য প্রশস্ত রাস্তা।</li>
+                            <li><strong>ইউটিলিটি সার্ভিস:</strong> নিরবচ্ছিন্ন জীবনযাপনের জন্য সার্বক্ষণিক পানি, বিদ্যুৎ এবং এলপি গ্যাসের সুব্যবস্থা।</li>
+                            <li><strong>মূল্য ও পেমেন্ট:</strong> অত্যন্ত আকর্ষণীয় ও বাজারবান্ধব মূল্য, সাথে রয়েছে সহজ কিস্তিতে ক্রয়ের সুবিধা!</li>
+                        </ul>
+                    </div>
 
-                        <div class="ad-controls" id="adFooterControls">
-                            <button class="ctrl-btn" onclick="prevSubPage()">পূর্ববর্তী</button>
-                            <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ২</span>
-                            <button class="ctrl-btn" onclick="nextSubPage()">পরবর্তী</button>
-                        </div>
+                    <div class="ad-controls" id="adFooterControls">
+                        <button class="ctrl-btn" onclick="prevPage()">পূর্ববর্তী</button>
+                        <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ২</span>
+                        <button class="ctrl-btn" onclick="nextPage()">পরবর্তী</button>
                     </div>
                 </div>
+
             </div>
         </div>
-
-        <!-- বিজ্ঞাপন সুইচিচিং ডট ইন্ডিকেটর -->
-        <div class="global-ad-switcher">
-            <span class="ad-dot active-dot" onclick="switchMasterAd(0)" title="বিজ্ঞাপন ১: ডাক্তার চেম্বার"></span>
-            <span class="ad-dot" onclick="switchMasterAd(1)" title="বিজ্ঞাপন ২: ফ্ল্যাট বিক্রয়"></span>
-        </div>
-
     </div>
     
     <!-- Features Section -->
@@ -792,7 +713,10 @@
     <div id="about-section" class="about-section">
         <h2>আমাদের সম্পর্কে</h2>
         <p>
-            আমরা, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund)-এর প্রতিষ্ঠাতা সদস্যবৃন্দ, পারস্পরিক সহযোগিতা, সুদৃঢ় ঐক্য এবং একটি সঞ্চয়ী মনোভাব গড়ে তোলার লক্ষ্যে সর্বসম্মতিক্রমে এই সমিতি গঠন করছি।
+            আমরা, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund)-এর প্রতিষ্ঠাতা সদস্যবৃন্দ, পারস্পরিক সহযোগিতা, সুদৃঢ় ঐক্য এবং একটি সঞ্চয়ী মনোভাব গড়ে তোলার লক্ষ্যে সর্বসম্মতিক্রমে এই সমিতি গঠন করছি। আমাদের মূল উদ্দেশ্য- পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা, যা ভবিষ্যতে আমাদের যেকোনো বড় ধরনের লাভজনক খাতে যৌথ বিনিয়োগের পথ সুগম করবে এবং আমাদের আর্থিক ও সামাজিক নিরাপত্তাকে জোরদার করবে।
+        </p>
+        <p>
+            পরিশেষে বলা যায়, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund) কেবল একটি আর্থিক সঞ্চয়ের মাধ্যম নয়; এটি আমাদের পারস্পরিক আস্থা, বিশ্বাস এবং যৌথ সফলতার একটি স্মারক। আমরা দৃঢ়ভাবে বিশ্বাস করি, এই নীতিমালার প্রতিটি ধারা অক্ষরে অক্ষরে পালনের মাধ্যমে আমাদের তহবিলের শৃঙ্খলা বজায় থাকবে। দীর্ঘ ৩ বছরের এই পথচলায় যেকোনো সাময়িক প্রতিকূলতা বা মতপার্থক্য আমরা সকলে মিলে আন্তরিকতা, পারস্পরিক সৌহার্দ্য এবং আলোচনার মাধ্যমে সমাধান করব, ইনশাআল্লাহ। এই যৌথ প্রচেষ্টা আমাদের সকলের জন্য কল্যাণময়, বরকতময় এবং একটি উজ্জ্বল ভবিষ্যৎ বিনির্মাণের হাতিয়ার হোক, আমীন।
         </p>
 
         <!-- যোগাযোগের তথ্য -->
@@ -816,7 +740,7 @@
         </div>
     </footer>
 
-    <!-- জাভাস্ক্রিপ্ট লজিক (বিজ্ঞাপন ও সাব-পেজ কন্ট্রোল) -->
+    <!-- জাভাস্ক্রিপ্ট লজিক (২টি পেজের জন্য) -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const rawData = localStorage.getItem("loggedInUser");
@@ -840,7 +764,9 @@
             if (isLoggedIn && user) {
                 if (headerUserAvatar) {
                     headerUserAvatar.src = user.photoUrl || user.image || "prflogo.jpeg";
-                    headerUserAvatar.onerror = function() { this.src = "prflogo.jpeg"; };
+                    headerUserAvatar.onerror = function() {
+                        this.src = "prflogo.jpeg";
+                    };
                     headerUserAvatar.title = user.name || "প্রোফাইল";
                 }
                 if (navAuthBtn) {
@@ -854,83 +780,69 @@
                         }
                     };
                 }
+            } else {
+                if (headerUserAvatar) {
+                    headerUserAvatar.src = "prflogo.jpeg";
+                    headerUserAvatar.title = "গেস্ট প্রোফাইল";
+                }
+                if (navAuthBtn) {
+                    navAuthBtn.innerText = "লগইন";
+                    navAuthBtn.href = "login.html";
+                    navAuthBtn.onclick = null;
+                }
             }
-
-            showSubPage(0);
-            startMasterAdTimer();
         });
 
-        // --- মাস্টার বিজ্ঞাপন পরিবর্তন লজিক (Ad 1 -> Ad 2) ---
-        let currentMasterAd = 0;
-        const totalMasterAds = 2;
-        let masterAdTimer;
-
-        function switchMasterAd(index) {
-            const ads = document.querySelectorAll('.ad-master-container');
-            const dots = document.querySelectorAll('.ad-dot');
-            if (ads.length === 0) return;
-
-            ads.forEach(ad => ad.classList.remove('active-ad'));
-            dots.forEach(dot => dot.classList.remove('active-dot'));
-
-            currentMasterAd = (index + totalMasterAds) % totalMasterAds;
-            ads[currentMasterAd].classList.add('active-ad');
-            dots[currentMasterAd].classList.add('active-dot');
-
-            resetMasterAdTimer();
-        }
-
-        function nextMasterAd() {
-            switchMasterAd(currentMasterAd + 1);
-        }
-
-        function startMasterAdTimer() {
-            clearInterval(masterAdTimer);
-            masterAdTimer = setInterval(nextMasterAd, 15000); // প্রতি ১৫ সেকেন্ড পর পর বিজ্ঞাপন পরিবর্তন হবে
-        }
-
-        function resetMasterAdTimer() {
-            clearInterval(masterAdTimer);
-            masterAdTimer = setInterval(nextMasterAd, 15000);
-        }
-
-        // --- ২য় বিজ্ঞাপনের ভেতরের পেজ স্লাইডার লজিক ---
-        let currentSubPage = 0;
-        const totalSubPages = 2;
+        let currentPage = 0;
+        const totalPages = 2; // মোট পেজ সংখ্যা ২
+        const pageDuration = 12000; // ১২ সেকেন্ড পর পর পেজ পরিবর্তন হবে
+        let slideInterval;
 
         function updateBackground(pageIndex) {
             const rightSec = document.getElementById('adRightContainer');
             if (!rightSec) return;
+            
             rightSec.classList.remove('bg-page-0', 'bg-page-1');
             if (pageIndex === 0) rightSec.classList.add('bg-page-0');
             else if (pageIndex === 1) rightSec.classList.add('bg-page-1');
         }
 
-        function showSubPage(index) {
-            const pages = document.querySelectorAll('#masterAd1 .service-page');
+        function showPage(index) {
+            const pages = document.querySelectorAll('.service-page');
             if (pages.length === 0) return;
-
+            
             pages.forEach(p => p.classList.remove('active-page'));
-            currentSubPage = (index + totalSubPages) % totalSubPages;
-            pages[currentSubPage].classList.add('active-page');
-
-            updateBackground(currentSubPage);
+            currentPage = (index + totalPages) % totalPages;
+            pages[currentPage].classList.add('active-page');
+            
+            updateBackground(currentPage);
 
             const indicator = document.getElementById('pageIndicatorText');
             if (indicator) {
-                indicator.innerText = `পেজ ${currentSubPage + 1} / ${totalSubPages}`;
+                indicator.innerText = `পেজ ${currentPage + 1} / ${totalPages}`;
             }
         }
 
-        function nextSubPage() {
-            showSubPage(currentSubPage + 1);
-            resetMasterAdTimer();
+        function nextPage() {
+            showPage(currentPage + 1);
+            resetTimer();
         }
 
-        function prevSubPage() {
-            showSubPage(currentSubPage - 1);
-            resetMasterAdTimer();
+        function prevPage() {
+            showPage(currentPage - 1);
+            resetTimer();
         }
+
+        function autoSlide() {
+            showPage(currentPage + 1);
+        }
+
+        function resetTimer() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(autoSlide, pageDuration);
+        }
+
+        slideInterval = setInterval(autoSlide, pageDuration);
     </script>
 </body>
 </html>
