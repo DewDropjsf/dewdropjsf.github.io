@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DewDrop Joint Savings Fund</title>
+    <title>DewDrop Joint Savings Fund - Ultimate Advertisement Loop</title>
 
     <style>
     /* --- General Reset & Page Setup --- */
@@ -322,6 +322,11 @@
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         overflow: hidden;
         background: #023D54;
+        transition: opacity 0.8s ease-in-out; /* ফেড ইফেক্টের জন্য স্মুথ ট্রানজিশন */
+    }
+
+    .ad-card-container.fade-out {
+        opacity: 0;
     }
 
     .ad-table-marquee {
@@ -350,49 +355,26 @@
         justify-content: space-between;
     }
 
-    /* --- Flat For Sale শেকিং ও বড় শিরোনাম --- */
-    .flat-sale-title {
-        font-size: 26px;
+    /* কমন স্টাইলসমূহ */
+    .doctor-name, .flat-sale-title {
+        font-size: 22px;
         color: #94DEA5;
         font-weight: bold;
-        margin-bottom: 10px;
+        margin-bottom: 2px;
         text-align: center;
-        display: inline-block;
-        width: 100%;
-        animation: shakeFlat 1.2s infinite ease-in-out;
     }
-
-    @keyframes shakeFlat {
-        0% { transform: translate(0, 0) rotate(0deg); }
-        15% { transform: translate(-2px, 2px) rotate(-2deg); }
-        30% { transform: translate(2px, -2px) rotate(2deg); }
-        45% { transform: translate(-2px, -1px) rotate(-1deg); }
-        60% { transform: translate(2px, 2px) rotate(1deg); }
-        75% { transform: translate(0, 0) rotate(0deg); }
-        100% { transform: translate(0, 0) rotate(0deg); }
+    .doctor-title {
+        color: #ffff66;
+        font-size: 13px;
+        font-weight: bold;
+        margin-bottom: 8px;
+        text-align: center;
     }
-
-    .flat-sale-desc {
+    .chamber-info, .flat-sale-desc {
         font-size: 13.5px;
         color: #C0D2E6;
-        line-height: 1.6;
-        margin-bottom: 15px;
-        text-align: justify;
-    }
-
-    .contact-owner-box {
-        background-color: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 12px;
-        border-radius: 8px;
-        margin-top: 10px;
-    }
-
-    .owner-name {
-        font-size: 16px;
-        color: #ffff66;
-        font-weight: bold;
-        margin-bottom: 6px;
+        line-height: 1.5;
+        margin-bottom: 10px;
     }
 
     .vibrant-phone-icon {
@@ -440,10 +422,53 @@
         text-decoration: underline;
     }
 
-    .office-address {
-        margin-top: 8px;
+    .chamber-timing {
+        background-color: #baeafd;
+        border-left: 4px solid #2a9d8f;
+        padding: 8px;
+        font-size: 14px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        color: #001219;
+    }
+
+    .social-section-title {
+        color: #ffff66;
         font-size: 13px;
-        color: #baeafd;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 6px;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 10px;
+        align-items: center;
+    }
+
+    .social-logo {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: transform 0.2s ease;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .social-logo:hover {
+        transform: scale(1.1);
+    }
+
+    .ad-warning {
+        font-size: 11.5px;
+        color: #e63946;
+        font-weight: bold;
+        background: #baeafd;
+        padding: 5px;
+        border-radius: 4px;
+        text-align: center;
     }
 
     /* --- Ad Right Hand Side & Dynamic Backgrounds --- */
@@ -457,8 +482,10 @@
         transition: background-color 0.5s ease;
     }
         
-    .bg-page-0 { background-color: #a8dadc; }
-    .bg-page-1 { background-color: #f1faee; }
+    .bg-page-0 { background-color: #57d9c9; }
+    .bg-page-1 { background-color: #a8dadc; }
+    .bg-page-2 { background-color: #f1faee; }
+    .bg-page-3 { background-color: #e2e8f0; }
 
     .ad-badge {
         position: absolute;
@@ -495,27 +522,27 @@
     }
 
     .service-title {
-        font-size: 19px;
-        color: #1d3557;
+        font-size: 18px;
+        color: #2b2d42;
         font-weight: bold;
         border-bottom: 2px solid #0077b6;
         padding-bottom: 5px;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
     }
 
     .service-list {
         list-style: none;
         padding: 0;
         margin: 0;
-        font-size: 14.5px;
+        font-size: 14px;
         color: #2b2d42;
-        line-height: 1.6;
+        line-height: 1.5;
     }
 
     .service-list li {
-        margin-bottom: 10px;
+        margin-bottom: 6px;
         position: relative;
-        padding-left: 18px;
+        padding-left: 15px;
     }
 
     .service-list li::before {
@@ -523,6 +550,25 @@
         color: #e76f51;
         position: absolute;
         left: 0;
+    }
+
+    /* গ্যালারি ছবি স্টাইল (৩ ও ৪ নং পেজের জন্য) */
+    .property-gallery-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .property-img {
+        width: 100%;
+        height: 115px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 2px solid #0077b6;
+        transition: transform 0.3s;
+    }
+    .property-img:hover {
+        transform: scale(1.03);
     }
 
     .ad-controls {
@@ -603,86 +649,18 @@
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSetuzjdN6khHN9-AVMfFWpD11Yn9u1i90lIBsgX8qx1gATkRQ/viewform?usp=header" class="btn">সদস্য হোন</a>
     </div>
 
-    <!-- ২য় বিজ্ঞাপন কাঠামো (Flat For Sale) -->
+    <!-- মূল বিজ্ঞাপন কাঠামো (Cyclic Rotating Ad Wrapper) -->
     <div class="professional-ad-wrapper">
-        <div class="ad-card-container">
+        <div class="ad-card-container" id="adCardWrapper">
             
             <div class="ad-table-marquee">
                 <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
-                    🏢 Flat For Sale | ফ্ল্যাট বিক্রয় বিজ্ঞপ্তি | DewDrop Joint Savings Fund 🏢
+                    📢 Call for your Advertisements | আপনার বিজ্ঞাপনের জন্য যোগাযোগ করুন | DewDrop Joint Savings Fund 📢
                 </marquee>
             </div>
 
             <div class="ad-main-card" id="mainAdCard">
-                
-                <!-- বাম পাশের ফিক্সড সেকশন -->
-                <div class="ad-left-section">
-                    <div>
-                        <div class="flat-sale-title">Flat For Sale</div>
-                        <div class="flat-sale-desc">
-                            ফ্ল্যাটটি সরাসরি দেখতে অথবা বিস্তারিত জানতে আজই আমাদের সাথে যোগাযোগ করুন। আপনার স্বপ্নকে বাস্তবে রূপ দিতে আমরা আছি আপনার পাশে।
-                        </div>
-                        
-                        <div class="contact-owner-box">
-                            <div class="owner-name">মো: তানযীম ইসলাম</div>
-                            
-                            <!-- অ্যানিমেটেড লাল ফোন লোগো এবং ফোন নম্বর -->
-                            <div style="margin: 4px 0;">
-                                <span class="vibrant-phone-icon">📞</span> 
-                                <a href="tel:01977995122" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01977995122</a>
-                            </div>
-                            
-                            <!-- WhatsApp লোগো ও ডানে "Contact with WhatsApp" লেখা -->
-                            <a href="https://wa.me/8801977995122" target="_blank" class="whatsapp-container" title="WhatsApp এ যোগাযোগ করুন">
-                                <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
-                                <span class="whatsapp-text">Contact with WhatsApp</span>
-                            </a>
-
-                            <!-- ইমেইল ও ঠিকানা -->
-                            <div style="margin-top: 6px; font-size: 12.5px;">
-                                ✉️ <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a>
-                            </div>
-                            <div class="office-address">
-                                📍 <strong>অফিস ঠিকানা:</strong> মাদারটেক, বাসাবো, ঢাকা।
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ডান পাশের ডাইনামিক পেজ ও ব্যাকগ্রাউন্ড সেকশন (২টি পেজ) -->
-                <div class="ad-right-section bg-page-0" id="adRightContainer">
-                    <span class="ad-badge" id="adBadgeText">রিয়েল এস্টেট</span>
-
-                    <!-- পেজ ১ -->
-                    <div class="service-page active-page" data-page="0">
-                        <div class="service-title">Flat For Sale! আপনার স্বপ্নের ঠিকানায় স্বাগতম</div>
-                        <p style="font-size: 13.5px; color: #2b2d42; line-height: 1.5; margin-bottom: 10px;">
-                            আপনি কি ঢাকা শহরের একটি আদর্শ এবং স্বাচ্ছন্দ্যময় ঠিকানার খোঁজ করছেন? আপনার ও আপনার পরিবারের জীবনযাত্রাকে আরও সুন্দর ও নিরাপদ করতে আমরা নিয়ে এসেছি একটি চমৎকার অ্যাপার্টমেন্ট। আধুনিক সুযোগ-সুবিধা এবং চমৎকার লোকেশনে এটি হতে পারে আপনার পরবর্তী স্থায়ী ঠিকানা।
-                        </p>
-                        <ul class="service-list">
-                            <li><strong>আয়তন:</strong> ১২০০ স্কয়ার ফিট সুপরিসর ফ্ল্যাট।</li>
-                            <li><strong>রুম বিন্যাস:</strong> ৩টি চমৎকার বেডরুম, খোলামেলা ড্রয়িং ও ডাইনিং রুম।</li>
-                            <li><strong>বারান্দা ও বাথরুম:</strong> প্রতিটি ফ্ল্যাটে রয়েছে ৩টি করে প্রশস্ত বারান্দা এবং আধুনিক ফিটিংসযুক্ত ৩টি ওয়াশরুম।</li>
-                        </ul>
-                    </div>
-
-                    <!-- পেজ ২ -->
-                    <div class="service-page" data-page="1">
-                        <div class="service-title">Flat For Sale! আপনার স্বপ্নের ঠিকানায় স্বাগতম</div>
-                        <ul class="service-list" style="margin-top: 15px;">
-                            <li><strong>পার্কিং ও যাতায়াত:</strong> গাড়ির জন্য সুরক্ষিত গ্যারেজ সুবিধা এবং যাতায়াতের জন্য প্রশস্ত রাস্তা।</li>
-                            <li><strong>ইউটিলিটি সার্ভিস:</strong> নিরবচ্ছিন্ন জীবনযাপনের জন্য সার্বক্ষণিক পানি, বিদ্যুৎ এবং এলপি গ্যাসের সুব্যবস্থা।</li>
-                            <li><strong>মূল্য ও পেমেন্ট:</strong> অত্যন্ত আকর্ষণীয় ও বাজারবান্ধব মূল্য, সাথে রয়েছে সহজ কিস্তিতে ক্রয়ের সুবিধা!</li>
-                        </ul>
-                    </div>
-
-                    <div class="ad-controls" id="adFooterControls">
-                        <button class="ctrl-btn" onclick="prevPage()">পূর্ববর্তী</button>
-                        <span class="page-indicators" id="pageIndicatorText">পেজ ১ / ২</span>
-                        <button class="ctrl-btn" onclick="nextPage()">পরবর্তী</button>
-                    </div>
-                </div>
-
+                <!-- ডাইনামিক কনটেন্ট জাভাস্ক্রিপ্ট এর মাধ্যমে এখানে লোড হবে -->
             </div>
         </div>
     </div>
@@ -740,8 +718,9 @@
         </div>
     </footer>
 
-    <!-- জাভাস্ক্রিপ্ট লজিক (২টি পেজের জন্য) -->
+    <!-- জাভাস্ক্রিপ্ট লজিক ও সাইড নোট (Side Notes / Comments for future self-editing) -->
     <script>
+        // ইউজারের লগইন স্ট্যাটাস চেক করার স্ক্রিপ্ট
         document.addEventListener("DOMContentLoaded", function() {
             const rawData = localStorage.getItem("loggedInUser");
             const navAuthBtn = document.getElementById("navAuthBtn");
@@ -764,9 +743,7 @@
             if (isLoggedIn && user) {
                 if (headerUserAvatar) {
                     headerUserAvatar.src = user.photoUrl || user.image || "prflogo.jpeg";
-                    headerUserAvatar.onerror = function() {
-                        this.src = "prflogo.jpeg";
-                    };
+                    headerUserAvatar.onerror = function() { this.src = "prflogo.jpeg"; };
                     headerUserAvatar.title = user.name || "প্রোফাইল";
                 }
                 if (navAuthBtn) {
@@ -793,56 +770,280 @@
             }
         });
 
-        let currentPage = 0;
-        const totalPages = 2; // মোট পেজ সংখ্যা ২
-        const pageDuration = 12000; // ১২ সেকেন্ড পর পর পেজ পরিবর্তন হবে
-        let slideInterval;
+        /* 
+          ========================================================================
+          [সাইড নোট / সাইকেল ও টাইমিং নিয়ন্ত্রণ গাইডলাইন - ভবিষ্যতে পরিবর্তনের জন্য]
+          ১. adSequence: এখানে বিজ্ঞাপনের ধাপগুলো সাজানো আছে। (0 = ডাক্তার বিজ্ঞাপন, 1 = রিয়েল এস্টেট বিজ্ঞাপন, 2 = Call for Ad সেকশন)।
+          ২. pageDurations: প্রতিটা বিজ্ঞাপনের সাব-পেজের একেকটি পেজের কত সেকেন্ড করে প্রদর্শন হবে তা নির্ধারিত (যেমন ৪৫ সেকেন্ডকে পেজ সংখ্যা দিয়ে ভাগ করা হয়েছে)।
+          ৩. নতুন বিজ্ঞাপন বা পেজ যোগ করতে চাইলে নিচের HTML অবজেক্টগুলোতে নতুন পেজ বা ডেটা যুক্ত করতে পারবেন খুব সহজেই।
+          ========================================================================
+        */
 
-        function updateBackground(pageIndex) {
-            const rightSec = document.getElementById('adRightContainer');
-            if (!rightSec) return;
-            
-            rightSec.classList.remove('bg-page-0', 'bg-page-1');
-            if (pageIndex === 0) rightSec.classList.add('bg-page-0');
-            else if (pageIndex === 1) rightSec.classList.add('bg-page-1');
+        let currentAdIndex = 0; // বর্তমানে কোন বিজ্ঞাপন চলছে (0 = ডাক্তার, 1 = রিয়েল এস্টেট, 2 = Call for Ad)
+        let currentPageIndex = 0; // বর্তমান বিজ্ঞাপনের কত নম্বর পেজ চলছে
+        let adTimer = null;
+
+        // ৩টি বিজ্ঞাপনের ডেটা এবং সাব-পেজ বিন্যাস
+        const advertisements = [
+            {
+                // বিজ্ঞাপন ১: ডাক্তার বিজ্ঞাপন (৩টি পেজ, মোট সময় ৪৫ সেকেন্ড, প্রতি পেজ ১৫ সেকেন্ড)
+                durationPerPage: 15000, 
+                leftHTML: `
+                    <div class="ad-left-section">
+                        <div>
+                            <h2 class="doctor-name">ডা. মতিউর রহমান</h2>
+                            <div class="doctor-title">রেজিস্টার্ড হোমিওপ্যাথ ও ডায়েটিশিয়ান</div>
+                            <div class="doctor-title">MBS, DHMS(BHMC),MPH in Nutrition(NUB)</div>
+                            <div class="chamber-info">
+                                <strong>চেম্বার : সামস হোমিও হল</strong><br>
+                                বাড়ী নং-৬, ব্লক-এ, রোড নং-০১, দক্ষিণ বনশ্রী, সবুজবাগ, ঢাকা।<br>
+                                <em>(লেগুনা স্ট্যান্ড উত্তরা ব্যাংকের পরের গলি)</em><br>
+                                <span class="vibrant-phone-icon">📞</span> 
+                                <a href="tel:01913492389" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01913492389</a>
+                                <a href="https://wa.me/8801913492389" target="_blank" class="whatsapp-container">
+                                    <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
+                                    <span class="whatsapp-text">Contact with WhatsApp</span>
+                                </a>
+                            </div>
+                            <div class="chamber-timing">
+                                <strong>🏥 রোগী দেখার সময় :</strong> রবিবার থেকে শুক্রবার<br>
+                                সকাল- ১০টা থেকে দুপুর ১টা এবং বিকাল-বাদ আসর থেকে রাত ১০টা
+                            </div>
+                        </div>
+                        <div>
+                            <div class="social-section-title">Subscribe our channels:</div>
+                            <div class="social-links">
+                                <a href="https://www.facebook.com/share/1Eh8YcZ6cr/" target="_blank"><img src="fblogo.png" alt="Facebook" class="social-logo"></a>
+                                <a href="https://youtube.com/@drmotiurrahmanbd" target="_blank"><img src="utubelogo.png" alt="YouTube" class="social-logo"></a>
+                            </div>
+                            <div class="ad-warning">⚠️ রোগীর দেখানোর জন্য ১ দিন আগে সিরিয়াল নিতে হবে।</div>
+                        </div>
+                    </div>
+                `,
+                pages: [
+                    `
+                    <span class="ad-badge">বিশেষ প্রমোশন</span>
+                    <div class="service-title">(০১) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
+                    <ul class="service-list">
+                        <li><strong>পাকস্থলী ও অন্ত্রের রোগ:</strong> গ্যাস্ট্রিক, আলসার, পিত্তথলির পাথর, পেটব্যথা, মূত্রপাথুরী, আই.বি.স, জন্ডিস, অর্শ/গোজ।</li>
+                        <li><strong>নাক, কান, গলা ও চোখের রোগ:</strong> টাইফয়েড জ্বর, কানপাকা, মাম্পস, টনসিল, চোখউঠা, গ্লুকোমা।</li>
+                        <li><strong>চর্ম ও শ্বাসতন্ত্রের রোগ:</strong> ব্রণ, এলার্জি, হাঁপানি, কাশি, সাইনাস ও মাইগ্রেনের মাথাব্যথা।</li>
+                    </ul>
+                    `,
+                    `
+                    <span class="ad-badge">বিশেষ প্রমোশন</span>
+                    <div class="service-title">(০২) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
+                    <ul class="service-list">
+                        <li><strong>স্ত্রী রোগ ও প্রসূতি:</strong> লিউকোরিয়া, অনিয়মিত ঋতুস্রাব, জরায়ু টিউমার, বিয়ের পর বাচ্চা না হওয়া।</li>
+                        <li><strong>মেটাবলিক ও হাড়ের রোগ:</strong> ডায়াবেটিস, হার্ট ডিজিজ, ফ্যাটি লিভার, লিভার সিরোসিস, কিডনি ডিজিজ, বাতের ব্যথা।</li>
+                        <li><strong>মস্তিষ্ক ও মানসিক রোগ:</strong> ব্রেন স্ট্রোক, বেলস পালসি, স্পাইনাল ডিস্ক ডিজঅর্ডার, মেনিনজাইটিস।</li>
+                    </ul>
+                    `,
+                    `
+                    <span class="ad-badge">বিশেষ প্রমোশন</span>
+                    <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
+                    <ul class="service-list">
+                        <li><strong>ভুল ধারণা:</strong> যেকোনো রোগের চিকিৎসায় অনেক দীর্ঘ সময় প্রয়োজন।</li>
+                        <li><strong>জবাব:</strong> উচ্চ তাপমাত্রার জ্বর, ডায়ারিয়া, নিউমোনিয়া ২৪-৭২ ঘণ্টার মধ্যেই নিয়মিত আরোগ্য হয় ইনশাআল্লাহ।</li>
+                        <li><strong>দীর্ঘমেয়াদী রোগ:</strong> ৩ যুগ যাবৎ ডায়াবেটিস ও হার্ট ডিজিজের রোগী কিংবা কেমোথেরাপি নেওয়া রোগীর শরীরেও হোমিওপ্যাথি সমান কাজ করে।</li>
+                    </ul>
+                    `
+                ]
+            },
+            {
+                // বিজ্ঞাপন ২: রিয়েল এস্টেট বিজ্ঞাপন (৪টি পেজ, মোট সময় ৪৫ সেকেন্ড, প্রতি পেজ প্রায় ১১.২৫ সেকেন্ড)
+                // [সাইড নোট: ৩ ও ৪ নং পেজে আপনার প্রজেক্ট বা ফ্ল্যাটের ছবি যুক্ত বা পরিবর্তন করতে চাইলে নিচের img src-এ ছবির লিংক বসিয়ে দেবেন]
+                durationPerPage: 11250,
+                leftHTML: `
+                    <div class="ad-left-section">
+                        <div>
+                            <div class="flat-sale-title">Flat For Sale</div>
+                            <div class="flat-sale-desc">
+                                ফ্ল্যাটটি সরাসরি দেখতে অথবা বিস্তারিত জানতে আজই আমাদের সাথে যোগাযোগ করুন। আপনার স্বপ্নকে বাস্তবে রূপ দিতে আমরা আছি আপনার পাশে।
+                            </div>
+                            <div style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px;">
+                                <div style="font-size: 15px; color: #ffff66; font-weight: bold; margin-bottom: 4px;">মো: তানযীম ইসলাম</div>
+                                <div style="margin: 4px 0;">
+                                    <span class="vibrant-phone-icon">📞</span> 
+                                    <a href="tel:01977995122" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01977995122</a>
+                                </div>
+                                <a href="https://wa.me/8801977995122" target="_blank" class="whatsapp-container">
+                                    <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
+                                    <span class="whatsapp-text">Contact with WhatsApp</span>
+                                </a>
+                                <div style="margin-top: 5px; font-size: 12px;">✉️ <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a></div>
+                                <div style="margin-top: 4px; font-size: 12px; color: #baeafd;">📍 <strong>অফিস ঠিকানা:</strong> মাদারটেক, বাসাবো, ঢাকা।</div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pages: [
+                    `
+                    <span class="ad-badge" style="background-color: #2a9d8f;">রিয়েল এস্টেট - পেজ ১</span>
+                    <div class="service-title">আপনার স্বপ্নের ঠিকানায় স্বাগতম</div>
+                    <p style="font-size: 13px; color: #2b2d42; line-height: 1.4; margin-bottom: 8px;">
+                        আপনার ও আপনার পরিবারের জীবনযাত্রাকে আরও সুন্দর ও নিরাপদ করতে আমরা নিয়ে এসেছি একটি চমৎকার অ্যাপার্টমেন্ট। আধুনিক সুযোগ-সুবিধা এবং চমৎকার লোকেশনে এটি হতে পারে আপনার পরবর্তী স্থায়ী ঠিকানা।
+                    </p>
+                    <ul class="service-list">
+                        <li><strong>আয়তন:</strong> ১২০০ স্কয়ার ফিট সুপরিসর ফ্ল্যাট।</li>
+                        <li><strong>রুম বিন্যাস:</strong> ৩টি চমৎকার বেডরুম, খোলামেলা ড্রয়িং ও ডাইনিং রুম।</li>
+                    </ul>
+                    `,
+                    `
+                    <span class="ad-badge" style="background-color: #2a9d8f;">রিয়েল এস্টেট - পেজ ২</span>
+                    <div class="service-title">সুবিধাসমূহ ও যাতায়াত</div>
+                    <ul class="service-list">
+                        <li><strong>বারান্দা ও বাথরুম:</strong> ৩টি প্রশস্ত বারান্দা এবং আধুনিক ফিটিংসযুক্ত ৩টি ওয়াশরুম।</li>
+                        <li><strong>পার্কিং ও ইউটিলিটি:</strong> সুরক্ষিত গ্যারেজ, নিরবচ্ছিন্ন পানি, বিদ্যুৎ এবং এলপি গ্যাসের সুব্যবস্থা।</li>
+                        <li><strong>মূল্য ও পেমেন্ট:</strong> অত্যন্ত আকর্ষণীয় ও বাজারবান্ধব মূল্য, সাথে রয়েছে সহজ কিস্তিতে ক্রয়ের সুবিধা!</li>
+                    </ul>
+                    `,
+                    `
+                    <span class="ad-badge" style="background-color: #2a9d8f;">রিয়েল এস্টেট - গ্যালারি ১</span>
+                    <div class="service-title">প্রজেক্টের ভেতরের দৃশ্য (Interior View)</div>
+                    <div class="property-gallery-grid">
+                        <img src="prflogo.jpeg" alt="Interior 1" class="property-img">
+                        <img src="gldlogo.png" alt="Interior 2" class="property-img">
+                    </div>
+                    <p style="font-size: 12.5px; color: #555; margin-top: 8px; text-align: center;">ড্রয়িং রুম ও সুপরিসর বেডরুমের আকর্ষণীয় সজ্জা।</p>
+                    `,
+                    `
+                    <span class="ad-badge" style="background-color: #2a9d8f;">রিয়েল এস্টেট - গ্যালারি ২</span>
+                    <div class="service-title">বিল্ডিং ও চারিপাশের পরিবেশ (Exterior View)</div>
+                    <div class="property-gallery-grid">
+                        <img src="gldlogo.png" alt="Exterior 1" class="property-img">
+                        <img src="prflogo.jpeg" alt="Exterior 2" class="property-img">
+                    </div>
+                    <p style="font-size: 12.5px; color: #555; margin-top: 8px; text-align: center;">নিরাপদ গেটেড কমিউনিটি ও প্রশস্ত ড্রাইভওয়ে।</p>
+                    `
+                ]
+            },
+            {
+                // বিজ্ঞাপন ৩: Call for Ad সেকশন (নমুনা চিত্র অনুযায়ী সাজানো, সময় ৪৫ সেকেন্ড)
+                durationPerPage: 45000,
+                leftHTML: `
+                    <div class="ad-left-section" style="background-color: #012836;">
+                        <div>
+                            <h2 style="color: #94DEA5; font-size: 24px; text-align: center; margin-bottom: 10px;">Call for Ad</h2>
+                            <div style="font-size: 14px; color: #C0D2E6; line-height: 1.6; margin-bottom: 15px;">
+                                আপনার ব্যবসা, প্রতিষ্ঠান বা সেবামূলক প্রচারণার জন্য আমাদের এই ওয়েবসাইটের প্রিমিয়াম স্পেসটি বুক করুন। সাশ্রয়ী মূল্যে আপনার বিজ্ঞাপন পৌঁছে দিন হাজারো মানুষের কাছে।
+                            </div>
+                            <div style="background-color: rgba(255,255,255,0.06); padding: 12px; border-radius: 8px; border: 1px dashed #4ea8de;">
+                                <div style="font-size: 14px; color: #ffff66; font-weight: bold; margin-bottom: 5px;">📞 যোগাযোগের হটলাইন:</div>
+                                <div style="font-size: 15px; color: #fff; font-weight: bold; margin-bottom: 6px;">
+                                    <span class="vibrant-phone-icon">📞</span> 01977885122
+                                </div>
+                                <a href="https://wa.me/8801977885122" target="_blank" class="whatsapp-container">
+                                    <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
+                                    <span class="whatsapp-text">WhatsApp এ যোগাযোগ করুন</span>
+                                </a>
+                                <div style="margin-top: 8px; font-size: 13px; color: #4ea8de;">
+                                    ✉️ dewdropjsf@gmail.com
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                pages: [
+                    `
+                    <span class="ad-badge" style="background-color: #e76f51;">প্রমোশনাল অফার</span>
+                    <div style="text-align: center; margin: auto; padding: 25px 10px;">
+                        <h2 style="color: #0077b6; margin-bottom: 15px; font-size: 26px; font-weight: bold;">Make Your Ad Live from Now</h2>
+                        <p style="font-size: 15px; color: #333; margin-bottom: 25px; line-height: 1.6;">
+                            আপনার কোম্পানির পণ্য বা সেবার বিজ্ঞাপন এখন প্রদর্শিত হতে পারে আমাদের ওয়েবসাইটের এই প্রিমিয়াম ব্যানার স্লটে। আজই স্লট বুক করতে নিচের বাটনে ক্লিক করুন!
+                        </p>
+                        <a href="tel:01977885122" style="background: #e76f51; color: white; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 16px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+                            বুকিং করতে কল করুন
+                        </a>
+                    </div>
+                    `
+                ]
+            }
+        ];
+
+        // বিজ্ঞাপন রেন্ডার এবং লুপ করানোর ফাংশন
+        function renderCurrentAd() {
+            const mainCard = document.getElementById("mainAdCard");
+            const currentAd = advertisements[currentAdIndex];
+
+            // সেফটি চেক
+            if (currentPageIndex >= currentAd.pages.length) {
+                currentPageIndex = 0;
+            }
+
+            // বাম পাশ এবং ডান পাশের কনটেন্ট একসাথে বসানো
+            mainCard.innerHTML = `
+                ${currentAd.leftHTML}
+                <div class="ad-right-section bg-page-${currentPageIndex % 4}" id="adRightContainer">
+                    <div class="service-page active-page">
+                        ${currentAd.pages[currentPageIndex]}
+                    </div>
+                    <div class="ad-controls">
+                        <button class="ctrl-btn" onclick="prevSubPage()">পূর্ববর্তী</button>
+                        <span class="page-indicators">পেজ ${currentPageIndex + 1} / ${currentAd.pages.length}</span>
+                        <button class="ctrl-btn" onclick="nextSubPage()">পরবর্তী</button>
+                    </div>
+                </div>
+            `;
         }
 
-        function showPage(index) {
-            const pages = document.querySelectorAll('.service-page');
-            if (pages.length === 0) return;
-            
-            pages.forEach(p => p.classList.remove('active-page'));
-            currentPage = (index + totalPages) % totalPages;
-            pages[currentPage].classList.add('active-page');
-            
-            updateBackground(currentPage);
+        // পরবর্তী পেজ বা পরবর্তী বিজ্ঞাপনে যাওয়ার লজিক
+        function nextSubPage() {
+            const currentAd = advertisements[currentAdIndex];
+            currentPageIndex++;
 
-            const indicator = document.getElementById('pageIndicatorText');
-            if (indicator) {
-                indicator.innerText = `পেজ ${currentPage + 1} / ${totalPages}`;
+            // যদি বর্তমান বিজ্ঞাপনের সব পেজ শেষ হয়ে যায়, তবে পরবর্তী বিজ্ঞাপনে চলে যাবে
+            if (currentPageIndex >= currentAd.pages.length) {
+                currentPageIndex = 0;
+                triggerAdSwitch();
+            } else {
+                renderCurrentAd();
+                resetAdTimer();
             }
         }
 
-        function nextPage() {
-            showPage(currentPage + 1);
-            resetTimer();
+        function prevSubPage() {
+            const currentAd = advertisements[currentAdIndex];
+            currentPageIndex--;
+            if (currentPageIndex < 0) {
+                currentAdIndex = (currentAdIndex - 1 + advertisements.length) % advertisements.length;
+                currentPageIndex = advertisements[currentAdIndex].pages.length - 1;
+            }
+            renderCurrentAd();
+            resetAdTimer();
         }
 
-        function prevPage() {
-            showPage(currentPage - 1);
-            resetTimer();
+        // বিজ্ঞাপন পরিবর্তনের সময় ফেড ইফেক্ট (Fade Out/In)
+        function triggerAdSwitch() {
+            const wrapper = document.getElementById("adCardWrapper");
+            if (wrapper) wrapper.classList.add("fade-out");
+
+            setTimeout(() => {
+                // পরবর্তী বিজ্ঞাপনে ইনডেক্স আপডেট করা (০ -> ১ -> ২ -> আবার ০)
+                currentAdIndex = (currentAdIndex + 1) % advertisements.length;
+                currentPageIndex = 0;
+                
+                renderCurrentAd();
+                
+                if (wrapper) wrapper.classList.remove("fade-out");
+                resetAdTimer();
+            }, 800);
         }
 
-        function autoSlide() {
-            showPage(currentPage + 1);
+        // টাইমার সেটআপ ফাংশন
+        function resetAdTimer() {
+            clearInterval(adTimer);
+            const currentAd = advertisements[currentAdIndex];
+            adTimer = setInterval(() => {
+                nextSubPage();
+            }, currentAd.durationPerPage);
         }
 
-        function resetTimer() {
-            clearInterval(slideInterval);
-            slideInterval = setInterval(autoSlide, pageDuration);
-        }
-
-        slideInterval = setInterval(autoSlide, pageDuration);
+        // পেজ লোড হওয়ার পর প্রথম বিজ্ঞাপন চালু করা
+        document.addEventListener("DOMContentLoaded", function() {
+            renderCurrentAd();
+            resetAdTimer();
+        });
     </script>
 </body>
 </html>
