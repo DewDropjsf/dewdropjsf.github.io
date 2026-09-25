@@ -377,11 +377,7 @@
         margin-bottom: 10px;
     }
 
-    .vibrant-phone-icon {
-        color: #ff4d4d !important;
-        display: inline-block;
-        animation: shakePhone 1.2s infinite ease-in-out;
-    }
+    
      /* --- Flat For Sale শেকিং ও বড় শিরোনাম --- */
     .flat-sale-title {
         font-size: 26px;
@@ -392,9 +388,25 @@
         display: inline-block;
         width: 100%;
         animation: shakeFlat 1.2s infinite ease-in-out;
-    }   
+    }  
 
-    @keyframes shakeFlat {
+        @keyframes shakeFlat {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        15% { transform: translate(-2px, 2px) rotate(-2deg); }
+        30% { transform: translate(2px, -2px) rotate(2deg); }
+        45% { transform: translate(-2px, -1px) rotate(-1deg); }
+        60% { transform: translate(2px, 2px) rotate(1deg); }
+        75% { transform: translate(0, 0) rotate(0deg); }
+        100% { transform: translate(0, 0) rotate(0deg); }
+    }
+        
+.vibrant-phone-icon {
+        color: #ff4d4d !important;
+        display: inline-block;
+        animation: shakePhone 1.2s infinite ease-in-out;
+    }
+        
+    @keyframes shakePhone {
         0% { transform: translate(0, 0) rotate(0deg); }
         15% { transform: translate(-2px, 2px) rotate(-10deg); }
         30% { transform: translate(2px, -2px) rotate(10deg); }
@@ -571,7 +583,7 @@
         margin-top: 10px;
     }
     .property-img {
-        width: 400px;
+        width: 200px;
         height: auto;
         object-fit: cover;
         border-radius: 6px;
