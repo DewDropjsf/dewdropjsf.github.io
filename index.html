@@ -356,7 +356,7 @@
     }
 
     /* কমন স্টাইলসমূহ */
-    .doctor-name, .flat-sale-title {
+    .doctor-name {
         font-size: 22px;
         color: #94DEA5;
         font-weight: bold;
@@ -377,12 +377,35 @@
         margin-bottom: 10px;
     }
 
-    .vibrant-phone-icon {
+    
+     /* --- Flat For Sale শেকিং ও বড় শিরোনাম --- */
+    .flat-sale-title {
+        font-size: 26px;
+        color: #94DEA5;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-align: center;
+        display: inline-block;
+        width: 100%;
+        animation: shakeFlat 1.2s infinite ease-in-out;
+    }  
+
+        @keyframes shakeFlat {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        15% { transform: translate(-2px, 2px) rotate(-2deg); }
+        30% { transform: translate(2px, -2px) rotate(2deg); }
+        45% { transform: translate(-2px, -1px) rotate(-1deg); }
+        60% { transform: translate(2px, 2px) rotate(1deg); }
+        75% { transform: translate(0, 0) rotate(0deg); }
+        100% { transform: translate(0, 0) rotate(0deg); }
+    }
+        
+.vibrant-phone-icon {
         color: #ff4d4d !important;
         display: inline-block;
         animation: shakePhone 1.2s infinite ease-in-out;
     }
-
+        
     @keyframes shakePhone {
         0% { transform: translate(0, 0) rotate(0deg); }
         15% { transform: translate(-2px, 2px) rotate(-10deg); }
@@ -493,7 +516,7 @@
         right: 15px;
         background-color: #e76f51;
         color: white;
-        font-size: 10px;
+        font-size: 15px;
         padding: 2px 6px;
         border-radius: 4px;
         font-weight: bold;
@@ -560,8 +583,8 @@
         margin-top: 10px;
     }
     .property-img {
-        width: 100%;
-        height: 115px;
+        width: 200px;
+        height: auto;
         object-fit: cover;
         border-radius: 6px;
         border: 2px solid #0077b6;
@@ -794,10 +817,12 @@
                             <h2 class="doctor-name">ডা. মতিউর রহমান</h2>
                             <div class="doctor-title">রেজিস্টার্ড হোমিওপ্যাথ ও ডায়েটিশিয়ান</div>
                             <div class="doctor-title">MBS, DHMS(BHMC),MPH in Nutrition(NUB)</div>
+                            
                             <div class="chamber-info">
                                 <strong>চেম্বার : সামস হোমিও হল</strong><br>
                                 বাড়ী নং-৬, ব্লক-এ, রোড নং-০১, দক্ষিণ বনশ্রী, সবুজবাগ, ঢাকা।<br>
                                 <em>(লেগুনা স্ট্যান্ড উত্তরা ব্যাংকের পরের গলি)</em><br>
+                                
                                 <span class="vibrant-phone-icon">📞</span> 
                                 <a href="tel:01913492389" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01913492389</a>
                                 <a href="https://wa.me/8801913492389" target="_blank" class="whatsapp-container">
@@ -822,7 +847,6 @@
                 `,
                 pages: [
                     `
-                    <span class="ad-badge">বিশেষ প্রমোশন</span>
                     <div class="service-title">(০১) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
                     <ul class="service-list">
                         <li><strong>পাকস্থলী ও অন্ত্রের রোগ:</strong> গ্যাস্ট্রিক, আলসার, পিত্তথলির পাথর, পেটব্যথা, মূত্রপাথুরী, আই.বি.স, জন্ডিস, অর্শ/গোজ।</li>
@@ -831,7 +855,7 @@
                     </ul>
                     `,
                     `
-                    <span class="ad-badge">বিশেষ প্রমোশন</span>
+            
                     <div class="service-title">(০২) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
                     <ul class="service-list">
                         <li><strong>স্ত্রী রোগ ও প্রসূতি:</strong> লিউকোরিয়া, অনিয়মিত ঋতুস্রাব, জরায়ু টিউমার, বিয়ের পর বাচ্চা না হওয়া।</li>
@@ -840,7 +864,7 @@
                     </ul>
                     `,
                     `
-                    <span class="ad-badge">বিশেষ প্রমোশন</span>
+                   
                     <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
                     <ul class="service-list">
                         <li><strong>ভুল ধারণা:</strong> যেকোনো রোগের চিকিৎসায় অনেক দীর্ঘ সময় প্রয়োজন।</li>
@@ -879,18 +903,17 @@
                 `,
                 pages: [
                     `
-                    <span class="ad-badge" style="background-color: #2a9d8f;">রিয়েল এস্টেট - পেজ ১</span>
+                   
                     <div class="service-title">আপনার স্বপ্নের ঠিকানায় স্বাগতম</div>
                     <p style="font-size: 13px; color: #2b2d42; line-height: 1.4; margin-bottom: 8px;">
                         আপনার ও আপনার পরিবারের জীবনযাত্রাকে আরও সুন্দর ও নিরাপদ করতে আমরা নিয়ে এসেছি একটি চমৎকার অ্যাপার্টমেন্ট। আধুনিক সুযোগ-সুবিধা এবং চমৎকার লোকেশনে এটি হতে পারে আপনার পরবর্তী স্থায়ী ঠিকানা।
                     </p>
                     <ul class="service-list">
-                        <li><strong>আয়তন:</strong> ১২০০ স্কয়ার ফিট সুপরিসর ফ্ল্যাট।</li>
+                        <li><strong>আয়তন:</strong> ১২৫০ ও ১২৩০ স্কয়ার ফিট সুপরিসর ফ্ল্যাট।</li>
                         <li><strong>রুম বিন্যাস:</strong> ৩টি চমৎকার বেডরুম, খোলামেলা ড্রয়িং ও ডাইনিং রুম।</li>
                     </ul>
                     `,
                     `
-                    <span class="ad-badge" style="background-color: #2a9d8f;">রিয়েল এস্টেট - পেজ ২</span>
                     <div class="service-title">সুবিধাসমূহ ও যাতায়াত</div>
                     <ul class="service-list">
                         <li><strong>বারান্দা ও বাথরুম:</strong> ৩টি প্রশস্ত বারান্দা এবং আধুনিক ফিটিংসযুক্ত ৩টি ওয়াশরুম।</li>
@@ -899,22 +922,20 @@
                     </ul>
                     `,
                     `
-                    <span class="ad-badge" style="background-color: #2a9d8f;">রিয়েল এস্টেট - গ্যালারি ১</span>
                     <div class="service-title">প্রজেক্টের ভেতরের দৃশ্য (Interior View)</div>
                     <div class="property-gallery-grid">
-                        <img src="prflogo.jpeg" alt="Interior 1" class="property-img">
-                        <img src="gldlogo.png" alt="Interior 2" class="property-img">
+                        <img src="flatsale02.jpeg" alt="Interior 1" class="property-img">
+                        <img src="flatsale03.jpeg" alt="Interior 2" class="property-img">
                     </div>
-                    <p style="font-size: 12.5px; color: #555; margin-top: 8px; text-align: center;">ড্রয়িং রুম ও সুপরিসর বেডরুমের আকর্ষণীয় সজ্জা।</p>
+                    <p style="font-size: 15.5px; color: #555; margin-top: 8px; text-align: center;">ড্রয়িং রুম ও সুপরিসর বেডরুমের আকর্ষণীয় সজ্জা।</p>
                     `,
                     `
-                    <span class="ad-badge" style="background-color: #2a9d8f;">রিয়েল এস্টেট - গ্যালারি ২</span>
                     <div class="service-title">বিল্ডিং ও চারিপাশের পরিবেশ (Exterior View)</div>
                     <div class="property-gallery-grid">
-                        <img src="gldlogo.png" alt="Exterior 1" class="property-img">
-                        <img src="prflogo.jpeg" alt="Exterior 2" class="property-img">
+                        <img src="flatsale01.jpeg" alt="Exterior 1" class="property-img">
+                        <img src="flatsale04.jpeg" alt="Exterior 2" class="property-img">
                     </div>
-                    <p style="font-size: 12.5px; color: #555; margin-top: 8px; text-align: center;">নিরাপদ গেটেড কমিউনিটি ও প্রশস্ত ড্রাইভওয়ে।</p>
+                    <p style="font-size: 15.5px; color: #555; margin-top: 8px; text-align: center;">নিরাপদ গেটেড কমিউনিটি ও প্রশস্ত ড্রাইভওয়ে।</p>
                     `
                 ]
             },
@@ -929,7 +950,7 @@
                                 আপনার ব্যবসা, প্রতিষ্ঠান বা সেবামূলক প্রচারণার জন্য আমাদের এই ওয়েবসাইটের প্রিমিয়াম স্পেসটি বুক করুন। সাশ্রয়ী মূল্যে আপনার বিজ্ঞাপন পৌঁছে দিন হাজারো মানুষের কাছে।
                             </div>
                             <div style="background-color: rgba(255,255,255,0.06); padding: 12px; border-radius: 8px; border: 1px dashed #4ea8de;">
-                                <div style="font-size: 14px; color: #ffff66; font-weight: bold; margin-bottom: 5px;">📞 যোগাযোগের হটলাইন:</div>
+                                <div style="font-size: 14px; color: #ffff66; font-weight: bold; margin-bottom: 5px;">🤝 যোগাযোগের হটলাইন:</div>
                                 <div style="font-size: 15px; color: #fff; font-weight: bold; margin-bottom: 6px;">
                                     <span class="vibrant-phone-icon">📞</span> 01977885122
                                 </div>
@@ -937,9 +958,8 @@
                                     <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
                                     <span class="whatsapp-text">WhatsApp এ যোগাযোগ করুন</span>
                                 </a>
-                                <div style="margin-top: 8px; font-size: 13px; color: #4ea8de;">
-                                    ✉️ dewdropjsf@gmail.com
-                                </div>
+                                <div style="margin-top: 5px; font-size: 12px;">✉️ <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a></div>
+                                
                             </div>
                         </div>
                     </div>
