@@ -430,6 +430,36 @@
         100% { transform: translate(0, 0) rotate(0deg); }
     }
 
+        /* সদস্য হোন বাটনে তারার মতো আলোর রেখা যাওয়ার অ্যানিমেশন */
+.hero .btn {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.hero .btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    animation: shootingStar 2.5s infinite linear;
+}
+
+@keyframes shootingStar {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
     .whatsapp-container {
         display: flex;
         align-items: center;
