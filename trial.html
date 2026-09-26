@@ -250,6 +250,18 @@
     .contact-info a:hover {
         text-decoration: underline;
     }
+        
+ <!--  চলমান নোটিশ বোর্ডের -->
+        .top-marquee-bar {
+    width: 100%;
+    background-color: #1e3d59; /* আপনার হেডার বারের রঙের সাথে মিলিয়ে কালার দিতে পারেন */
+    color: #ffffff;
+    padding: 8px 0;
+    font-size: 15px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+}
 
     /* --- Footer --- */
     .site-footer {
@@ -664,7 +676,13 @@
             <a href="signup.html">সাইন আপ</a>
         </nav>
     </header>
-
+   
+     <!--  চলমান নোটিশ বোর্ডের -->
+<div class="top-marquee-bar">
+    <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
+        Call for your Advertisements | আপনার বিজ্ঞাপনের জন্য যোগাযোগ করুন | DewDrop Joint Savings Fund
+    </marquee>
+</div>
     <!-- Hero Section -->
     <div class="hero">
         <h2>DewDrop Joint Savings Fund-এ স্বাগতম</h2>
