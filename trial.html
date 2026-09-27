@@ -114,9 +114,9 @@
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 20px;
-        max-width: 1200px;
+        max-width: 100%;
         margin: 40px auto;
-        padding: 0 20px;
+        padding: 0 15px;
     }
 
     .feature-box {
@@ -201,7 +201,7 @@
 
     /* --- About Us Section --- */
     .about-section {
-        max-width: 1200px;
+        max-width: 100%;
         margin: 50px auto 30px auto;
         padding: 0 20px;
         color: #333333;
@@ -301,52 +301,19 @@
         color: #b0bec5;
     }
 
-    /* --- Mobile Responsiveness --- */
-    @media (max-width: 1100px) {
-        .features-container {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        .main-content-flex {
-    display: flex;
-    gap: 15px;
-    align-items: stretch; /* তিনটি কার্ডের উচ্চতা সমান রাখতে */
-    max-width: 100% !important; /* ডানে-বামের খালি জায়গা দূর করার জন্য */
-    margin: 30px 0!important; /* পাশ থেকে মার্জিন শূন্য করা হলো */
-    padding: 0 20px!important; /* স্ক্রিনের সাথে সামান্য গ্যাপ রাখার জন্য */
-    width: 100%!important;
-    box-sizing: border-box;
-}
-    }
-
-    @media (max-width: 768px) {
-        header {
-            flex-direction: column;
-            gap: 12px;
-            padding: 12px;
-            text-align: center;
-        }
-        nav {
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-        .features-container {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    /* --- নতুন মেইন লেআউট সেকশন (প্রস্থ ও উচ্চতা সমন্বিত) --- */
+    /* --- নতুন মেইন লেআউট সেকশন (সম্পূর্ণ স্ক্রিন জুড়ে থাকবে, কোনো ডানে-বামে খালি জায়গা থাকবে না) --- */
     .main-content-flex {
         display: flex;
-        gap: 20px;
-        align-items: flex-start;
-        max-width: 1200px; /* চওড়া বা প্রস্থ বাড়ানো হলো */
-        margin: 30px auto;
-        padding: 0 20px;
-        width: 100%;
+        gap: 15px;
+        align-items: stretch;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 30px 0 !important;
+        padding: 0 15px !important;
+        box-sizing: border-box;
     }
 
-    /* --- বাঁ পাশের নোটিশ বোর্ড (নমুনা চিত্র অনুযায়ী নতুন সংযোজন) --- */
+    /* --- বাঁ পাশের নোটিশ বোর্ড --- */
     .notice-board-card {
         background-color: #012836;
         border: 2px solid #0077b6;
@@ -354,8 +321,8 @@
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         padding: 20px;
         color: #ffffff;
-        flex: 1.5; /* চওড়ার অনুপাত */
-        min-height: auto; /* লম্বায় বড় করা হলো */
+        flex: 1.6; /* বামের বোর্ড বড় করা হয়েছে */
+        min-height: auto;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -393,7 +360,7 @@
         font-size: 12px;
     }
 
-    /* --- বিজ্ঞাপন কার্ড (প্রস্থ ও উচ্চতা সামঞ্জস্য করা হয়েছে) --- */
+    /* --- বিজ্ঞাপন কার্ড (মাঝের অংশ সবচেয়ে বেশি প্রশস্ত করা হয়েছে) --- */
     .ad-card-container {
         border: 2px solid #0077b6;
         border-radius: 12px;
@@ -401,7 +368,7 @@
         overflow: hidden;
         background: #023D54;
         transition: opacity 0.8s ease-in-out;
-        flex: 3.5; /* বিজ্ঞাপন কার্ডের চওড়া বাড়ানো হলো */
+        flex: 3.8; /* মাঝের বিজ্ঞাপন কার্ড সবচেয়ে চওড়া করা হয়েছে */
     }
 
     .ad-card-container.fade-out {
@@ -422,7 +389,7 @@
         display: flex;
         position: relative;
         overflow: hidden;
-        min-height: 460px; /* লম্বার অনুপাত সামঞ্জস্য করা হয়েছে */
+        min-height: 420px;
     }
 
     .ad-left-section {
@@ -712,36 +679,62 @@
         font-weight: bold;
     }
 
-    /* --- শপিং মার্ট কার্ড (আরেকটু লম্বা বা উচ্চতা বাড়ানো হয়েছে) --- */
+    /* --- শপিং মার্ট কার্ড (প্রস্থ ঠিক রেখে উচ্চতা বা লম্বা কমানো হয়েছে) --- */
     .shopping-mart-card {
         background-color: #1e3d59;
         color: #ffffff;
-        padding: 15px 15px;
+        padding: 15px;
         border-radius: 12px;
         position: relative;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         border: 2px solid #0077b6;
-        flex: 1.2;
-        min-height: auto !important; /* লম্বায় আরেকটু বড় করা হলো */
+        flex: 1.2; /* প্রস্থ আগের মতো ঠিক রাখা হয়েছে */
+        min-height: auto !important; /* অতিরিক্ত লম্বা হওয়া রোধ করতে এটি অটো করা হলো */
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        
     }
 
     .shopping-mart-card h3 {
-        font-size: 22px;
+        font-size: 20px;
         color: #94DEA5;
         font-weight: bold;
         margin-top: 0;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
     }
 
     .shopping-mart-card p {
-        font-size: 14px;
-        line-height: 1.6;
-        margin-bottom: 20px;
+        font-size: 13.5px;
+        line-height: 1.5;
+        margin-bottom: 12px;
         color: #C0D2E6;
+    }
+
+    /* --- Mobile Responsiveness --- */
+    @media (max-width: 1100px) {
+        .features-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .main-content-flex {
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 768px) {
+        header {
+            flex-direction: column;
+            gap: 12px;
+            padding: 12px;
+            text-align: center;
+        }
+        nav {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .features-container {
+            grid-template-columns: 1fr;
+        }
     }
     </style>
 </head>
@@ -800,7 +793,7 @@
     <!-- মূল লেআউট: নোটিশ বোর্ড, বিজ্ঞাপন কার্ড এবং শপিং মার্ট কার্ড -->
     <div class="main-content-flex">
         
-        <!-- ১. বাঁ পাশের নোটিশ বোর্ড (নমুনা চিত্র অনুযায়ী যুক্ত করা হয়েছে) -->
+        <!-- ১. বাঁ পাশের নোটিশ বোর্ড -->
         <div class="notice-board-card">
             <div>
                 <div class="notice-board-title">Notice Board</div>
@@ -815,7 +808,7 @@
             </div>
         </div>
 
-        <!-- ২. মাঝখানের বিজ্ঞাপন কার্ড (চওড়া ও উচ্চতা সামঞ্জস্য করা হয়েছে) -->
+        <!-- ২. মাঝখানের বিজ্ঞাপন কার্ড -->
         <div class="ad-card-container" id="adCardWrapper">
             <div class="ad-table-marquee">
                 <marquee behavior="scroll" direction="left" scrollamount="4">📢 আমাদের স্পন্সর ও সেবামূলক বিজ্ঞাপনসমূহ (বিজ্ঞাপন দিতে যোগাযোগ করুন: 01977885122)</marquee>
@@ -825,15 +818,14 @@
             </div>
         </div>
 
-        <!-- ৩. ডান পাশের শপিং মার্ট কার্ড (লম্বায় আরও একটু বাড়ানো হয়েছে) -->
+        <!-- ৩. ডান পাশের শপিং মার্ট কার্ড -->
         <div class="shopping-mart-card">
             <div>
-               
                 <h3>আমাদের নিজস্ব শপিং মার্ট</h3>
                 <p>দৈনন্দিন প্রয়োজনীয় মানসম্মত পণ্য সাশ্রয়ী মূল্যে এক ছাদের নিচে পেতে ভিজিট করুন আমাদের শপিং মার্ট। আমাদের মার্ট থেকে আপনি আপনার প্রয়োজনীয় গৃহস্থালী ও অন্যান্য পণ্য সহজেই সংগ্রহ করতে পারবেন।</p>
             </div>
             <div>
-                <a href="marketplace.html" class="btn" style="width: 100%; text-align: center; box-sizing: border-box;">মার্ট ভিজিট করুন</a>
+                <a href="marketplace.html" class="btn" style="width: 100%; text-align: center; box-sizing: border-box; padding: 8px 15px;">মার্ট ভিজিট করুন</a>
             </div>
         </div>
 
