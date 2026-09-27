@@ -307,8 +307,14 @@
             grid-template-columns: repeat(2, 1fr);
         }
         .main-content-flex {
-            flex-direction: column !important;
-        }
+    display: flex;
+    gap: 15px;
+    align-items: stretch; /* তিনটি কার্ডের উচ্চতা সমান রাখতে */
+    max-width: 100% !important; /* ডানে-বামের খালি জায়গা দূর করার জন্য */
+    margin: 30px 0; /* পাশ থেকে মার্জিন শূন্য করা হলো */
+    padding: 0 15px; /* স্ক্রিনের সাথে সামান্য গ্যাপ রাখার জন্য */
+    width: 100%;
+}
     }
 
     @media (max-width: 768px) {
@@ -347,7 +353,7 @@
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         padding: 20px;
         color: #ffffff;
-        flex: 1.2; /* চওড়ার অনুপাত */
+        flex: 1.5; /* চওড়ার অনুপাত */
         min-height: auto; /* লম্বায় বড় করা হলো */
         display: flex;
         flex-direction: column;
@@ -394,7 +400,7 @@
         overflow: hidden;
         background: #023D54;
         transition: opacity 0.8s ease-in-out;
-        flex: 2.5; /* বিজ্ঞাপন কার্ডের চওড়া বাড়ানো হলো */
+        flex: 3.2; /* বিজ্ঞাপন কার্ডের চওড়া বাড়ানো হলো */
     }
 
     .ad-card-container.fade-out {
@@ -709,17 +715,17 @@
     .shopping-mart-card {
         background-color: #1e3d59;
         color: #ffffff;
-        padding: 25px 20px;
+        padding: 15px 15px;
         border-radius: 12px;
         position: relative;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         border: 2px solid #0077b6;
         flex: 1.2;
-        min-height: 520px; /* লম্বায় আরেকটু বড় করা হলো */
+        min-height: auto !important; /* লম্বায় আরেকটু বড় করা হলো */
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        align-self: stretch;
+        
     }
 
     .shopping-mart-card h3 {
