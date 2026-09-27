@@ -251,20 +251,21 @@
         text-decoration: underline;
     }
         
- <!--  চলমান নোটিশ বোর্ডের -->
-      .top-marquee-bar {
-    width: 100%;
-    background-color: #d4a373; /* আপনার পছন্দের কালার */
-    padding: 12px 0; /* ওপর ও নিচে বক্সের ফাঁকা জায়গা বাড়ানোর জন্য */
-}
+    /*  চলমান নোটিশ বোর্ডের (বড় করা হয়েছে)  */
+    .top-marquee-bar {
+        width: 100%;
+        background-color: #d4a373;
+        padding: 16px 0; /* উচ্চতা বাড়ানোর জন্য প্যাডিং বাড়ানো হয়েছে */
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    }
 
-.top-marquee-bar marquee {
-    font-size: 18px; /* লেখার সাইজ বড় করার জন্য */
-    font-weight: bold;
-    color: #000000;
-    line-height: 1.5;
-    display: block;
-}
+    .top-marquee-bar marquee {
+        font-size: 20px; /* লেখার সাইজ বড় করা হয়েছে */
+        font-weight: bold;
+        color: #000000;
+        line-height: 1.5;
+        display: block;
+    }
 
     /* --- Footer --- */
     .site-footer {
@@ -322,6 +323,10 @@
         .features-container {
             grid-template-columns: 1fr;
         }
+        /* মোবাইল স্ক্রিনের জন্য পাশাপাশি লেআউট নিচে নিচে করে দেওয়া ভালো */
+        .main-content-flex {
+            flex-direction: column !important;
+        }
     }
 
     /* --- Professional Advertisement Wrapper & Marquee --- */
@@ -337,7 +342,8 @@
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         overflow: hidden;
         background: #023D54;
-        transition: opacity 0.8s ease-in-out; /* ফেড ইফেক্টের জন্য স্মুথ ট্রানজিশন */
+        transition: opacity 0.8s ease-in-out;
+        flex: 2;
     }
 
     .ad-card-container.fade-out {
@@ -370,7 +376,6 @@
         justify-content: space-between;
     }
 
-    /* কমন স্টাইলসমূহ */
     .doctor-name {
         font-size: 22px;
         color: #94DEA5;
@@ -392,8 +397,6 @@
         margin-bottom: 10px;
     }
 
-    
-     /* --- Flat For Sale শেকিং ও বড় শিরোনাম --- */
     .flat-sale-title {
         font-size: 26px;
         color: #94DEA5;
@@ -405,7 +408,7 @@
         animation: shakeFlat 1.2s infinite ease-in-out;
     }  
 
-        @keyframes shakeFlat {
+    @keyframes shakeFlat {
         0% { transform: translate(0, 0) rotate(0deg); }
         15% { transform: translate(-2px, 2px) rotate(-2deg); }
         30% { transform: translate(2px, -2px) rotate(2deg); }
@@ -415,7 +418,7 @@
         100% { transform: translate(0, 0) rotate(0deg); }
     }
         
-.vibrant-phone-icon {
+    .vibrant-phone-icon {
         color: #ff4d4d !important;
         display: inline-block;
         animation: shakePhone 1.2s infinite ease-in-out;
@@ -431,35 +434,28 @@
         100% { transform: translate(0, 0) rotate(0deg); }
     }
 
-        /* সদস্য হোন বাটনে তারার মতো আলোর রেখা যাওয়ার অ্যানিমেশন */
-.hero .btn {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-}
+    .hero .btn {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
 
-.hero .btn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-    animation: shootingStar 2.5s infinite linear;
-}
-
-@keyframes shootingStar {
-    0% {
+    .hero .btn::after {
+        content: '';
+        position: absolute;
+        top: 0;
         left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+        animation: shootingStar 2.5s infinite linear;
     }
-    50% {
-        left: 100%;
+
+    @keyframes shootingStar {
+        0% { left: -100%; }
+        50% { left: 100%; }
+        100% { left: 100%; }
     }
-    100% {
-        left: 100%;
-    }
-}
 
     .whatsapp-container {
         display: flex;
@@ -539,7 +535,6 @@
         text-align: center;
     }
 
-    /* --- Ad Right Hand Side & Dynamic Backgrounds --- */
     .ad-right-section {
         flex: 1.2;
         padding: 20px;
@@ -620,7 +615,6 @@
         left: 0;
     }
 
-    /* গ্যালারি ছবি স্টাইল (৩ ও ৪ নং পেজের জন্য) */
     .property-gallery-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -628,7 +622,8 @@
         margin-top: 10px;
     }
     .property-img {
-        width: 200px;
+        width: 100%;
+        max-width: 200px;
         height: auto;
         object-fit: cover;
         border-radius: 6px;
@@ -671,29 +666,35 @@
         font-weight: bold;
     }
 
-        .shopping-mart-card {
-    background-color: #1e3d59; /* আপনার প্ল্যাটফর্মের কালার থিম অনুযায়ী */
-    color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    flex: 1; /* পাশাপাশি ফিট করার জন্য */
-}
+    /* --- শপিং মার্ট কার্ড স্টাইল --- */
+    .shopping-mart-card {
+        background-color: #1e3d59;
+        color: #ffffff;
+        padding: 25px 20px;
+        border-radius: 12px;
+        position: relative;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        border: 2px solid #0077b6;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 
-.shopping-mart-card h3 {
-    font-size: 22px;
-    color: #94DEA5;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
+    .shopping-mart-card h3 {
+        font-size: 22px;
+        color: #94DEA5;
+        font-weight: bold;
+        margin-top: 0;
+        margin-bottom: 12px;
+    }
 
-.shopping-mart-card p {
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 15px;
-    color: #C0D2E6;
-}
+    .shopping-mart-card p {
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        color: #C0D2E6;
+    }
     </style>
 </head>
 <body>
@@ -734,13 +735,12 @@
         </nav>
     </header>
    
-     <!--  চলমান নোটিশ বোর্ডের -->
-<div class="top-marquee-bar">
-    <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
-        *** আমাদের প্রত্যেকের নির্ধারিত ৩ জন নতুন সদস্যের কোটায় প্রত্যেকে নিজ নিজ স্ত্রীকে সদস্য হিসেবে যুক্ত করে নেওয়া। ✨ সময়মতো Lump-Sum দেবো, আমার Fund-কে Strong করব।​ ✨ *** DewDrop Joint Savings Fund ***
-    </marquee>
-</div>
-
+    <!--  চলমান নোটিশ বোর্ড (বড় করা হয়েছে) -->
+    <div class="top-marquee-bar">
+        <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
+            *** আমাদের প্রত্যেকের নির্ধারিত ৩ জন নতুন সদস্যের কোটায় প্রত্যেকে নিজ নিজ স্ত্রীকে সদস্য হিসেবে যুক্ত করে নেওয়া। ✨ সময়মতো Lump-Sum দেবো, আমার Fund-কে Strong করব।​ ✨ *** DewDrop Joint Savings Fund ***
+        </marquee>
+    </div>
     
     <!-- Hero Section -->
     <div class="hero">
@@ -749,23 +749,32 @@
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSetuzjdN6khHN9-AVMfFWpD11Yn9u1i90lIBsgX8qx1gATkRQ/viewform?usp=header" class="btn">সদস্য হোন</a>
     </div>
 
-    <!-- বিজ্ঞাপন ও শপিং মার্ট পাশাপাশি রাখার মূল কন্টেইনার -->
-<div style="display: flex; gap: 20px; align-items: flex-start; width: 100%;">
-    
-    <!-- বাঁ পাশের মূল বিজ্ঞাপন সেকশন -->
-    <div class="ad-card-container" id="adCardWrapper" style="flex: 2;">
-        <!-- আপনার বিজ্ঞাপনের আগের ভেতরের কোডগুলো এখানেই থাকবে -->
-    </div>
+    <!-- বিজ্ঞাপন ও শপিং মার্ট পাশাপাশি রাখার মূল কন্টেইনার (ঠিক করে দেওয়া হয়েছে) -->
+    <div class="main-content-flex" style="display: flex; gap: 20px; align-items: stretch; max-width: 1100px; margin: 30px auto; padding: 0 20px; width: 100%;">
+        
+        <!-- বাঁ পাশের মূল বিজ্ঞাপন সেকশন -->
+        <div class="ad-card-container" id="adCardWrapper">
+            <div class="ad-table-marquee">
+                <marquee behavior="scroll" direction="left" scrollamount="4">📢 আমাদের স্পন্সর ও সেবামূলক বিজ্ঞাপনসমূহ (বিজ্ঞাপন দিতে যোগাযোগ করুন: 01977885122)</marquee>
+            </div>
+            <div class="ad-main-card" id="mainAdCard">
+                <!-- ডায়নামিক বিজ্ঞাপন কনটেন্ট এখানে স্ক্রিপ্ট দ্বারা লোড হবে -->
+            </div>
+        </div>
 
-    <!-- ডান পাশের শপিং মার্ট কার্ড -->
-    <div class="shopping-mart-card" style="flex: 1; background-color: #1e3d59; color: #ffffff; padding: 20px; border-radius: 8px; position: relative;">
-        <div class="ad-badge">শপিং মার্ট</div>
-        <h3>আমাদের নিজস্ব শপিং মার্ট</h3>
-        <p>দৈনন্দিন প্রয়োজনীয় মানসম্মত পণ্য সাশ্রয়ী মূল্যে এক ছাদের নিচে পেতে ভিজিট করুন আমাদের শপিং মার্ট।</p>
-        <a href="#" class="btn">মার্ট ভিজিট করুন</a>
-    </div>
+        <!-- ডান পাশের শপিং মার্ট কার্ড -->
+        <div class="shopping-mart-card">
+            <div>
+                <div class="ad-badge">শপিং মার্ট</div>
+                <h3>আমাদের নিজস্ব শপিং মার্ট</h3>
+                <p>দৈনন্দিন প্রয়োজনীয় মানসম্মত পণ্য সাশ্রয়ী মূল্যে এক ছাদের নিচে পেতে ভিজিট করুন আমাদের শপিং মার্ট। আমাদের মার্ট থেকে আপনি আপনার প্রয়োজনীয় গৃহস্থালী ও অন্যান্য পণ্য সহজেই সংগ্রহ করতে পারবেন।</p>
+            </div>
+            <div>
+                <a href="marketplace.html" class="btn" style="width: 100%; text-align: center; box-sizing: border-box;">মার্ট ভিজিট করুন</a>
+            </div>
+        </div>
 
-</div>
+    </div>
           
     <!-- Features Section -->
     <div class="features-container">
@@ -820,9 +829,8 @@
         </div>
     </footer>
 
-    <!-- জাভাস্ক্রিপ্ট লজিক ও সাইড নোট (Side Notes / Comments for future self-editing) -->
+    <!-- জাভাস্ক্রিপ্ট লজিক -->
     <script>
-        // ইউজারের লগইন স্ট্যাটাস চেক করার স্ক্রিপ্ট
         document.addEventListener("DOMContentLoaded", function() {
             const rawData = localStorage.getItem("loggedInUser");
             const navAuthBtn = document.getElementById("navAuthBtn");
@@ -872,23 +880,12 @@
             }
         });
 
-        /* 
-          ========================================================================
-          [সাইড নোট / সাইকেল ও টাইমিং নিয়ন্ত্রণ গাইডলাইন - ভবিষ্যতে পরিবর্তনের জন্য]
-          ১. adSequence: এখানে বিজ্ঞাপনের ধাপগুলো সাজানো আছে। (0 = ডাক্তার বিজ্ঞাপন, 1 = রিয়েল এস্টেট বিজ্ঞাপন, 2 = Call for Ad সেকশন)।
-          ২. pageDurations: প্রতিটা বিজ্ঞাপনের সাব-পেজের একেকটি পেজের কত সেকেন্ড করে প্রদর্শন হবে তা নির্ধারিত (যেমন ৪৫ সেকেন্ডকে পেজ সংখ্যা দিয়ে ভাগ করা হয়েছে)।
-          ৩. নতুন বিজ্ঞাপন বা পেজ যোগ করতে চাইলে নিচের HTML অবজেক্টগুলোতে নতুন পেজ বা ডেটা যুক্ত করতে পারবেন খুব সহজেই।
-          ========================================================================
-        */
-
-        let currentAdIndex = 0; // বর্তমানে কোন বিজ্ঞাপন চলছে (0 = ডাক্তার, 1 = রিয়েল এস্টেট, 2 = Call for Ad)
-        let currentPageIndex = 0; // বর্তমান বিজ্ঞাপনের কত নম্বর পেজ চলছে
+        let currentAdIndex = 0;
+        let currentPageIndex = 0;
         let adTimer = null;
 
-        // ৩টি বিজ্ঞাপনের ডেটা এবং সাব-পেজ বিন্যাস
         const advertisements = [
             {
-                // বিজ্ঞাপন ১: ডাক্তার বিজ্ঞাপন (৩টি পেজ, মোট সময় ৪৫ সেকেন্ড, প্রতি পেজ ১৫ সেকেন্ড)
                 durationPerPage: 15000, 
                 leftHTML: `
                     <div class="ad-left-section">
@@ -934,7 +931,6 @@
                     </ul>
                     `,
                     `
-            
                     <div class="service-title">(০২) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
                     <ul class="service-list">
                         <li><strong>স্ত্রী রোগ ও প্রসূতি:</strong> লিউকোরিয়া, অনিয়মিত ঋতুস্রাব, জরায়ু টিউমার, বিয়ের পর বাচ্চা না হওয়া।</li>
@@ -943,7 +939,6 @@
                     </ul>
                     `,
                     `
-                   
                     <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
                     <ul class="service-list">
                         <li><strong>ভুল ধারণা:</strong> যেকোনো রোগের চিকিৎসায় অনেক দীর্ঘ সময় প্রয়োজন।</li>
@@ -954,8 +949,6 @@
                 ]
             },
             {
-                // বিজ্ঞাপন ২: রিয়েল এস্টেট বিজ্ঞাপন (৪টি পেজ, মোট সময় ৪৫ সেকেন্ড, প্রতি পেজ প্রায় ১১.২৫ সেকেন্ড)
-                // [সাইড নোট: ৩ ও ৪ নং পেজে আপনার প্রজেক্ট বা ফ্ল্যাটের ছবি যুক্ত বা পরিবর্তন করতে চাইলে নিচের img src-এ ছবির লিংক বসিয়ে দেবেন]
                 durationPerPage: 11250,
                 leftHTML: `
                     <div class="ad-left-section">
@@ -982,7 +975,6 @@
                 `,
                 pages: [
                     `
-                   
                     <div class="service-title">আপনার স্বপ্নের ঠিকানায় স্বাগতম</div>
                     <p style="font-size: 13px; color: #2b2d42; line-height: 1.4; margin-bottom: 8px;">
                         আপনার ও আপনার পরিবারের জীবনযাত্রাকে আরও সুন্দর ও নিরাপদ করতে আমরা নিয়ে এসেছি একটি চমৎকার অ্যাপার্টমেন্ট। আধুনিক সুযোগ-সুবিধা এবং চমৎকার লোকেশনে এটি হতে পারে আপনার পরবর্তী স্থায়ী ঠিকানা।
@@ -1006,7 +998,7 @@
                         <img src="flatsale02.jpeg" alt="Interior 1" class="property-img">
                         <img src="flatsale03.jpeg" alt="Interior 2" class="property-img">
                     </div>
-                    <p style="font-size: 15.5px; color: #555; margin-top: 8px; text-align: center;">ড্রয়িং রুম ও সুপরিসর বেডরুমের আকর্ষণীয় সজ্জা।</p>
+                    <p style="font-size: 13px; color: #555; margin-top: 6px; text-align: center;">ড্রয়িং রুম ও সুপরিসর বেডরুমের আকর্ষণীয় সজ্জা।</p>
                     `,
                     `
                     <div class="service-title">বিল্ডিং ও চারিপাশের পরিবেশ (Exterior View)</div>
@@ -1014,12 +1006,11 @@
                         <img src="flatsale01.jpeg" alt="Exterior 1" class="property-img">
                         <img src="flatsale04.jpeg" alt="Exterior 2" class="property-img">
                     </div>
-                    <p style="font-size: 15.5px; color: #555; margin-top: 8px; text-align: center;">নিরাপদ গেটেড কমিউনিটি ও প্রশস্ত ড্রাইভওয়ে।</p>
+                    <p style="font-size: 13px; color: #555; margin-top: 6px; text-align: center;">নিরাপদ গেটেড কমিউনিটি ও প্রশস্ত ড্রাইভওয়ে।</p>
                     `
                 ]
             },
             {
-                // বিজ্ঞাপন ৩: Call for Ad সেকশন (নমুনা চিত্র অনুযায়ী সাজানো, সময় ৪৫ সেকেন্ড)
                 durationPerPage: 45000,
                 leftHTML: `
                     <div class="ad-left-section" style="background-color: #012836;">
@@ -1038,7 +1029,6 @@
                                     <span class="whatsapp-text">WhatsApp এ যোগাযোগ করুন</span>
                                 </a>
                                 <div style="margin-top: 5px; font-size: 12px;">✉️ <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a></div>
-                                
                             </div>
                         </div>
                     </div>
@@ -1060,17 +1050,14 @@
             }
         ];
 
-        // বিজ্ঞাপন রেন্ডার এবং লুপ করানোর ফাংশন
         function renderCurrentAd() {
             const mainCard = document.getElementById("mainAdCard");
             const currentAd = advertisements[currentAdIndex];
 
-            // সেফটি চেক
             if (currentPageIndex >= currentAd.pages.length) {
                 currentPageIndex = 0;
             }
 
-            // বাম পাশ এবং ডান পাশের কনটেন্ট একসাথে বসানো
             mainCard.innerHTML = `
                 ${currentAd.leftHTML}
                 <div class="ad-right-section bg-page-${currentPageIndex % 4}" id="adRightContainer">
@@ -1086,12 +1073,10 @@
             `;
         }
 
-        // পরবর্তী পেজ বা পরবর্তী বিজ্ঞাপনে যাওয়ার লজিক
         function nextSubPage() {
             const currentAd = advertisements[currentAdIndex];
             currentPageIndex++;
 
-            // যদি বর্তমান বিজ্ঞাপনের সব পেজ শেষ হয়ে যায়, তবে পরবর্তী বিজ্ঞাপনে চলে যাবে
             if (currentPageIndex >= currentAd.pages.length) {
                 currentPageIndex = 0;
                 triggerAdSwitch();
@@ -1112,13 +1097,11 @@
             resetAdTimer();
         }
 
-        // বিজ্ঞাপন পরিবর্তনের সময় ফেড ইফেক্ট (Fade Out/In)
         function triggerAdSwitch() {
             const wrapper = document.getElementById("adCardWrapper");
             if (wrapper) wrapper.classList.add("fade-out");
 
             setTimeout(() => {
-                // পরবর্তী বিজ্ঞাপনে ইনডেক্স আপডেট করা (০ -> ১ -> ২ -> আবার ০)
                 currentAdIndex = (currentAdIndex + 1) % advertisements.length;
                 currentPageIndex = 0;
                 
@@ -1129,7 +1112,6 @@
             }, 800);
         }
 
-        // টাইমার সেটআপ ফাংশন
         function resetAdTimer() {
             clearInterval(adTimer);
             const currentAd = advertisements[currentAdIndex];
@@ -1138,7 +1120,6 @@
             }, currentAd.durationPerPage);
         }
 
-        // পেজ লোড হওয়ার পর প্রথম বিজ্ঞাপন চালু করা
         document.addEventListener("DOMContentLoaded", function() {
             renderCurrentAd();
             resetAdTimer();
