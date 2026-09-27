@@ -311,9 +311,10 @@
     gap: 15px;
     align-items: stretch; /* তিনটি কার্ডের উচ্চতা সমান রাখতে */
     max-width: 100% !important; /* ডানে-বামের খালি জায়গা দূর করার জন্য */
-    margin: 30px 0; /* পাশ থেকে মার্জিন শূন্য করা হলো */
-    padding: 0 15px; /* স্ক্রিনের সাথে সামান্য গ্যাপ রাখার জন্য */
-    width: 100%;
+    margin: 30px 0!important; /* পাশ থেকে মার্জিন শূন্য করা হলো */
+    padding: 0 20px!important; /* স্ক্রিনের সাথে সামান্য গ্যাপ রাখার জন্য */
+    width: 100%!important;
+    box-sizing: border-box;
 }
     }
 
@@ -400,7 +401,7 @@
         overflow: hidden;
         background: #023D54;
         transition: opacity 0.8s ease-in-out;
-        flex: 3.2; /* বিজ্ঞাপন কার্ডের চওড়া বাড়ানো হলো */
+        flex: 3.5; /* বিজ্ঞাপন কার্ডের চওড়া বাড়ানো হলো */
     }
 
     .ad-card-container.fade-out {
