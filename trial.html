@@ -749,30 +749,24 @@
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSetuzjdN6khHN9-AVMfFWpD11Yn9u1i90lIBsgX8qx1gATkRQ/viewform?usp=header" class="btn">সদস্য হোন</a>
     </div>
 
-     <!-- শপিং মার্ট কার্ড সেকশন -->
-<div class="shopping-mart-card">
-    <div class="ad-badge">শপিং মার্ট</div>
-    <h3>আমাদের নিজস্ব শপিং মার্ট</h3>
-    <p>দৈনন্দিন প্রয়োজনীয় মানসম্মত পণ্য সাশ্রয়ী মূল্যে এক ছাদের নিচে পেতে ভিজিট করুন আমাদের শপিং মার্ট।</p>
-    <a href="#" class="btn">মার্ট ভিজিট করুন</a>
-</div>
+    <!-- বিজ্ঞাপন ও শপিং মার্ট পাশাপাশি রাখার মূল কন্টেইনার -->
+<div style="display: flex; gap: 20px; align-items: flex-start; width: 100%;">
     
-    <!-- মূল বিজ্ঞাপন কাঠামো (Cyclic Rotating Ad Wrapper) -->
-    <div class="professional-ad-wrapper">
-        <div class="ad-card-container" id="adCardWrapper">
-            
-            <div class="ad-table-marquee">
-                <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
-                    📢 Call for your Advertisements | আপনার বিজ্ঞাপনের জন্য যোগাযোগ করুন | DewDrop Joint Savings Fund 📢
-                </marquee>
-            </div>
-
-            <div class="ad-main-card" id="mainAdCard">
-                <!-- ডাইনামিক কনটেন্ট জাভাস্ক্রিপ্ট এর মাধ্যমে এখানে লোড হবে -->
-            </div>
-        </div>
+    <!-- বাঁ পাশের মূল বিজ্ঞাপন সেকশন -->
+    <div class="ad-card-container" id="adCardWrapper" style="flex: 2;">
+        <!-- আপনার বিজ্ঞাপনের আগের ভেতরের কোডগুলো এখানেই থাকবে -->
     </div>
-    
+
+    <!-- ডান পাশের শপিং মার্ট কার্ড -->
+    <div class="shopping-mart-card" style="flex: 1; background-color: #1e3d59; color: #ffffff; padding: 20px; border-radius: 8px; position: relative;">
+        <div class="ad-badge">শপিং মার্ট</div>
+        <h3>আমাদের নিজস্ব শপিং মার্ট</h3>
+        <p>দৈনন্দিন প্রয়োজনীয় মানসম্মত পণ্য সাশ্রয়ী মূল্যে এক ছাদের নিচে পেতে ভিজিট করুন আমাদের শপিং মার্ট।</p>
+        <a href="#" class="btn">মার্ট ভিজিট করুন</a>
+    </div>
+
+</div>
+          
     <!-- Features Section -->
     <div class="features-container">
         <div class="feature-box">
