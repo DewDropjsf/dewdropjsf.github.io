@@ -925,7 +925,7 @@
         </div>
     </footer>
 
-    <!-- জাভাস্ক্রিপ্ট লজিক -->
+   <!-- জাভাস্ক্রিপ্ট লজিক -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const rawData = localStorage.getItem("loggedInUser");
@@ -1241,66 +1241,57 @@
                 let response = await fetch(`${SCRIPT_URL}?sheet=newsroom2`);
                 let notices = await response.json();
                 
-                if (Array.isArray(notices) && notices.length > 0) {
-                    const noticeListUl = document.querySelector(".notice-board-card .notice-list");
-                    if (noticeListUl) {
-                        noticeListUl.innerHTML = ""; 
-                        notices.forEach(notice => {
-                            let li = document.createElement("li");
-                            li.innerHTML = `<strong>আপডেট:</strong> ${notice}`;
-                            noticeListUl.appendChild(li);
-                        });
-                    }
-                }
+                // এখানে handleNewsroom2 ফাংশনটি কল করা হলো যাতে বড় নোটিশে রিড মোর কাজ করে
+                handleNewsroom2(notices);
             } catch (error) {
                 console.error("Error loading newsroom2:", error);
             }
         }
-        function handleNewsroom2(notices) {
-    if (Array.isArray(notices) && notices.length > 0) {
-        const noticeListUl = document.querySelector(".notice-board-card .notice-list");
-        if (noticeListUl) {
-            noticeListUl.innerHTML = ""; 
-            
-            notices.forEach(noticeText => {
-                let li = document.createElement("li");
-                li.className = "notice-item";
-                
-                // যদি নোটিশের লেখা বড় হয় (যেমন ৮০ অক্ষরের বেশি), তবে ছোট করে দেখিয়ে 'বিস্তারিত' বাটন দেবো
-                let maxLength = 80;
-                if (noticeText.length > maxLength) {
-                    let shortText = noticeText.substring(0, maxLength) + "...";
-                    let fullText = noticeText;
-                    
-                    li.innerHTML = `
-                        <strong>আপডেট:</strong> 
-                        <span class="notice-text">${shortText}</span>
-                        <button class="read-more-btn" onclick="toggleDetails(this)">বিস্তারিত</button>
-                        <div class="full-details">${fullText}</div>
-                    `;
-                } else {
-                    li.innerHTML = `<strong>আপডেট:</strong> ${noticeText}`;
-                }
-                
-                noticeListUl.appendChild(li);
-            });
-        }
-    }
-}
 
-// বিস্তারিত বাটন টগল করার ফাংশন
-function toggleDetails(btn) {
-    let detailsDiv = btn.nextElementSibling;
-    let spanText = btn.previousElementSibling;
-    
-    if (detailsDiv.style.display === "block") {
-        detailsDiv.style.display = "none";
-        btn.innerText = "বিস্তারিত";
-    } else {
-        detailsDiv.style.display = "block";
-        btn.innerText = "সংক্ষিপ্ত করুন";
-    }
-}
+        function handleNewsroom2(notices) {
+            if (Array.isArray(notices) && notices.length > 0) {
+                const noticeListUl = document.querySelector(".notice-board-card .notice-list");
+                if (noticeListUl) {
+                    noticeListUl.innerHTML = ""; 
+                    
+                    notices.forEach(noticeText => {
+                        let li = document.createElement("li");
+                        li.className = "notice-item";
+                        
+                        // যদি নোটিশের লেখা বড় হয় (যেমন ৮০ অক্ষরের বেশি), তবে ছোট করে দেখিয়ে 'বিস্তারিত' বাটন দেখাবে
+                        let maxLength = 80;
+                        if (noticeText.length > maxLength) {
+                            let shortText = noticeText.substring(0, maxLength) + "...";
+                            let fullText = noticeText;
+                            
+                            li.innerHTML = `
+                                <strong>আপডেট:</strong> 
+                                <span class="notice-text">${shortText}</span>
+                                <button class="read-more-btn" onclick="toggleDetails(this)">বিস্তারিত</button>
+                                <div class="full-details" style="display: none;">${fullText}</div>
+                            `;
+                        } else {
+                            li.innerHTML = `<strong>আপডেট:</strong> ${noticeText}`;
+                        }
+                        
+                        noticeListUl.appendChild(li);
+                    });
+                }
+            }
+        }
+
+        // বিস্তারিত বাটন টগল করার ফাংশন
+        function toggleDetails(btn) {
+            let detailsDiv = btn.nextElementSibling;
+            
+            if (detailsDiv.style.display === "block") {
+                detailsDiv.style.display = "none";
+                btn.innerText = "বিস্তারিত";
+            } else {
+                detailsDiv.style.display = "block";
+                btn.innerText = "সংক্ষিপ্ত করুন";
+            }
+        }
 
         document.addEventListener("DOMContentLoaded", function() {
             renderCurrentAd();
