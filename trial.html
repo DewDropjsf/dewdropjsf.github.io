@@ -3,1302 +3,1288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DewDrop Joint Savings Fund - Ultimate Advertisement Loop</title>
+    <title>Shopping Mart Marketplace</title>
+    
+    <!-- ফায়ারবেজ সিডিএন স্ক্রিপ্ট -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <style>
-    /* --- General Reset & Page Setup --- */
-    html {
-        scroll-behavior: smooth;
-    }
-    body, html {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        overflow-x: hidden;
-        font-family: 'Comic Sans MS', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f4f7f6;
-        color: #333;
-    }
-    * {
-        box-sizing: border-box;
-    }
-
-    /* --- Header & Navigation --- */
-    header {
-        background-color: #004d40;
-        color: white;
-        padding: 15px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        width: 100%;
-    }
-    .logo-container {
-        display: flex;
-        align-items: center;
-    }
-    .logo-image {
-        height: 45px;
-        width: auto;
-        margin-right: 12px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-    header h1 {
-        margin: 0;
-        font-size: 22px;
-    }
-    nav {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-    nav a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 15px;
-    }
-    nav a:hover {
-        color: #e9d8a6;
-    }
-
-    .user-avatar {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        border: 2px solid #ffffff;
-        object-fit: cover;
-        margin-right: 8px;
-        cursor: pointer;
-    }
-
-    /* --- Hero Section --- */
-    .hero {
-        background-color: #e9d8a6;
-        text-align: center;
-        padding: 60px 20px;
-    }
-    .hero h2 {
-        font-size: 34px;
-        color: #001219;
-        margin-bottom: 10px;
-    }
-    .hero p {
-        font-size: 18px;
-        color: #333;
-        max-width: 650px;
-        margin: 0 auto 20px auto;
-        line-height: 1.6;
-    }
-    .btn {
-        background-color: #0a9396;
-        color: white;
-        padding: 10px 22px;
-        text-decoration: none;
-        font-size: 16px;
-        border-radius: 5px;
-        font-weight: bold;
-        display: inline-block;
-    }
-    .btn:hover {
-        background-color: #005f73;
-    }
-
-    /* --- Features / Cards Container --- */
-    .features-container {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-        max-width: 100%;
-        margin: 40px auto;
-        padding: 0 15px;
-    }
-
-    .feature-box {
-        background: #fdfdfd;
-        border: 1.5px solid #dcdcdc;
-        padding: 25px 20px;
-        border-radius: 12px;
-        text-align: center;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.02);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .feature-box h3 {
-        color: #03045e;
-        font-size: 18px;
-        margin-top: 0;
-        margin-bottom: 12px;
-    }
-
-    .feature-box p {
-        color: #2b2d42;
-        font-size: 14px;
-        line-height: 1.5;
-        margin-bottom: 20px;
-    }
-
-    .feature-btn, .btn-report {
-        background-color: #0077b6;
-        color: white;
-        text-decoration: none;
-        padding: 8px 16px;
-        font-size: 14px;
-        border-radius: 5px;
-        font-weight: bold;
-        display: inline-block;
-        margin-top: auto;
-        transition: background 0.2s ease;
-    }
-
-    .feature-btn:hover, .btn-report:hover {
-        background-color: #03045e;
-    }
-
-    /* --- Dropdown Menu --- */
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #004d40;
-        min-width: 180px;
-        box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-        z-index: 1000;
-        border-radius: 6px;
-        top: 100%;
-        left: 0;
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.1);
-    }
-    .dropdown-content a {
-        color: #ffffff;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        text-align: left;
-        font-size: 14px;
-        font-weight: bold;
-        margin: 0;
-        transition: background-color 0.2s ease;
-    }
-    .dropdown-content a:hover {
-        background-color: #00332c;
-        color: #ffeb3b;
-    }
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-
-    /* --- About Us Section --- */
-    .about-section {
-        max-width: 100%;
-        margin: 50px auto 30px auto;
-        padding: 0 20px;
-        color: #333333;
-        line-height: 1.8;
-        scroll-margin-top: 100px;
-    }
-
-    .about-section h2 {
-        color: #005f73;
-        font-size: 24px;
-        margin-bottom: 15px;
-        border-bottom: 2px solid #005f73;
-        display: inline-block;
-        padding-bottom: 5px;
-    }
-
-    .about-section p {
-        margin-bottom: 15px;
-        font-size: 15px;
-        text-align: justify;
-    }
-        
-    .contact-info {
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px dashed #cccccc;
-    }
-
-    .contact-info h4 {
-        color: #005f73;
-        margin-bottom: 10px;
-        font-size: 18px;
-    }
-
-    .contact-info p {
-        margin: 6px 0;
-        font-size: 15px;
-    }
-
-    .contact-info a {
-        color: #005f73;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .contact-info a:hover {
-        text-decoration: underline;
-    }
-        
-    /* চলমান নোটিশ বোর্ড */
-    .top-marquee-bar {
-        width: 100%;
-        background-color: #d4a373;
-        padding: 16px 0;
-        box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .top-marquee-bar marquee {
-        font-size: 20px;
-        font-weight: bold;
-        color: #000000;
-        line-height: 1.5;
-        display: block;
-    }
-
-    /* --- Footer --- */
-    .site-footer {
-        background-color: #002b36;
-        color: #ffffff;
-        margin-top: 60px;
-        padding-top: 25px;
-        text-align: center;
-    }
-
-    .developer-footer {
-        font-size: 13px;
-        color: #d3d3d3;
-        margin-bottom: 20px;
-        line-height: 1.6;
-    }
-
-    .developer-footer a {
-        color: #4ea8de;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .developer-footer a:hover {
-        text-decoration: underline;
-    }
-
-    .copyright-bar {
-        background-color: #001f28;
-        padding: 12px 20px;
-        font-size: 13px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        color: #b0bec5;
-    }
-
-    /* --- নতুন মেইন লেআউট সেকশন (সম্পূর্ণ স্ক্রিন জুড়ে থাকবে, কোনো ডানে-বামে খালি জায়গা থাকবে না) --- */
-    .main-content-flex {
-        display: flex;
-        gap: 15px;
-        align-items: stretch;
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 30px 0 !important;
-        padding: 0 15px !important;
-        box-sizing: border-box;
-    }
-
-   /* --- বাঁ পাশের নোটিশ বোর্ড --- */
-.notice-board-card {
-    background-color: #012836;
-    border: 2px solid #0077b6;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    color: #ffffff;
-    flex: 1.6; /* বামের বোর্ড বড় করা হয়েছে */
-    height: 520px; /* বোর্ডের নির্দিষ্ট উচ্চতা */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.notice-board-title {
-    font-size: 20px;
-    color: #94DEA5;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 15px;
-    border-bottom: 2px dashed #0077b6;
-    padding-bottom: 8px;
-}
-
-.notice-board-card .notice-list {
-    list-style: none;
-    max-height: 400px; /* লিস্টের সর্বোচ্চ উচ্চতা যাতে অতিরিক্ত নোটিশ আসলে স্ক্রল করা যায় */
-    overflow-y: auto;  /* স্ক্রলবার চালু করার জন্য */
-    padding-right: 5px;
-}
-
-/* স্ক্রলবার স্টাইল */
-.notice-board-card .notice-list::-webkit-scrollbar {
-    width: 6px;
-}
-.notice-board-card .notice-list::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-}
-
-.notice-item {
-    margin-bottom: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 8px;
-}
-
-.read-more-btn {
-    background: none;
-    border: none;
-    color: #4da6ff;
-    cursor: pointer;
-    padding: 0;
-    margin-left: 5px;
-    font-size: 12px;
-    text-decoration: underline;
-}
-
-.full-details {
-    display: none;
-    margin-top: 5px;
-    font-size: 13px;
-    color: #e0e0e0;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 6px;
-    border-radius: 4px;
-}
-
-    .notice-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        font-size: 14px;
-        color: #C0D2E6;
-        line-height: 1.6;
-    }
-
-    .notice-list li {
-        margin-bottom: 12px;
-        position: relative;
-        padding-left: 18px;
-    }
-
-    .notice-list li::before {
-        content: "📌";
-        position: absolute;
-        left: 0;
-        font-size: 12px;
-    }
-
-    /* --- বিজ্ঞাপন কার্ড (মাঝের অংশ সবচেয়ে বেশি প্রশস্ত করা হয়েছে) --- */
-    .ad-card-container {
-        border: 2px solid #0077b6;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-        background: #023D54;
-        transition: opacity 0.8s ease-in-out;
-        flex: 3.8; /* মাঝের বিজ্ঞাপন কার্ড সবচেয়ে চওড়া করা হয়েছে */
-    }
-
-    .ad-card-container.fade-out {
-        opacity: 0;
-    }
-
-    .ad-table-marquee {
-        background-color: #0077b6;
-        color: #ffffff;
-        padding: 8px 10px;
-        font-size: 14px;
-        font-weight: bold;
-        text-align: center;
-        border-bottom: 1px solid #005f73;
-    }
-        
-    .ad-main-card {
-        display: flex;
-        position: relative;
-        overflow: hidden;
-        min-height: 420px;
-    }
-
-    .ad-left-section {
-        flex: 1;
-        padding: 20px;
-        border-right: 1px dashed #b0c4de;
-        background-color: #023D54;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .doctor-name {
-        font-size: 22px;
-        color: #94DEA5;
-        font-weight: bold;
-        margin-bottom: 2px;
-        text-align: center;
-    }
-    .doctor-title {
-        color: #ffff66;
-        font-size: 13px;
-        font-weight: bold;
-        margin-bottom: 8px;
-        text-align: center;
-    }
-    .chamber-info, .flat-sale-desc {
-        font-size: 13.5px;
-        color: #C0D2E6;
-        line-height: 1.5;
-        margin-bottom: 10px;
-    }
-
-    .flat-sale-title {
-        font-size: 26px;
-        color: #94DEA5;
-        font-weight: bold;
-        margin-bottom: 10px;
-        text-align: center;
-        display: inline-block;
-        width: 100%;
-        animation: shakeFlat 1.2s infinite ease-in-out;
-    }  
-
-    @keyframes shakeFlat {
-        0% { transform: translate(0, 0) rotate(0deg); }
-        15% { transform: translate(-2px, 2px) rotate(-2deg); }
-        30% { transform: translate(2px, -2px) rotate(2deg); }
-        45% { transform: translate(-2px, -1px) rotate(-1deg); }
-        60% { transform: translate(2px, 2px) rotate(1deg); }
-        75% { transform: translate(0, 0) rotate(0deg); }
-        100% { transform: translate(0, 0) rotate(0deg); }
-    }
-        
-    .vibrant-phone-icon {
-        color: #ff4d4d !important;
-        display: inline-block;
-        animation: shakePhone 1.2s infinite ease-in-out;
-    }
-        
-    @keyframes shakePhone {
-        0% { transform: translate(0, 0) rotate(0deg); }
-        15% { transform: translate(-2px, 2px) rotate(-10deg); }
-        30% { transform: translate(2px, -2px) rotate(10deg); }
-        45% { transform: translate(-2px, -1px) rotate(-10deg); }
-        60% { transform: translate(2px, 2px) rotate(10deg); }
-        75% { transform: translate(0, 0) rotate(0deg); }
-        100% { transform: translate(0, 0) rotate(0deg); }
-    }
-
-    .hero .btn {
-        position: relative;
-        overflow: hidden;
-        display: inline-block;
-    }
-
-    .hero .btn::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-        animation: shootingStar 2.5s infinite linear;
-    }
-
-    @keyframes shootingStar {
-        0% { left: -100%; }
-        50% { left: 100%; }
-        100% { left: 100%; }
-    }
-
-    .whatsapp-container {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        margin-top: 6px;
-        text-decoration: none;
-    }
-
-    .whatsapp-logo-img {
-        width: 22px;
-        height: 22px;
-        object-fit: contain;
-        transition: transform 0.2s ease;
-    }
-
-    .whatsapp-container:hover .whatsapp-logo-img {
-        transform: scale(1.15);
-    }
-
-    .whatsapp-text {
-        color: #25d366;
-        font-size: 13px;
-        font-weight: bold;
-    }
-
-    .whatsapp-container:hover .whatsapp-text {
-        text-decoration: underline;
-    }
-
-    .chamber-timing {
-        background-color: #baeafd;
-        border-left: 4px solid #2a9d8f;
-        padding: 8px;
-        font-size: 14px;
-        border-radius: 4px;
-        margin-bottom: 10px;
-        color: #001219;
-    }
-
-    .social-section-title {
-        color: #ffff66;
-        font-size: 13px;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 6px;
-    }
-
-    .social-links {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        margin-bottom: 10px;
-        align-items: center;
-    }
-
-    .social-logo {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        object-fit: cover;
-        transition: transform 0.2s ease;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-
-    .social-logo:hover {
-        transform: scale(1.1);
-    }
-
-    .ad-warning {
-        font-size: 11.5px;
-        color: #e63946;
-        font-weight: bold;
-        background: #baeafd;
-        padding: 5px;
-        border-radius: 4px;
-        text-align: center;
-    }
-
-    .ad-right-section {
-        flex: 1.2;
-        padding: 20px;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        transition: background-color 0.5s ease;
-    }
-        
-    .bg-page-0 { background-color: #57d9c9; }
-    .bg-page-1 { background-color: #a8dadc; }
-    .bg-page-2 { background-color: #f1faee; }
-    .bg-page-3 { background-color: #e2e8f0; }
-
-    .service-page {
-        display: none;
-        opacity: 0;
-    }
-
-    .service-page.active-page {
-        display: block;
-        animation: slideInFromRight 0.8s forwards ease-in-out;
-    }
-
-    @keyframes slideInFromRight {
-        0% {
-            opacity: 0;
-            transform: translateX(60px);
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'SolaimanLipi', Arial, sans-serif;
         }
-        100% {
-            opacity: 1;
-            transform: translateX(0);
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
         }
-    }
 
-    .service-title {
-        font-size: 18px;
-        color: #2b2d42;
-        font-weight: bold;
-        border-bottom: 2px solid #0077b6;
-        padding-bottom: 5px;
-        margin-bottom: 10px;
-    }
-
-    .service-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        font-size: 14px;
-        color: #2b2d42;
-        line-height: 1.5;
-    }
-
-    .service-list li {
-        margin-bottom: 6px;
-        position: relative;
-        padding-left: 15px;
-    }
-
-    .service-list li::before {
-        content: "▪";
-        color: #e76f51;
-        position: absolute;
-        left: 0;
-    }
-
-    .property-gallery-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-top: 10px;
-    }
-    .property-img {
-        width: 100%;
-        max-width: 200px;
-        height: auto;
-        object-fit: cover;
-        border-radius: 6px;
-        border: 2px solid #0077b6;
-        transition: transform 0.3s;
-    }
-    .property-img:hover {
-        transform: scale(1.03);
-    }
-
-    .ad-controls {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 15px;
-        border-top: 1px solid rgba(0,0,0,0.1);
-        padding-top: 10px;
-    }
-
-    .ctrl-btn {
-        background-color: rgba(255, 255, 255, 0.7);
-        border: none;
-        padding: 5px 12px;
-        font-size: 12px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: bold;
-        color: #334155;
-        transition: background 0.2s;
-    }
-
-    .ctrl-btn:hover {
-        background-color: #0077b6;
-        color: white;
-    }
-
-    .page-indicators {
-        font-size: 12px;
-        color: #1e293b;
-        font-weight: bold;
-    }
-
-    /* --- শপিং মার্ট কার্ড (প্রস্থ ঠিক রেখে উচ্চতা বা লম্বা কমানো হয়েছে) --- */
-    .shopping-mart-card {
-        background-color: #1e3d59;
-        color: #ffffff;
-        padding: 15px;
-        border-radius: 12px;
-        position: relative;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        border: 2px solid #0077b6;
-        flex: 1.2; /* প্রস্থ আগের মতো ঠিক রাখা হয়েছে */
-        min-height: auto !important; /* অতিরিক্ত লম্বা হওয়া রোধ করতে এটি অটো করা হলো */
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .shopping-mart-card h3 {
-        font-size: 20px;
-        color: #94DEA5;
-        font-weight: bold;
-        margin-top: 0;
-        margin-bottom: 8px;
-    }
-
-    .shopping-mart-card p {
-        font-size: 13.5px;
-        line-height: 1.5;
-        margin-bottom: 12px;
-        color: #C0D2E6;
-    }
-
-    /* --- Mobile Responsiveness --- */
-    @media (max-width: 1100px) {
-        .features-container {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        .main-content-flex {
-            flex-direction: column;
-        }
-    }
-
-    @media (max-width: 768px) {
+        /* হেডার স্টাইল */
         header {
-            flex-direction: column;
-            gap: 12px;
-            padding: 12px;
-            text-align: center;
+            background: #004d40;
+            color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-left img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+        }
+        .header-left span {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .header-center h1 {
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logged-user-name {
+            background: #00332c;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.95rem;
+            color: #ffeb3b;
+            border: 1px solid #00796b;
+            display: none;
+        }
+        .history-btn {
+            background: #ffb300;
+            color: #000;
+            padding: 8px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .history-btn:hover {
+            background: #ffa000;
+        }
+
+        .header-right .cart-btn {
+            background: #d84315;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-right .cart-btn:hover {
+            background: #bf360c;
+        }
+
+        /* নেভিগেশন বার */
         nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #00332c;
+            padding: 10px 30px;
             flex-wrap: wrap;
-            justify-content: center;
+            position: relative;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        nav a:hover {
+            color: #80cbc4;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropbtn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 0;
+            font-family: 'SolaimanLipi', Arial, sans-serif;
+        }
+        .dropbtn:hover {
+            color: #80cbc4;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #00332c;
+            min-width: 180px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
+            z-index: 1001;
+            border-radius: 4px;
+            border: 1px solid #004d40;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown-content a, .dropdown-content button {
+            color: #fff;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            background: none;
+            border: none;
+            width: 100%;
+            font-size: 0.9rem;
+            font-family: 'SolaimanLipi', Arial, sans-serif;
+            cursor: pointer;
+        }
+        .dropdown-content a:hover, .dropdown-content button:hover {
+            background-color: #004d40;
+            color: #ffeb3b;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .btn-member-login {
+            background: #00796b;
+            color: #fff !important;
+            padding: 5px 12px;
+            border-radius: 4px;
+            border: 1px solid #4db6ac;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: bold;
+        }
+        .btn-member-login:hover {
+            background: #004d40;
+        }
+        .btn-member-logout {
+            background: #c62828 !important;
+            border: 1px solid #ef5350 !important;
+        }
+        .btn-member-logout:hover {
+            background: #b71c1c !important;
+        }
+
+        .search-area-wrapper {
+            display: flex;
+            align-items: center;
             gap: 10px;
         }
-        .features-container {
-            grid-template-columns: 1fr;
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 4px;
+            padding: 3px 8px;
         }
-    }
+        .search-box input {
+            border: none;
+            outline: none;
+            padding: 5px;
+            font-size: 0.9rem;
+        }
+        .search-box button {
+            background: #004d40;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .floating-stores {
+            position: fixed;
+            left: 20px;
+            top: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        .store-circle-btn {
+            width: 110px;
+            height: 110px;
+            background-color: #e65100;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            text-align: center;
+            padding: 5px;
+            flex-shrink: 0;
+        }
+        .store-circle-btn:hover {
+            transform: scale(1.08);
+            background-color: #d84315;
+        }
+        .store-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            line-height: 1.1;
+            margin-bottom: 2px;
+        }
+        .shopping-text {
+            font-size: 0.8rem;
+            color: #ffccbc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.1;
+        }
+        .arrow-icon {
+            font-size: 1.0rem;
+            font-weight: bold;
+            margin-top: 2px;
+        }
+
+        .welcome-banner {
+            background: #e0f2f1;
+            border-left: 5px solid #00796b;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        .welcome-banner h2 {
+            color: #004d40;
+            margin-bottom: 10px;
+        }
+
+        .mobile-stores-section {
+            display: none;
+        }
+
+        .products-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            background: #eee;
+        }
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #222;
+        }
+        .product-card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+        .price {
+            font-weight: bold;
+            color: #c0392b;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .quantity-control-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 4px 10px;
+            margin-bottom: 15px;
+            background: #fff;
+            width: 140px;
+        }
+        .quantity-display {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            min-width: 30px;
+            text-align: center;
+        }
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            background-color: #e0e0e0;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .qty-btn:hover {
+            background-color: #bdbdbd;
+        }
+        
+        .order-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+        .btn-buy {
+            background: #2e7d32;
+            color: white;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+        }
+        .btn-cart {
+            background: #1565c0;
+            color: white;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+        }
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+            padding: 6px 10px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            flex: 1;
+        }
+        .btn-gmail {
+            background: #ea4335;
+            color: white;
+            padding: 6px 10px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            flex: 1;
+        }
+        .btn-buy:hover { background: #235e27; }
+        .btn-cart:hover { background: #0d47a1; }
+        .btn-whatsapp:hover { background: #1ebe5d; }
+        .btn-gmail:hover { background: #d33426; }
+        
+        /* রেডিও বাটন ভিত্তিক মডাল উইন্ডো স্টাইল */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-container {
+            background: #eef7f6;
+            width: 480px;
+            max-width: 95%;
+            padding: 25px 20px;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border: 1px solid #b2dfdb;
+        }
+        .close-btn {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            background: #00796b;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .close-btn:hover {
+            background: #004d40;
+        }
+        .modal-title-area {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #004d40;
+        }
+        
+        /* রেডিও সিলেকশন এরিয়া */
+        .login-type-selector {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            background: #d8f3f0;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #004d40;
+        }
+        .login-type-selector label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .login-form-section {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .login-form-section.active {
+            display: flex;
+        }
+
+        .sketch-instruction {
+            font-size: 0.9rem;
+            color: #333;
+            line-height: 1.4;
+        }
+        .sketch-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #80cbc4;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            background: #fff;
+            color: #333;
+            outline: none;
+        }
+        .sketch-input:focus {
+            border-color: #00796b;
+            box-shadow: 0 0 5px rgba(0,121,107,0.2);
+        }
+        .error-msg {
+            color: #d32f2f;
+            font-size: 0.85rem;
+            display: none;
+            font-weight: bold;
+        }
+        .login-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .login-pill-btn {
+            background: linear-gradient(to bottom, #f3e5ab, #d4af37);
+            border: 1px solid #b8860b;
+            border-radius: 25px;
+            padding: 10px 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #222;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.1s;
+            width: 100%;
+        }
+        .login-pill-btn:hover {
+            opacity: 0.95;
+            transform: scale(1.01);
+        }
+
+        footer {
+            background: #004d40;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 992px) {
+            .floating-stores { display: none; }
+            .mobile-stores-section {
+                display: flex;
+                overflow-x: auto;
+                gap: 15px;
+                padding: 10px 5px 20px 5px;
+                margin-bottom: 30px;
+                justify-content: flex-start;
+            }
+            header { flex-direction: column; gap: 10px; text-align: center; }
+            .header-right { flex-direction: column; gap: 5px; }
+            nav { flex-direction: column; gap: 10px; }
+            .search-area-wrapper { width: 100%; justify-content: center; flex-wrap: wrap; }
+        }
+
+        .market-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .market-dropbtn {
+            background-color: #e67e22;
+            color: white;
+            padding: 10px 18px;
+            font-size: 15px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .market-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 230px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+            z-index: 1000;
+            border-radius: 6px;
+            overflow: hidden;
+            right: 0;
+            margin-top: 0px;
+            padding-top: 10px;
+            border: 1px solid #e0e0e0;
+        }
+        .market-dropdown-content a {
+            color: #2c3e50;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+            text-align: left;
+        }
+        .market-dropdown-content a:hover {
+            background-color: #f8f9fa;
+            color: #d35400;
+        }
+        .market-dropdown:hover .market-dropdown-content {
+            display: block;
+        }
     </style>
 </head>
-
 <body>
+     
+    <!-- ভাসমান স্টোর বাটন -->
+    <div class="floating-stores">
+        <a href="gias-store.html" class="store-circle-btn">
+            <span class="store-name">Gias Store</span>
+            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
+        </a>
+        <a href="#mizan-store" class="store-circle-btn">
+            <span class="store-name">Mizan Store</span>
+            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
+        </a>
+        <a href="#faroq-store" class="store-circle-btn">
+            <span class="store-name">Faroq Store</span>
+            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
+        </a>
+        <a href="#hasan-store" class="store-circle-btn">
+            <span class="store-name">Hasan Store</span>
+            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
+        </a>
+    </div>
 
-    <!-- Header & Navigation -->
-    <header id="top">
-        <div class="logo-container">
-            <img src="gldlogo.png" alt="logo" class="logo-image">
-            <h1>DewDrop Joint Savings Fund</h1>
+    <!-- হেডার -->
+    <header>
+        <div class="header-left">
+            <img src="gldlogo.png" alt="Logo">
+            <span>DewDrop Shopping Mart</span>
         </div>
-        <nav>
-            <img id="headerUserAvatar" src="prflogo.jpeg" alt="User Avatar" class="user-avatar">
-            
-            <a href="#">হোম</a>
-            <a href="marketplace.html" class="btn-market" style="background: #009a80; color: #fff; padding: 10px 15px; border-radius: 4px; text-decoration: none; display: inline-block; overflow: hidden; width: 140px;">
-                <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
+        <div class="header-center">
+            <h1>শপিং মার্ট</h1>
+        </div>
+        <div class="header-right">
+            <span id="loggedUserName" class="logged-user-name"></span>
+            <button class="history-btn" onclick="openOrderHistory()">📦 কেনাকাটা ইতিহাস</button>
+            <a href="cart.html" class="cart-btn">
+                🛒 কার্ট <span id="cartCount">0</span>
             </a>
+        </div>
+    </header>
+
+    <!-- নেভিগেশন বার -->
+    <nav>
+        <div class="nav-links">
+            <a href="index.html">হোম</a>
+            
             <div class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">আমাদের সম্পর্কে ▾</a>
+                <button class="dropbtn">তহবিল সেবা ▾</button>
                 <div class="dropdown-content">
-                    <a href="#about-section">ডিউড্রপ সম্পর্কে</a>
-                    <a href="board.html">পরিচালনা পর্ষদ</a>
-                    <a href="developer.html">ডেভেলপার সম্পর্কে</a>
+                   <a href="rules.html">নিয়মাবলি</a> 
+                    <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
+                     <a href="shoppingsignup.html" style="color: #ffeb3b;">সদস্য হোন (সাইন-আপ)</a>
                 </div>
             </div>
-             <div class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">তহবিল সেবা ▾</a>
+
+            <div class="dropdown">
+                <button class="dropbtn">আমাদের সম্পর্কে ▾</button>
                 <div class="dropdown-content">
-                    <a href="rules.html">নিয়মাবলি</a> 
-                    <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
-                    <a href="shoppingsignup.html">সদস্য হোন (সাইন-আপ)</a>
-                    <a href="dashboard.html">রিপোর্ট দেখুন</a>
+                    <a href="about.html">ডিউড্রপ সম্পর্কে</a>
+                    <a href="committee.html">পরিচালনা পর্ষদ</a>
+                    <a href="developer.html">ডেভেলপার সম্পর্কে</a>
+                    <button onclick="accessAdminPanel()" style="border-top: 1px solid #004d40; color: #ffab40; font-weight: bold;">🔐 অ্যাডমিন প্যানেল</button>
                 </div>
+            </div>
+
+            <!-- শপিং লগইন বাটন -->
+            <button id="memberAuthBtn" class="btn-member-login" onclick="handleAuthButtonClick()">🛒 শপিং লগইন</button>
+        </div>
+
+        <div class="search-area-wrapper">
+           <div class="market-dropdown">
+                <button class="market-dropbtn">
+                    🛍️ শপিং অ্যাকাউন্ট করুন ▾
+                </button>
+                <div class="market-dropdown-content">
+                    <a href="shoppingsignup.html">১. নতুন শপিং অ্যাকাউন্ট করুন</a>
+                    <a href="#welcome-banner">১. শপিং মার্ট সম্পর্কে </a>
+                </div>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
+                <button onclick="searchProducts()">🔍 সার্চ</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- রেডিও বাটন ভিত্তিক পপ-আপ মডাল উইন্ডো -->
+    <div class="modal-overlay" id="memberLoginModal">
+        <div class="modal-container">
+            <button class="close-btn" onclick="closeMemberLoginModal()">&times;</button>
+            <div class="modal-title-area">
+                🛒 লগইন প্যানেল
             </div>
             
-            <a href="login.html" id="navAuthBtn">লগইন</a>
-            <a href="signup.html">সাইন আপ</a>
-        </nav>
-    </header>
-   
-    <!-- চলমান নোটিশ বোর্ড -->
-    <div class="top-marquee-bar">
-        <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
-        </marquee>
-    </div>
-    
-    <!-- Hero Section -->
-    <div class="hero">
-        <h2>DewDrop Joint Savings Fund-এ স্বাগতম</h2>
-        <p>সহকর্মীদের সাথে মিলে একটি সুন্দর ভবিষ্যতের জন্য আমাদের এই যৌথ সঞ্চয় উদ্যোগ। স্বচ্ছতা ও পারস্পরিক সহযোগিতার মাধ্যমে আমরা এগিয়ে যেতে চাই।</p>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSetuzjdN6khHN9-AVMfFWpD11Yn9u1i90lIBsgX8qx1gATkRQ/viewform?usp=header" class="btn">সদস্য হোন</a>
+            <!-- রেডিও বাটন সিলেকশন -->
+            <div class="login-type-selector">
+                <label>
+                    <input type="radio" name="loginType" value="member" checked onclick="switchLoginForm('member')"> সমিতি মেম্বার
+                </label>
+                <label>
+                    <input type="radio" name="loginType" value="shop" onclick="switchLoginForm('shop')"> শপিং অ্যাকাউন্ট
+                </label>
+            </div>
+
+            <!-- ফর্ম ১: সমিতি মেম্বার লগইন -->
+            <div id="memberLoginForm" class="login-form-section active">
+                <div class="sketch-instruction">আপনার সমিতির মেম্বার আইডি এবং পাসওয়ার্ড দিয়ে ভেরিফাই করুন।</div>
+                <input type="text" id="modalMemberId" class="sketch-input" placeholder="মেম্বার আইডি দিন">
+                <div style="position: relative;">
+                    <input type="password" id="modalMemberPassword" class="sketch-input" placeholder="পাসওয়ার্ড দিন" style="padding-right: 40px;">
+                    <span onclick="toggleModalPassword('modalMemberPassword')" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; user-select: none; font-size: 16px;">👁️</span>
+                </div>
+                <div id="loginError" class="error-msg">ভুল তথ্য</div>
+                <div class="login-btn-container">
+                    <button class="login-pill-btn" onclick="verifyMemberLogin()">সমিতি মেম্বার লগইন</button>
+                </div>
+            </div>
+
+            <!-- ফর্ম ২: শপিং অ্যাকাউন্ট লগইন -->
+            <div id="shopLoginForm" class="login-form-section">
+                <div class="sketch-instruction">আপনার শপিং একাউন্টের নাম (বড় অক্ষরে), মোবাইল ও পাসওয়ার্ড দিন।</div>
+                <input type="text" id="modalShopName" class="sketch-input" placeholder="আপনার নাম (বড় অক্ষরে)">
+                <div id="nameError" class="error-msg" style="color: #d32f2f;">নাম অবশ্যই বড় হাতের অক্ষরে হতে হবে</div>
+                <input type="tel" id="modalShopPhoneInput" class="sketch-input" placeholder="রেজিস্টার্ড মোবাইল নম্বর">
+                <div style="position: relative;">
+                    <input type="password" id="modalShopPassword" class="sketch-input" placeholder="পাসওয়ার্ড দিন" style="padding-right: 40px;">
+                    <span onclick="toggleModalPassword('modalShopPassword')" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; user-select: none; font-size: 16px;">👁️</span>
+                </div>
+                <div id="shopLoginError" class="error-msg">ভুল তথ্য</div>
+                <div class="login-btn-container">
+                    <button class="login-pill-btn" onclick="verifyShopLogin()">শপিং অ্যাকাউন্ট লগইন</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- মূল লেআউট: নোটিশ বোর্ড, বিজ্ঞাপন কার্ড এবং শপিং মার্ট কার্ড -->
-    <div class="main-content-flex">
+    <div class="container">
         
-        <!-- ১. বাঁ পাশের নোটিশ বোর্ড -->
-        <div class="notice-board-card">
-            <div>
-                <div class="notice-board-title">Notice Board</div>
-                <ul class="notice-list">
+      
+        <div class="mobile-stores-section">
+            <a href="gias-store.html" class="store-circle-btn">
+                <span class="store-name">Gias Store</span>
+                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
+            </a>
+            <a href="#mizan-store" class="store-circle-btn">
+                <span class="store-name">Mizan Store</span>
+                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
+            </a>
+            <a href="#faroq-store" class="store-circle-btn">
+                <span class="store-name">Faroq Store</span>
+                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
+            </a>
+            <a href="#hasan-store" class="store-circle-btn">
+                <span class="store-name">Hasan Store</span>
+                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
+            </a>
+        </div>
+
+        <div class="products-section">
+            <h2>আমাদের উপলব্ধ পণ্যসমূহ</h2>
+            
+            <div class="product-grid" id="productGrid">
+                <!-- পণ্য ১ -->
+                <div class="product-card" id="gias-store" data-name="অর্গানিক খাঁটি মধু (১ কেজি)">
+                    <img src="placeholder-product1.jpg" alt="পণ্যের ছবি">
+                    <h3>অর্গানিক খাঁটি মধু (১ কেজি)</h3>
+                    <p>সুন্দরবনের প্রাকৃতিক ও ভেজালমুক্ত খাঁটি মধু।</p>
+                    <div class="price">মূল্য: <span id="price-1">1200</span> টাকা</div>
                     
-                </ul>
-            </div>
-            <div style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px; text-align: center; font-size: 13px; color: #94DEA5;">
-               
+                    <div class="quantity-control-box">
+                        <span class="quantity-display" id="qty-1">1</span>
+                        <button class="qty-btn" onclick="changeQuantity(1, -1, 1200)">-</button>
+                        <button class="qty-btn" onclick="changeQuantity(1, 1, 1200)">+</button>
+                    </div>
+
+                    <div class="order-btns">
+                        <div class="btn-row">
+                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'অর্গানিক খাঁটি মধু (১ কেজি)', 1200, 1)">Buy Now</button>
+                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'অর্গানিক খাঁটি মধু (১ কেজি)', 1200, 1)">Add To Cart</button>
+                        </div>
+                        <div class="btn-row">
+                            <a href="https://wa.me/8801977885122?text=আমি%20'অর্গানিক%20খাঁটি%20মধু'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                            <a href="mailto:tanjimtoru@gmail.com?subject=Product Order: Organic Honey&body=আমি এই পণ্যটি অর্ডার করতে চাই: অর্গানিক খাঁটি মধু (১ কেজি)।" class="btn-gmail">Gmail</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- পণ্য ২ -->
+                <div class="product-card" id="mizan-store" data-name="ঘানি ভাঙা সরিষার তেল (১ লিটার)">
+                    <img src="placeholder-product2.jpg" alt="পণ্যের ছবি">
+                    <h3>ঘানি ভাঙা সরিষার তেল (১ লিটার)</h3>
+                    <p>শতভাগ খাঁটি ও স্বাস্থ্যসম্মত দেশি সরিষার তেল।</p>
+                    <div class="price">মূল্য: <span id="price-2">220</span> টাকা</div>
+                    
+                    <div class="quantity-control-box">
+                        <span class="quantity-display" id="qty-2">1</span>
+                        <button class="qty-btn" onclick="changeQuantity(2, -1, 220)">-</button>
+                        <button class="qty-btn" onclick="changeQuantity(2, 1, 220)">+</button>
+                    </div>
+
+                    <div class="order-btns">
+                        <div class="btn-row">
+                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'ঘানি ভাঙা সরিষার তেল (১ লিটার)', 220, 2)">Buy Now</button>
+                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'ঘানি ভাঙা সরিষার তেল (১ লিটার)', 220, 2)">Add To Cart</button>
+                        </div>
+                        <div class="btn-row">
+                            <a href="https://wa.me/8801684158543?text=আমি%20'সরিষার%20তেল'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                            <a href="mailto:mizan@anlima.com?subject=Product Order: Mustard Oil&body=আমি এই পণ্যটি অর্ডার করতে চাই: ঘানি ভাঙা সরিষার তেল।" class="btn-gmail">Gmail</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- পণ্য ৩ -->
+                <div class="product-card" data-name="সুগন্ধি চিনিগুড়া চাল (৫ কেজি)">
+                    <img src="placeholder-product3.jpg" alt="পণ্যের ছবি">
+                    <h3>সুগন্ধি চিনিগুড়া চাল (৫ কেজি)</h3>
+                    <p>সেরা মানের ঐতিহ্যবাহী সুগন্ধি চাল।</p>
+                    <div class="price">মূল্য: <span id="price-3">1250</span> টাকা</div>
+                    
+                    <div class="quantity-control-box">
+                        <span class="quantity-display" id="qty-3">1</span>
+                        <button class="qty-btn" onclick="changeQuantity(3, -1, 1250)">-</button>
+                        <button class="qty-btn" onclick="changeQuantity(3, 1, 1250)">+</button>
+                    </div>
+
+                    <div class="order-btns">
+                        <div class="btn-row">
+                            <button class="btn-buy" onclick="handleShoppingAction('buy', 'সুগন্ধি চিনিগুড়া চাল (৫ কেজি)', 1250, 3)">Buy Now</button>
+                            <button class="btn-cart" onclick="handleShoppingAction('cart', 'সুগন্ধি চিনিগুড়া চাল (৫ কেজি)', 1250, 3)">Add To Cart</button>
+                        </div>
+                        <div class="btn-row">
+                            <a href="https://wa.me/8801713443942?text=আমি%20'চিনিগুড়া%20চাল'%20পণ্যটি%20অর্ডার%20করতে%20চাই।" class="btn-whatsapp" target="_blank">WhatsApp</a>
+                            <a href="mailto:gias@anlima.com?subject=Product Order: Chinigura Rice&body=আমি এই পণ্যটি অর্ডার করতে চাই: সুগন্ধি চিনিগুড়া চাল।" class="btn-gmail">Gmail</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- ২. মাঝখানের বিজ্ঞাপন কার্ড -->
-        <div class="ad-card-container" id="adCardWrapper">
-            <div class="ad-table-marquee">
-                <marquee behavior="scroll" direction="left" scrollamount="4">📢 আমাদের স্পন্সর ও সেবামূলক বিজ্ঞাপনসমূহ (বিজ্ঞাপন দিতে যোগাযোগ করুন: 01977885122)</marquee>
-            </div>
-            <div class="ad-main-card" id="mainAdCard">
-                <!-- ডায়নামিক বিজ্ঞাপন কনটেন্ট এখানে স্ক্রিপ্ট দ্বারা লোড হবে -->
-            </div>
+          <div class="welcome-banner">
+            <h2>DewDrop Joint Savings Fund-এর শপিং মার্টে আপনাকে আন্তরিক অভিনন্দন!</h2>
+            <p>আমাদের এই প্ল্যাটফর্মের মূল লক্ষ্য হলো গুণগত মানে সেরা পণ্যগুলো সাশ্রয়ী মূল্যে আপনাদের দোরগোড়ায় পৌঁছে দেওয়া। আমাদের সাথে যুক্ত হয়ে আপনারা যেমন সঞ্চয় ও তহবিলের অংশীদার হচ্ছেন, তেমনি এখান থেকে আপনার প্রয়োজনীয় পণ্য অর্ডার করে আমাদের এই উদ্যোগকে আরও এগিয়ে নিতে পারেন।</p>
         </div>
-
-        <!-- ৩. ডান পাশের শপিং মার্ট কার্ড -->
-        <div class="shopping-mart-card">
-            <div>
-                <h3>আমাদের নিজস্ব শপিং মার্ট</h3>
-                <p>দৈনন্দিন প্রয়োজনীয় মানসম্মত পণ্য সাশ্রয়ী মূল্যে এক ছাদের নিচে পেতে ভিজিট করুন আমাদের শপিং মার্ট। আমাদের মার্ট থেকে আপনি আপনার প্রয়োজনীয় গৃহস্থালী ও অন্যান্য পণ্য সহজেই সংগ্রহ করতে পারবেন।</p>
-            </div>
-            <div>
-                <a href="marketplace.html" class="btn" style="width: 100%; text-align: center; box-sizing: border-box; padding: 8px 15px;">মার্ট ভিজিট করুন</a>
-            </div>
-        </div>
-
     </div>
-          
-    <!-- Features Section -->
-    <div class="features-container">
-        <div class="feature-box">
-            <h3>স্বচ্ছ হিসাব-নিকাশ</h3>
-            <p>ফান্ডের প্রতিটি আয়-ব্যয় এবং সদস্যদের হিসাব রাখা হয় সম্পূর্ণ স্বচ্ছতার সাথে।</p>
-        </div>
-        <div class="feature-box">
-            <h3>নিরাপদ সঞ্চয়</h3>
-            <p>সবার সম্মিলিত প্রচেষ্টায় একটি নির্ভরযোগ্য ও সুরক্ষিত আর্থিক ভিত্তি তৈরি করা।</p>
-        </div>
-        <div class="feature-box">
-            <h3>সঞ্চয় পরিকল্পনা</h3>
-            <p>সদস্যদের আর্থিক সামর্থ্য অনুযায়ী ৪টি ভিন্ন মেয়াদী আকর্ষণীয় সঞ্চয় স্কিম।</p>
-            <a href="savings-plan.html" class="feature-btn">প্ল্যান দেখুন</a>
-        </div>
-        <div class="feature-box">
-            <h3>সহজ পরিচালনা</h3>
-            <p>যেকোনো সময় নিজেদের ফান্ডের বর্তমান অবস্থা ও রিপোর্ট দেখে নেওয়ার সুবিধা।</p>
-            <a href="dashboard.html" class="feature-btn">রিপোর্ট দেখুন</a>
-        </div>
-    </div>
 
-    <!-- আমাদের সম্পর্কে ও যোগাযোগের সেকশন -->
-    <div id="about-section" class="about-section">
-        <h2>আমাদের সম্পর্কে</h2>
-        <p>
-            আমরা, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund)-এর প্রতিষ্ঠাতা সদস্যবৃন্দ, পারস্পরিক সহযোগিতা, সুদৃঢ় ঐক্য এবং একটি সঞ্চয়ী মনোভাব গড়ে তোলার লক্ষ্যে সর্বসম্মতিক্রমে এই সমিতি গঠন করছি। আমাদের মূল উদ্দেশ্য- পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা, যা ভবিষ্যতে আমাদের যেকোনো বড় ধরনের লাভজনক খাতে যৌথ বিনিয়োগের পথ সুগম করবে এবং আমাদের আর্থিক ও সামাজিক নিরাপত্তাকে জোরদার করবে।
-        </p>
-        <p>
-            পরিশেষে বলা যায়, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund) কেবল একটি আর্থিক সঞ্চয়ের মাধ্যম নয়; এটি আমাদের পারস্পরিক আস্থা, বিশ্বাস এবং যৌথ সফলতার একটি স্মারক। আমরা দৃঢ়ভাবে বিশ্বাস করি, এই নীতিমালার প্রতিটি ধারা অক্ষরে অক্ষরে পালনের মাধ্যমে আমাদের তহবিলের শৃঙ্খলা বজায় থাকবে। দীর্ঘ ৩ বছরের এই পথচলায় যেকোনো সাময়িক প্রতিকূলতা বা মতপার্থক্য আমরা সকলে মিলে আন্তরিকতা, পারস্পরিক সৌহার্দ্য এবং আলোচনার মাধ্যমে সমাধান করব, ইনশাআল্লাহ। এই যৌথ প্রচেষ্টা আমাদের সকলের জন্য কল্যাণময়, বরকতময় এবং একটি উজ্জ্বল ভবিষ্যৎ বিনির্মাণের হাতিয়ার হোক, আমীন।
-        </p>
+  <!-- জাভাস্ক্রিপ্ট লজিক -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDJfcoxchgwdfulQMjQNa8wml-b4f5jHu",
+            authDomain: "dewdrop-shopping.firebaseapp.com",
+            databaseURL: "https://dewdrop-shopping-default-rtdb.firebaseio.com",
+            projectId: "dewdrop-shopping",
+            storageBucket: "dewdrop-shopping.appspot.com",
+            messagingSenderId: "265469043595",
+            appId: "1:265469043595:web:1532d537b0642bf6dac58e"
+        };
 
-        <!-- যোগাযোগের তথ্য -->
-        <div class="contact-info">
-            <h4>DewDrop Joint Savings Fund</h4>
-            <p>📍 ৬৭ নয়া পল্টন, ঢাকা।</p>
-            <p>📞 মোবাইল: <a href="tel:01977885122">01977885122</a></p>
-            <p>✉️ ইমেইল: <a href="mailto:dewdropjsf@gmail.com">dewdropjsf@gmail.com</a></p>
-        </div>
-    </div>
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
 
-    <!-- সাইট ফুটার -->
-    <footer class="site-footer">
-        <div class="developer-footer">
+        document.addEventListener('DOMContentLoaded', function() {
+            resetAllQuantities();
+            updateCartCount();
+            checkLoginStatus();
+        });
+
+        // রেডিও বাটন অনুযায়ী ফর্ম পরিবর্তন করার ফাংশন
+        function switchLoginForm(type) {
+            const memberForm = document.getElementById('memberLoginForm');
+            const shopForm = document.getElementById('shopLoginForm');
+            
+            if (type === 'member') {
+                memberForm.classList.add('active');
+                shopForm.classList.remove('active');
+            } else {
+                shopForm.classList.add('active');
+                memberForm.classList.remove('active');
+            }
+        }
+
+        // পাসওয়ার্ড দেখার টগল ফাংশন
+        function toggleModalPassword(fieldId) {
+            const passwordInput = document.getElementById(fieldId);
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        }
+
+        function resetAllQuantities() {
+            const products = [
+                { id: 1, unitPrice: 1200 },
+                { id: 2, unitPrice: 220 },
+                { id: 3, unitPrice: 1250 }
+            ];
+
+            products.forEach(p => {
+                let qtySpan = document.getElementById('qty-' + p.id);
+                let priceSpan = document.getElementById('price-' + p.id);
+                if (qtySpan && priceSpan) {
+                    qtySpan.innerText = "1";
+                    priceSpan.innerText = p.unitPrice;
+                }
+            });
+        }
+
+        function changeQuantity(productId, change, unitPrice) {
+            let qtySpan = document.getElementById('qty-' + productId);
+            let priceSpan = document.getElementById('price-' + productId);
+            
+            let currentQty = parseInt(qtySpan.innerText);
+            let newQty = currentQty + change;
+
+            if (newQty < 1) {
+                newQty = 1;
+            }
+
+            qtySpan.innerText = newQty;
+            priceSpan.innerText = unitPrice * newQty;
+        }
+
+        function checkLoginStatus() {
+            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper');
+            const authBtn = document.getElementById('memberAuthBtn');
+            const nameSpan = document.getElementById('loggedUserName');
+
+            if (memberData) {
+                try {
+                    let memberObj = JSON.parse(memberData);
+                    authBtn.innerText = "🚪 লগ আউট করুন";
+                    authBtn.className = "btn-member-login btn-member-logout";
+
+                    nameSpan.innerText = "👤 " + (memberObj.name || memberObj.memberId);
+                    nameSpan.style.display = "inline-block";
+                } catch(e) {}
+            } else {
+                authBtn.innerText = "🛒 শপিং লগইন";
+                authBtn.className = "btn-member-login";
+                nameSpan.style.display = "none";
+            }
+        }
+
+        function handleAuthButtonClick() {
+            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper');
+            if (memberData) {
+                if (confirm('আপনি কি সত্যিই লগআউট করতে চান?')) {
+                    localStorage.removeItem('dewDropMember');
+                    localStorage.removeItem('generalShopper');
+                    checkLoginStatus();
+                    alert('সফলভাবে লগআউট করা হয়েছে।');
+                    location.reload();
+                }
+            } else {
+                openMemberLoginModal();
+            }
+        }
+
+        function openMemberLoginModal() {
+            document.getElementById('memberLoginModal').style.display = 'flex';
+        }
+        function closeMemberLoginModal() {
+            document.getElementById('memberLoginModal').style.display = 'none';
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('shopLoginError').style.display = 'none';
+            document.getElementById('nameError').style.display = 'none';
+        }
+
+        // সমিতি মেম্বার লগইন যাচাই (ডাবাগিং সংস্করণ)
+        async function verifyMemberLogin() {
+            let memberId = document.getElementById('modalMemberId').value.trim();
+            let memberPass = document.getElementById('modalMemberPassword').value.trim();
+            let leftError = document.getElementById('loginError');
+
+            leftError.style.display = 'none';
+
+            if (memberId === "" || memberPass === "") {
+                leftError.innerText = "দয়া করে মেম্বার আইডি এবং পাসওয়ার্ড দিন";
+                leftError.style.display = 'block';
+                return;
+            }
+
+            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTR7ShbG0jdF3OGqxBbbPFMLSfY1mUoegPRWC9EBXoXta3o6UoZEY5nMOKl9ruRHqwA4sr5Pb2-OjoX/pub?gid=657142289&single=true&output=csv';
+
+            try {
+                leftError.innerText = "যাচাই করা হচ্ছে...";
+                leftError.style.display = 'block';
+
+                const response = await fetch(csvUrl);
+                const data = await response.text();
+                
+                console.log("--- Google Sheet Raw Data ---");
+                console.log(data); // ব্রাউজার কনসোলে শিটের পুরো ডেটা দেখতে পাবেন
+
+                const rows = data.split('\n').map(row => {
+                    let chars = row.split('');
+                    let insideQuote = false;
+                    let entries = [];
+                    let currentEntry = '';
+                    for (let c of chars) {
+                        if (c === '"') insideQuote = !insideQuote;
+                        else if (c === ',' && !insideQuote) {
+                            entries.push(currentEntry);
+                            currentEntry = '';
+                        } else {
+                            currentEntry += c;
+                        }
+                    }
+                    entries.push(currentEntry);
+                    return entries;
+                });
+
+                let isVerified = false;
+                let foundName = "";
+
+                for (let i = 1; i < rows.length; i++) {
+                    let cols = rows[i];
+                    if (cols && cols.length >= 6) {
+                        let sheetName = cols[1] ? cols[1].replace(/['"\r]/g, "").trim() : "";
+                        let sheetMobile = cols[2] ? cols[2].replace(/['"\r]/g, "").trim() : "";
+                        let sheetMemberId = cols[4] ? cols[4].replace(/['"\r]/g, "").trim() : "";
+                        let sheetPassword = cols[5] ? cols[5].replace(/['"\r]/g, "").trim() : "";
+
+                        console.log(`Row ${i} -> ID: [${sheetMemberId}], Pass: [${sheetPassword}]`); // কনসোলে প্রতিটি রো-এর আইডি ও পাসওয়ার্ড দেখাবে
+
+                        let isIdMatch = (sheetMemberId.toUpperCase() === memberId.toUpperCase() || sheetMobile === memberId);
+                        let isPassMatch = (sheetPassword === memberPass);
+
+                        if (isIdMatch && isPassMatch) {
+                            isVerified = true;
+                            foundName = sheetName || memberId;
+                            break;
+                        }
+                    }
+                }
+
+                if (isVerified) {
+                    localStorage.setItem('dewDropMember', JSON.stringify({ memberId: memberId, name: foundName }));
+                    alert('লগইন সফল হয়েছে! স্বাগতম ' + foundName);
+                    closeMemberLoginModal();
+                    checkLoginStatus();
+                    location.reload();
+                } else {
+                    leftError.innerText = "ভুল মেম্বার আইডি অথবা পাসওয়ার্ড!";
+                    leftError.style.display = 'block';
+                }
+            } catch (error) {
+                console.error("ত্রুটি:", error);
+                leftError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন।";
+                leftError.style.display = 'block';
+            }
+        }
+        // শপিং অ্যাকাউন্ট লগইন যাচাই
+        async function verifyShopLogin() {
+            let shopName = document.getElementById('modalShopName').value.trim();
+            let shopPhone = document.getElementById('modalShopPhoneInput').value.trim();
+            let shopPass = document.getElementById('modalShopPassword').value.trim();
+            
+            let rightError = document.getElementById('shopLoginError');
+            let nameError = document.getElementById('nameError');
+
+            rightError.style.display = 'none';
+            nameError.style.display = 'none';
+
+            if (shopName !== "") {
+                let isUpperCase = /^[A-Z\s]+$/.test(shopName);
+                if (!isUpperCase) {
+                    nameError.style.display = 'block';
+                    return;
+                }
+            }
+
+            if (shopName === "" || shopPhone === "" || shopPass === "") {
+                rightError.innerText = "সবগুলো ঘর পূরণ করুন";
+                rightError.style.display = 'block';
+                return;
+            }
+
+            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRbL9cDJxYk_cv89mh5g2sB6m9HHrXNrnl_Avi5UhZHXXhbJkFRLB05K6miKs-_pGPL3KVpZNXTAnSm/pub?output=csv';
+
+            try {
+                rightError.innerText = "যাচাই করা হচ্ছে...";
+                rightError.style.display = 'block';
+
+                const response = await fetch(csvUrl);
+                const data = await response.text();
+                
+                const rows = data.split('\n').map(row => {
+                    let chars = row.split('');
+                    let insideQuote = false;
+                    let entries = [];
+                    let currentEntry = '';
+                    for (let c of chars) {
+                        if (c === '"') insideQuote = !insideQuote;
+                        else if (c === ',' && !insideQuote) {
+                            entries.push(currentEntry);
+                            currentEntry = '';
+                        } else {
+                            currentEntry += c;
+                        }
+                    }
+                    entries.push(currentEntry);
+                    return entries;
+                });
+
+                let isShopperVerified = false;
+                for (let i = 1; i < rows.length; i++) {
+                    let cols = rows[i];
+                    if (cols && cols.length >= 6) {
+                        let colC = cols[2] ? cols[2].replace(/['"\r]/g, "").trim() : ""; 
+                        let colD = cols[3] ? cols[3].replace(/['"\r]/g, "").trim() : ""; 
+                        let colPass = cols[5] ? cols[5].replace(/['"\r]/g, "").trim() : ""; 
+
+                        if (
+                            colC.toUpperCase() === shopName.toUpperCase() && 
+                            colD === shopPhone && 
+                            colPass === shopPass
+                        ) {
+                            isShopperVerified = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (isShopperVerified) {
+                    localStorage.setItem('generalShopper', JSON.stringify({ name: shopName, phone: shopPhone }));
+                    alert('লগইন সফল হয়েছে! স্বাগতম ' + shopName);
+                    closeMemberLoginModal();
+                    checkLoginStatus();
+                    location.reload();
+                } else {
+                    rightError.innerText = "ভুল তথ্য বা একাউন্ট পাওয়া যায়নি";
+                    rightError.style.display = 'block';
+                }
+            } catch (error) {
+                console.error("ত্রুটি:", error);
+                rightError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন।";
+                rightError.style.display = 'block';
+            }
+        }
+
+        function openOrderHistory() {
+            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper');
+            if (!memberData) {
+                alert('দয়া করে প্রথমে "🛒 শপিং লগইন" করে আপনার একাউন্ট ভেরিফাই করুন!');
+                openMemberLoginModal();
+                return;
+            }
+            window.location.href = 'history.html'; 
+        }
+
+        function accessAdminPanel() {
+            let password = prompt("অ্যাডমিন প্যানেলে প্রবেশ করতে পাসওয়ার্ড দিন:");
+            if (password === "121@admin") { 
+                window.location.href = 'admin.html';
+            } else if (password !== null) {
+                alert("ভুল পাসওয়ার্ড! আপনার প্রবেশাধিকার নেই।");
+            }
+        }
+
+        function handleShoppingAction(actionType, productName, unitPrice, productId) {
+            const memberData = localStorage.getItem('dewDropMember') || localStorage.getItem('generalShopper'); 
+
+            if (!memberData) {
+                alert('দয়া করে শপিং লগইন বা একাউন্ট করুন!');
+                openMemberLoginModal();
+                return;
+            }
+
+            let quantity = parseInt(document.getElementById('qty-' + productId).innerText);
+            let totalPrice = unitPrice * quantity;
+
+            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
+            let existingItem = cart.find(item => item.name === productName);
+            
+            if (existingItem) {
+                existingItem.quantity += quantity;
+                existingItem.price = unitPrice * existingItem.quantity;
+            } else {
+                cart.push({
+                    name: productName,
+                    unitPrice: unitPrice,
+                    price: totalPrice,
+                    quantity: quantity
+                });
+            }
+            localStorage.setItem('dewDropCart', JSON.stringify(cart));
+            updateCartCount();
+
+            let memberObj = JSON.parse(memberData);
+            let identifier = memberObj.memberId || memberObj.name || memberObj.phone;
+            let sanitizedId = identifier.toString().replace(/[.#$\/\[\]]/g, "_");
+            let currentDate = new Date().toLocaleString('bn-BD', { timeZone: 'Asia/Dhaka' });
+
+            let orderData = {
+                productName: productName + " (" + quantity + "টি)",
+                quantity: quantity,
+                totalPrice: totalPrice,
+                date: currentDate
+            };
+
+            database.ref('orders/' + sanitizedId).push(orderData)
+                .then(() => {
+                    if (actionType === 'buy') {
+                        window.location.href = 'cart.html';
+                    } else {
+                        alert('"' + productName + ' (' + quantity + 'টি)" সফলভাবে কার্টে যোগ করা হয়েছে!');
+                    }
+                })
+                .catch((error) => {
+                    console.error("ফায়ারবেজে অর্ডার সেভ করতে সমস্যা:", error);
+                    alert("কার্টে যোগ হলেও ফায়ারবেজে ডেটা সেভ করা যায়নি।");
+                });
+        }
+
+        function updateCartCount() {
+            let cart = JSON.parse(localStorage.getItem('dewDropCart')) || [];
+            let totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const badge = document.getElementById('cartCount');
+            if(badge) {
+                badge.innerText = totalCount;
+            }
+        }
+
+        function searchProducts() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('product-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                let name = cards[i].getAttribute('data-name').toLowerCase();
+                if (name.includes(input)) {
+                    cards[i].style.display = "block";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+    
+    <footer>
+       <div class="developer-footer">
             Website Developed by:<br>
             <strong>Md Tanjim Islam</strong><br>
-            <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
+            <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a>
         </div>
+        
         <div class="copyright-bar">
             &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
         </div>
     </footer>
-
-   <!-- জাভাস্ক্রিপ্ট লজিক -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const rawData = localStorage.getItem("loggedInUser");
-            const navAuthBtn = document.getElementById("navAuthBtn");
-            const headerUserAvatar = document.getElementById("headerUserAvatar");
-
-            let user = null;
-            let isLoggedIn = false;
-
-            if (rawData && rawData !== "null" && rawData !== "undefined") {
-                try {
-                    user = JSON.parse(rawData);
-                    if (user && typeof user === 'object' && Object.keys(user).length > 0) {
-                        isLoggedIn = true;
-                    }
-                } catch (e) {
-                    isLoggedIn = false;
-                }
-            }
-
-            if (isLoggedIn && user) {
-                if (headerUserAvatar) {
-                    headerUserAvatar.src = user.photoUrl || user.image || "prflogo.jpeg";
-                    headerUserAvatar.onerror = function() { this.src = "prflogo.jpeg"; };
-                    headerUserAvatar.title = user.name || "প্রোফাইল";
-                }
-                if (navAuthBtn) {
-                    navAuthBtn.innerText = "লগআউট";
-                    navAuthBtn.href = "javascript:void(0)";
-                    navAuthBtn.onclick = function() {
-                        if (confirm("আপনি কি নিশ্চিত যে লগআউট করতে চান?")) {
-                            localStorage.removeItem("loggedInUser");
-                            alert("লগআউট সফল হয়েছে।");
-                            window.location.reload();
-                        }
-                    };
-                }
-            } else {
-                if (headerUserAvatar) {
-                    headerUserAvatar.src = "prflogo.jpeg";
-                    headerUserAvatar.title = "গেস্ট প্রোফাইল";
-                }
-                if (navAuthBtn) {
-                    navAuthBtn.innerText = "লগইন";
-                    navAuthBtn.href = "login.html";
-                    navAuthBtn.onclick = null;
-                }
-            }
-        });
-
-        let currentAdIndex = 0;
-        let currentPageIndex = 0;
-        let adTimer = null;
-
-        const advertisements = [
-            {
-                durationPerPage: 15000, 
-                leftHTML: `
-                    <div class="ad-left-section">
-                        <div>
-                            <h2 class="doctor-name">ডা. মতিউর রহমান</h2>
-                            <div class="doctor-title">রেজিস্টার্ড হোমিওপ্যাথ ও ডায়েটিশিয়ান</div>
-                            <div class="doctor-title">MBS, DHMS(BHMC),MPH in Nutrition(NUB)</div>
-                            
-                            <div class="chamber-info">
-                                <strong>চেম্বার : সামস হোমিও হল</strong><br>
-                                বাড়ী নং-৬, ব্লক-এ, রোড নং-০১, দক্ষিণ বনশ্রী, সবুজবাগ, ঢাকা。<br>
-                                <em>(লেগুনা স্ট্যান্ড উত্তরা ব্যাংকের পরের গলি)</em><br>
-                                
-                                <span class="vibrant-phone-icon">📞</span> 
-                                <a href="tel:01913492389" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01913492389</a>
-                                <a href="https://wa.me/8801913492389" target="_blank" class="whatsapp-container">
-                                    <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
-                                    <span class="whatsapp-text">Contact with WhatsApp</span>
-                                </a>
-                            </div>
-                            <div class="chamber-timing">
-                                <strong>🏥 রোগী দেখার সময় :</strong> রবিবার থেকে শুক্রবার<br>
-                                সকাল- ১০টা থেকে দুপুর ১টা এবং বিকাল-বাদ আসর থেকে রাত ১০টা
-                            </div>
-                        </div>
-                        <div>
-                            <div class="social-section-title">Subscribe our channels:</div>
-                            <div class="social-links">
-                                <a href="https://www.facebook.com/share/1Eh8YcZ6cr/" target="_blank"><img src="fblogo.png" alt="Facebook" class="social-logo"></a>
-                                <a href="https://youtube.com/@drmotiurrahmanbd" target="_blank"><img src="utubelogo.png" alt="YouTube" class="social-logo"></a>
-                            </div>
-                            <div class="ad-warning">⚠️ রোগীর দেখানোর জন্য ১ দিন আগে সিরিয়াল নিতে হবে।</div>
-                        </div>
-                    </div>
-                `,
-                pages: [
-                    `
-                    <div class="service-title">(০১) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
-                    <ul class="service-list">
-                        <li><strong>পাকস্থলী ও অন্ত্রের রোগ:</strong> গ্যাস্ট্রিক, আলসার, পিত্তথলির পাথর, পেটব্যথা, মূত্রপাথুরী, আই.বি.স, জন্ডিস, অর্শ/গোজ।</li>
-                        <li><strong>নাক, কান, গলা ও চোখের রোগ:</strong> টাইফয়েড জ্বর, কানপাকা, মাম্পস, টনসিল, চোখউঠা, গ্লুকোমা।</li>
-                        <li><strong>চর্ম ও শ্বাসতন্ত্রের রোগ:</strong> ব্রণ, এলার্জি, হাঁপানি, কাশি, সাইনাস ও মাইগ্রেনের মাথাব্যথা।</li>
-                    </ul>
-                    `,
-                    `
-                    <div class="service-title">(০২) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
-                    <ul class="service-list">
-                        <li><strong>স্ত্রী রোগ ও প্রসূতি:</strong> লিউকোরিয়া, অনিয়মিত ঋতুস্রাব, জরায়ু টিউমার, বিয়ের পর বাচ্চা না হওয়া।</li>
-                        <li><strong>মেটাবলিক ও হাড়ের রোগ:</strong> ডায়াবেটিস, হার্ট ডিজিজ, ফ্যাটি লিভার, লিভার সিরোসিস, কিডনি ডিজিজ, বাতের ব্যথা।</li>
-                        <li><strong>মস্তিষ্ক ও মানসিক রোগ:</strong> ব্রেন স্ট্রোক, বেলস পালসি, স্পাইনাল ডিস্ক ডিজঅর্ডার, মেনিনজাইটিস।</li>
-                    </ul>
-                    `,
-                    `
-                    <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
-                    <ul class="service-list">
-                        <li><strong>ভুল ধারণা:</strong> যেকোনো রোগের চিকিৎসায় অনেক দীর্ঘ সময় প্রয়োজন।</li>
-                        <li><strong>জবাব:</strong> উচ্চ তাপমাত্রার জ্বর, ডায়ারিয়া, নিউমোনিয়া ২৪-৭২ ঘণ্টার মধ্যেই নিয়মিত আরোগ্য হয় ইনশাআল্লাহ।</li>
-                        <li><strong>দীর্ঘমেয়াদী রোগ:</strong> ৩ যুগ যাবৎ ডায়াবেটিস ও হার্ট ডিজিজের রোগী কিংবা কেমোথেরাপি নেওয়া রোগীর শরীরেও হোমিওপ্যাথি সমান কাজ করে।</li>
-                    </ul>
-                    `
-                ]
-            },
-            {
-                durationPerPage: 11250,
-                leftHTML: `
-                    <div class="ad-left-section">
-                        <div>
-                            <div class="flat-sale-title">Flat For Sale</div>
-                            <div class="flat-sale-desc">
-                                ফ্ল্যাটটি সরাসরি দেখতে অথবা বিস্তারিত জানতে আজই আমাদের সাথে যোগাযোগ করুন। আপনার স্বপ্নকে বাস্তবে রূপ দিতে আমরা আছি আপনার পাশে।
-                            </div>
-                            <div style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px;">
-                                <div style="font-size: 15px; color: #ffff66; font-weight: bold; margin-bottom: 4px;">মো: তানযীম ইসলাম</div>
-                                <div style="margin: 4px 0;">
-                                    <span class="vibrant-phone-icon">📞</span> 
-                                    <a href="tel:01977885122" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01977885122</a>
-                                </div>
-                                <a href="https://wa.me/8801977885122" target="_blank" class="whatsapp-container">
-                                    <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
-                                    <span class="whatsapp-text">Contact with WhatsApp</span>
-                                </a>
-                                <div style="margin-top: 5px; font-size: 12px;">✉️ <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a></div>
-                                <div style="margin-top: 4px; font-size: 12px; color: #baeafd;">📍 <strong>অফিস ঠিকানা:</strong> মাদারটেক, বাসাবো, ঢাকা।</div>
-                            </div>
-                        </div>
-                    </div>
-                `,
-                pages: [
-                    `
-                    <div class="service-title">আপনার স্বপ্নের ঠিকানায় স্বাগতম</div>
-                    <p style="font-size: 13px; color: #2b2d42; line-height: 1.4; margin-bottom: 8px;">
-                        আপনার ও আপনার পরিবারের জীবনযাত্রাকে আরও সুন্দর ও নিরাপদ করতে আমরা নিয়ে এসেছি একটি চমৎকার অ্যাপার্টমেন্ট। আধুনিক সুযোগ-সুবিধা এবং চমৎকার লোকেশনে এটি হতে পারে আপনার পরবর্তী স্থায়ী ঠিকানা।
-                    </p>
-                    <ul class="service-list">
-                        <li><strong>আয়তন:</strong> ১২৫০ ও ১২৩০ স্কয়ার ফিট সুপরিসর ফ্ল্যাট।</li>
-                        <li><strong>রুম বিন্যাস:</strong> ৩টি চমৎকার বেডরুম, খোলামেলা ড্রয়িং ও ডাইনিং রুম।</li>
-                    </ul>
-                    `,
-                    `
-                    <div class="service-title">সুবিধাসমূহ ও যাতায়াত</div>
-                    <ul class="service-list">
-                        <li><strong>বারান্দা ও বাথরুম:</strong> ৩টি প্রশস্ত বারান্দা এবং আধুনিক ফিটিংসযুক্ত ৩টি ওয়াশরুম।</li>
-                        <li><strong>পার্কিং ও ইউটিলিটি:</strong> সুরক্ষিত গ্যারেজ, নিরবচ্ছিন্ন পানি, বিদ্যুৎ এবং এলপি গ্যাসের সুব্যবস্থা।</li>
-                        <li><strong>মূল্য ও পেমেন্ট:</strong> অত্যন্ত আকর্ষণীয় ও বাজারবান্ধব মূল্য, সাথে রয়েছে সহজ কিস্তিতে ক্রয়ের সুবিধা!</li>
-                    </ul>
-                    `,
-                    `
-                    <div class="service-title">প্রজেক্টের ভেতরের দৃশ্য (Interior View)</div>
-                    <div class="property-gallery-grid">
-                        <img src="flatsale02.jpeg" alt="Interior 1" class="property-img">
-                        <img src="flatsale03.jpeg" alt="Interior 2" class="property-img">
-                    </div>
-                    <p style="font-size: 13px; color: #555; margin-top: 6px; text-align: center;">ড্রয়িং রুম ও সুপরিসর বেডরুমের আকর্ষণীয় সজ্জা।</p>
-                    `,
-                    `
-                    <div class="service-title">বিল্ডিং ও চারিপাশের পরিবেশ (Exterior View)</div>
-                    <div class="property-gallery-grid">
-                        <img src="flatsale01.jpeg" alt="Exterior 1" class="property-img">
-                        <img src="flatsale04.jpeg" alt="Exterior 2" class="property-img">
-                    </div>
-                    <p style="font-size: 13px; color: #555; margin-top: 6px; text-align: center;">নিরাপদ গেটেড কমিউনিটি ও প্রশস্ত ড্রাইভওয়ে।</p>
-                    `
-                ]
-            },
-            {
-                durationPerPage: 45000,
-                leftHTML: `
-                    <div class="ad-left-section" style="background-color: #012836;">
-                        <div>
-                            <h2 style="color: #94DEA5; font-size: 24px; text-align: center; margin-bottom: 10px;">Call for Ad</h2>
-                            <div style="font-size: 14px; color: #C0D2E6; line-height: 1.6; margin-bottom: 15px;">
-                                আপনার ব্যবসা, প্রতিষ্ঠান বা সেবামূলক প্রচারণার জন্য আমাদের এই ওয়েবসাইটের প্রিমিয়াম স্পেসটি বুক করুন। সাশ্রয়ী মূল্যে আপনার বিজ্ঞাপন পৌঁছে দিন হাজারো মানুষের কাছে।
-                            </div>
-                            <div style="background-color: rgba(255,255,255,0.06); padding: 12px; border-radius: 8px; border: 1px dashed #4ea8de;">
-                                <div style="font-size: 14px; color: #ffff66; font-weight: bold; margin-bottom: 5px;">🤝 যোগাযোগের হটলাইন:</div>
-                                <div style="font-size: 15px; color: #fff; font-weight: bold; margin-bottom: 6px;">
-                                    <span class="vibrant-phone-icon">📞</span> 01977885122
-                                </div>
-                                <a href="https://wa.me/8801977885122" target="_blank" class="whatsapp-container">
-                                    <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
-                                    <span class="whatsapp-text">WhatsApp এ যোগাযোগ করুন</span>
-                                </a>
-                                <div style="margin-top: 5px; font-size: 12px;">✉️ <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a></div>
-                            </div>
-                        </div>
-                    </div>
-                `,
-                pages: [
-                    `
-                    <span class="ad-badge" style="background-color: #e76f51;">প্রমোশনাল অফার</span>
-                    <div style="text-align: center; margin: auto; padding: 25px 10px;">
-                        <h2 style="color: #0077b6; margin-bottom: 15px; font-size: 26px; font-weight: bold;">Make Your Ad Live from Now</h2>
-                        <p style="font-size: 15px; color: #333; margin-bottom: 25px; line-height: 1.6;">
-                            আপনার কোম্পানির পণ্য বা সেবার বিজ্ঞাপন এখন প্রদর্শিত হতে পারে আমাদের ওয়েবসাইটের এই প্রিমিয়াম ব্যানার স্লটে। আজই স্লট বুক করতে নিচের বাটনে ক্লিক করুন!
-                        </p>
-                        <a href="tel:01977885122" style="background: #e76f51; color: white; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 16px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
-                            বুকিং করতে কল করুন
-                        </a>
-                    </div>
-                    `
-                ]
-            }
-        ];
-
-        function renderCurrentAd() {
-            const mainCard = document.getElementById("mainAdCard");
-            const currentAd = advertisements[currentAdIndex];
-
-            if (currentPageIndex >= currentAd.pages.length) {
-                currentPageIndex = 0;
-            }
-
-            mainCard.innerHTML = `
-                ${currentAd.leftHTML}
-                <div class="ad-right-section bg-page-${currentPageIndex % 4}" id="adRightContainer">
-                    <div class="service-page active-page">
-                        ${currentAd.pages[currentPageIndex]}
-                    </div>
-                    <div class="ad-controls">
-                        <button class="ctrl-btn" onclick="prevSubPage()">পূর্ববর্তী</button>
-                        <span class="page-indicators">পেজ ${currentPageIndex + 1} / ${currentAd.pages.length}</span>
-                        <button class="ctrl-btn" onclick="nextSubPage()">পরবর্তী</button>
-                    </div>
-                </div>
-            `;
-        }
-
-        function nextSubPage() {
-            const currentAd = advertisements[currentAdIndex];
-            currentPageIndex++;
-
-            if (currentPageIndex >= currentAd.pages.length) {
-                currentPageIndex = 0;
-                triggerAdSwitch();
-            } else {
-                renderCurrentAd();
-                resetAdTimer();
-            }
-        }
-
-        function prevSubPage() {
-            const currentAd = advertisements[currentAdIndex];
-            currentPageIndex--;
-            if (currentPageIndex < 0) {
-                currentAdIndex = (currentAdIndex - 1 + advertisements.length) % advertisements.length;
-                currentPageIndex = advertisements[currentAdIndex].pages.length - 1;
-            }
-            renderCurrentAd();
-            resetAdTimer();
-        }
-
-        function triggerAdSwitch() {
-            const wrapper = document.getElementById("adCardWrapper");
-            if (wrapper) wrapper.classList.add("fade-out");
-
-            setTimeout(() => {
-                currentAdIndex = (currentAdIndex + 1) % advertisements.length;
-                currentPageIndex = 0;
-                
-                renderCurrentAd();
-                
-                if (wrapper) wrapper.classList.remove("fade-out");
-                resetAdTimer();
-            }, 800);
-        }
-
-        function resetAdTimer() {
-            clearInterval(adTimer);
-            const currentAd = advertisements[currentAdIndex];
-            adTimer = setInterval(() => {
-                nextSubPage();
-            }, currentAd.durationPerPage);
-        }
-
-        // গুগল শিট থেকে নোটিশ লোড করার ফাংশনসমূহ
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx2BOD1gRhlma4eqZp0PlXLKTH-cyibmLjH0vA5iGWA8UtAqlFsayOjvj9o_EGiw1nSqQ/exec";
-
-        async function loadNewsroom1() {
-            try {
-                let response = await fetch(`${SCRIPT_URL}?sheet=newsroom1`);
-                let notices = await response.json();
-                
-                if (Array.isArray(notices) && notices.length > 0) {
-                    let marqueeText = notices.join(" *** ");
-                    const topMarquee = document.querySelector(".top-marquee-bar marquee");
-                    if (topMarquee) {
-                        topMarquee.innerText = `*** ${marqueeText} *** DewDrop Joint Savings Fund ***`;
-                    }
-                }
-            } catch (error) {
-                console.error("Error loading newsroom1:", error);
-            }
-        }
-
-        async function loadNewsroom2() {
-            try {
-                let response = await fetch(`${SCRIPT_URL}?sheet=newsroom2`);
-                let notices = await response.json();
-                
-                // এখানে handleNewsroom2 ফাংশনটি কল করা হলো যাতে বড় নোটিশে রিড মোর কাজ করে
-                handleNewsroom2(notices);
-            } catch (error) {
-                console.error("Error loading newsroom2:", error);
-            }
-        }
-
-        function handleNewsroom2(notices) {
-            if (Array.isArray(notices) && notices.length > 0) {
-                const noticeListUl = document.querySelector(".notice-board-card .notice-list");
-                if (noticeListUl) {
-                    noticeListUl.innerHTML = ""; 
-                    
-                    notices.forEach(noticeText => {
-                        let li = document.createElement("li");
-                        li.className = "notice-item";
-                        
-                        // যদি নোটিশের লেখা বড় হয় (যেমন ৮০ অক্ষরের বেশি), তবে ছোট করে দেখিয়ে 'বিস্তারিত' বাটন দেখাবে
-                        let maxLength = 80;
-                        if (noticeText.length > maxLength) {
-                            let shortText = noticeText.substring(0, maxLength) + "...";
-                            let fullText = noticeText;
-                            
-                            li.innerHTML = `
-                                <strong>আপডেট:</strong> 
-                                <span class="notice-text">${shortText}</span>
-                                <button class="read-more-btn" onclick="toggleDetails(this)">বিস্তারিত</button>
-                                <div class="full-details" style="display: none;">${fullText}</div>
-                            `;
-                        } else {
-                            li.innerHTML = `<strong>আপডেট:</strong> ${noticeText}`;
-                        }
-                        
-                        noticeListUl.appendChild(li);
-                    });
-                }
-            }
-        }
-
-        // বিস্তারিত বাটন টগল করার ফাংশন
-        function toggleDetails(btn) {
-            let detailsDiv = btn.nextElementSibling;
-            
-            if (detailsDiv.style.display === "block") {
-                detailsDiv.style.display = "none";
-                btn.innerText = "বিস্তারিত";
-            } else {
-                detailsDiv.style.display = "block";
-                btn.innerText = "সংক্ষিপ্ত করুন";
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            renderCurrentAd();
-            resetAdTimer();
-            loadNewsroom1();
-            loadNewsroom2();
-        });
-    </script>
 </body>
 </html>
