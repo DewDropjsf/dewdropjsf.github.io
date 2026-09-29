@@ -99,21 +99,66 @@
         }
 
         /* নেভিগেশন বার (সংশোধিত ও ছোট করা হয়েছে) */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #00332c;
-            padding: 6px 20px;
-            flex-wrap: nowrap;
-            position: relative;
-        }
-        .nav-links {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+      /* ১. নেভিগেশন বার চিকন ও গোছানো করার জন্য */
+nav {
+    display: flex;
+    align-items: center;
+    background: #00332c;
+    padding: 4px 15px; /* প্যাডিং কমিয়ে চিকন করা হলো */
+    gap: 15px;
+    flex-wrap: nowrap;
+}
+
+/* ২. নেভ লিংকের ভেতরের উপাদানগুলোর দূরত্ব কমানো */
+.nav-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* ৩. সার্চ এলাকার জন্য আলাদা কোনো বড় মার্জিন বা র‍্যাপার বাদ দিয়ে ফ্লেক্স কন্ট্রোল */
+.search-area-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto; /* সবকিছু ডানপাশে বা নির্দিষ্ট দূরত্বে রাখতে */
+}
+
+/* ৪. সার্চ বক্সের সাইজ মাঝারি ও সুন্দর রাখার জন্য */
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 4px;
+    padding: 2px 6px;
+    width: 250px; /* মাঝারি মাপ */
+    border: 1px solid #0077b6;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    padding: 4px;
+    font-size: 0.85rem;
+    width: 100%;
+}
+
+.search-box button {
+    background: #004d40;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+/* ৫. শপিং অ্যাকাউন্ট বাটন একদম ডানে ফিক্স করার জন্য */
+.market-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: auto; /* স্বয়ংক্রিয়ভাবে ডানপাশে চলে যাবে */
+}
         nav a {
             color: #fff;
             text-decoration: none;
