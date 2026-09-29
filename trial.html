@@ -200,17 +200,32 @@
         }
 
         .search-area-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .search-box {
-            display: flex;
-            align-items: center;
-            background: #fff;
-            border-radius: 4px;
-            padding: 3px 8px;
-        }
+    display: flex;
+    justify-content: center; /* মাঝ বরাবর নিয়ে আসার জন্য */
+    align-items: center;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 6px;
+    padding: 6px 12px;
+    width: 60%; /* সার্চ বক্সের সাইজ বড় করার জন্য (প্রয়োজনমতো বাড়িয়ে বা কমিয়ে নিতে পারেন) */
+    max-width: 600px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    border: 2px solid #0077b6; /* দেখতে আকর্ষণীয় করতে বর্ডার যোগ করা হয়েছে */
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    padding: 8px;
+    font-size: 1rem;
+    width: 100%; /* ইনপুট ফিল্ড ফুল উইথ নেওয়ার জন্য */
+}
         .search-box input {
             border: none;
             outline: none;
