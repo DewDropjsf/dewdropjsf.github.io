@@ -209,7 +209,7 @@
             align-items: center;
             background: #fff;
             border-radius: 4px;
-            padding: 3px 8px;
+            padding: 3px 16px;
         }
         .search-box input {
             border: none;
@@ -705,6 +705,10 @@
         </div>
 
         <div class="search-area-wrapper">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
+                <button onclick="searchProducts()">🔍 সার্চ</button>
+            </div>
            <div class="market-dropdown">
                 <button class="market-dropbtn">
                     🛍️ শপিং অ্যাকাউন্ট ▾
@@ -714,10 +718,7 @@
                     <a href="#welcome-banner">০২. শপিং মার্ট সম্পর্কে </a>
                 </div>
             </div>
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
-                <button onclick="searchProducts()">🔍 সার্চ</button>
-            </div>
+            
         </div>
     </nav>
 
