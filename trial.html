@@ -373,6 +373,142 @@
         border-radius: 5px;
     }
 
+        /* হিরো ও প্রমোশনাল কার্ড র‍্যাপার */
+.marketplace-hero-wrapper {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    display: flex;
+    gap: 20px;
+    align-items: stretch; /* দুটি কার্ডের উচ্চতা সমান রাখবে */
+}
+
+/* মূল এড সেকশন সাইজ অপরিবর্তিত */
+.marketplace-hero-section {
+    flex: 1;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    background: linear-gradient(135deg, #1d3557, #457b9d);
+}
+
+.hero-banner-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+}
+
+/* ডান পাশের নতুন প্রমোশনাল কার্ড */
+.promo-card-side {
+    width: 320px;
+    background: #00332c;
+    border: 2px solid #00796b;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+/* মারকিউ হেডিং */
+.promo-header-marquee {
+    background: #ffb300;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.05rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* স্লাইড ডিসপ্লে বক্স */
+.promo-slider-box {
+    position: relative;
+    height: 160px;
+    margin: 15px 0;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px dashed #80cbc4;
+}
+
+.promo-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 20px 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.promo-slide.active {
+    opacity: 1;
+}
+
+.promo-title {
+    color: #ffeb3b;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.promo-desc {
+    color: #e0f2f1;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* ২৫% ছাড় ব্লিঙ্কিং / জ্ৱলা-নেভা ইফেক্ট */
+.promo-discount-blink {
+    font-size: 2.2rem;
+    font-weight: 900;
+    text-align: center;
+    color: #ff1744;
+    text-shadow: 0 0 10px #ff1744, 0 0 20px #ff5252;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    border: 2px solid #ff1744;
+    animation: glowBlink 1.2s infinite alternate;
+}
+
+@keyframes glowBlink {
+    0% {
+        opacity: 0.3;
+        text-shadow: 0 0 2px #ff1744;
+        border-color: rgba(255, 23, 68, 0.3);
+        transform: scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 15px #ff1744, 0 0 25px #ff5252, 0 0 35px #ff80ab;
+        border-color: #ff1744;
+        transform: scale(1.02);
+    }
+}
+
+/* রেসপনসিভ (মোবাইল স্ক্রিনে নিচে আসবে) */
+@media(max-width: 992px) {
+    .marketplace-hero-wrapper {
+        flex-direction: column;
+    }
+    .promo-card-side {
+        width: 100%;
+        height: 320px;
+    }
+}
+        
     .container {
         max-width: 1100px;
         margin: 30px auto;
@@ -922,21 +1058,55 @@
     </div>
 
     <div class="container">
-    <!-- শপিং মার্ট বড় অ্যাড প্লেস / হিরো ব্যানার -->
-<section class="marketplace-hero-section">
-    <div class="hero-banner-container" id="marketplaceHeroSlider">
-        <!-- স্লাইড ১: মেগা অফার -->
-        <div class="hero-slide active" style="background: linear-gradient(135deg, #0f4c81, #247ba0);">
-            <div class="hero-content">
-                <span class="hero-badge">মেগা সেল অফার</span>
-                <h1>বিশেষ ছাড়ে আপনার পছন্দের পণ্য কিনুন</h1>
-                <p>আমাদের শপিং মার্ট থেকে যেকোনো পণ্যে পেয়ে যান আকর্ষণীয় ডিসকাউন্ট এবং হোম ডেলিভারি সুবিধা।</p>
-                <a href="#productsSection" class="hero-btn">এখনই কিনুন</a>
-            </div>
-            <div class="hero-image">
-                <img src="flatsale01.jpeg" alt="Mega Offer">
+ 
+<!-- হিরো ব্যানার ও প্রমোশনাল সেকশন -->
+<div class="marketplace-hero-wrapper">
+    <!-- বিদ্যমান মূল এড সেকশন -->
+    <div class="marketplace-hero-section">
+        <div class="hero-banner-container">
+            <div class="hero-slide active">
+                <div class="hero-content">
+                    <span class="hero-badge">নতুন কালেকশন</span>
+                    <h1>সেরা মানের পণ্য এখন আপনার হাতের নাগালে</h1>
+                    <p>আমাদের স্টোরে যুক্ত হয়েছে নতুন সব এক্সক্লুসিভ কালেকশন। আজই আপনার প্রয়োজনীয় পণ্যটি সংগ্রহ করুন।</p>
+                    <a href="#" class="hero-btn">সংগ্রহ দেখুন</a>
+                </div>
+                <div class="hero-image">
+                    <img src="https://via.placeholder.com/400x280?text=Flat+FOR+SALE+inDhaka" alt="Promo Banner">
+                </div>
             </div>
         </div>
+    </div>
+
+    <!-- নতুন প্রমোশনাল কার্ড (ডান পাশে) -->
+    <div class="promo-card-side">
+        <!-- মারকিউ হেডিং -->
+        <div class="promo-header-marquee">
+            <marquee behavior="scroll" direction="left" scrollamount="4">📢 প্রমোশনাল অফার 📢 প্রমোশনাল অফার</marquee>
+        </div>
+
+        <!-- স্লাইড ডিসপ্লে অফার -->
+        <div class="promo-slider-box">
+            <div class="promo-slide active">
+                <p class="promo-title">🔥 Flash Sale</p>
+                <p class="promo-desc">২৫% বিশেষ ডিসকাউন্ট চলছে!</p>
+            </div>
+            <div class="promo-slide">
+                <p class="promo-title">🚚 ফ্রি ডেলিভারি</p>
+                <p class="promo-desc">যেকোনো ৩টি পণ্যে সম্পূর্ণ ফ্রি শিপিং!</p>
+            </div>
+            <div class="promo-slide">
+                <p class="promo-title">👑 মেম্বারদের জন্য বিশেষ ছাড়</p>
+                <p class="promo-desc">লগইন মেম্বারদের জন্য এক্সক্লুসিভ অফার!</p>
+            </div>
+        </div>
+
+        <!-- নিচের ব্লিঙ্কিং ২৫% ছাড় -->
+        <div class="promo-discount-blink">
+            ২৫% ছাড়
+        </div>
+    </div>
+</div>
 
         <!-- স্লাইড ২: নতুন পণ্যের সমাহার -->
         <div class="hero-slide" style="background: linear-gradient(135deg, #2b2d42, #8d99ae);">
@@ -1497,7 +1667,22 @@ function currentSlide(n) {
 
 document.addEventListener("DOMContentLoaded", function() {
     showSlides();
-});      
+});    
+
+// প্রমোশনাল অফার স্লাইডার
+let currentPromoSlide = 0;
+const promoSlides = document.querySelectorAll('.promo-slide');
+
+function showNextPromoSlide() {
+    if (promoSlides.length === 0) return;
+    promoSlides[currentPromoSlide].classList.remove('active');
+    currentPromoSlide = (currentPromoSlide + 1) % promoSlides.length;
+    promoSlides[currentPromoSlide].classList.add('active');
+}
+
+// প্রতি ৩ সেকেন্ড পর পর স্লাইড পরিবর্তন হবে
+setInterval(showNextPromoSlide, 3000);
+        
     </script>
     
     <footer>
