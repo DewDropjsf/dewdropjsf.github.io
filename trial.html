@@ -98,15 +98,15 @@
             background: #bf360c;
         }
 
-        /* নেভিগেশন বার (সংশোধিত ও ছোট করা হয়েছে) */
       /* ১. নেভিগেশন বার চিকন ও গোছানো করার জন্য */
 nav {
     display: flex;
     align-items: center;
+     justify-content: space-between;
     background: #00332c;
-    padding: 4px 15px; /* প্যাডিং কমিয়ে চিকন করা হলো */
-    gap: 15px;
-    flex-wrap: nowrap;
+    padding: 6px 20px; /* প্যাডিং কমিয়ে চিকন করা হলো */
+    height: 45px; /* নেভবারের উচ্চতা নির্দিষ্ট করে দেওয়া হলো যাতে মোটা না হয় */
+     box-sizing: border-box;
 }
 
 /* ২. নেভ লিংকের ভেতরের উপাদানগুলোর দূরত্ব কমানো */
@@ -129,16 +129,19 @@ nav {
     display: flex;
     align-items: center;
     background: #fff;
-    border-radius: 4px;
-    padding: 2px 6px;
-    width: 350px; /* মাঝারি মাপ */
+   border-radius: 4px;
+    padding: 2px 8px;
+    width: 320px; /* চওড়া বাড়ানো হলো */
+    height: 32px; /* উচ্চতা কমানো হলো যাতে নেভবার মোটা না হয় */
     border: 1px solid #0077b6;
+    margin: 0 auto; /* একদম মাঝবরাবর রাখার জন্য */
+   
 }
 
 .search-box input {
     border: none;
     outline: none;
-    padding: 4px;
+    padding: 2px 4px;
     font-size: 0.85rem;
     width: 100%;
 }
@@ -147,10 +150,11 @@ nav {
     background: #004d40;
     color: white;
     border: none;
-    padding: 4px 6px;
-    border-radius: 4px;
+    padding: 4px 10px;
+    border-radius: 3px;
     cursor: pointer;
     font-size: 0.8rem;
+      white-space: nowrap;
 }
 
 /* ৫. শপিং অ্যাকাউন্ট বাটন একদম ডানে ফিক্স করার জন্য */
