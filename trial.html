@@ -206,16 +206,6 @@ nav {
             background: #b71c1c !important;
         }
 
-        /* সার্চ এলাকা ও সঠিক মাপ */
-        .search-area-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 95%;
-            max-width: 1200px;
-            margin: 10px auto;
-            gap: 15px;
-        }
 /* সার্চ এলাকার জন্য আলাদা কোনো বড় মার্জিন বা র‍্যাপার বাদ দিয়ে ফ্লেক্স কন্ট্রোল */
 .search-area-wrapper {
     display: flex;
@@ -251,11 +241,12 @@ nav {
             background: #004d40;
             color: white;
             border: none;
-            padding: 6px 14px;
+            padding: 6px 12px;
             border-radius: 4px;
             cursor: pointer;
             font-size: 0.85rem;
              white-space: nowrap;
+            flex-shrink: 0;
         }
 
         /* হিরো ব্যানার সেকশন */
