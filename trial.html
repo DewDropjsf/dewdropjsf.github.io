@@ -264,17 +264,16 @@ nav {
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             border: 4px solid #0077b6;
         }
-.search-box {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    border-radius: 4px;
-    padding: 2px; /* প্যাডিং একটু কমিয়ে দিতে পারেন */
-    width: 320px;
-    height: 32px;
-    border: 1px solid #0077b6;
-    overflow: hidden; /* অতিরিক্ত অংশ বাইরে যাওয়া রোধ করবে */
-} 
+    
+ .search-box input {
+    border: none;
+    outline: none;
+    padding: 2px 4px;
+    font-size: 0.85rem;
+    flex-grow: 1; /* পুরো জায়গা নিজের মতো করে নিয়ে বাকি অংশ বাটনের জন্য রাখবে */
+    background: transparent;
+}
+    
         .search-box button {
             background: #004d40;
             color: white;
