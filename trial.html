@@ -250,21 +250,31 @@
         background: #00332c;
     }
 
-    /* হিরো ব্যানার সেকশন */
-    .marketplace-hero-section {
+    /* হিরো ও প্রমোশনাল কার্ড র‍্যাপার */
+    .marketplace-hero-wrapper {
         width: 90%;
         max-width: 1200px;
         margin: 20px auto;
+        display: flex;
+        gap: 20px;
+        align-items: stretch;
+    }
+
+    /* মূল এড সেকশন (এবার বড় ও মানানসই) */
+    .marketplace-hero-section {
+        flex: 2; /* ডান পাশের চেয়ে দ্বিগুণ জায়গা নিয়ে বড় থাকবে */
         position: relative;
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        background: linear-gradient(135deg, #004d40, #00796b);
     }
 
     .hero-banner-container {
         position: relative;
         width: 100%;
-        height: 380px;
+        height: 100%;
+        min-height: 380px;
     }
 
     .hero-slide {
@@ -276,7 +286,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 40px;
+        padding: 30px 40px;
         box-sizing: border-box;
         opacity: 0;
         visibility: hidden;
@@ -289,15 +299,15 @@
     }
 
     .hero-content {
-        flex: 1;
+        flex: 1.2;
         color: #ffffff;
         z-index: 2;
     }
 
     .hero-badge {
-        background-color: #2a9d8f;
-        color: white;
-        padding: 6px 12px;
+        background-color: #ffb300;
+        color: #000;
+        padding: 5px 12px;
         font-size: 13px;
         font-weight: bold;
         border-radius: 4px;
@@ -306,22 +316,22 @@
     }
 
     .hero-content h1 {
-        font-size: 32px;
-        margin-bottom: 15px;
+        font-size: 28px;
+        margin-bottom: 12px;
         line-height: 1.3;
     }
 
     .hero-content p {
-        font-size: 15px;
-        margin-bottom: 20px;
-        color: #e0fbfc;
+        font-size: 14.5px;
+        margin-bottom: 18px;
+        color: #e0f2f1;
         line-height: 1.5;
     }
 
     .hero-btn {
         background-color: #f77f00;
         color: white;
-        padding: 10px 24px;
+        padding: 9px 22px;
         border-radius: 6px;
         text-decoration: none;
         font-weight: bold;
@@ -334,180 +344,129 @@
     }
 
     .hero-image {
-        flex: 1;
+        flex: 0.8;
         text-align: right;
         z-index: 2;
     }
 
     .hero-image img {
-        max-width: 85%;
-        max-height: 280px;
+        max-width: 100%;
+        max-height: 240px;
         object-fit: cover;
         border-radius: 8px;
         box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
-    /* স্লাইড ডট ইন্ডিকেটর */
-    .hero-dots {
-        position: absolute;
-        bottom: 15px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 8px;
-        z-index: 10;
-    }
-
-    .hero-dots .dot {
-        width: 10px;
-        height: 10px;
-        background-color: rgba(255,255,255,0.5);
-        border-radius: 50%;
-        cursor: pointer;
-        transition: background 0.3s;
-    }
-
-    .hero-dots .dot.active {
-        background-color: #ffffff;
-        width: 25px;
-        border-radius: 5px;
-    }
-
-        /* হিরো ও প্রমোশনাল কার্ড র‍্যাপার */
-.marketplace-hero-wrapper {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    display: flex;
-    gap: 20px;
-    align-items: stretch; /* দুটি কার্ডের উচ্চতা সমান রাখবে */
-}
-
-/* মূল এড সেকশন সাইজ অপরিবর্তিত */
-.marketplace-hero-section {
-    flex: 1;
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    background: linear-gradient(135deg, #1d3557, #457b9d);
-}
-
-.hero-banner-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 380px;
-}
-
-/* ডান পাশের নতুন প্রমোশনাল কার্ড */
-.promo-card-side {
-    width: 320px;
-    background: #00332c;
-    border: 2px solid #00796b;
-    border-radius: 12px;
-    padding: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-sizing: border-box;
-}
-
-/* মারকিউ হেডিং */
-.promo-header-marquee {
-    background: #ffb300;
-    color: #000;
-    font-weight: bold;
-    font-size: 1.05rem;
-    padding: 6px 10px;
-    border-radius: 6px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-/* স্লাইড ডিসপ্লে বক্স */
-.promo-slider-box {
-    position: relative;
-    height: 160px;
-    margin: 15px 0;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    border: 1px dashed #80cbc4;
-}
-
-.promo-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    padding: 20px 15px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.8s ease-in-out;
-}
-
-.promo-slide.active {
-    opacity: 1;
-}
-
-.promo-title {
-    color: #ffeb3b;
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-.promo-desc {
-    color: #e0f2f1;
-    font-size: 0.95rem;
-    line-height: 1.4;
-}
-
-/* ২৫% ছাড় ব্লিঙ্কিং / জ্ৱলা-নেভা ইফেক্ট */
-.promo-discount-blink {
-    font-size: 2.2rem;
-    font-weight: 900;
-    text-align: center;
-    color: #ff1744;
-    text-shadow: 0 0 10px #ff1744, 0 0 20px #ff5252;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    border: 2px solid #ff1744;
-    animation: glowBlink 1.2s infinite alternate;
-}
-
-@keyframes glowBlink {
-    0% {
-        opacity: 0.3;
-        text-shadow: 0 0 2px #ff1744;
-        border-color: rgba(255, 23, 68, 0.3);
-        transform: scale(0.98);
-    }
-    100% {
-        opacity: 1;
-        text-shadow: 0 0 15px #ff1744, 0 0 25px #ff5252, 0 0 35px #ff80ab;
-        border-color: #ff1744;
-        transform: scale(1.02);
-    }
-}
-
-/* রেসপনসিভ (মোবাইল স্ক্রিনে নিচে আসবে) */
-@media(max-width: 992px) {
-    .marketplace-hero-wrapper {
-        flex-direction: column;
-    }
+    /* ডান পাশের প্রমোশনাল কার্ড (নির্দিষ্ট সাইজ ও সমান উচ্চতা) */
     .promo-card-side {
-        width: 100%;
-        height: 320px;
+        width: 320px;
+        flex-shrink: 0;
+        background: #00332c;
+        border: 2px solid #00796b;
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-sizing: border-box;
     }
-}
+
+    /* মারকিউ হেডিং */
+    .promo-header-marquee {
+        background: #ffb300;
+        color: #000;
+        font-weight: bold;
+        font-size: 1rem;
+        padding: 6px 10px;
+        border-radius: 6px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        overflow: hidden;
+    }
+
+    /* স্লাইড ডিসপ্লে বক্স */
+    .promo-slider-box {
+        position: relative;
+        height: 160px;
+        margin: 12px 0;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        border: 1px dashed #80cbc4;
+    }
+
+    .promo-slide {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding: 15px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out;
+    }
+
+    .promo-slide.active {
+        opacity: 1;
+    }
+
+    .promo-title {
+        color: #ffeb3b;
+        font-size: 1.15rem;
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+
+    .promo-desc {
+        color: #e0f2f1;
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    /* ২৫% ছাড় ব্লিঙ্কিং / জ্বলা-নেভা ইফেক্ট */
+    .promo-discount-blink {
+        font-size: 2rem;
+        font-weight: 900;
+        text-align: center;
+        color: #ff1744;
+        text-shadow: 0 0 10px #ff1744, 0 0 20px #ff5252;
+        padding: 8px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        border: 2px solid #ff1744;
+        animation: glowBlink 1.2s infinite alternate;
+    }
+
+    @keyframes glowBlink {
+        0% {
+            opacity: 0.3;
+            text-shadow: 0 0 2px #ff1744;
+            border-color: rgba(255, 23, 68, 0.3);
+            transform: scale(0.98);
+        }
+        100% {
+            opacity: 1;
+            text-shadow: 0 0 15px #ff1744, 0 0 25px #ff5252, 0 0 35px #ff80ab;
+            border-color: #ff1744;
+            transform: scale(1.02);
+        }
+    }
+
+    /* রেসপনসিভ ভিউ */
+    @media(max-width: 992px) {
+        .marketplace-hero-wrapper {
+            flex-direction: column;
+        }
+        .promo-card-side {
+            width: 100%;
+            height: 320px;
+        }
+    }
         
     .container {
         max-width: 1100px;
