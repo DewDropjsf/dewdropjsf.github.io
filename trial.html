@@ -960,9 +960,12 @@
             </div>
         </div>
 
-                  <!-- শপিং লগইন বাটন -->
-            <button id="memberAuthBtn" class="btn-member-login" onclick="handleAuthButtonClick()" style="margin-right: 10px;">🛒 শপিং লগইন</button>
-        </div>
+                 <!-- ডান দিকের অংশ: শপিং লগইন বাটন ও শপিং অ্যাকাউন্ট ড্রপডাউন একসাথে -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button id="memberAuthBtn" class="btn-member-login" onclick="handleAuthButtonClick()">🛒 শপিং লগইন</button>
+
+            <div class="shop-dropdown" style="margin-left: 0;">
+                <button class="shop-dropbtn">
             
         <!-- শপিং অ্যাকাউন্ট ড্রপডাউন (একেবারে ডানপাশে) -->
         <div class="shop-dropdown">
