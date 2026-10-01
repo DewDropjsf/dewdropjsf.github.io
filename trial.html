@@ -10,889 +10,882 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <style>
-    /* ==========================================
-       1. গ্লোবাল রিসেট ও বেস স্টাইল
-       ========================================== */
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: 'SolaimanLipi', Arial, sans-serif;
-    }
-    body {
-        background-color: #f9f9f9;
-        color: #333;
-        line-height: 1.6;
-    }
-
-    /* ==========================================
-       2. মেইন হেডার সেকশন
-       ========================================== */
-    header {
-        background: #004d40;
-        color: #fff;
-        padding: 15px 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .header-left {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-    .header-left img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid #fff;
-    }
-    .header-left span {
-        font-size: 1.25rem;
-        font-weight: bold;
-    }
-    .header-center h1 {
-        font-size: 1.6rem;
-        font-weight: bold;
-    }
-    .header-right {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-    .logged-user-name {
-        background: #00332c;
-        padding: 6px 12px;
-        border-radius: 15px;
-        font-size: 0.95rem;
-        color: #ffeb3b;
-        border: 1px solid #00796b;
-        display: none;
-    }
-    .history-btn {
-        background: #ffb300;
-        color: #000;
-        padding: 8px 14px;
-        border-radius: 20px;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 0.9rem;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        border: none;
-        cursor: pointer;
-        transition: background 0.2s;
-    }
-    .history-btn:hover {
-        background: #ffa000;
-    }
-    .header-right .cart-btn {
-        background: #d84315;
-        color: white;
-        padding: 8px 18px;
-        border-radius: 20px;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 1rem;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-    .header-right .cart-btn:hover {
-        background: #bf360c;
-    }
-
-    /* ==========================================
-       3. নেভিগেশন বার ও ড্রপডাউন মেনু
-       ========================================== */
-    nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: #00332c;
-        padding: 6px 20px;
-        height: 52px;
-        box-sizing: border-box;
-    }
-    .nav-links {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-    }
-    nav a {
-        color: #fff;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 0.9rem;
-    }
-    nav a:hover {
-        color: #80cbc4;
-    }
-
-    /* ফান্ড এবং এবাউট ড্রপডাউন */
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-    .dropbtn {
-        background: none;
-        border: none;
-        color: #fff;
-        font-weight: bold;
-        font-size: 0.9rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        padding: 4px 0;
-        font-family: 'SolaimanLipi', Arial, sans-serif;
-    }
-    .dropbtn:hover {
-        color: #80cbc4;
-    }
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #00332c;
-        min-width: 180px;
-        box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
-        z-index: 1001;
-        border-radius: 4px;
-        border: 1px solid #004d40;
-        top: 100%;
-        left: 0;
-        margin-top: 8px; /* গ্যাপ ফিক্সড করার জন্য */
-        padding-top: 5px;
-    }
-    .dropdown-content a, .dropdown-content button {
-        color: #fff;
-        padding: 8px 12px;
-        text-decoration: none;
-        display: block;
-        text-align: left;
-        background: none;
-        border: none;
-        width: 100%;
-        font-size: 0.85rem;
-        font-family: 'SolaimanLipi', Arial, sans-serif;
-        cursor: pointer;
-    }
-    .dropdown-content a:hover, .dropdown-content button:hover {
-        background-color: #004d40;
-        color: #ffeb3b;
-    }
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-
-    /* শপিং অ্যাকাউন্ট ড্রপডাউন (ডানপাশে ফিক্সড) */
-    .shop-account-dropdown {
-        position: relative;
-        display: inline-block;
-        margin-left: auto;
-    }
-    .shop-account-dropbtn {
-        background-color: #e67e22;
-        color: white;
-        padding: 8px 14px;
-        font-size: 13px;
-        font-weight: bold;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        white-space: nowrap;
-    }
-    .shop-account-dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #ffffff;
-        min-width: 210px;
-        box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
-        z-index: 1000;
-        border-radius: 6px;
-        overflow: hidden;
-        right: 0;
-        margin-top: 8px; /* মাউস নামানোর সময় মেনু চলে যাওয়া রোধ করতে গ্যাপ কভার করা হলো */
-        padding-top: 5px;
-        border: 1px solid #e0e0e0;
-    }
-    .shop-account-dropdown-content a {
-        color: #2c3e50;
-        padding: 10px 14px;
-        text-decoration: none;
-        display: block;
-        font-size: 13px;
-        font-weight: 600;
-        transition: background 0.2s;
-        text-align: left;
-    }
-    .shop-account-dropdown-content a:hover {
-        background-color: #f8f9fa;
-        color: #d35400;
-    }
-    /* হোভার করার সময় যাতে ড্রপডাউন স্টেবল থাকে */
-    .shop-account-dropdown:hover .shop-account-dropdown-content {
-        display: block;
-    }
-
-    /* মেম্বার লগইন ও লগআউট বাটন */
-    .btn-member-login {
-        background: #00796b;
-        color: #fff !important;
-        padding: 4px 10px;
-        border-radius: 4px;
-        border: 1px solid #4db6ac;
-        cursor: pointer;
-        font-size: 0.9rem;
-        font-weight: bold;
-    }
-    .btn-member-login:hover {
-        background: #004d40;
-    }
-    .btn-member-logout {
-        background: #c62828 !important;
-        border: 1px solid #ef5350 !important;
-    }
-    .btn-member-logout:hover {
-        background: #b71c1c !important;
-    }
-
-    /* ==========================================
-       4. সার্চ বার সেকশন
-       ========================================== */
-    .search-area-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex: 1;
-        margin: 0 20px;
-    }
-    .search-box {
-        display: flex;
-        align-items: center;
-        background: #fff;
-        border-radius: 6px;
-        padding: 2px;
-        width: 100%;
-        max-width: 500px;
-        height: 38px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        border: 2px solid #0077b6;
-    }
-    .search-box input {
-        border: none;
-        outline: none;
-        padding: 0 10px;
-        font-size: 0.9rem;
-        flex-grow: 1;
-        background: transparent;
-        width: 100%;
-    }
-    .search-box button {
-        background: #004d40;
-        color: white;
-        border: none;
-        padding: 0 18px;
-        height: 100%;
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        font-weight: bold;
-        white-space: nowrap;
-        flex-shrink: 0;
-    }
-    .search-box button:hover {
-        background: #00332c;
-    }
-
-    /* ==========================================
-       5. হিরো ব্যানার ও প্রমোশনাল কার্ড সেকশন
-       ========================================== */
-    .marketplace-hero-wrapper {
-        width: 88%;
-        max-width: 1250px;
-        margin: 20px auto 20px 150px; /* বাঁপাশে সার্কেল বাটন নিরাপদ রাখতে মার্জিন */
-        display: flex;
-        gap: 20px;
-        border-radius: 12px;
-        box-sizing: border-box;
-    }
-    .marketplace-hero-section {
-        flex: 3;
-        position: relative;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        background: linear-gradient(135deg, #004d40, #00796b);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-    .hero-banner-container {
-        position: relative;
-        width: 100%;
-        min-height: 340px;
-    }
-    .hero-slide {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 30px 40px;
-        box-sizing: border-box;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.8s ease-in-out, visibility 0.8s;
-    }
-    .hero-slide.active {
-        opacity: 1;
-        visibility: visible;
-    }
-    .hero-content {
-        flex: 1.2;
-        color: #ffffff;
-        z-index: 2;
-    }
-    .hero-badge {
-        background-color: #ffb300;
-        color: #000;
-        padding: 5px 12px;
-        font-size: 13px;
-        font-weight: bold;
-        border-radius: 4px;
-        display: inline-block;
-        margin-bottom: 12px;
-    }
-    .hero-content h1 {
-        font-size: 26px;
-        margin-bottom: 12px;
-        line-height: 1.3;
-    }
-    .hero-content p {
-        font-size: 14px;
-        margin-bottom: 18px;
-        color: #e0fbfc;
-        line-height: 1.5;
-    }
-    .hero-btn {
-        background-color: #f77f00;
-        color: white;
-        padding: 9px 22px;
-        border-radius: 6px;
-        text-decoration: none;
-        font-weight: bold;
-        display: inline-block;
-        transition: background 0.3s;
-    }
-    .hero-btn:hover {
-        background-color: #d66f00;
-    }
-    .hero-image {
-        flex: 0.8;
-        text-align: right;
-        z-index: 2;
-    }
-    .hero-image img {
-        max-width: 100%;
-        max-height: 220px;
-        object-fit: cover;
-        border-radius: 8px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-    .hero-dots {
-        text-align: center;
-        padding: 12px;
-        background: rgba(0, 0, 0, 0.15);
-    }
-    .dot {
-        height: 10px;
-        width: 10px;
-        margin: 0 4px;
-        background-color: rgba(255, 255, 255, 0.5);
-        border-radius: 50%;
-        display: inline-block;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    .dot.active {
-        background-color: #ffb300;
-        width: 22px;
-        border-radius: 5px;
-    }
-
-    /* ডান পাশের প্রমোশনাল কার্ড */
-    .promo-card-side {
-        width: 290px;
-        flex-shrink: 0;
-        background: #00332c;
-        border: 2px solid #00796b;
-        border-radius: 12px;
-        padding: 15px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        box-sizing: border-box;
-    }
-    .promo-header-marquee {
-        background: #ffb300;
-        color: #000;
-        font-weight: bold;
-        font-size: 0.95rem;
-        padding: 6px 10px;
-        border-radius: 6px;
-        text-align: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        overflow: hidden;
-    }
-    .promo-slider-box {
-        position: relative;
-        height: 140px;
-        margin: 10px 0;
-        overflow: hidden;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 8px;
-        border: 1px dashed #80cbc4;
-    }
-    .promo-slide {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        padding: 15px;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        opacity: 0;
-        transition: opacity 0.8s ease-in-out;
-    }
-    .promo-slide.active {
-        opacity: 1;
-    }
-    .promo-title {
-        color: #ffeb3b;
-        font-size: 1.1rem;
-        font-weight: bold;
-        margin-bottom: 6px;
-    }
-    .promo-desc {
-        color: #e0f2f1;
-        font-size: 0.85rem;
-        line-height: 1.4;
-    }
-    .promo-discount-blink {
-        font-size: 1.8rem;
-        font-weight: 900;
-        text-align: center;
-        color: #ff1744;
-        text-shadow: 0 0 10px #ff1744, 0 0 20px #ff5252;
-        padding: 8px;
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 8px;
-        border: 2px solid #ff1744;
-        animation: glowBlink 1.2s infinite alternate;
-    }
-    @keyframes glowBlink {
-        0% {
-            opacity: 0.3;
-            text-shadow: 0 0 2px #ff1744;
-            border-color: rgba(255, 23, 68, 0.3);
-            transform: scale(0.98);
+        /* ==========================================
+           1. গ্লোবাল রিসেট ও বেস স্টাইল
+           ========================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'SolaimanLipi', Arial, sans-serif;
         }
-        100% {
-            opacity: 1;
-            text-shadow: 0 0 15px #ff1744, 0 0 25px #ff5252;
-            border-color: #ff1744;
-            transform: scale(1.02);
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
         }
-    }
 
-    /* ==========================================
-       6. ভাসমান স্টোর বাটন (বাম পাশ)
-       ========================================== */
-    .floating-stores {
-        position: fixed;
-        left: 20px;
-        top: 180px;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        z-index: 1000;
-    }
-    .store-circle-btn {
-        width: 110px;
-        height: 110px;
-        background-color: #e65100;
-        border: 3px solid #ffffff;
-        border-radius: 50%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        color: #fff;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-        transition: transform 0.2s ease, background-color 0.2s ease;
-        text-align: center;
-        padding: 5px;
-        flex-shrink: 0;
-    }
-    .store-circle-btn:hover {
-        transform: scale(1.08);
-        background-color: #d84315;
-    }
-    .store-name {
-        font-size: 1.1rem;
-        font-weight: bold;
-        line-height: 1.1;
-        margin-bottom: 2px;
-    }
-    .shopping-text {
-        font-size: 0.8rem;
-        color: #ffccbc;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        line-height: 1.1;
-    }
-    .arrow-icon {
-        font-size: 1.0rem;
-        font-weight: bold;
-        margin-top: 2px;
-    }
-
-    /* ==========================================
-       7. প্রোডাক্ট ও কন্টেইনার সেকশন
-       ========================================== */
-    .container {
-        max-width: 1100px;
-        margin: 30px auto;
-        padding: 0 20px;
-    }
-    .welcome-banner {
-        background: #e0f2f1;
-        border-left: 5px solid #00796b;
-        padding: 25px;
-        margin-top: 30px;
-        margin-bottom: 30px;
-        border-radius: 5px;
-        box-sizing: border-box; 
-    }
-    .welcome-banner h2 {
-        color: #004d40;
-        margin-bottom: 10px;
-    }
-    .mobile-stores-section {
-        display: none;
-    }
-    .products-section h2 {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #333;
-    }
-    .product-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-    }
-    .product-card {
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 15px;
-        text-align: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-    .product-card img {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-        border-radius: 6px;
-        margin-bottom: 15px;
-        background: #eee;
-    }
-    .product-card h3 {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-        color: #222;
-    }
-    .product-card p {
-        color: #666;
-        font-size: 0.95rem;
-        margin-bottom: 12px;
-    }
-    .price {
-        font-weight: bold;
-        color: #c0392b;
-        font-size: 1.1rem;
-        margin-bottom: 10px;
-    }
-    .quantity-control-box {
-        display: inline-flex;
-        align-items: center;
-        justify-content: space-between;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        padding: 4px 10px;
-        margin-bottom: 15px;
-        background: #fff;
-        width: 140px;
-    }
-    .quantity-display {
-        font-size: 1.1rem;
-        font-weight: bold;
-        color: #333;
-        min-width: 30px;
-        text-align: center;
-    }
-    .qty-btn {
-        width: 30px;
-        height: 30px;
-        background-color: #e0e0e0;
-        border: none;
-        border-radius: 50%;
-        font-size: 1.1rem;
-        font-weight: bold;
-        color: #333;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.2s;
-    }
-    .qty-btn:hover {
-        background-color: #bdbdbd;
-    }
-    .order-btns {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-    .btn-row {
-        display: flex;
-        gap: 8px;
-        justify-content: center;
-    }
-    .btn-buy {
-        background: #2e7d32;
-        color: white;
-        padding: 8px 12px;
-        text-decoration: none;
-        border-radius: 4px;
-        font-size: 0.9rem;
-        font-weight: bold;
-        border: none;
-        cursor: pointer;
-        flex: 1;
-    }
-    .btn-cart {
-        background: #1565c0;
-        color: white;
-        padding: 8px 12px;
-        text-decoration: none;
-        border-radius: 4px;
-        font-size: 0.9rem;
-        font-weight: bold;
-        border: none;
-        cursor: pointer;
-        flex: 1;
-    }
-    .btn-whatsapp {
-        background: #25d366;
-        color: white;
-        padding: 6px 10px;
-        text-decoration: none;
-        border-radius: 4px;
-        font-size: 0.85rem;
-        font-weight: bold;
-        flex: 1;
-    }
-    .btn-gmail {
-        background: #ea4335;
-        color: white;
-        padding: 6px 10px;
-        text-decoration: none;
-        border-radius: 4px;
-        font-size: 0.85rem;
-        font-weight: bold;
-        flex: 1;
-    }
-    .btn-buy:hover { background: #235e27; }
-    .btn-cart:hover { background: #0d47a1; }
-    .btn-whatsapp:hover { background: #1ebe5d; }
-    .btn-gmail:hover { background: #d33426; }
-
-    /* ==========================================
-       8. পপ-আপ মডাল উইন্ডো স্টাইল
-       ========================================== */
-    .modal-overlay {
-        display: none;
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.5);
-        z-index: 2000;
-        justify-content: center;
-        align-items: center;
-    }
-    .modal-container {
-        background: #eef7f6;
-        width: 480px;
-        max-width: 95%;
-        padding: 25px 20px;
-        border-radius: 12px;
-        position: relative;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        border: 1px solid #b2dfdb;
-    }
-    .close-btn {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        background: #00796b;
-        border: none;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        font-size: 1rem;
-        cursor: pointer;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .close-btn:hover {
-        background: #004d40;
-    }
-    .modal-title-area {
-        text-align: center;
-        margin-bottom: 20px;
-        font-size: 1.3rem;
-        font-weight: bold;
-        color: #004d40;
-    }
-    .login-type-selector {
-        display: flex;
-        justify-content: center;
-        gap: 25px;
-        margin-bottom: 20px;
-        background: #d8f3f0;
-        padding: 10px;
-        border-radius: 8px;
-        font-weight: bold;
-        color: #004d40;
-    }
-    .login-type-selector label {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-    .login-form-section {
-        display: none;
-        flex-direction: column;
-        gap: 12px;
-    }
-    .login-form-section.active {
-        display: flex;
-    }
-    .sketch-instruction {
-        font-size: 0.9rem;
-        color: #333;
-        line-height: 1.4;
-    }
-    .sketch-input {
-        width: 100%;
-        padding: 10px 12px;
-        border: 1px solid #80cbc4;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        background: #fff;
-        color: #333;
-        outline: none;
-    }
-    .sketch-input:focus {
-        border-color: #00796b;
-        box-shadow: 0 0 5px rgba(0,121,107,0.2);
-    }
-    .error-msg {
-        color: #d32f2f;
-        font-size: 0.85rem;
-        display: none;
-        font-weight: bold;
-    }
-    .login-btn-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-    .login-pill-btn {
-        background: linear-gradient(to bottom, #f3e5ab, #d4af37);
-        border: 1px solid #b8860b;
-        border-radius: 25px;
-        padding: 10px 30px;
-        font-weight: bold;
-        font-size: 1rem;
-        cursor: pointer;
-        color: #222;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        transition: transform 0.1s;
-        width: 100%;
-    }
-    .login-pill-btn:hover {
-        opacity: 0.95;
-        transform: scale(1.01);
-    }
-
-    /* ==========================================
-       9. ফুটার ও রেসপনসিভ মিডিয়া কোয়েরি
-       ========================================== */
-    footer {
-        background: #004d40;
-        color: #fff;
-        text-align: center;
-        padding: 20px 0;
-        margin-top: 40px;
-    }
-
-    @media(max-width: 992px) {
-        .floating-stores { display: none; }
-        .mobile-stores-section {
+        /* ==========================================
+           2. হেডার সেকশন স্টাইল
+           ========================================== */
+        header {
+            background: #004d40;
+            color: #fff;
+            padding: 15px 30px;
             display: flex;
-            overflow-x: auto;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-left img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+        }
+        .header-left span {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .header-center h1 {
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
             gap: 15px;
-            padding: 10px 5px 20px 5px;
-            margin-bottom: 30px;
-            justify-content: flex-start;
         }
-        header { flex-direction: column; gap: 10px; text-align: center; }
-        .header-right { flex-direction: column; gap: 5px; }
-        nav { flex-direction: column; height: auto; gap: 10px; padding: 10px; }
-        .search-area-wrapper { width: 100%; margin: 0; justify-content: center; }
-        .shop-account-dropdown { width: 100%; display: block; margin-left: 0; }
-        .shop-account-dropbtn { width: 100%; justify-content: center; }
-        .shop-account-dropdown-content { width: 100%; right: auto; left: 0; }
-        .marketplace-hero-wrapper {
-            width: 95%;
-            margin: 15px auto;
-            flex-direction: column;
+        .logged-user-name {
+            background: #00332c;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.95rem;
+            color: #ffeb3b;
+            border: 1px solid #00796b;
+            display: none;
         }
-        .promo-card-side {
+        .history-btn {
+            background: #ffb300;
+            color: #000;
+            padding: 8px 14px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .history-btn:hover {
+            background: #ffa000;
+        }
+        .header-right .cart-btn {
+            background: #d84315;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .header-right .cart-btn:hover {
+            background: #bf360c;
+        }
+
+        /* ==========================================
+           3. নেভিগেশন বার ও ড্রপডাউন স্টাইল
+           ========================================== */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #00332c;
+            padding: 6px 20px;
+            height: 52px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        nav a:hover {
+            color: #80cbc4;
+        }
+
+        /* ফান্ড ড্রপডাউন এবং এবাউট ড্রপডাউন কমন স্টাইল */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropbtn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 0;
+            font-family: 'SolaimanLipi', Arial, sans-serif;
+        }
+        .dropbtn:hover {
+            color: #80cbc4;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #00332c;
+            min-width: 180px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
+            z-index: 1005;
+            border-radius: 4px;
+            border: 1px solid #004d40;
+            top: 100%;
+            left: 0;
+            margin-top: 0px; /* গ্যাপ দূর করার জন্য */
+            padding-top: 4px;
+        }
+        .dropdown-content a, .dropdown-content button {
+            color: #fff;
+            padding: 8px 12px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            background: none;
+            border: none;
+            width: 100%;
+            font-size: 0.85rem;
+            font-family: 'SolaimanLipi', Arial, sans-serif;
+            cursor: pointer;
+        }
+        .dropdown-content a:hover, .dropdown-content button:hover {
+            background-color: #004d40;
+            color: #ffeb3b;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* শপিং অ্যাকাউন্ট ড্রপডাউন (ডানপাশে ফিক্সড) */
+        .shop-dropdown {
+            position: relative;
+            display: inline-block;
+            margin-left: auto;
+        }
+        .shop-dropbtn {
+            background-color: #e67e22;
+            color: white;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+        .shop-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 210px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+            z-index: 1005;
+            border-radius: 6px;
+            overflow: hidden;
+            right: 0;
+            top: 100%;
+            margin-top: 0px;
+            padding-top: 4px;
+            border: 1px solid #e0e0e0;
+        }
+        .shop-dropdown-content a {
+            color: #2c3e50;
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            transition: background 0.2s;
+            text-align: left;
+        }
+        .shop-dropdown-content a:hover {
+            background-color: #f8f9fa;
+            color: #d35400;
+        }
+        .shop-dropdown:hover .shop-dropdown-content {
+            display: block;
+        }
+
+        /* মেম্বার লগইন বাটন স্টাইল */
+        .btn-member-login {
+            background: #00796b;
+            color: #fff !important;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #4db6ac;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        .btn-member-login:hover {
+            background: #004d40;
+        }
+        .btn-member-logout {
+            background: #c62828 !important;
+            border: 1px solid #ef5350 !important;
+        }
+
+        /* ==========================================
+           4. সার্চ বার সেকশন স্টাইল
+           ========================================== */
+        .search-area-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            margin: 0 20px;
+        }
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 6px;
+            padding: 2px;
+            width: 100%;
+            max-width: 500px;
+            height: 38px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 2px solid #0077b6;
+        }
+        .search-box input {
+            border: none;
+            outline: none;
+            padding: 0 10px;
+            font-size: 0.9rem;
+            flex-grow: 1;
+            background: transparent;
             width: 100%;
         }
-    }
-</style>
+        .search-box button {
+            background: #004d40;
+            color: white;
+            border: none;
+            padding: 0 18px;
+            height: 100%;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .search-box button:hover {
+            background: #00332c;
+        }
 
+        /* ==========================================
+           5. হিরো ব্যানার ও প্রমোশনাল কার্ড সেকশন
+           ========================================== */
+        .marketplace-hero-wrapper {
+            width: 88%;
+            max-width: 1250px;
+            margin: 20px auto 20px 150px;
+            display: flex;
+            gap: 20px;
+            border-radius: 12px;
+            box-sizing: border-box;
+        }
+        .marketplace-hero-section {
+            flex: 3;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, #004d40, #00796b);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .hero-banner-container {
+            position: relative;
+            width: 100%;
+            min-height: 340px;
+        }
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 30px 40px;
+            box-sizing: border-box;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s;
+        }
+        .hero-slide.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .hero-content {
+            flex: 1.2;
+            color: #ffffff;
+            z-index: 2;
+        }
+        .hero-badge {
+            background-color: #ffb300;
+            color: #000;
+            padding: 5px 12px;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        .hero-content h1 {
+            font-size: 26px;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+        .hero-content p {
+            font-size: 14px;
+            margin-bottom: 18px;
+            color: #e0fbfc;
+            line-height: 1.5;
+        }
+        .hero-btn {
+            background-color: #f77f00;
+            color: white;
+            padding: 9px 22px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+        .hero-btn:hover {
+            background-color: #d66f00;
+        }
+        .hero-image {
+            flex: 0.8;
+            text-align: right;
+            z-index: 2;
+        }
+        .hero-image img {
+            max-width: 100%;
+            max-height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .hero-dots {
+            text-align: center;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.15);
+        }
+        .dot {
+            height: 10px;
+            width: 10px;
+            margin: 0 4px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .dot.active {
+            background-color: #ffb300;
+            width: 22px;
+            border-radius: 5px;
+        }
+
+        /* ডান পাশের প্রমোশনাল কার্ড */
+        .promo-card-side {
+            width: 290px;
+            flex-shrink: 0;
+            background: #00332c;
+            border: 2px solid #00796b;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+        .promo-header-marquee {
+            background: #ffb300;
+            color: #000;
+            font-weight: bold;
+            font-size: 0.95rem;
+            padding: 6px 10px;
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .promo-slider-box {
+            position: relative;
+            height: 140px;
+            margin: 10px 0;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px dashed #80cbc4;
+        }
+        .promo-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        .promo-slide.active {
+            opacity: 1;
+        }
+        .promo-title {
+            color: #ffeb3b;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .promo-desc {
+            color: #e0f2f1;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        .promo-discount-blink {
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-align: center;
+            color: #ff1744;
+            text-shadow: 0 0 10px #ff1744, 0 0 20px #ff5252;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 2px solid #ff1744;
+            animation: glowBlink 1.2s infinite alternate;
+        }
+        @keyframes glowBlink {
+            0% {
+                opacity: 0.3;
+                text-shadow: 0 0 2px #ff1744;
+                border-color: rgba(255, 23, 68, 0.3);
+                transform: scale(0.98);
+            }
+            100% {
+                opacity: 1;
+                text-shadow: 0 0 15px #ff1744, 0 0 25px #ff5252;
+                border-color: #ff1744;
+                transform: scale(1.02);
+            }
+        }
+
+        /* ==========================================
+           6. প্রোডাক্ট গ্রিড ও অন্যান্য কম্পোনেন্ট
+           ========================================== */
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .floating-stores {
+            position: fixed;
+            left: 20px;
+            top: 180px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        .store-circle-btn {
+            width: 110px;
+            height: 110px;
+            background-color: #e65100;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            text-align: center;
+            padding: 5px;
+            flex-shrink: 0;
+        }
+        .store-circle-btn:hover {
+            transform: scale(1.08);
+            background-color: #d84315;
+        }
+        .store-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            line-height: 1.1;
+            margin-bottom: 2px;
+        }
+        .shopping-text {
+            font-size: 0.8rem;
+            color: #ffccbc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.1;
+        }
+        .arrow-icon {
+            font-size: 1.0rem;
+            font-weight: bold;
+            margin-top: 2px;
+        }
+        .welcome-banner {
+            background: #e0f2f1;
+            border-left: 5px solid #00796b;
+            padding: 25px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+            box-sizing: border-box; 
+        }
+        .welcome-banner h2 {
+            color: #004d40;
+            margin-bottom: 10px;
+        }
+        .mobile-stores-section {
+            display: none;
+        }
+        .products-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            background: #eee;
+        }
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #222;
+        }
+        .product-card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+        .price {
+            font-weight: bold;
+            color: #c0392b;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        .quantity-control-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 4px 10px;
+            margin-bottom: 15px;
+            background: #fff;
+            width: 140px;
+        }
+        .quantity-display {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            min-width: 30px;
+            text-align: center;
+        }
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            background-color: #e0e0e0;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .qty-btn:hover {
+            background-color: #bdbdbd;
+        }
+        .order-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+        .btn-buy {
+            background: #2e7d32;
+            color: white;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+        }
+        .btn-cart {
+            background: #1565c0;
+            color: white;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+        }
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+            padding: 6px 10px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            flex: 1;
+        }
+        .btn-gmail {
+            background: #ea4335;
+            color: white;
+            padding: 6px 10px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            flex: 1;
+        }
+        .btn-buy:hover { background: #235e27; }
+        .btn-cart:hover { background: #0d47a1; }
+        .btn-whatsapp:hover { background: #1ebe5d; }
+        .btn-gmail:hover { background: #d33426; }
+
+        /* ==========================================
+           7. মডাল উইন্ডো স্টাইল
+           ========================================== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-container {
+            background: #eef7f6;
+            width: 480px;
+            max-width: 95%;
+            padding: 25px 20px;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border: 1px solid #b2dfdb;
+        }
+        .close-btn {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            background: #00796b;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .close-btn:hover {
+            background: #004d40;
+        }
+        .modal-title-area {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #004d40;
+        }
+        .login-type-selector {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            background: #d8f3f0;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #004d40;
+        }
+        .login-type-selector label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .login-form-section {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .login-form-section.active {
+            display: flex;
+        }
+        .sketch-instruction {
+            font-size: 0.9rem;
+            color: #333;
+            line-height: 1.4;
+        }
+        .sketch-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #80cbc4;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            background: #fff;
+            color: #333;
+            outline: none;
+        }
+        .sketch-input:focus {
+            border-color: #00796b;
+            box-shadow: 0 0 5px rgba(0,121,107,0.2);
+        }
+        .error-msg {
+            color: #d32f2f;
+            font-size: 0.85rem;
+            display: none;
+            font-weight: bold;
+        }
+        .login-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .login-pill-btn {
+            background: linear-gradient(to bottom, #f3e5ab, #d4af37);
+            border: 1px solid #b8860b;
+            border-radius: 25px;
+            padding: 10px 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #222;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.1s;
+            width: 100%;
+        }
+        .login-pill-btn:hover {
+            opacity: 0.95;
+            transform: scale(1.01);
+        }
+
+        /* ==========================================
+           8. ফুটার ও রেসপনসিভ মিডিয়া কোয়েরি
+           ========================================== */
+        footer {
+            background: #004d40;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 992px) {
+            .floating-stores { display: none; }
+            .mobile-stores-section {
+                display: flex;
+                overflow-x: auto;
+                gap: 15px;
+                padding: 10px 5px 20px 5px;
+                margin-bottom: 30px;
+                justify-content: flex-start;
+            }
+            header { flex-direction: column; gap: 10px; text-align: center; }
+            .header-right { flex-direction: column; gap: 5px; }
+            nav { flex-direction: column; height: auto; gap: 10px; padding: 10px; }
+            .search-area-wrapper { width: 100%; margin: 0; justify-content: center; }
+            .shop-dropdown { width: 100%; display: block; margin-left: 0; }
+            .shop-dropbtn { width: 100%; justify-content: center; }
+            .shop-dropdown-content { width: 100%; right: auto; left: 0; }
+            .marketplace-hero-wrapper {
+                width: 95%;
+                margin: 15px auto;
+                flex-direction: column;
+            }
+            .promo-card-side {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
      
@@ -939,6 +932,7 @@
         <div class="nav-links">
             <a href="index.html">হোম</a>
             
+            <!-- ফান্ড ড্রপডাউন -->
             <div class="dropdown">
                 <button class="dropbtn">তহবিল সেবা ▾</button>
                 <div class="dropdown-content">
@@ -948,6 +942,7 @@
                 </div>
             </div>
 
+            <!-- এবাউট ড্রপডাউন -->
             <div class="dropdown">
                 <button class="dropbtn">আমাদের সম্পর্কে ▾</button>
                 <div class="dropdown-content">
@@ -969,12 +964,12 @@
             </div>
         </div>
 
-        <!-- শপিং অ্যাকাউন্ট বাটন (একেবারে ডানপাশে ফিক্স করা হয়েছে) -->
-        <div class="market-dropdown">
-            <button class="market-dropbtn">
+        <!-- শপিং অ্যাকাউন্ট ড্রপডাউন (একেবারে ডানপাশে) -->
+        <div class="shop-dropdown">
+            <button class="shop-dropbtn">
                 🛍️ শপিং অ্যাকাউন্ট ▾
             </button>
-            <div class="market-dropdown-content">
+            <div class="shop-dropdown-content">
                 <a href="shoppingsignup.html">০১. শপিং অ্যাকাউন্ট করুন</a>
                 <a href="#welcome-banner">০২. শপিং মার্ট সম্পর্কে</a>
             </div>
@@ -989,7 +984,6 @@
                 🛒 লগইন প্যানেল
             </div>
             
-            <!-- রেডিও বাটন সিলেকশন -->
             <div class="login-type-selector">
                 <label>
                     <input type="radio" name="loginType" value="member" checked onclick="switchLoginForm('member')"> সমিতি মেম্বার
@@ -999,7 +993,6 @@
                 </label>
             </div>
 
-            <!-- ফর্ম ১: সমিতি মেম্বার লগইন -->
             <div id="memberLoginForm" class="login-form-section active">
                 <div class="sketch-instruction">আপনার সমিতির মেম্বার আইডি এবং পাসওয়ার্ড দিয়ে ভেরিফাই করুন।</div>
                 <input type="text" id="modalMemberId" class="sketch-input" placeholder="মেম্বার আইডি দিন">
@@ -1013,7 +1006,6 @@
                 </div>
             </div>
 
-            <!-- ফর্ম ২: শপিং অ্যাকাউন্ট লগইন -->
             <div id="shopLoginForm" class="login-form-section">
                 <div class="sketch-instruction">আপনার শপিং একাউন্টের নাম (বড় অক্ষরে), মোবাইল ও পাসওয়ার্ড দিন।</div>
                 <input type="text" id="modalShopName" class="sketch-input" placeholder="আপনার নাম (বড় অক্ষরে)">
@@ -1031,12 +1023,10 @@
         </div>
     </div>
 
-    <!-- হিরো ব্যানার ও প্রমোশনাল সেকশন (বামে নিরাপদ দূরত্ব রেখে চওড়া করা হয়েছে) -->
+    <!-- হিরো ব্যানার ও প্রমোশনাল সেকশন -->
     <div class="marketplace-hero-wrapper">
-        <!-- মূল এড সেকশন -->
         <section class="marketplace-hero-section">
             <div class="hero-banner-container" id="marketplaceHeroSlider">
-                <!-- স্লাইড ১: মেগা অফার -->
                 <div class="hero-slide active" style="background: linear-gradient(135deg, #0f4c81, #247ba0);">
                     <div class="hero-content">
                         <span class="hero-badge">মেগা সেল অফার</span>
@@ -1049,7 +1039,6 @@
                     </div>
                 </div>
 
-                <!-- স্লাইড ২: নতুন পণ্যের সমাহার -->
                 <div class="hero-slide" style="background: linear-gradient(135deg, #2b2d42, #8d99ae);">
                     <div class="hero-content">
                         <span class="hero-badge" style="background-color: #e76f51;">নতুন কালেকশন</span>
@@ -1063,21 +1052,17 @@
                 </div>
             </div>
 
-            <!-- স্লাইড নেভিগেশন ডট -->
             <div class="hero-dots">
                 <span class="dot active" onclick="currentSlide(0)"></span>
                 <span class="dot" onclick="currentSlide(1)"></span>
             </div>
         </section>    
 
-        <!-- ডান পাশের প্রমোশনাল কার্ড -->
         <div class="promo-card-side">
-            <!-- মারকিউ হেডিং -->
             <div class="promo-header-marquee">
                 <marquee behavior="scroll" direction="left" scrollamount="4">📢 প্রমোশনাল অফার 📢 প্রমোশনাল অফার</marquee>
             </div>
 
-            <!-- স্লাইড ডিসপ্লে অফার -->
             <div class="promo-slider-box">
                 <div class="promo-slide active">
                     <p class="promo-title">🔥 Flash Sale</p>
@@ -1093,7 +1078,6 @@
                 </div>
             </div>
 
-            <!-- নিচের ব্লিঙ্কিং ২৫% ছাড় -->
             <div class="promo-discount-blink">
                 ২৫% ছাড়
             </div>
@@ -1230,7 +1214,6 @@
             showSlides();
         });
 
-        // রেডিও বাটন অনুযায়ী ফর্ম পরিবর্তন করার ফাংশন
         function switchLoginForm(type) {
             const memberForm = document.getElementById('memberLoginForm');
             const shopForm = document.getElementById('shopLoginForm');
@@ -1244,7 +1227,6 @@
             }
         }
 
-        // পাসওয়ার্ড দেখার টগল ফাংশন
         function toggleModalPassword(fieldId) {
             const passwordInput = document.getElementById(fieldId);
             if (passwordInput.type === "password") {
@@ -1332,7 +1314,6 @@
             document.getElementById('nameError').style.display = 'none';
         }
 
-        // সমিতি মেম্বার লগইন যাচাই
         async function verifyMemberLogin() {
             let memberId = document.getElementById('modalMemberId').value.trim();
             let memberPass = document.getElementById('modalMemberPassword').value.trim();
@@ -1412,7 +1393,6 @@
             }
         }
 
-        // শপিং অ্যাকাউন্ট লগইন যাচাই
         async function verifyShopLogin() {
             let shopName = document.getElementById('modalShopName').value.trim();
             let shopPhone = document.getElementById('modalShopPhoneInput').value.trim();
