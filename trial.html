@@ -10,6 +10,9 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <style>
+    /* ==========================================
+       1. গ্লোবাল রিসেট ও বেস স্টাইল
+       ========================================== */
     * {
         box-sizing: border-box;
         margin: 0;
@@ -22,7 +25,9 @@
         line-height: 1.6;
     }
 
-    /* হেডার স্টাইল */
+    /* ==========================================
+       2. মেইন হেডার সেকশন
+       ========================================== */
     header {
         background: #004d40;
         color: #fff;
@@ -81,7 +86,6 @@
     .history-btn:hover {
         background: #ffa000;
     }
-
     .header-right .cart-btn {
         background: #d84315;
         color: white;
@@ -99,7 +103,9 @@
         background: #bf360c;
     }
 
-    /* নেভিগেশন বার */
+    /* ==========================================
+       3. নেভিগেশন বার ও ড্রপডাউন মেনু
+       ========================================== */
     nav {
         display: flex;
         align-items: center;
@@ -109,13 +115,11 @@
         height: 52px;
         box-sizing: border-box;
     }
-
     .nav-links {
         display: flex;
         gap: 12px;
         align-items: center;
     }
-
     nav a {
         color: #fff;
         text-decoration: none;
@@ -126,6 +130,7 @@
         color: #80cbc4;
     }
 
+    /* ফান্ড এবং এবাউট ড্রপডাউন */
     .dropdown {
         position: relative;
         display: inline-block;
@@ -157,10 +162,12 @@
         border: 1px solid #004d40;
         top: 100%;
         left: 0;
+        margin-top: 8px; /* গ্যাপ ফিক্সড করার জন্য */
+        padding-top: 5px;
     }
     .dropdown-content a, .dropdown-content button {
         color: #fff;
-        padding: 10px 15px;
+        padding: 8px 12px;
         text-decoration: none;
         display: block;
         text-align: left;
@@ -179,6 +186,60 @@
         display: block;
     }
 
+    /* শপিং অ্যাকাউন্ট ড্রপডাউন (ডানপাশে ফিক্সড) */
+    .shop-account-dropdown {
+        position: relative;
+        display: inline-block;
+        margin-left: auto;
+    }
+    .shop-account-dropbtn {
+        background-color: #e67e22;
+        color: white;
+        padding: 8px 14px;
+        font-size: 13px;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+    }
+    .shop-account-dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #ffffff;
+        min-width: 210px;
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+        z-index: 1000;
+        border-radius: 6px;
+        overflow: hidden;
+        right: 0;
+        margin-top: 8px; /* মাউস নামানোর সময় মেনু চলে যাওয়া রোধ করতে গ্যাপ কভার করা হলো */
+        padding-top: 5px;
+        border: 1px solid #e0e0e0;
+    }
+    .shop-account-dropdown-content a {
+        color: #2c3e50;
+        padding: 10px 14px;
+        text-decoration: none;
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        transition: background 0.2s;
+        text-align: left;
+    }
+    .shop-account-dropdown-content a:hover {
+        background-color: #f8f9fa;
+        color: #d35400;
+    }
+    /* হোভার করার সময় যাতে ড্রপডাউন স্টেবল থাকে */
+    .shop-account-dropdown:hover .shop-account-dropdown-content {
+        display: block;
+    }
+
+    /* মেম্বার লগইন ও লগআউট বাটন */
     .btn-member-login {
         background: #00796b;
         color: #fff !important;
@@ -200,7 +261,9 @@
         background: #b71c1c !important;
     }
 
-    /* সার্চ এলাকা ও বড় সার্চ বার */
+    /* ==========================================
+       4. সার্চ বার সেকশন
+       ========================================== */
     .search-area-wrapper {
         display: flex;
         justify-content: center;
@@ -208,7 +271,6 @@
         flex: 1;
         margin: 0 20px;
     }
-    
     .search-box {
         display: flex;
         align-items: center;
@@ -221,7 +283,6 @@
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         border: 2px solid #0077b6;
     }
-    
     .search-box input {
         border: none;
         outline: none;
@@ -231,7 +292,6 @@
         background: transparent;
         width: 100%;
     }
-    
     .search-box button {
         background: #004d40;
         color: white;
@@ -250,71 +310,20 @@
         background: #00332c;
     }
 
-    /* শপিং অ্যাকাউন্ট ড্রপডাউন (একেবারে ডানপাশে ফিক্স করা) */
-    .market-dropdown {
-        position: relative;
-        display: inline-block;
-        margin-left: auto; /* নেভবারের একদম ডানে নিয়ে যাওয়ার জন্য */
-    }
-    .market-dropbtn {
-        background-color: #e67e22;
-        color: white;
-        padding: 8px 14px;
-        font-size: 13px;
-        font-weight: bold;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        white-space: nowrap;
-    }
-    .market-dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #ffffff;
-        min-width: 210px;
-        box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
-        z-index: 1000;
-        border-radius: 6px;
-        overflow: hidden;
-        right: 0;
-        margin-top: 10px;
-        padding-top:5px;
-        border: 1px solid #e0e0e0;
-    }
-    .market-dropdown-content a {
-        color: #2c3e50;
-        padding: 10px 14px;
-        text-decoration: none;
-        display: block;
-        font-size: 13px;
-        font-weight: 600;
-        transition: background 0.2s;
-        text-align: left;
-    }
-    .market-dropdown-content a:hover {
-        background-color: #f8f9fa;
-        color: #d35400;
-    }
-    .market-dropdown:hover .market-dropdown-content {
-        display: block;
-    }
-
-    /* হিরো ব্যানার ও প্রমোশনাল সেকশন লেআউট (মেইন ব্যানার আরও চওড়া করা হলো) */
+    /* ==========================================
+       5. হিরো ব্যানার ও প্রমোশনাল কার্ড সেকশন
+       ========================================== */
     .marketplace-hero-wrapper {
         width: 88%;
         max-width: 1250px;
-        margin: 20px auto 20px 150px; /* বাঁপাশে পর্যাপ্ত জায়গা রেখে সার্কেল বাটন রক্ষা করা হয়েছে */
+        margin: 20px auto 20px 150px; /* বাঁপাশে সার্কেল বাটন নিরাপদ রাখতে মার্জিন */
         display: flex;
         gap: 20px;
         border-radius: 12px;
         box-sizing: border-box;
     }
-
     .marketplace-hero-section {
-        flex: 3; /* মেইন ব্যানারের প্রস্থ আরও বাড়িয়ে দেওয়া হলো */
+        flex: 3;
         position: relative;
         border-radius: 12px;
         overflow: hidden;
@@ -324,13 +333,11 @@
         flex-direction: column;
         justify-content: space-between;
     }
-
     .hero-banner-container {
         position: relative;
         width: 100%;
         min-height: 340px;
     }
-
     .hero-slide {
         position: absolute;
         top: 0;
@@ -346,18 +353,15 @@
         visibility: hidden;
         transition: opacity 0.8s ease-in-out, visibility 0.8s;
     }
-
     .hero-slide.active {
         opacity: 1;
         visibility: visible;
     }
-
     .hero-content {
         flex: 1.2;
         color: #ffffff;
         z-index: 2;
     }
-
     .hero-badge {
         background-color: #ffb300;
         color: #000;
@@ -368,20 +372,17 @@
         display: inline-block;
         margin-bottom: 12px;
     }
-
     .hero-content h1 {
         font-size: 26px;
         margin-bottom: 12px;
         line-height: 1.3;
     }
-
     .hero-content p {
         font-size: 14px;
         margin-bottom: 18px;
         color: #e0fbfc;
         line-height: 1.5;
     }
-
     .hero-btn {
         background-color: #f77f00;
         color: white;
@@ -392,17 +393,14 @@
         display: inline-block;
         transition: background 0.3s;
     }
-
     .hero-btn:hover {
         background-color: #d66f00;
     }
-
     .hero-image {
         flex: 0.8;
         text-align: right;
         z-index: 2;
     }
-
     .hero-image img {
         max-width: 100%;
         max-height: 220px;
@@ -410,8 +408,6 @@
         border-radius: 8px;
         box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
-
-    /* স্লাইড ডটস */
     .hero-dots {
         text-align: center;
         padding: 12px;
@@ -435,7 +431,7 @@
 
     /* ডান পাশের প্রমোশনাল কার্ড */
     .promo-card-side {
-        width: 290px; /* সাইজ মানানসই রাখা হয়েছে */
+        width: 290px;
         flex-shrink: 0;
         background: #00332c;
         border: 2px solid #00796b;
@@ -447,7 +443,6 @@
         justify-content: space-between;
         box-sizing: border-box;
     }
-
     .promo-header-marquee {
         background: #ffb300;
         color: #000;
@@ -459,7 +454,6 @@
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         overflow: hidden;
     }
-
     .promo-slider-box {
         position: relative;
         height: 140px;
@@ -469,7 +463,6 @@
         border-radius: 8px;
         border: 1px dashed #80cbc4;
     }
-
     .promo-slide {
         position: absolute;
         width: 100%;
@@ -484,24 +477,20 @@
         opacity: 0;
         transition: opacity 0.8s ease-in-out;
     }
-
     .promo-slide.active {
         opacity: 1;
     }
-
     .promo-title {
         color: #ffeb3b;
         font-size: 1.1rem;
         font-weight: bold;
         margin-bottom: 6px;
     }
-
     .promo-desc {
         color: #e0f2f1;
         font-size: 0.85rem;
         line-height: 1.4;
     }
-
     .promo-discount-blink {
         font-size: 1.8rem;
         font-weight: 900;
@@ -514,7 +503,6 @@
         border: 2px solid #ff1744;
         animation: glowBlink 1.2s infinite alternate;
     }
-
     @keyframes glowBlink {
         0% {
             opacity: 0.3;
@@ -529,13 +517,10 @@
             transform: scale(1.02);
         }
     }
-        
-    .container {
-        max-width: 1100px;
-        margin: 30px auto;
-        padding: 0 20px;
-    }
-    
+
+    /* ==========================================
+       6. ভাসমান স্টোর বাটন (বাম পাশ)
+       ========================================== */
     .floating-stores {
         position: fixed;
         left: 20px;
@@ -587,6 +572,14 @@
         margin-top: 2px;
     }
 
+    /* ==========================================
+       7. প্রোডাক্ট ও কন্টেইনার সেকশন
+       ========================================== */
+    .container {
+        max-width: 1100px;
+        margin: 30px auto;
+        padding: 0 20px;
+    }
     .welcome-banner {
         background: #e0f2f1;
         border-left: 5px solid #00796b;
@@ -600,11 +593,9 @@
         color: #004d40;
         margin-bottom: 10px;
     }
-
     .mobile-stores-section {
         display: none;
     }
-
     .products-section h2 {
         text-align: center;
         margin-bottom: 30px;
@@ -647,7 +638,6 @@
         font-size: 1.1rem;
         margin-bottom: 10px;
     }
-
     .quantity-control-box {
         display: inline-flex;
         align-items: center;
@@ -684,7 +674,6 @@
     .qty-btn:hover {
         background-color: #bdbdbd;
     }
-    
     .order-btns {
         display: flex;
         flex-direction: column;
@@ -743,8 +732,10 @@
     .btn-cart:hover { background: #0d47a1; }
     .btn-whatsapp:hover { background: #1ebe5d; }
     .btn-gmail:hover { background: #d33426; }
-    
-    /* মডাল উইন্ডো স্টাইল */
+
+    /* ==========================================
+       8. পপ-আপ মডাল উইন্ডো স্টাইল
+       ========================================== */
     .modal-overlay {
         display: none;
         position: fixed;
@@ -790,7 +781,6 @@
         font-weight: bold;
         color: #004d40;
     }
-    
     .login-type-selector {
         display: flex;
         justify-content: center;
@@ -808,7 +798,6 @@
         align-items: center;
         gap: 5px;
     }
-
     .login-form-section {
         display: none;
         flex-direction: column;
@@ -817,7 +806,6 @@
     .login-form-section.active {
         display: flex;
     }
-
     .sketch-instruction {
         font-size: 0.9rem;
         color: #333;
@@ -866,6 +854,9 @@
         transform: scale(1.01);
     }
 
+    /* ==========================================
+       9. ফুটার ও রেসপনসিভ মিডিয়া কোয়েরি
+       ========================================== */
     footer {
         background: #004d40;
         color: #fff;
@@ -887,11 +878,10 @@
         header { flex-direction: column; gap: 10px; text-align: center; }
         .header-right { flex-direction: column; gap: 5px; }
         nav { flex-direction: column; height: auto; gap: 10px; padding: 10px; }
-        .search-area-wrapper { width: 100%; margin: 0; justify-content: center; flex-direction: column; gap: 10px; }
-        .search-box { max-width: 100%; }
-        .market-dropdown { width: 100%; display: block; margin-left: 0; }
-        .market-dropbtn { width: 100%; justify-content: center; }
-        .market-dropdown-content { width: 100%; right: auto; left: 0; }
+        .search-area-wrapper { width: 100%; margin: 0; justify-content: center; }
+        .shop-account-dropdown { width: 100%; display: block; margin-left: 0; }
+        .shop-account-dropbtn { width: 100%; justify-content: center; }
+        .shop-account-dropdown-content { width: 100%; right: auto; left: 0; }
         .marketplace-hero-wrapper {
             width: 95%;
             margin: 15px auto;
@@ -902,6 +892,7 @@
         }
     }
 </style>
+
 </head>
 <body>
      
