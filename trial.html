@@ -207,7 +207,6 @@
         align-items: center;
         flex: 1;
         margin: 0 20px;
-        gap: 15px;
     }
     
     .search-box {
@@ -251,11 +250,62 @@
         background: #00332c;
     }
 
-    /* হিরো ব্যানার ও প্রমোশনাল সেকশন লেআউট */
+    /* শপিং অ্যাকাউন্ট ড্রপডাউন (একেবারে ডানপাশে ফিক্স করা) */
+    .market-dropdown {
+        position: relative;
+        display: inline-block;
+        margin-left: auto; /* নেভবারের একদম ডানে নিয়ে যাওয়ার জন্য */
+    }
+    .market-dropbtn {
+        background-color: #e67e22;
+        color: white;
+        padding: 8px 14px;
+        font-size: 13px;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+    }
+    .market-dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #ffffff;
+        min-width: 210px;
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+        z-index: 1000;
+        border-radius: 6px;
+        overflow: hidden;
+        right: 0;
+        margin-top: 5px;
+        border: 1px solid #e0e0e0;
+    }
+    .market-dropdown-content a {
+        color: #2c3e50;
+        padding: 10px 14px;
+        text-decoration: none;
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        transition: background 0.2s;
+        text-align: left;
+    }
+    .market-dropdown-content a:hover {
+        background-color: #f8f9fa;
+        color: #d35400;
+    }
+    .market-dropdown:hover .market-dropdown-content {
+        display: block;
+    }
+
+    /* হিরো ব্যানার ও প্রমোশনাল সেকশন লেআউট (মেইন ব্যানার আরও চওড়া করা হলো) */
     .marketplace-hero-wrapper {
-        width: 100%;
-        max-width: 1200px;
-        margin: 20px auto;
+        width: 88%;
+        max-width: 1250px;
+        margin: 20px auto 20px 150px; /* বাঁপাশে পর্যাপ্ত জায়গা রেখে সার্কেল বাটন রক্ষা করা হয়েছে */
         display: flex;
         gap: 20px;
         border-radius: 12px;
@@ -263,7 +313,7 @@
     }
 
     .marketplace-hero-section {
-        flex: 2;
+        flex: 3; /* মেইন ব্যানারের প্রস্থ আরও বাড়িয়ে দেওয়া হলো */
         position: relative;
         border-radius: 12px;
         overflow: hidden;
@@ -327,7 +377,7 @@
     .hero-content p {
         font-size: 14px;
         margin-bottom: 18px;
-        color: #e0f2f1;
+        color: #e0fbfc;
         line-height: 1.5;
     }
 
@@ -384,7 +434,7 @@
 
     /* ডান পাশের প্রমোশনাল কার্ড */
     .promo-card-side {
-        width: 320px;
+        width: 290px; /* সাইজ মানানসই রাখা হয়েছে */
         flex-shrink: 0;
         background: #00332c;
         border: 2px solid #00796b;
@@ -823,56 +873,6 @@
         margin-top: 40px;
     }
 
-    /* শপিং অ্যাকাউন্ট ড্রপডাউন */
-    .market-dropdown {
-        position: relative;
-        display: inline-block;
-    }
-    .market-dropbtn {
-        background-color: #e67e22;
-        color: white;
-        padding: 8px 14px;
-        font-size: 13px;
-        font-weight: bold;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        white-space: nowrap;
-    }
-    .market-dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #ffffff;
-        min-width: 210px;
-        box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
-        z-index: 1000;
-        border-radius: 6px;
-        overflow: hidden;
-        right: 0;
-        margin-top: 5px;
-        border: 1px solid #e0e0e0;
-    }
-    .market-dropdown-content a {
-        color: #2c3e50;
-        padding: 10px 14px;
-        text-decoration: none;
-        display: block;
-        font-size: 13px;
-        font-weight: 600;
-        transition: background 0.2s;
-        text-align: left;
-    }
-    .market-dropdown-content a:hover {
-        background-color: #f8f9fa;
-        color: #d35400;
-    }
-    .market-dropdown:hover .market-dropdown-content {
-        display: block;
-    }
-
     @media(max-width: 992px) {
         .floating-stores { display: none; }
         .mobile-stores-section {
@@ -888,10 +888,12 @@
         nav { flex-direction: column; height: auto; gap: 10px; padding: 10px; }
         .search-area-wrapper { width: 100%; margin: 0; justify-content: center; flex-direction: column; gap: 10px; }
         .search-box { max-width: 100%; }
-        .market-dropdown { width: 100%; display: block; }
+        .market-dropdown { width: 100%; display: block; margin-left: 0; }
         .market-dropbtn { width: 100%; justify-content: center; }
         .market-dropdown-content { width: 100%; right: auto; left: 0; }
         .marketplace-hero-wrapper {
+            width: 95%;
+            margin: 15px auto;
             flex-direction: column;
         }
         .promo-card-side {
@@ -973,14 +975,16 @@
                 <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
                 <button onclick="searchProducts()">🔍 সার্চ</button>
             </div>
-            <div class="market-dropdown">
-                <button class="market-dropbtn">
-                    🛍️ শপিং অ্যাকাউন্ট ▾
-                </button>
-                <div class="market-dropdown-content">
-                    <a href="shoppingsignup.html">০১. শপিং অ্যাকাউন্ট করুন</a>
-                    <a href="#welcome-banner">০২. শপিং মার্ট সম্পর্কে</a>
-                </div>
+        </div>
+
+        <!-- শপিং অ্যাকাউন্ট বাটন (একেবারে ডানপাশে ফিক্স করা হয়েছে) -->
+        <div class="market-dropdown">
+            <button class="market-dropbtn">
+                🛍️ শপিং অ্যাকাউন্ট ▾
+            </button>
+            <div class="market-dropdown-content">
+                <a href="shoppingsignup.html">০১. শপিং অ্যাকাউন্ট করুন</a>
+                <a href="#welcome-banner">০২. শপিং মার্ট সম্পর্কে</a>
             </div>
         </div>
     </nav>
@@ -1035,77 +1039,76 @@
         </div>
     </div>
 
-    <div class="container">
- 
-        <!-- হিরো ব্যানার ও প্রমোশনাল সেকশন -->
-        <div class="marketplace-hero-wrapper">
-            <!-- মূল এড সেকশন -->
-            <section class="marketplace-hero-section">
-                <div class="hero-banner-container" id="marketplaceHeroSlider">
-                    <!-- স্লাইড ১: মেগা অফার -->
-                    <div class="hero-slide active" style="background: linear-gradient(135deg, #0f4c81, #247ba0);">
-                        <div class="hero-content">
-                            <span class="hero-badge">মেগা সেল অফার</span>
-                            <h1>বিশেষ ছাড়ে আপনার পছন্দের পণ্য কিনুন</h1>
-                            <p>আমাদের শপিং মার্ট থেকে যেকোনো পণ্যে পেয়ে যান আকর্ষণীয় ডিসকাউন্ট এবং হোম ডেলিভারি সুবিধা।</p>
-                            <a href="#productGrid" class="hero-btn">এখনই কিনুন</a>
-                        </div>
-                        <div class="hero-image">
-                            <img src="flatsale01.jpeg" alt="Mega Offer">
-                        </div>
+    <!-- হিরো ব্যানার ও প্রমোশনাল সেকশন (বামে নিরাপদ দূরত্ব রেখে চওড়া করা হয়েছে) -->
+    <div class="marketplace-hero-wrapper">
+        <!-- মূল এড সেকশন -->
+        <section class="marketplace-hero-section">
+            <div class="hero-banner-container" id="marketplaceHeroSlider">
+                <!-- স্লাইড ১: মেগা অফার -->
+                <div class="hero-slide active" style="background: linear-gradient(135deg, #0f4c81, #247ba0);">
+                    <div class="hero-content">
+                        <span class="hero-badge">মেগা সেল অফার</span>
+                        <h1>বিশেষ ছাড়ে আপনার পছন্দের পণ্য কিনুন</h1>
+                        <p>আমাদের শপিং মার্ট থেকে যেকোনো পণ্যে পেয়ে যান আকর্ষণীয় ডিসকাউন্ট এবং হোম ডেলিভারি সুবিধা।</p>
+                        <a href="#productGrid" class="hero-btn">এখনই কিনুন</a>
                     </div>
-
-                    <!-- স্লাইড ২: নতুন পণ্যের সমাহার -->
-                    <div class="hero-slide" style="background: linear-gradient(135deg, #2b2d42, #8d99ae);">
-                        <div class="hero-content">
-                            <span class="hero-badge" style="background-color: #e76f51;">নতুন কালেকশন</span>
-                            <h1>সেরা মানের পণ্য এখন আপনার হাতের নাগালে</h1>
-                            <p>আমাদের স্টোরে যুক্ত হয়েছে নতুন সব এক্সক্লুসিভ কালেকশন। আজই আপনার প্রয়োজনীয় পণ্যটি সংগ্রহ করুন।</p>
-                            <a href="#productGrid" class="hero-btn" style="background-color: #e76f51;">সংগ্রহ দেখুন</a>
-                        </div>
-                        <div class="hero-image">
-                            <img src="flatsale02.jpeg" alt="New Collection">
-                        </div>
+                    <div class="hero-image">
+                        <img src="flatsale01.jpeg" alt="Mega Offer">
                     </div>
                 </div>
 
-                <!-- স্লাইড নেভিগেশন ডট -->
-                <div class="hero-dots">
-                    <span class="dot active" onclick="currentSlide(0)"></span>
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                </div>
-            </section>    
-
-            <!-- ডান পাশের প্রমোশনাল কার্ড -->
-            <div class="promo-card-side">
-                <!-- মারকিউ হেডিং -->
-                <div class="promo-header-marquee">
-                    <marquee behavior="scroll" direction="left" scrollamount="4">📢 প্রমোশনাল অফার 📢 প্রমোশনাল অফার</marquee>
-                </div>
-
-                <!-- স্লাইড ডিসপ্লে অফার -->
-                <div class="promo-slider-box">
-                    <div class="promo-slide active">
-                        <p class="promo-title">🔥 Flash Sale</p>
-                        <p class="promo-desc">২৫% বিশেষ ডিসকাউন্ট চলছে!</p>
+                <!-- স্লাইড ২: নতুন পণ্যের সমাহার -->
+                <div class="hero-slide" style="background: linear-gradient(135deg, #2b2d42, #8d99ae);">
+                    <div class="hero-content">
+                        <span class="hero-badge" style="background-color: #e76f51;">নতুন কালেকশন</span>
+                        <h1>সেরা মানের পণ্য এখন আপনার হাতের নাগালে</h1>
+                        <p>আমাদের স্টোরে যুক্ত হয়েছে নতুন সব এক্সক্লুসিভ কালেকশন। আজই আপনার প্রয়োজনীয় পণ্যটি সংগ্রহ করুন।</p>
+                        <a href="#productGrid" class="hero-btn" style="background-color: #e76f51;">সংগ্রহ দেখুন</a>
                     </div>
-                    <div class="promo-slide">
-                        <p class="promo-title">🚚 ফ্রি ডেলিভারি</p>
-                        <p class="promo-desc">যেকোনো ৩টি পণ্যে সম্পূর্ণ ফ্রি শিপিং!</p>
+                    <div class="hero-image">
+                        <img src="flatsale02.jpeg" alt="New Collection">
                     </div>
-                    <div class="promo-slide">
-                        <p class="promo-title">👑 মেম্বারদের জন্য বিশেষ ছাড়</p>
-                        <p class="promo-desc">লগইন মেম্বারদের জন্য এক্সক্লুসিভ অফার!</p>
-                    </div>
-                </div>
-
-                <!-- নিচের ব্লিঙ্কিং ২৫% ছাড় -->
-                <div class="promo-discount-blink">
-                    ২৫% ছাড়
                 </div>
             </div>
-        </div>
 
+            <!-- স্লাইড নেভিগেশন ডট -->
+            <div class="hero-dots">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+            </div>
+        </section>    
+
+        <!-- ডান পাশের প্রমোশনাল কার্ড -->
+        <div class="promo-card-side">
+            <!-- মারকিউ হেডিং -->
+            <div class="promo-header-marquee">
+                <marquee behavior="scroll" direction="left" scrollamount="4">📢 প্রমোশনাল অফার 📢 প্রমোশনাল অফার</marquee>
+            </div>
+
+            <!-- স্লাইড ডিসপ্লে অফার -->
+            <div class="promo-slider-box">
+                <div class="promo-slide active">
+                    <p class="promo-title">🔥 Flash Sale</p>
+                    <p class="promo-desc">২৫% বিশেষ ডিসকাউন্ট চলছে!</p>
+                </div>
+                <div class="promo-slide">
+                    <p class="promo-title">🚚 ফ্রি ডেলিভারি</p>
+                    <p class="promo-desc">যেকোনো ৩টি পণ্যে সম্পূর্ণ ফ্রি শিপিং!</p>
+                </div>
+                <div class="promo-slide">
+                    <p class="promo-title">👑 মেম্বারদের জন্য বিশেষ ছাড়</p>
+                    <p class="promo-desc">লগইন মেম্বারদের জন্য এক্সক্লুসিভ অফার!</p>
+                </div>
+            </div>
+
+            <!-- নিচের ব্লিঙ্কিং ২৫% ছাড় -->
+            <div class="promo-discount-blink">
+                ২৫% ছাড়
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
         <div class="mobile-stores-section">
             <a href="gias-store.html" class="store-circle-btn">
                 <span class="store-name">Gias Store</span>
