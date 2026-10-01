@@ -927,22 +927,21 @@
         </div>
     </header>
 
-    <!-- নেভিগেশন বার -->
+<!-- নেভিগেশন বার -->
     <nav>
+        <!-- বাম দিকের মেনু ও ড্রপডাউন -->
         <div class="nav-links">
             <a href="index.html">হোম</a>
             
-            <!-- ফান্ড ড্রপডাউন -->
             <div class="dropdown">
                 <button class="dropbtn">তহবিল সেবা ▾</button>
                 <div class="dropdown-content">
                    <a href="rules.html">নিয়মাবলি</a> 
-                    <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
-                     <a href="shoppingsignup.html" style="color: #ffeb3b;">সদস্য হোন (সাইন-আপ)</a>
+                   <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
+                   <a href="shoppingsignup.html" style="color: #ffeb3b;">সদস্য হোন (সাইন-আপ)</a>
                 </div>
             </div>
 
-            <!-- এবাউট ড্রপডাউন -->
             <div class="dropdown">
                 <button class="dropbtn">আমাদের সম্পর্কে ▾</button>
                 <div class="dropdown-content">
@@ -952,7 +951,9 @@
                     <button onclick="accessAdminPanel()" style="border-top: 1px solid #004d40; color: #ffab40; font-weight: bold;">🔐 অ্যাডমিন প্যানেল</button>
                 </div>
             </div>
+        </div>
 
+        <!-- মাঝখানের সার্চ এলাকা -->
         <div class="search-area-wrapper">
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
@@ -960,19 +961,18 @@
             </div>
         </div>
 
-                 <!-- ডান দিকের অংশ: শপিং লগইন বাটন ও শপিং অ্যাকাউন্ট ড্রপডাউন একসাথে -->
+        <!-- ডান দিকের অংশ: শপিং লগইন বাটন ও শপিং অ্যাকাউন্ট ড্রপডাউন একসাথে -->
         <div style="display: flex; align-items: center; gap: 10px;">
             <button id="memberAuthBtn" class="btn-member-login" onclick="handleAuthButtonClick()">🛒 শপিং লগইন</button>
 
-            
             <div class="shop-dropdown" style="margin-left: 0;">
                 <button class="shop-dropbtn">
-            
-                🛍️ শপিং অ্যাকাউন্ট ▾
-            </button>
-            <div class="shop-dropdown-content">
-                <a href="shoppingsignup.html">০১. শপিং অ্যাকাউন্ট করুন</a>
-                <a href="#welcome-banner">০২. শপিং মার্ট সম্পর্কে</a>
+                    🛍️️ শপিং অ্যাকাউন্ট ▾
+                </button>
+                <div class="shop-dropdown-content">
+                    <a href="shoppingsignup.html">০১. শপিং অ্যাকাউন্ট করুন</a>
+                    <a href="#welcome-banner">০২. শপিং মার্ট সম্পর্কে</a>
+                </div>
             </div>
         </div>
     </nav>
