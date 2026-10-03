@@ -357,7 +357,7 @@
             visibility: visible;
         }
         .hero-content {
-            flex: 1;
+            flex: 1.2;
             color: #ffffff;
             z-index: 1;
         }
@@ -396,14 +396,14 @@
             background-color: #d66f00;
         }
         .hero-image {
-            flex: 6; /* [সাইডনোট: ছবির জন্য ব্যানার ফ্লেক্স এরিয়া বাড়ানো হলো যাতে প্রস্থ বড় দেখায়] */
+            flex: 1.5; /* [সাইডনোট: ছবির জন্য ব্যানার ফ্লেক্স এরিয়া বাড়ানো হলো যাতে প্রস্থ বড় দেখায়] */
             text-align: right;
             z-index: 1;
         }
         .hero-image img {
             max-width: 100%;
             max-height: 490px; /* [সাইডনোট: ব্যানারের ভেতরের ছবির উচ্চতা ও প্রস্থ সামঞ্জস্য করতে] */
-            object-fit: fill; /* [সাইডনোট: ছবি যেন কেটে না যায়, পুরোপুরি ফিট থাকে] */
+            object-fit: cover; /* [সাইডনোট: ছবি যেন কেটে না যায়, পুরোপুরি ফিট থাকে] */
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
