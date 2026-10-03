@@ -163,7 +163,7 @@
             border: 1px solid #004d40;
             top: 100%;
             left: 0;
-            margin-top: 0px; /* গ্যাপ দূর করার জন্য */
+            margin-top: 0px; 
             padding-top: 4px;
         }
         .dropdown-content a, .dropdown-content button {
@@ -309,11 +309,12 @@
         }
 
         /* ==========================================
-           5. হিরো ব্যানার ও প্রমোশনাল কার্ড সেকশন
+           5. হিরো ব্যানার ও প্রমোশনাল কার্ড সেকশন 
+           [সাইডনোট: ব্যানারের প্রস্থ ও উচ্চতা নিয়ন্ত্রণ]
            ========================================== */
         .marketplace-hero-wrapper {
-            width: 90%;
-            max-width: 1700px;
+            width: 92%; /* [সাইডনোট: পুরো সেকশনের প্রস্থ বাড়াতে বা কমাতে পারেন] */
+            max-width: 1800px; /* [সাইডনোট: ডেস্কটপে ম্যাক্স উইডথ বাড়ালে ব্যানার আরও চওড়া হবে] */
             margin: 25px auto;
             display: flex;
             gap: 20px;
@@ -321,7 +322,7 @@
             box-sizing: border-box;
         }
         .marketplace-hero-section {
-            flex: 3;
+            flex: 3.5; /* [সাইডনোট: প্রমোশনাল কার্ডের তুলনায় ব্যানারকে বেশি জায়গা দেওয়ার অনুপাত] */
             position: relative;
             border-radius: 12px;
             overflow: hidden;
@@ -334,7 +335,7 @@
         .hero-banner-container {
             position: relative;
             width: 100%;
-            min-height: 480px;
+            min-height: 520px; /* [সাইডনোট: ব্যানারের উচ্চতা (Height) বাড়াতে বা কমাতে এই মান পরিবর্তন করুন] */
         }
         .hero-slide {
             position: absolute;
@@ -345,7 +346,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 40px;
+            padding: 45px;
             box-sizing: border-box;
             opacity: 0;
             visibility: hidden;
@@ -395,14 +396,14 @@
             background-color: #d66f00;
         }
         .hero-image {
-            flex: 1;
+            flex: 1.2; /* [সাইডনোট: ছবির জন্য ব্যানার ফ্লেক্স এরিয়া বাড়ানো হলো যাতে প্রস্থ বড় দেখায়] */
             text-align: right;
             z-index: 1;
         }
         .hero-image img {
             max-width: 100%;
-            max-height: 480px;
-            object-fit: cover;
+            max-height: 490px; /* [সাইডনোট: ব্যানারের ভেতরের ছবির উচ্চতা ও প্রস্থ সামঞ্জস্য করতে] */
+            object-fit: contain; /* [সাইডনোট: ছবি যেন কেটে না যায়, পুরোপুরি ফিট থাকে] */
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
@@ -517,25 +518,67 @@
         }
 
         /* ==========================================
-           6. প্রোডাক্ট গ্রিড ও অন্যান্য কম্পোনেন্ট
+           6. মার্চেন্টস স্টোরস টাইলস ও ফ্লোটিং সার্কল বাটন স্টাইল
            ========================================== */
-        .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-        .floating-stores {
+        .floating-stores-container {
             position: fixed;
             left: 20px;
             top: 180px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             z-index: 1000;
         }
-        .store-circle-btn {
+        /* মূল টাইলস বাটন সেট (আপনার দেওয়া চিত্র অনুযায়ী) */
+        .merchant-tiles-main-btn {
             width: 110px;
-            height: 110px;
+            height: 55px;
+            background-color: #004d40;
+            border: 2px solid #ffb300;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            text-align: center;
+        }
+        .merchant-tiles-main-btn:hover {
+            background-color: #00332c;
+            transform: scale(1.05);
+        }
+        .tiles-icon {
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+        .tiles-title {
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-top: 2px;
+            color: #ffeb3b;
+        }
+
+        /* ফ্লোটিং সার্কল বাটনগুলোর র‍্যাপার (প্রাথমিকভাবে হাইড থাকবে) */
+        .floating-stores-list {
+            display: none; /* [সাইডনোট: টাইলসে ক্লিক করার আগে ফ্লোটিং বাটনগুলো লুকিয়ে থাকবে] */
+            flex-direction: column;
+            gap: 12px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .floating-stores-list.show {
+            display: flex; /* [সাইডনোট: ক্লিক করলে দৃশ্যমান হবে] */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .store-circle-btn {
+            width: 105px;
+            height: 105px;
             background-color: #e65100;
             border: 3px solid #ffffff;
             border-radius: 50%;
@@ -556,13 +599,13 @@
             background-color: #d84315;
         }
         .store-name {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: bold;
             line-height: 1.1;
             margin-bottom: 2px;
         }
         .shopping-text {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #ffccbc;
             display: flex;
             flex-direction: column;
@@ -570,9 +613,18 @@
             line-height: 1.1;
         }
         .arrow-icon {
-            font-size: 1.0rem;
+            font-size: 0.9rem;
             font-weight: bold;
             margin-top: 2px;
+        }
+
+        /* ==========================================
+           7. প্রোডাক্ট গ্রিড ও অন্যান্য কম্পোনেন্ট
+           ========================================== */
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
         .welcome-banner {
             background: #e0f2f1;
@@ -728,7 +780,7 @@
         .btn-gmail:hover { background: #d33426; }
 
         /* ==========================================
-           7. মডাল উইন্ডো স্টাইল
+           8. মডাল উইন্ডো স্টাইল
            ========================================== */
         .modal-overlay {
             display: none;
@@ -849,7 +901,7 @@
         }
 
         /* ==========================================
-           8. ফুটার ও রেসপনসিভ মিডিয়া কোয়েরি
+           9. ফুটার ও রেসপনসিভ মিডিয়া কোয়েরি
            ========================================== */
         footer {
             background: #004d40;
@@ -860,7 +912,7 @@
         }
 
         @media(max-width: 992px) {
-            .floating-stores { display: none; }
+            .floating-stores-container { display: none; }
             .mobile-stores-section {
                 display: flex;
                 overflow-x: auto;
@@ -889,24 +941,33 @@
 </head>
 <body>
      
-    <!-- ভাসমান স্টোর বাটন -->
-    <div class="floating-stores">
-        <a href="gias-store.html" class="store-circle-btn">
-            <span class="store-name">GU75 Store</span>
-            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
-        </a>
-        <a href="#mizan-store" class="store-circle-btn">
-            <span class="store-name">MIZ Store</span>
-            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
-        </a>
-        <a href="#faroq-store" class="store-circle-btn">
-            <span class="store-name">FQ84 Store</span>
-            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
-        </a>
-        <a href="#hasan-store" class="store-circle-btn">
-            <span class="store-name">HN88 Store</span>
-            <span class="shopping-text">Shopping Now <span class="arrow-icon">➔</span></span>
-        </a>
+    <!-- মার্চেন্টস স্টোরস টাইলস ও ফ্লোটিং সার্কল বাটন সেট -->
+    <div class="floating-stores-container">
+        <!-- মূল টাইলস বাটন (ক্লিক করলে সার্কলগুলো বের হবে/লুকাবে) -->
+        <div class="merchant-tiles-main-btn" onclick="toggleMerchantStores()" title="মার্চেন্টস স্টোরস">
+            <span class="tiles-icon">☷</span>
+            <span class="tiles-title">মার্চেন্টস</span>
+        </div>
+
+        <!-- ফ্লোটিং সার্কল স্টোর বাটনসমূহ -->
+        <div class="floating-stores-list" id="floatingStoresList">
+            <a href="gias-store.html" class="store-circle-btn">
+                <span class="store-name">GU75 Store</span>
+                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
+            </a>
+            <a href="#mizan-store" class="store-circle-btn">
+                <span class="store-name">MIZ Store</span>
+                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
+            </a>
+            <a href="#faroq-store" class="store-circle-btn">
+                <span class="store-name">FQ84 Store</span>
+                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
+            </a>
+            <a href="#hasan-store" class="store-circle-btn">
+                <span class="store-name">HN88 Store</span>
+                <span class="shopping-text">Shop Now <span class="arrow-icon">➔</span></span>
+            </a>
+        </div>
     </div>
 
     <!-- হেডার -->
@@ -927,9 +988,8 @@
         </div>
     </header>
 
-<!-- নেভিগেশন বার -->
+    <!-- নেভিগেশন বার -->
     <nav>
-        <!-- বাম দিকের মেনু ও ড্রপডাউন -->
         <div class="nav-links">
             <a href="index.html">হোম</a>
             
@@ -953,7 +1013,6 @@
             </div>
         </div>
 
-        <!-- মাঝখানের সার্চ এলাকা -->
         <div class="search-area-wrapper">
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন...">
@@ -961,13 +1020,12 @@
             </div>
         </div>
 
-        <!-- ডান দিকের অংশ: শপিং লগইন বাটন ও শপিং অ্যাকাউন্ট ড্রপডাউন একসাথে -->
         <div style="display: flex; align-items: center; gap: 10px;">
             <button id="memberAuthBtn" class="btn-member-login" onclick="handleAuthButtonClick()">🛒 শপিং লগইন</button>
 
             <div class="shop-dropdown" style="margin-left: 0;">
                 <button class="shop-dropbtn">
-                    🛍️️ শপিং অ্যাকাউন্ট ▾
+                    🛍 শপিং অ্যাকাউন্ট ▾
                 </button>
                 <div class="shop-dropdown-content">
                     <a href="shoppingsignup.html">০১. শপিং অ্যাকাউন্ট করুন</a>
@@ -1024,10 +1082,12 @@
         </div>
     </div>
 
-    <!-- হিরো ব্যানার ও প্রমোশনাল সেকশন -->
+    <!-- হিরো ব্যানার ও প্রমোশনাল সেকশন 
+         [সাইডনোট: বিজ্ঞাপন বাড়াতে চাইলে নিচে নতুন <div class="hero-slide"> ব্লক যুক্ত করুন, কোড স্বয়ংক্রিয়ভাবে কাজ করবে] -->
     <div class="marketplace-hero-wrapper">
         <section class="marketplace-hero-section">
             <div class="hero-banner-container" id="marketplaceHeroSlider">
+                <!-- বিজ্ঞাপন স্লাইড ১ -->
                 <div class="hero-slide active" style="background: linear-gradient(135deg, #0f4c81, #247ba0);">
                     <div class="hero-content">
                         <span class="hero-badge">মেগা সেল অফার</span>
@@ -1040,6 +1100,7 @@
                     </div>
                 </div>
 
+                <!-- বিজ্ঞাপন স্লাইড ২ -->
                 <div class="hero-slide" style="background: linear-gradient(135deg, #2b2d42, #8d99ae);">
                     <div class="hero-content">
                         <span class="hero-badge" style="background-color: #e76f51;">নতুন কালেকশন</span>
@@ -1052,23 +1113,22 @@
                     </div>
                 </div>
 
-                 <div class="hero-slide" style="background: linear-gradient(135deg, #2b2d42, #8d99ae);">
+                <!-- বিজ্ঞাপন স্লাইড ৩ -->
+                <div class="hero-slide" style="background: linear-gradient(135deg, #1b4332, #2d6a4f);">
                     <div class="hero-content">
-                        <span class="hero-badge" style="background-color: #e76f51;">নতুন কালেকশন</span>
-                        <h1>Hoco EQ34 Plus Active Noise Cancellation (ANC) + Environmental Noise Cancellation (ENC)</h1>
-                        <p>Companion app support, and up to 7 hours of playtime (6 hours with ANC). Price is ৳1200</p>
+                        <span class="hero-badge" style="background-color: #e76f51;">এক্সক্লুসিভ অফার</span>
+                        <h1>Hoco EQ34 Plus Active Noise Cancellation (ANC)</h1>
+                        <p>Companion app support, and up to 7 hours of playtime. Price is ৳1200</p>
                         <a href="#productGrid" class="hero-btn" style="background-color: #e76f51;">See Full Store</a>
                     </div>
                     <div class="hero-image">
-                        <img src="hcarb01.jpeg" alt="New Collection">
+                        <img src="hcarb01.jpeg" alt="Hoco Earbuds">
                     </div>
                 </div>
             </div>
 
-            <div class="hero-dots">
-                <span class="dot active" onclick="currentSlide(0)"></span>
-                <span class="dot" onclick="currentSlide(1)"></span>
-            </div>
+            <!-- ডট নেভিগেশন কন্টেইনার (জাভাস্ক্রিপ্ট দিয়ে স্বয়ংক্রিয় তৈরি হবে) -->
+            <div class="hero-dots" id="heroDotsContainer"></div>
         </section>    
 
         <div class="promo-card-side">
@@ -1224,8 +1284,16 @@
             resetAllQuantities();
             updateCartCount();
             checkLoginStatus();
-            showSlides();
+            initDynamicSlider(); // ডাইনামিক স্লাইডার ও ডট ইনিশিয়ালাইজেশন
         });
+
+        /* ==========================================
+           মার্চেন্টস স্টোরস টাইলস টগল ফাংশন
+           ========================================== */
+        function toggleMerchantStores() {
+            const list = document.getElementById('floatingStoresList');
+            list.classList.toggle('show');
+        }
 
         function switchLoginForm(type) {
             const memberForm = document.getElementById('memberLoginForm');
@@ -1401,7 +1469,7 @@
                 }
             } catch (error) {
                 console.error("ত্রুটি:", error);
-                leftError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন।";
+                leftError.innerText = "সার্ভার ত্রুটি! আবার চেষ্টা করুন።";
                 leftError.style.display = 'block';
             }
         }
@@ -1591,40 +1659,62 @@
             }
         }
 
-        // হিরো ব্যানার স্লাইডার
+        /* ==========================================
+           হিরো ব্যানার ডাইনামিক স্লাইডার লজিক 
+           [সাইডনোট: স্লাইডের সংখ্যা অনুযায়ী স্বয়ংক্রিয়ভাবে ডট তৈরি হবে এবং লুপ কাজ করবে]
+           ========================================== */
         let slideIndex = 0;
         let slideTimer = null;
+        let slides = [];
+        let dots = [];
+
+        function initDynamicSlider() {
+            slides = document.querySelectorAll(".hero-slide");
+            const dotsContainer = document.getElementById("heroDotsContainer");
+            
+            if (slides.length === 0) return;
+
+            // স্লাইড সংখ্যা অনুযায়ী ডট তৈরি করা
+            dotsContainer.innerHTML = "";
+            slides.forEach((_, index) => {
+                let dotSpan = document.createElement("span");
+                dotSpan.className = "dot" + (index === 0 ? " active" : "");
+                dotSpan.onclick = () => currentSlide(index);
+                dotsContainer.appendChild(dotSpan);
+            });
+
+            dots = document.querySelectorAll(".hero-dots .dot");
+            showSlides();
+        }
 
         function showSlides() {
-            let slides = document.querySelectorAll(".hero-slide");
-            let dots = document.querySelectorAll(".hero-dots .dot");
-            
             if (slides.length === 0) return;
 
             slides.forEach(slide => slide.classList.remove("active"));
             dots.forEach(dot => dot.classList.remove("active"));
 
             slideIndex++;
-            if (slideIndex > slides.length) { slideIndex = 1; }
+            if (slideIndex > slides.length) { 
+                slideIndex = 1; // [সাইডনোট: শেষ স্লাইড থেকে পুনরায় ১ নম্বরে ফিরে আসার লজিক]
+            }
 
             slides[slideIndex - 1].classList.add("active");
             dots[slideIndex - 1].classList.add("active");
 
-            slideTimer = setTimeout(showSlides, 4000);
+            slideTimer = setTimeout(showSlides, 4000); // [সাইডনোট: ৪ সেকেন্ড পর পর স্লাইড পরিবর্তন হবে]
         }
 
         function currentSlide(n) {
             clearTimeout(slideTimer);
             slideIndex = n;
-            let slides = document.querySelectorAll(".hero-slide");
-            let dots = document.querySelectorAll(".hero-dots .dot");
-
+            
             slides.forEach(slide => slide.classList.remove("active"));
             dots.forEach(dot => dot.classList.remove("active"));
 
             slides[slideIndex].classList.add("active");
             dots[slideIndex].classList.add("active");
             
+            slideIndex++; // যাতে ক্লিক করার পর সিকোয়েন্স ঠিক থাকে
             slideTimer = setTimeout(showSlides, 4000);
         }
 
