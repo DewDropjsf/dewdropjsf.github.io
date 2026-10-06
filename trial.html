@@ -15,7 +15,7 @@
             padding: 0; 
         }
 
-        /* Header & Navigation Bar Style - হোম পেজের সাথে সামঞ্জস্যপূর্ণ */
+        /* Header & Navigation Bar Style */
         .site-header {
             background-color: #1b4332; 
             color: #ffffff;
@@ -28,7 +28,7 @@
 
         .nav-container {
             width: 100%;
-            padding: 0 15px; /* হোম পেজের মতো সঠিক প্যাডিং */
+            padding: 0 15px;
             box-sizing: border-box;
             display: flex;
             justify-content: space-between;
@@ -215,6 +215,27 @@
             letter-spacing: 0.8px;
         }
 
+        /* Polaroid Photo Frame Styles (300x300px) */
+        .polaroid-frame {
+            background: #ffffff;
+            padding: 12px 12px 25px 12px;
+            width: 300px;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .polaroid-frame img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            border-radius: 2px;
+        }
+
         .btn-logout { 
             background-color: #d90429; 
             color: white; 
@@ -325,6 +346,10 @@
                 padding: 15px;
                 margin: 15px;
             }
+            .polaroid-frame {
+                width: 100%;
+                max-width: 300px;
+            }
         }
     </style>
 </head>
@@ -333,19 +358,16 @@
     <!-- Header & Navigation Bar -->
     <header class="site-header">
         <div class="nav-container">
-            <!-- Left: Logo & Brand Name -->
            <div class="logo-area" style="cursor: default;">
                 <img src="gldlogo.png" alt="Logo" class="logo-image">
                 <span class="brand-title">DewDrop Joint Savings Fund</span>
             </div>
 
-            <!-- Right: Shopping Mart (Marquee) & About Us (Dropdown) -->
             <div class="nav-right">
                 <a href="marketplace.html" class="btn-market" style="background: #009a80; color: #fff; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-block; overflow: hidden; width: 120px;">
                     <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
                 </a>
                 
-                <!-- About Us Dropdown -->
                 <div class="dropdown">
                     <button class="dropbtn">আমাদের সম্পর্কে ▾</button>
                     <div class="dropdown-content">
@@ -377,6 +399,11 @@
                     <h3 class="section-title">MEMBER DETAILS</h3>
                     <button class="btn-logout" id="logoutBtn">Log out</button>
                 </div>
+
+                <!-- Polaroid Photo Frame with Demo Image -->
+                <div class="polaroid-frame">
+                    <img src="prflogo.jpeg" alt="Member Photo" id="memberPhoto">
+                </div>
                 
                 <div class="welcome-msg">Welcome, <span id="userName">...</span>!</div>
                 
@@ -388,6 +415,10 @@
                 </div>
                 <div class="info-item">
                     <strong>Mobile No.:</strong> <span id="userMobile">...</span>
+                </div>
+                <!-- Added Address Field -->
+                <div class="info-item">
+                    <strong>Address:</strong> <span id="userAddress">...</span>
                 </div>
             </div>
 
@@ -450,6 +481,7 @@
             document.getElementById('memberId').innerText = userData.member_id || 'N/A';
             document.getElementById('userEmail').innerText = userData.email || 'N/A';
             document.getElementById('userMobile').innerText = userData.mobile || 'N/A';
+            document.getElementById('userAddress').innerText = userData.address || 'N/A';
         }
 
         // Logout Button Event
@@ -471,7 +503,6 @@
         async function loadUserDataFromGoogleSheet(memberId) {
             const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
 
-            // Loading state text
             document.getElementById('lastTxAmount').innerText = 'লোড হচ্ছে...';
             document.getElementById('lastTxDate').innerText = 'লোড হচ্ছে...';
             document.getElementById('anyDue').innerText = 'লোড হচ্ছে...';
@@ -519,7 +550,6 @@
                     return;
                 }
 
-                // ১৫ সেকেন্ড পর ডেটা রিসেট হওয়ার টাইমার
                 hideTimer = setTimeout(() => {
                     resetAccountDetails();
                 }, 15000);
