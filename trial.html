@@ -466,7 +466,7 @@
                     <strong>Paid Lump Sum Amount:</strong> <span id="paidLumpSum">বাটনে ক্লিক করুন</span>
                 </div>
                 <div class="info-item">
-                    <strong>Total Savings:</strong> <span id="totalSavings">বাটনে ক্লিক করুন</span>
+                    <strong>TotalSavings:</strong> <span id="totalSavings">বাটনে ক্লিক করুন</span>
                 </div>
             </div>
 
@@ -504,21 +504,36 @@
             document.getElementById('userEmail').innerText = userData.email || 'N/A';
             document.getElementById('userMobile').innerText = userData.mobile || 'N/A';
 
-            // লোকাল স্টোরেজ থেকে ছবি পোলারয়েড ফ্রেমে লোড করা
-            const memberPhotoKey = 'memberPhoto_' + (userData.member_id || '').toLowerCase();
-            const storedPhoto = localStorage.getItem(memberPhotoKey) || localStorage.getItem('userPhoto');
-            
-            if (storedPhoto) {
-                document.getElementById('memberPhoto').src = storedPhoto;
+            // উন্নত লজিক: মেম্বার আইডি দিয়ে বিভিন্ন ফরম্যাটে ছবির কি (Key) চেক করা
+            const mId = (userData.member_id || '').trim();
+            const possiblePhotoKeys = [
+                'memberPhoto_' + mId.toLowerCase(),
+                'memberPhoto_' + mId.toUpperCase(),
+                'photo_' + mId.toLowerCase(),
+                'userPhoto'
+            ];
+
+            let storedPhoto = null;
+            for (let key of possiblePhotoKeys) {
+                if (localStorage.getItem(key)) {
+                    storedPhoto = localStorage.getItem(key);
+                    break;
+                }
             }
 
-            // সরাসরি গুগল শিট থেকে ঠিকানা ফেচ করে বসানোর ফাংশন কল
+            if (storedPhoto) {
+                document.getElementById('memberPhoto').src = storedPhoto;
+            } else {
+                // ছবি না পেলে ডিফল্ট লোগো বা প্লেসহোল্ডার বজায় রাখা
+                document.getElementById('memberPhoto').src = 'prflogo.jpeg';
+            }
+
+            // সরাসরি গুগল শিট থেকে ঠিকানা ফেচ করার ফাংশন কল
             fetchAddressFromGoogleSheet(userData.member_id);
         }
 
-        // গুগল শিট থেকে সরাসরি অ্যাড্রেস ফেচ করার ফাংশন
+        // উন্নত লজিক: গুগল শিট থেকে সরাসরি অ্যাড্রেস ফেচ করার ফাংশন (যে কোনো কলামে আইডি ম্যাচ করলে ঠিকানা তুলে আনবে)
         async function fetchAddressFromGoogleSheet(memberId) {
-            // আপনার RegisteredData শিটের CSV লিংক (যাতে কলাম G বা FullAddress পাওয়া যায়)
             const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
 
             try {
@@ -536,29 +551,40 @@
                     const row = rows[i].trim();
                     if (!row) continue;
 
-                    // কমা দিয়ে স্প্লিট করার সময় যদি ঠিকানার ভেতরে কমা থাকে, তবে সেফটি হ্যান্ডলিংয়ের জন্য
-                    const cols = row.split(',').map(col => col.trim());
+                    // কমা দিয়ে স্প্লিট করার সময় ফাঁকা বা কমা হ্যান্ডেল করা
+                    const cols = row.split(',').map(col => col.replace(/^["']|["']$/g, '').trim());
                     
-                    // আপনার শিট অনুযায়ী: Index 4 বা E কলাম হলো MemberID এবং Index 6 বা G কলাম হলো FullAddress
-                    const currentMemberId = cols[4] ? cols[4].toLowerCase() : '';
+                    // সারির যেকোনো কলামে যদি টার্গেট মেম্বার আইডি মিলে যায়
+                    const isIdMatch = cols.some(col => col.toLowerCase() === targetId);
 
-                    if (currentMemberId === targetId) {
-                        addressFound = true;
-                        // G কলামের ঠিকানা (index 6) বা আপনার শিটের ডেটা অনুযায়ী সঠিক ইনডেক্স
-                        const fullAddress = cols[6] || 'তথ্য নেই';
-                        document.getElementById('userAddress').innerText = fullAddress;
-                        break;
+                    if (isIdMatch) {
+                        // সাধারণত FullAddress বা শেষের দিকে ঠিকানা থাকে, অথবা সরাসরি G কলাম (index 6) বা লম্বা টেক্সট কলাম
+                        // এখানে শিটের শেষ কলামটি অথবা সবচেয়ে বড় টেক্সট কলামটি বা নির্দিষ্ট ইন্ডেক্স (যেমন index 6) চেক করা হচ্ছে
+                        let addressVal = cols[6] || cols[cols.length - 1]; 
+                        
+                        // যদি শেষের কলামটি ডেট বা অ্যামাউন্ট হয়, তবে অন্য কলামে অ্যাড্রেস খুঁজতে পারে
+                        for (let c of cols) {
+                            if (c.length > 10 && (c.includes('road') || c.includes('village') || c.includes('Thana') || c.includes('District') || c.includes('Holding') || c.includes('গ্রাম') || c.includes('রোড') || c.includes('বাসা') || c.includes('উপজেলা') || c.includes('জেলা') || c.includes('পুর'))) {
+                                addressVal = c;
+                                break;
+                            }
+                        }
+
+                        if (addressVal && addressVal.toLowerCase() !== targetId) {
+                            addressFound = true;
+                            document.getElementById('userAddress').innerText = addressVal;
+                            break;
+                        }
                     }
                 }
 
                 if (!addressFound) {
-                    document.getElementById('userAddress').innerText = userData.address || 'N/A';
+                    document.getElementById('userAddress').innerText = userData.address || userData.full_address || 'তথ্য পাওয়া যায়নি';
                 }
 
             } catch (error) {
                 console.error('ঠিকানা ফেচ করতে সমস্যা হয়েছে:', error);
-                // ফেইল করলে লোকাল স্টোরেজে থাকলে সেটি দেখাবে, না হলে N/A
-                document.getElementById('userAddress').innerText = userData.address || 'N/A';
+                document.getElementById('userAddress').innerText = userData.address || userData.full_address || 'N/A';
             }
         }
 
@@ -604,7 +630,7 @@
                     const row = rows[i].trim();
                     if (!row) continue;
 
-                    const cols = row.split(',').map(col => col.trim());
+                    const cols = row.split(',').map(col => col.replace(/^["']|["']$/g, '').trim());
                     
                     const currentMemberId = cols[1] ? cols[1].toLowerCase() : '';
 
