@@ -132,7 +132,7 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
 
-        /* Top Banner layout with Polaroid Frame on Left & Notice Board on Center/Right */
+        /* Top Banner Section with Polaroid Frame on Left & Notice Board */
         .top-banner-section {
             display: flex;
             align-items: center;
@@ -152,7 +152,7 @@
             border: 1.5px solid #d0d0d0;
             box-sizing: border-box;
             text-align: center;
-            transform: rotate(-3deg); /* Slight classic polaroid tilt */
+            transform: rotate(-3deg);
             transition: transform 0.3s ease;
         }
 
@@ -439,7 +439,7 @@
                     <strong>Mobile No.:</strong> <span id="userMobile">...</span>
                 </div>
                 <div class="info-item">
-                    <strong>Address:</strong> <span id="userAddress">...</span>
+                    <strong>Address:</strong> <span id="userAddress">লোড হচ্ছে...</span>
                 </div>
             </div>
 
@@ -482,10 +482,8 @@
         </div>
     </div>
 
-   <script>
+    <script>
         let hideTimer = null;
-        // আপনার দেওয়া গুগল অ্যাপস স্ক্রিপ্ট ওয়েব অ্যাপ লিংক
-        const scriptURL = "https://script.google.com/macros/s/AKfycbzg-oYznyvuI4_AotYlPHO-1I51EfARltjyPZXxbi_S-KTZYdvQB1_6gXPDaxLUOPqx/exec";
 
         window.addEventListener('DOMContentLoaded', function() {
             const loggedInUser = localStorage.getItem('loggedInUser');
@@ -500,19 +498,67 @@
             alert('অনুগ্রহ করে প্রথমে লগইন করুন।');
             window.location.href = 'login.html';
         } else {
-            // মেম্বারের সাধারণ তথ্য এবং লোকাল স্টোরেজ থেকে ঠিকানা বসানো
+            // সাধারণ তথ্য লোকাল স্টোরেজ থেকে বসানো
             document.getElementById('userName').innerText = userData.name || 'সদস্য';
             document.getElementById('memberId').innerText = userData.member_id || 'N/A';
             document.getElementById('userEmail').innerText = userData.email || 'N/A';
             document.getElementById('userMobile').innerText = userData.mobile || 'N/A';
-            document.getElementById('userAddress').innerText = userData.address || userData.full_address || 'N/A';
 
-            // লোকাল স্টোরেজ থেকে লগইন করা ইউজারের ছবি পোলারয়েড ফ্রেমে লোড করার লজিক
+            // লোকাল স্টোরেজ থেকে ছবি পোলারয়েড ফ্রেমে লোড করা
             const memberPhotoKey = 'memberPhoto_' + (userData.member_id || '').toLowerCase();
             const storedPhoto = localStorage.getItem(memberPhotoKey) || localStorage.getItem('userPhoto');
             
             if (storedPhoto) {
                 document.getElementById('memberPhoto').src = storedPhoto;
+            }
+
+            // সরাসরি গুগল শিট থেকে ঠিকানা ফেচ করে বসানোর ফাংশন কল
+            fetchAddressFromGoogleSheet(userData.member_id);
+        }
+
+        // গুগল শিট থেকে সরাসরি অ্যাড্রেস ফেচ করার ফাংশন
+        async function fetchAddressFromGoogleSheet(memberId) {
+            // আপনার RegisteredData শিটের CSV লিংক (যাতে কলাম G বা FullAddress পাওয়া যায়)
+            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
+
+            try {
+                const response = await fetch(csvUrl);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.text();
+                const rows = data.split('\n');
+                let addressFound = false;
+
+                const targetId = memberId ? memberId.trim().toLowerCase() : '';
+
+                for (let i = 1; i < rows.length; i++) {
+                    const row = rows[i].trim();
+                    if (!row) continue;
+
+                    // কমা দিয়ে স্প্লিট করার সময় যদি ঠিকানার ভেতরে কমা থাকে, তবে সেফটি হ্যান্ডলিংয়ের জন্য
+                    const cols = row.split(',').map(col => col.trim());
+                    
+                    // আপনার শিট অনুযায়ী: Index 4 বা E কলাম হলো MemberID এবং Index 6 বা G কলাম হলো FullAddress
+                    const currentMemberId = cols[4] ? cols[4].toLowerCase() : '';
+
+                    if (currentMemberId === targetId) {
+                        addressFound = true;
+                        // G কলামের ঠিকানা (index 6) বা আপনার শিটের ডেটা অনুযায়ী সঠিক ইনডেক্স
+                        const fullAddress = cols[6] || 'তথ্য নেই';
+                        document.getElementById('userAddress').innerText = fullAddress;
+                        break;
+                    }
+                }
+
+                if (!addressFound) {
+                    document.getElementById('userAddress').innerText = userData.address || 'N/A';
+                }
+
+            } catch (error) {
+                console.error('ঠিকানা ফেচ করতে সমস্যা হয়েছে:', error);
+                // ফেইল করলে লোকাল স্টোরেজে থাকলে সেটি দেখাবে, না হলে N/A
+                document.getElementById('userAddress').innerText = userData.address || 'N/A';
             }
         }
 
@@ -523,7 +569,7 @@
             window.location.replace('login.html');
         });
 
-        // Check A/C Button Event (অ্যাকাউন্ট ডিটেইলস চেক করার জন্য)
+        // Check A/C Button Event
         document.getElementById('checkAcBtn').addEventListener('click', () => {
             if (hideTimer) {
                 clearTimeout(hideTimer);
@@ -533,7 +579,6 @@
         });
 
         async function loadUserDataFromGoogleSheet(memberId) {
-            // আপনার শিটের অ্যাকাউন্ট ডিটেইলস দেখার জন্য CSV বা ওয়েব অ্যাপ ব্যবহার করতে পারেন
             const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
 
             document.getElementById('lastTxAmount').innerText = 'লোড হচ্ছে...';
