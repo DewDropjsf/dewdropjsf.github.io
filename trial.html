@@ -1,488 +1,4 @@
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ড্যাশবোর্ড - DewDrop Joint Savings Fund</title>
-    <style>
-        body { 
-            font-family: 'Times New Roman', Times, serif; 
-            background-color: #f0f4f8; 
-            margin: 0; 
-            padding: 0; 
-        }
-
-        /* Header & Navigation Bar Style */
-        .site-header {
-            background-color: #1b4332; 
-            color: #ffffff;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            width: 100%;
-        }
-
-        .nav-container {
-            width: 100%;
-            padding: 0 15px;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: #ffffff;
-        }
-
-        .logo-image {
-            height: 45px;
-            width: auto;
-            border-radius: 50%;
-        }
-
-        .brand-title {
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-            font-size: 22px;
-            font-weight: bold;
-            margin: 0;
-            white-space: nowrap;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding-right: 10px;
-        }
-
-        /* Dropdown Menu for About Us */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropbtn {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 5px 0;
-            white-space: nowrap;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: #ffffff;
-            min-width: 170px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .dropdown-content a {
-            color: #333333;
-            padding: 10px 14px;
-            text-decoration: none;
-            display: block;
-            font-size: 14px;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-            color: #1b4332;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dashboard-container { 
-            background: #ffffff; 
-            max-width: 900px; 
-            margin: 30px auto; 
-            padding: 30px; 
-            border-radius: 16px; 
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08); 
-            position: relative;
-        }
-
-        .fund-title {
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-            color: #0077b6;
-            text-align: center;
-            font-size: 26px;
-            font-weight: bold;
-            margin-top: 0;
-            margin-bottom: 25px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-        }
-
-        /* Top Banner Section with Polaroid Frame on Left & Notice Board */
-        .top-banner-section {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 35px;
-            position: relative;
-            gap: 20px;
-        }
-
-        /* Proper Polaroid Photo Frame Styles */
-        .polaroid-frame {
-            background: #ffffff;
-            padding: 10px 10px 25px 10px;
-            width: 150px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            border-radius: 4px;
-            border: 1.5px solid #d0d0d0;
-            box-sizing: border-box;
-            text-align: center;
-            transform: rotate(-3deg);
-            transition: transform 0.3s ease;
-        }
-
-        .polaroid-frame:hover {
-            transform: rotate(0deg);
-        }
-
-        .polaroid-frame img {
-            width: 130px;
-            height: 130px;
-            object-fit: cover;
-            display: block;
-            margin: 0 auto;
-            border-radius: 2px;
-            border: 1px solid #e0e0e0;
-        }
-
-        .hanging-board-wrapper {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            flex-grow: 1;
-        }
-
-        .board-pin {
-            position: absolute;
-            top: -16px;
-            width: 16px;
-            height: 16px;
-            background: radial-gradient(circle at 30% 30%, #ffffff, #333333);
-            border-radius: 50%;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.4);
-            z-index: 10;
-        }
-
-        .board-string {
-            position: absolute;
-            top: -6px;
-            width: 2px;
-            height: 22px;
-            background-color: #8c6239;
-            z-index: 5;
-        }
-
-        .notice-board-box {
-            background: linear-gradient(135deg, #f4a261, #e76f51);
-            color: #fff;
-            width: 100%;
-            max-width: 380px;
-            padding: 14px 20px;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-            border: 2px dashed #ffb703;
-            position: relative;
-            z-index: 4;
-            margin-top: 16px;
-        }
-
-        .notice-board-box h2 {
-            margin: 0;
-            font-size: 22px;
-            font-family: 'Times New Roman', Times, serif;
-            letter-spacing: 0.8px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-        }
-
-        .dashboard-grid {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 20px;
-        }
-
-        .column-box {
-            flex: 1;
-            background: #fdfdfd;
-            border: 1.5px solid #dcdcdc;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.02);
-        }
-
-        .section-header {
-            border-bottom: 2.5px solid #0077b6;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .section-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #03045e;
-            text-transform: uppercase;
-            margin: 0;
-            letter-spacing: 0.8px;
-        }
-
-        .btn-logout { 
-            background-color: #d90429; 
-            color: white; 
-            border: none; 
-            padding: 6px 14px; 
-            font-size: 13px; 
-            border-radius: 6px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            transition: background 0.2s;
-        }
-
-        .btn-logout:hover { 
-            background-color: #8d0801; 
-        }
-
-        .btn-check { 
-            background-color: #2a9d8f; 
-            color: white; 
-            border: none; 
-            padding: 6px 14px; 
-            font-size: 13px; 
-            border-radius: 6px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            transition: background 0.2s;
-        }
-
-        .btn-check:hover { 
-            background-color: #21867a; 
-        }
-
-        .welcome-msg { 
-            font-size: 16px; 
-            color: #1d3557; 
-            margin-bottom: 14px; 
-            font-weight: bold;
-        }
-
-        .info-item { 
-            background: #e0fbfc; 
-            padding: 10px 14px; 
-            margin-bottom: 10px; 
-            border-radius: 6px; 
-            border-left: 4px solid #00b4d8; 
-            font-size: 15px;
-            color: #2b2d42;
-            word-break: break-word;
-        }
-
-        .info-item strong { 
-            color: #03045e; 
-        }
-
-        #memberId {
-            text-transform: uppercase;
-        }
-
-        .footer-action-area {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 30px;
-            border-top: 1.5px dashed #cbd5e1;
-            padding-top: 20px;
-        }
-
-        .btn-home {
-            background-color: #0077b6;
-            color: white;
-            border: none;
-            padding: 9px 22px;
-            font-size: 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            text-decoration: none;
-            display: inline-block;
-            transition: background 0.2s;
-        }
-
-        .btn-home:hover {
-            background-color: #03045e;
-        }
-
-        .developer-footer {
-            text-align: right;
-            font-size: 13px;
-            color: #475569;
-            line-height: 1.5;
-        }
-
-        .developer-footer a {
-            color: #0077b6;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .developer-footer a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .dashboard-grid {
-                flex-direction: column;
-                gap: 20px;
-            }
-            .dashboard-container {
-                padding: 15px;
-                margin: 15px;
-            }
-            .top-banner-section {
-                flex-direction: column;
-                gap: 15px;
-                align-items: center;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Header & Navigation Bar -->
-    <header class="site-header">
-        <div class="nav-container">
-           <div class="logo-area" style="cursor: default;">
-                <img src="gldlogo.png" alt="Logo" class="logo-image">
-                <span class="brand-title">DewDrop Joint Savings Fund</span>
-            </div>
-
-            <div class="nav-right">
-                <a href="marketplace.html" class="btn-market" style="background: #009a80; color: #fff; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-block; overflow: hidden; width: 120px;">
-                    <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
-                </a>
-                
-                <div class="dropdown">
-                    <button class="dropbtn">আমাদের সম্পর্কে ▾</button>
-                    <div class="dropdown-content">
-                        <a href="index.html#about-section">ডিউড্রপ সম্পর্কে</a>
-                        <a href="board.html">পরিচালনা পর্ষদ</a>
-                        <a href="developer.html">ডেভেলপার সম্পর্কে</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class="dashboard-container">
-        <h1 class="fund-title">DewDrop Joint Savings Fund</h1>
-
-        <!-- Top Banner Section with Polaroid Frame on Left & Notice Board -->
-        <div class="top-banner-section">
-            <!-- Polaroid Photo Frame -->
-            <div class="polaroid-frame">
-                <img src="prflogo.jpeg" alt="Member Photo" id="memberPhoto">
-            </div>
-                
-            <div class="hanging-board-wrapper">
-                <div class="board-pin"></div>
-                <div class="board-string"></div>
-                <div class="notice-board-box">
-                    <h2>Welcome to DashBoard</h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="dashboard-grid">
-            
-            <!-- MEMBER DETAILS COLUMN -->
-            <div class="column-box">
-                <div class="section-header">
-                    <h3 class="section-title">MEMBER DETAILS</h3>
-                    <button class="btn-logout" id="logoutBtn">Log out</button>
-                </div>
-
-                <div class="welcome-msg">Welcome, <span id="userName">...</span>!</div>
-                
-                <div class="info-item">
-                    <strong>Member ID:</strong> <span id="memberId">...</span>
-                </div>
-                <div class="info-item">
-                    <strong>E-mail:</strong> <span id="userEmail">...</span>
-                </div>
-                <div class="info-item">
-                    <strong>Mobile No.:</strong> <span id="userMobile">...</span>
-                </div>
-                <div class="info-item">
-                    <strong>Address:</strong> <span id="userAddress">লোড হচ্ছে...</span>
-                </div>
-            </div>
-
-            <!-- ACCOUNT DETAILS COLUMN -->
-            <div class="column-box">
-                <div class="section-header">
-                    <h3 class="section-title">ACCOUNT DETAILS</h3>
-                    <button class="btn-check" id="checkAcBtn">Check A/C</button>
-                </div>
-                
-                <div class="info-item" style="margin-top: 15px;">
-                    <strong>Last Transaction:</strong> <span id="lastTxAmount">বাটনে ক্লিক করুন</span>
-                </div>
-                <div class="info-item">
-                    <strong>Last Transaction Date:</strong> <span id="lastTxDate">বাটনে ক্লিক করুন</span>
-                </div>
-                <div class="info-item">
-                    <strong>Any Due:</strong> <span id="anyDue">বাটনে ক্লিক করুন</span>
-                </div>
-                <div class="info-item">
-                    <strong>Unpaid Lump Sum Amount:</strong> <span id="unpaidLumpSum">বাটনে ক্লিক করুন</span>
-                </div>
-                <div class="info-item">
-                    <strong>Paid Lump Sum Amount:</strong> <span id="paidLumpSum">বাটনে ক্লিক করুন</span>
-                </div>
-                <div class="info-item">
-                    <strong>TotalSavings:</strong> <span id="totalSavings">বাটনে ক্লিক করুন</span>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="footer-action-area">
-            <a href="index.html" class="btn-home">Home</a>
-            <div class="developer-footer">
-                Website Developed by:<br>
-                <strong>Md Tanjim Islam</strong><br>
-                <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
-            </div>
-        </div>
-    </div>
-
-    <script>
+<script>
         let hideTimer = null;
 
         window.addEventListener('DOMContentLoaded', function() {
@@ -498,13 +14,13 @@
             alert('অনুগ্রহ করে প্রথমে লগইন করুন।');
             window.location.href = 'login.html';
         } else {
-            // সাধারণ তথ্য লোকাল স্টোরেজ থেকে বসানো
+            // মেম্বারের সাধারণ তথ্য লোকাল স্টোরেজ থেকে বসানো
             document.getElementById('userName').innerText = userData.name || 'সদস্য';
             document.getElementById('memberId').innerText = userData.member_id || 'N/A';
             document.getElementById('userEmail').innerText = userData.email || 'N/A';
             document.getElementById('userMobile').innerText = userData.mobile || 'N/A';
 
-            // উন্নত লজিক: মেম্বার আইডি দিয়ে বিভিন্ন ফরম্যাটে ছবির কি (Key) চেক করা
+            // ছবির লজিক
             const mId = (userData.member_id || '').trim();
             const possiblePhotoKeys = [
                 'memberPhoto_' + mId.toLowerCase(),
@@ -524,16 +40,15 @@
             if (storedPhoto) {
                 document.getElementById('memberPhoto').src = storedPhoto;
             } else {
-                // ছবি না পেলে ডিফল্ট লোগো বা প্লেসহোল্ডার বজায় রাখা
                 document.getElementById('memberPhoto').src = 'prflogo.jpeg';
             }
 
-            // সরাসরি গুগল শিট থেকে ঠিকানা ফেচ করার ফাংশন কল
-            fetchAddressFromGoogleSheet(userData.member_id);
+            // সরাসরি গুগল শিট থেকে নিখوুঁতভাবে ঠিকানা ফেচ করার ফাংশন কল
+            fetchAddressDirectly(userData.member_id);
         }
 
-        // উন্নত লজিক: গুগল শিট থেকে সরাসরি অ্যাড্রেস ফেচ করার ফাংশন (যে কোনো কলামে আইডি ম্যাচ করলে ঠিকানা তুলে আনবে)
-        async function fetchAddressFromGoogleSheet(memberId) {
+        // গুগল শিট থেকে কলাম E (MemberID) ও কলাম G (FullAddress) মিলিয়ে ঠিকানা আনা
+        async function fetchAddressDirectly(memberId) {
             const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
 
             try {
@@ -543,7 +58,7 @@
                 }
                 const data = await response.text();
                 const rows = data.split('\n');
-                let addressFound = false;
+                let foundAddress = false;
 
                 const targetId = memberId ? memberId.trim().toLowerCase() : '';
 
@@ -551,34 +66,24 @@
                     const row = rows[i].trim();
                     if (!row) continue;
 
-                    // কমা দিয়ে স্প্লিট করার সময় ফাঁকা বা কমা হ্যান্ডেল করা
+                    // কমা দিয়ে ডেটা আলাদা করা
                     const cols = row.split(',').map(col => col.replace(/^["']|["']$/g, '').trim());
                     
-                    // সারির যেকোনো কলামে যদি টার্গেট মেম্বার আইডি মিলে যায়
-                    const isIdMatch = cols.some(col => col.toLowerCase() === targetId);
+                    // Column E (Index 4) হলো MemberID
+                    const currentMemberId = cols[4] ? cols[4].toLowerCase() : '';
 
-                    if (isIdMatch) {
-                        // সাধারণত FullAddress বা শেষের দিকে ঠিকানা থাকে, অথবা সরাসরি G কলাম (index 6) বা লম্বা টেক্সট কলাম
-                        // এখানে শিটের শেষ কলামটি অথবা সবচেয়ে বড় টেক্সট কলামটি বা নির্দিষ্ট ইন্ডেক্স (যেমন index 6) চেক করা হচ্ছে
-                        let addressVal = cols[6] || cols[cols.length - 1]; 
-                        
-                        // যদি শেষের কলামটি ডেট বা অ্যামাউন্ট হয়, তবে অন্য কলামে অ্যাড্রেস খুঁজতে পারে
-                        for (let c of cols) {
-                            if (c.length > 10 && (c.includes('road') || c.includes('village') || c.includes('Thana') || c.includes('District') || c.includes('Holding') || c.includes('গ্রাম') || c.includes('রোড') || c.includes('বাসা') || c.includes('উপজেলা') || c.includes('জেলা') || c.includes('পুর'))) {
-                                addressVal = c;
-                                break;
-                            }
-                        }
-
-                        if (addressVal && addressVal.toLowerCase() !== targetId) {
-                            addressFound = true;
-                            document.getElementById('userAddress').innerText = addressVal;
+                    if (currentMemberId === targetId) {
+                        // Column G (Index 6) হলো FullAddress
+                        const fullAddress = cols[6];
+                        if (fullAddress) {
+                            foundAddress = true;
+                            document.getElementById('userAddress').innerText = fullAddress;
                             break;
                         }
                     }
                 }
 
-                if (!addressFound) {
+                if (!foundAddress) {
                     document.getElementById('userAddress').innerText = userData.address || userData.full_address || 'তথ্য পাওয়া যায়নি';
                 }
 
@@ -632,6 +137,7 @@
 
                     const cols = row.split(',').map(col => col.replace(/^["']|["']$/g, '').trim());
                     
+                    // নোট: অ্যাকাউন্ট ডিটেইলস শিটের কলাম পজিশন অনুযায়ী এটি ঠিক আছে
                     const currentMemberId = cols[1] ? cols[1].toLowerCase() : '';
 
                     if (currentMemberId === targetId) {
@@ -674,6 +180,3 @@
             document.getElementById('totalSavings').innerText = 'বাটনে ক্লিক করুন';
         }
     </script>
-
-</body>
-</html>
