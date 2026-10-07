@@ -482,8 +482,10 @@
         </div>
     </div>
 
-    <script>
+   <script>
         let hideTimer = null;
+        // আপনার দেওয়া গুগল অ্যাপস স্ক্রিপ্ট ওয়েব অ্যাপ লিংক
+        const scriptURL = "https://script.google.com/macros/s/AKfycbzg-oYznyvuI4_AotYlPHO-1I51EfARltjyPZXxbi_S-KTZYdvQB1_6gXPDaxLUOPqx/exec";
 
         window.addEventListener('DOMContentLoaded', function() {
             const loggedInUser = localStorage.getItem('loggedInUser');
@@ -498,15 +500,14 @@
             alert('অনুগ্রহ করে প্রথমে লগইন করুন।');
             window.location.href = 'login.html';
         } else {
-            // মেম্বারের সাধারণ তথ্য এবং গুগল শিট থেকে আসা ঠিকানা বসানো
+            // মেম্বারের সাধারণ তথ্য এবং লোকাল স্টোরেজ থেকে ঠিকানা বসানো
             document.getElementById('userName').innerText = userData.name || 'সদস্য';
             document.getElementById('memberId').innerText = userData.member_id || 'N/A';
             document.getElementById('userEmail').innerText = userData.email || 'N/A';
             document.getElementById('userMobile').innerText = userData.mobile || 'N/A';
-            document.getElementById('userAddress').innerText = userData.address || 'N/A';
+            document.getElementById('userAddress').innerText = userData.address || userData.full_address || 'N/A';
 
             // লোকাল স্টোরেজ থেকে লগইন করা ইউজারের ছবি পোলারয়েড ফ্রেমে লোড করার লজিক
-            // (ধরে নিচ্ছি লোকাল স্টোরেজে ইউজারের ছবি 'memberPhoto_' + member_id অথবা শুধুমাত্র 'userPhoto' নামে সেভ করা থাকে)
             const memberPhotoKey = 'memberPhoto_' + (userData.member_id || '').toLowerCase();
             const storedPhoto = localStorage.getItem(memberPhotoKey) || localStorage.getItem('userPhoto');
             
@@ -522,7 +523,7 @@
             window.location.replace('login.html');
         });
 
-        // Check A/C Button Event
+        // Check A/C Button Event (অ্যাকাউন্ট ডিটেইলস চেক করার জন্য)
         document.getElementById('checkAcBtn').addEventListener('click', () => {
             if (hideTimer) {
                 clearTimeout(hideTimer);
@@ -532,6 +533,7 @@
         });
 
         async function loadUserDataFromGoogleSheet(memberId) {
+            // আপনার শিটের অ্যাকাউন্ট ডিটেইলস দেখার জন্য CSV বা ওয়েব অ্যাপ ব্যবহার করতে পারেন
             const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrL-jsR8MC0OuVePOkZvvWLEbOaNTF6Fm5lLzGiiTljNX0inLZ4ozpPac3oWJtEdvFAFrTjhmKIrNx/pub?output=csv';
 
             document.getElementById('lastTxAmount').innerText = 'লোড হচ্ছে...';
