@@ -200,6 +200,7 @@
                         let result = JSON.parse(trimmedData);
                         if (result.status === 'Success') {
                             localStorage.setItem('loggedInUser', JSON.stringify(result.user));
+                            localStorage.setItem('sessionToken', result.token);
                             alert('লগইন সফল হয়েছে! স্বাগতম ' + (result.user.name || ''));
                             window.location.href = 'index.html'; 
                         } else {
