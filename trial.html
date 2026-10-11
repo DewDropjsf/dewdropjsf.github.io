@@ -84,6 +84,10 @@
             font-weight: bold;
             cursor: pointer;
             padding: 5px 0;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             white-space: nowrap;
         }
 
@@ -378,8 +382,10 @@
             </div>
 
             <div class="nav-right">
-                <img id="headerHomeLogo" src="homelogo.png" alt="Home Logo" class="home-logo">
-                <a href="index.html" class="homebtn">Home</a>>
+                <a href="index.html" class="homebtn" style="display: inline-flex; align-items: center; text-decoration: none;">
+    <img src="homelogo.png" alt="Home Logo" class="home-logo">
+    <span>Home</span>
+</a>
             
                 <a href="marketplace.html" class="btn-market" style="background: #009a80; color: #fff; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-block; overflow: hidden; width: 120px;">
                     <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
