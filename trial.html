@@ -313,6 +313,8 @@
                         <label for="email">ইমেইল ঠিকানা</label>
                         <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
                     </div>
+                    <button type="button" id="sendOtpBtn" class="btn-submit">OTP ইমেইলে পাঠান</button>
+                </div>
 
                 <!-- ধাপ ২: OTP ও পাসওয়ার্ড (প্রথমে লুকানো থাকবে) -->
                 <div id="step2" class="hidden">
@@ -360,31 +362,16 @@
         const step1 = document.getElementById('step1');
         const step2 = document.getElementById('step2');
 
-        let savedPhotoBase64 = "";
-
-        // ছবি আপলোড হলে সেটিকে Base64 ফরম্যাটে কনভার্ট করে মেমরিতে রাখা
-        document.getElementById('memberPhotoInput').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    savedPhotoBase64 = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
         // ১. OTP পাঠানোর ইভেন্ট
         sendOtpBtn.addEventListener('click', () => {
             const memberId = document.getElementById('member_id').value.trim();
             const name = document.getElementById('name').value.trim();
             const mobile = document.getElementById('mobile').value.trim();
             const email = document.getElementById('email').value.trim();
-            const photoInput = document.getElementById('memberPhotoInput').value;
 
-            // সকল প্রাথমিক ইনপুট ও ছবি চেক করা
-            if (!memberId || !name || !mobile || !email || !photoInput) {
-                alert('অনুগ্রহ করে প্রথম ধাপের সকল তথ্য এবং আপনার ছবি সঠিকভাবে দিন।');
+            // সকল প্রাথমিক ইনপুট চেক করা
+            if (!memberId || !name || !mobile || !email) {
+                alert('অনুগ্রহ করে প্রথম ধাপের সকল তথ্য সঠিকভাবে পূরণ করুন।');
                 return;
             }
 
@@ -408,7 +395,6 @@
                     document.getElementById('mobile').readOnly = true;
                     document.getElementById('email').readOnly = true;
                     document.getElementById('address').readOnly = true;
-                    document.getElementById('memberPhotoInput').disabled = true;
 
                     // ২য় ধাপ দেখানো
                     step2.classList.remove('hidden');
@@ -443,7 +429,6 @@
             const otp = document.getElementById('otp').value.trim();
             const pass = document.getElementById('pass').value;
             const confirmPass = document.getElementById('confirm_pass').value;
-            const memberId = document.getElementById('member_id').value.trim();
 
             if (!otp) {
                 alert('অনুগ্রহ করে ইমেইলে প্রাপ্ত OTP কোডটি লিখুন।');
@@ -471,11 +456,6 @@
             .then(data => {
                 let result = data.trim();
                 if (result === 'Success') {
-                    // সফল হলে মেম্বারের ছবি লোকালস্টোরেজে আইডি দিয়ে সেভ করে রাখা যাতে ড্যাশবোর্ডে শো করে
-                    if (savedPhotoBase64) {
-                        localStorage.setItem('memberPhoto_' + memberId.toLowerCase(), savedPhotoBase64);
-                    }
-
                     alert('আলহামদুলিল্লাহ! আপনার অ্যাকাউন্ট সফলভাবে ভেরিফাইড এবং রেজিস্টার্ড হয়েছে। এখন লগইন করুন।');
                     form.reset();
                     window.location.href = 'login.html'; 
