@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>লগইন - DewDrop Joint Savings Fund</title>
+    <title>Fund Account - DewDrop Joint Savings Fund</title>
+    <!-- ব্রাউজার ট্যাব লোগো -->
     <link rel="icon" type="image/png" href="gldlogo.png">
     <style>
         * {
@@ -13,13 +14,135 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Arial; 
             background-color: #f4f7f6; 
             display: flex; 
-            justify-content: center; 
+            flex-direction: column;
             align-items: center; 
             min-height: 100vh; 
             margin: 0; 
-            padding: 20px; 
+            padding: 0; 
         }
-        .login-card { 
+        /* --- Header & Navigation --- */
+        header {
+            background-color: #004d40;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo-image {
+            height: 45px;
+            width: auto;
+            margin-right: 12px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .nav-container {
+            width: 100%;
+            padding: 0 15px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand-title {
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0;
+            white-space: nowrap;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-right: 10px;
+        }
+        .home-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            object-fit: cover;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        .homebtn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 0;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        /* Dropdown Menu for About Us */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropbtn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 0;
+            white-space: nowrap;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #ffffff;
+            min-width: 170px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .dropdown-content a {
+            color: #333333;
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            color: #1b4332;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            width: 100%;
+        }
+
+         .login-card { 
             background: #ffffff; 
             padding: 35px 30px; 
             border-radius: 10px; 
@@ -94,12 +217,74 @@
         .extra-links a:hover {
             text-decoration: underline;
         }
+ 
+        /* --- Footer --- */
+        .site-footer {
+            background-color: #002b36;
+            color: #ffffff;
+            width: 100%;
+            padding-top: 25px;
+            text-align: center;
+             margin-top: auto;
+        }
+        .developer-footer {
+            font-size: 13px;
+            color: #d3d3d3;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .developer-footer a {
+            color: #4ea8de;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .developer-footer a:hover {
+            text-decoration: underline;
+        }
+        .copyright-bar {
+            background-color: #001f28;
+            padding: 12px 20px;
+            font-size: 13px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b0bec5;
+        }
     </style>
 </head>
 <body>
 
-    <div class="login-card">
-        <h2>সদস্য লগইন</h2>
+    <!-- Header & Navigation Bar -->
+    <header class="site-header">
+        <div class="nav-container">
+           <div class="logo-container" style="cursor: default;">
+                <img src="gldlogo.png" alt="Logo" class="logo-image">                 
+                <span class="brand-title">DewDrop Joint Savings Fund</span>
+            </div>
+
+            <div class="nav-right">
+                <a href="index.html" class="homebtn">
+                    <img src="homelogo.png" alt="Home Logo" class="home-logo">
+                    <span>Home</span>
+                </a>
+            
+                <a href="marketplace.html" class="btn-market" style="background: #009a80; color: #fff; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-block; overflow: hidden; width: 120px;">
+                    <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
+                </a>
+                
+                <div class="dropdown">
+                    <button class="dropbtn">আমাদের সম্পর্কে ▾</button>
+                    <div class="dropdown-content">
+                        <a href="index.html#about-section">ডিউড্রপ সম্পর্কে</a>
+                        <a href="board.html">পরিচালনা পর্ষদ</a>
+                        <a href="developer.html">ডেভেলপার সম্পর্কে</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+   <div class="main-content">
+        <div class="login-card">
+           <h2>ফান্ড অ্যাকাউন্ট লগইন</h2>
         <form id="loginForm">
             <div class="form-group">
                 <label for="login_input">মেম্বার আইডি অথবা ইমেইল</label>
@@ -122,11 +307,10 @@
         </div>
 
         <div class="extra-links">
-            <p>অ্যাকাউন্ট নেই? <a href="signup.html">সাইন আপ করুন</a></p>
-            <p><a href="index.html">← হোম পেজে ফিরে যান</a></p>
+            <p>অ্যাকাউন্ট নেই? <a href="signup.html">ফান্ড অ্যাকাউন্ট করুন</a></p>
         </div>
     </div>
-
+</div>
     <!-- পাসওয়ার্ড রিসেট মডাল -->
     <div id="forgotPasswordModal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
         <div style="background-color:#fff; margin:10% auto; padding:20px; width:350px; border-radius:8px; position:relative;">
@@ -149,9 +333,21 @@
         </div>
     </div>
 
-    <!-- জাভাস্ক্রিপ্ট -->
+    <!-- সাইট ফুটার -->
+    <footer class="site-footer">
+        <div class="developer-footer">
+            Website Developed by:<br>
+            <strong>Md Tanjim Islam</strong><br>
+            <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
+        </div>
+        <div class="copyright-bar">
+            &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
+        </div>
+    </footer>
+
+        <!-- জাভাস্ক্রিপ্ট -->
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzg-oYznyvuI4_AotYlPHO-1I51EfARltjyPZXxbi_S-KTZYdvQB1_6gXPDaxLUOPqx/exec'; 
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxFfFejdFRj1bHWkV7rQg18z1wic8V_mznR3RzsDLVEQtG6MrN6QAvGkNjFLLnVDFmI/exec'; 
 
         const loginForm = document.getElementById('loginForm');
         const loginBtn = document.getElementById('loginBtn');
@@ -201,9 +397,8 @@
                         let result = JSON.parse(trimmedData);
                         if (result.status === 'Success') {
                             localStorage.setItem('loggedInUser', JSON.stringify(result.user));
-                            localStorage.setItem('sessionToken', result.token);
                             alert('লগইন সফল হয়েছে! স্বাগতম ' + (result.user.name || ''));
-                            window.location.href = 'dashboard.html'; 
+                            window.location.href = 'index.html'; 
                         } else {
                             alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
                             resetBtn();
@@ -324,6 +519,7 @@
                 this.disabled = false;
             });
         });
-    </script>
+    </script>   
+    
 </body>
 </html>
