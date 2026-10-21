@@ -397,8 +397,9 @@
                         let result = JSON.parse(trimmedData);
                         if (result.status === 'Success') {
                             localStorage.setItem('loggedInUser', JSON.stringify(result.user));
-                            alert('লগইন সফল হয়েছে! স্বাগতম ' + (result.user.name || ''));
-                            window.location.href = 'dashboard.html'; 
+                        localStorage.setItem('sessionToken', result.token);
+                        alert('লগইন সফল হয়েছে! স্বাগতম ' + (result.user.name || ''));
+                        window.location.href = 'dashboard.html';
                         } else {
                             alert('ভুল মেম্বার আইডি/ইমেইল অথবা পাসওয়ার্ড!');
                             resetBtn();
