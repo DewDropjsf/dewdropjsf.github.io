@@ -457,7 +457,7 @@
             if (result === 'Success') {
                 alert('আলহামদুলিল্লাহ! আপনার অ্যাকাউন্ট সফলভাবে ভেরিফাইড এবং রেজিস্টার্ড হয়েছে। এখন লগইন করুন।');
                 form.reset();
-                window.location.href = 'login.html';
+                window.location.href = 'dashboard.html';
             } else {
                 alert(errorMessage(result));
                 if (result.includes('OTP Expired') || result.includes('Too Many Attempts')) {
