@@ -261,8 +261,15 @@
             margin: 0;
             letter-spacing: 0.8px;
         }
+        
+        .button-group {
+          display: flex;
+          gap: 10px; /* দুটি বাটনের মাঝের দূরত্ব */
+          justify-content: flex-end; /* ডান দিকে এলাইন করার জন্য */
+          align-items: center;
+        }
          .btn-changepass { 
-            background-color: #f0afa8; 
+            background-color: #ff8f7a; 
             color: white; 
             border: none; 
             padding: 6px 14px; 
@@ -437,9 +444,10 @@
             <div class="column-box">
                 <div class="section-header">
                     <h3 class="section-title">MEMBER DETAILS</h3>
-                    <button class="btn-changepass" id="chnPassBtn">Log out</button>
-                </div>
-                    <button class="btn-logout" id="logoutBtn">Log out</button>
+                    
+                     <div class="button-group">
+                    <class="btn-changepass" id="chnPassBtn">Log out</button>
+                    <class="btn-logout" id="logoutBtn">Log out</button>
                 </div>
 
                 <div class="welcome-msg">Welcome, <span id="userName">...</span>!</div>
