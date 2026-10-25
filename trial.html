@@ -170,20 +170,22 @@
         }
 
         .photo-frame {
-    width: 180px; height: 215px; flex-shrink: 0;
-    background: #e0fbfc;
-    border-radius: 30px 0 30px 0;
-    box-shadow: 0 8px 22px rgba(0,0,0,0.22);
-    overflow: hidden;
-}
+            width: 180px; height: 215px; flex-shrink: 0;
+            background: #e0fbfc;
+            border-radius: 30px 0 30px 0;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.22);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
         
-.photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .hanging-board-wrapper {
             position: relative;
             display: flex;
             justify-content: center;
             flex-grow: 1;
+            margin-bottom: 25px;
         }
 
         .board-pin {
@@ -264,12 +266,13 @@
         
         .button-group {
           display: flex;
-          gap: 10px; /* দুটি বাটনের মাঝের দূরত্ব */
-          justify-content: flex-end; /* ডান দিকে এলাইন করার জন্য */
+          gap: 10px;
+          justify-content: flex-end;
           align-items: center;
         }
-         .btn-changepass { 
-            background-color: #ff8f7a; 
+
+        .btn-changepass { 
+            background-color: #2a9d8f; 
             color: white; 
             border: none; 
             padding: 6px 14px; 
@@ -281,7 +284,7 @@
         }
 
         .btn-changepass:hover { 
-            background-color: #8d0801; 
+            background-color: #21867a; 
         }
 
         .btn-logout { 
@@ -341,6 +344,33 @@
         #memberId {
             text-transform: uppercase;
         }
+
+        /* --- Modal CSS for Change Password --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .modal-box h3 { margin-top: 0; color: #03045e; text-align: center; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; color: #333; }
+        .form-group input { width: 100%; padding: 8px 12px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        .modal-buttons { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+        .btn-save { background: #2a9d8f; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-cancel { background: #6c757d; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: bold; }
 
       /* --- Footer --- */
     .site-footer {
@@ -405,9 +435,9 @@
 
             <div class="nav-right">
                 <a href="index.html" class="homebtn" style="display: inline-flex; align-items: center; text-decoration: none;">
-    <img src="homelogo.png" alt="Home Logo" class="home-logo">
-    <span>Home</span>
-</a>
+                    <img src="homelogo.png" alt="Home Logo" class="home-logo">
+                    <span>Home</span>
+                </a>
             
                 <a href="marketplace.html" class="btn-market" style="background: #009a80; color: #fff; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-block; overflow: hidden; width: 120px;">
                     <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
@@ -426,16 +456,15 @@
     </header>
 
     <div class="dashboard-container">      
-            <div class="hanging-board-wrapper">
-                <div class="board-pin"></div>
-                <div class="board-string"></div>
-                <div class="notice-board-box">
-                    <h2>Welcome to DashBoard</h2>
-                </div>
+        <div class="hanging-board-wrapper">
+            <div class="board-pin"></div>
+            <div class="board-string"></div>
+            <div class="notice-board-box">
+                <h2>Welcome to DashBoard</h2>
             </div>
+        </div>
         <div class="photo-frame">
-    <img src="prflogo.jpeg" alt="Member Photo" id="memberPhoto">
-</div>
+            <img src="prflogo.jpeg" alt="Member Photo" id="memberPhoto">
         </div>
 
         <div class="dashboard-grid">
@@ -445,9 +474,10 @@
                 <div class="section-header">
                     <h3 class="section-title">MEMBER DETAILS</h3>
                     
-                     <div class="button-group">
-                    <class="btn-changepass" id="chnPassBtn">Log out</button>
-                    <class="btn-logout" id="logoutBtn">Log out</button>
+                    <div class="button-group">
+                        <button class="btn-changepass" id="chnPassBtn">Change Pass</button>
+                        <button class="btn-logout" id="logoutBtn">Log out</button>
+                    </div>
                 </div>
 
                 <div class="welcome-msg">Welcome, <span id="userName">...</span>!</div>
@@ -495,18 +525,40 @@
 
         </div>
 
-          <!-- সাইট ফুটার -->
-    <footer class="site-footer">
-        <div class="developer-footer">
-            Website Developed by:<br>
-            <strong>Md Tanjim Islam</strong><br>
-            <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
+        <!-- সাইট ফুটার -->
+        <footer class="site-footer">
+            <div class="developer-footer">
+                Website Developed by:<br>
+                <strong>Md Tanjim Islam</strong><br>
+                <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
+            </div>
+            <div class="copyright-bar">
+                &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
+            </div>
+        </footer>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div class="modal-overlay" id="passModal">
+        <div class="modal-box">
+            <h3>পাসওয়ার্ড পরিবর্তন করুন</h3>
+            <div class="form-group">
+                <label>বর্তমান পাসওয়ার্ড:</label>
+                <input type="password" id="currentPass" placeholder="বর্তমান পাসওয়ার্ড দিন">
+            </div>
+            <div class="form-group">
+                <label>নতুন পাসওয়ার্ড:</label>
+                <input type="password" id="newPass" placeholder="নতুন পাসওয়ার্ড দিন">
+            </div>
+            <div class="form-group">
+                <label>পুনরায় নতুন পাসওয়ার্ড:</label>
+                <input type="password" id="confirmPass" placeholder="পুনরায় নতুন পাসওয়ার্ড দিন">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" id="cancelModalBtn">বাতিল</button>
+                <button class="btn-save" id="savePassBtn">সংরক্ষণ করুন</button>
+            </div>
         </div>
-        <div class="copyright-bar">
-            &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
-        </div>
-    </footer>
-    
     </div>
 
   <script>
@@ -519,8 +571,9 @@ let hideTimer = null;
 
 if (!token) { location.replace('login.html'); throw new Error('no session'); }
 
-async function api(action) {
-    const r = await fetch(API_URL, { method: 'POST', body: new URLSearchParams({ action, token }) });
+async function api(action, extraData = {}) {
+    const params = new URLSearchParams({ action, token, ...extraData });
+    const r = await fetch(API_URL, { method: 'POST', body: params });
     return JSON.parse((await r.text()).trim());
 }
 
@@ -571,6 +624,55 @@ $('checkAcBtn').onclick = async () => {
     } catch (e) {
         alert('ডেটা ফেচ করতে সমস্যা হয়েছে। ইন্টারনেট কানেকশন চেক করুন।');
         resetAccountDetails();
+    }
+};
+
+// Change Password Modal Script Controls
+const passModal = $('passModal');
+$('chnPassBtn').onclick = () => {
+    $('currentPass').value = '';
+    $('newPass').value = '';
+    $('confirmPass').value = '';
+    passModal.style.display = 'flex';
+};
+
+$('cancelModalBtn').onclick = () => {
+    passModal.style.display = 'none';
+};
+
+$('savePassBtn').onclick = async () => {
+    const currentPassword = $('currentPass').value.trim();
+    const newPassword = $('newPass').value.trim();
+    const confirmPassword = $('confirmPass').value.trim();
+
+    if (!currentPassword || !newPassword || !confirmPassword) {
+        alert('সবগুলো ঘর পূরণ করা বাধ্যতামূলক!');
+        return;
+    }
+    if (newPassword !== confirmPassword) {
+        alert('নতুন পাসওয়ার্ড এবং পুনরায় দেওয়া পাসওয়ার্ড এক হয়নি!');
+        return;
+    }
+
+    $('savePassBtn').innerText = 'পরিবর্তন হচ্ছে...';
+    $('savePassBtn').disabled = true;
+
+    try {
+        const res = await api('change_password', { 
+            current_password: currentPassword, 
+            new_password: newPassword 
+        });
+        if (res.status === 'Success') {
+            alert('সফলভাবে পাসওয়ার্ড পরিবর্তন করা হয়েছে!');
+            passModal.style.display = 'none';
+        } else {
+            alert(res.message || 'পাসওয়ার্ড পরিবর্তন ব্যর্থ হয়েছে!');
+        }
+    } catch (err) {
+        alert('সার্ভারে সংযোগ স্থাপন করা যায়নি। আবার চেষ্টা করুন।');
+    } finally {
+        $('savePassBtn').innerText = 'সংরক্ষণ করুন';
+        $('savePassBtn').disabled = false;
     }
 };
 
