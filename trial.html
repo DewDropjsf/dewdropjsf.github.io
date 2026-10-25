@@ -475,7 +475,7 @@
                     <h3 class="section-title">MEMBER DETAILS</h3>
                     
                     <div class="button-group">
-                        <button class="btn-changepass" id="chnPassBtn">❗Change Password!</button>
+                        <button class="btn-changepass" id="chnPassBtn">🔑 Change Password</button>
                         <button class="btn-logout" id="logoutBtn">⚠️Log out</button>
                     </div>
                 </div>
@@ -500,7 +500,7 @@
             <div class="column-box">
                 <div class="section-header">
                     <h3 class="section-title">ACCOUNT DETAILS</h3>
-                    <button class="btn-check" id="checkAcBtn">💝Check A/C</button>
+                    <button class="btn-check" id="checkAcBtn">💰 Check A/C</button>
                 </div>
                 
                 <div class="info-item" style="margin-top: 15px;">
@@ -654,6 +654,11 @@ $('savePassBtn').onclick = async () => {
 
     if (!currentPassword || !newPassword || !confirmPassword) {
         alert('সবগুলো ঘর পূরণ করা বাধ্যতামূলক!');
+        return;
+    }
+    // নতুন পাসওয়ার্ড অন্তত ৬ ডিজিট বা ক্যারেক্টার হতে হবে
+    if (newPassword.length < 6) {
+        alert('নতুন পাসওয়ার্ড কমপক্ষে ৬ অক্ষর বা সংখ্যার হতে হবে!');
         return;
     }
     if (newPassword !== confirmPassword) {
