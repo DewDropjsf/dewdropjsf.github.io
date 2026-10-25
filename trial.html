@@ -475,8 +475,8 @@
                     <h3 class="section-title">MEMBER DETAILS</h3>
                     
                     <div class="button-group">
-                        <button class="btn-changepass" id="chnPassBtn">Change Pass</button>
-                        <button class="btn-logout" id="logoutBtn">Log out</button>
+                        <button class="btn-changepass" id="chnPassBtn">❗Change Password!</button>
+                        <button class="btn-logout" id="logoutBtn">⚠️Log out</button>
                     </div>
                 </div>
 
@@ -500,7 +500,7 @@
             <div class="column-box">
                 <div class="section-header">
                     <h3 class="section-title">ACCOUNT DETAILS</h3>
-                    <button class="btn-check" id="checkAcBtn">Check A/C</button>
+                    <button class="btn-check" id="checkAcBtn">💝Check A/C</button>
                 </div>
                 
                 <div class="info-item" style="margin-top: 15px;">
@@ -538,22 +538,29 @@
         </footer>
     </div>
 
-    <!-- Password Change Modal -->
+   <!-- Password Change Modal -->
     <div class="modal-overlay" id="passModal">
         <div class="modal-box">
             <h3>পাসওয়ার্ড পরিবর্তন করুন</h3>
-            <div class="form-group">
+            
+            <div class="form-group" style="position: relative;">
                 <label>বর্তমান পাসওয়ার্ড:</label>
-                <input type="password" id="currentPass" placeholder="বর্তমান পাসওয়ার্ড দিন">
+                <input type="password" id="currentPass" placeholder="বর্তমান পাসওয়ার্ড দিন" style="padding-right: 35px;">
+                <span onclick="togglePass('currentPass', this)" style="position: absolute; right: 10px; top: 32px; cursor: pointer; font-size: 16px; user-select: none;">👁️</span>
             </div>
-            <div class="form-group">
+            
+            <div class="form-group" style="position: relative;">
                 <label>নতুন পাসওয়ার্ড:</label>
-                <input type="password" id="newPass" placeholder="নতুন পাসওয়ার্ড দিন">
+                <input type="password" id="newPass" placeholder="নতুন পাসওয়ার্ড দিন" style="padding-right: 35px;">
+                <span onclick="togglePass('newPass', this)" style="position: absolute; right: 10px; top: 32px; cursor: pointer; font-size: 16px; user-select: none;">👁️</span>
             </div>
-            <div class="form-group">
+            
+            <div class="form-group" style="position: relative;">
                 <label>পুনরায় নতুন পাসওয়ার্ড:</label>
-                <input type="password" id="confirmPass" placeholder="পুনরায় নতুন পাসওয়ার্ড দিন">
+                <input type="password" id="confirmPass" placeholder="পুনরায় নতুন পাসওয়ার্ড দিন" style="padding-right: 35px;">
+                <span onclick="togglePass('confirmPass', this)" style="position: absolute; right: 10px; top: 32px; cursor: pointer; font-size: 16px; user-select: none;">👁️</span>
             </div>
+
             <div class="modal-buttons">
                 <button class="btn-cancel" id="cancelModalBtn">বাতিল</button>
                 <button class="btn-save" id="savePassBtn">সংরক্ষণ করুন</button>
@@ -675,6 +682,17 @@ $('savePassBtn').onclick = async () => {
         $('savePassBtn').disabled = false;
     }
 };
+
+      function togglePass(fieldId, iconElem) {
+    const field = $(fieldId);
+    if (field.type === 'password') {
+        field.type = 'text';
+        iconElem.innerText = '🙈';
+    } else {
+        field.type = 'password';
+        iconElem.innerText = '👁️';
+    }
+}
 
 $('logoutBtn').onclick = async () => {
     try { await api('logout'); } catch (e) {}
