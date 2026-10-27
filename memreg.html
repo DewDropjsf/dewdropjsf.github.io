@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সদস্য ফর্ম - DewDrop Joint Savings Fund</title>
+    <style>
+        /* সাধারণ স্টাইল ও কালার থিম */
+        body {
+            font-family: 'SolaimanLipi', Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* হেডার ও ফুটার প্লেসহোল্ডার স্টাইল */
+        .common-header, .common-footer {
+            background-color: #1b4332;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 5px solid #2d6a4f;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .form-header h2 {
+            margin: 5px 0;
+            color: #1b4332;
+        }
+
+        .form-header p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* সেকশন হেডিং */
+        fieldset {
+            border: 1px solid #d8d8d8;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fafbfc;
+        }
+
+        legend {
+            font-weight: bold;
+            color: #2d6a4f;
+            background: #e9f5ed;
+            padding: 5px 15px;
+            border: 1px solid #c8e6d0;
+            border-radius: 4px;
+        }
+
+        /* ফর্ম গ্রিড ও ইনপুট ফিল্ড */
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .form-group.full-width {
+            flex: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #444;
+        }
+
+        input[type="text"], 
+        input[type="email"], 
+        input[type="number"], 
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus {
+            border-color: #2d6a4f;
+            outline: none;
+            box-shadow: 0 0 5px rgba(45, 106, 79, 0.2);
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        /* অঙ্গীকারনামা */
+        .declaration-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #856404;
+        }
+
+        /* সাবমিট বাটন */
+        .submit-btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .submit-btn {
+            background-color: #2d6a4f;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #1b4332;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ডিফল্ট হেডার -->
+    <div class="common-header">
+        <h3>DewDrop Joint Savings Fund - ড্যাশবোর্ড ও মেম্বারশিপ সিস্টেম</h3>
+    </div>
+
+    <div class="container">
+        <div class="form-header">
+            <h2>সদস্য ফর্ম (Membership Registration)</h2>
+            <p>পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা, যা ভবিষ্যতে আমাদের যেকোনো বড় ধরনের লাভজনক খাতে যৌথ বিনিয়োগের পথ সুগম করবে।</p>
+        </div>
+
+        <form id="membershipRegistrationForm">
+            
+            <!-- ব্যক্তিগত তথ্য -->
+            <fieldset>
+                <legend>ব্যক্তিগত তথ্য</legend>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nameBn">সদস্যের নাম (বাংলায়) *</label>
+                        <input type="text" id="nameBn" required placeholder="আপনার পুরো নাম বাংলায় লিখুন">
+                    </div>
+                    <div class="form-group">
+                        <label for="nameEn">সদস্যের নাম (English BLOCK LETTER) *</label>
+                        <input type="text" id="nameEn" required placeholder="FULL NAME IN BLOCK LETTERS">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fatherName">পিতার / স্বামীর নাম *</label>
+                        <input type="text" id="fatherName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="motherName">মাতার নাম *</label>
+                        <input type="text" id="motherName" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mobile">মোবাইল নম্বর *</label>
+                        <input type="text" id="mobile" required placeholder="01XXXXXXXXX">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">ই-মেইল (যাতে আইডি পাঠানো যায়) *</label>
+                        <input type="email" id="email" required placeholder="example@gmail.com">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="occupation">পেশা *</label>
+                        <input type="text" id="occupation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nid">জাতীয় পরিচয় পত্র (NID) নম্বর *</label>
+                        <input type="text" id="nid" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="age">বয়স *</label>
+                        <input type="number" id="age" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bloodGroup">রক্তের গ্রুপ</label>
+                        <select id="bloodGroup">
+                            <option value="">সিলেক্ট করুন</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>লিঙ্গ:</label>
+                        <div class="checkbox-group">
+                            <label><input type="radio" name="gender" value="পুরুষ" required> পুরুষ</label>
+                            <label><input type="radio" name="gender" value="মহিলা"> মহিলা</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>বৈবাহিক অবস্থা:</label>
+                        <div class="checkbox-group">
+                            <label><input type="radio" name="maritalStatus" value="বিবাহিত" required> বিবাহিত</label>
+                            <label><input type="radio" name="maritalStatus" value="অবিবাহিত"> অবিবাহিত</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="photo">পাসপোর্ট সাইজ ছবি আপলোড করুন *</label>
+                        <input type="file" id="photo" accept="image/*" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="membershipFee">সদস্যপদ ফি (টাকা - অফেরতযোগ্য)</label>
+                        <input type="text" id="membershipFee" value="৫০০ টাকা" readonly style="background-color: #e9ecef;">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- বর্তমান ঠিকানা -->
+            <fieldset>
+                <legend>বর্তমান ঠিকানা</legend>
+                <div class="form-row">
+                    <div class="form-group"><label>বাড়ি নং:</label><input type="text" id="currHouse"></div>
+                    <div class="form-group"><label>এলাকা:</label><input type="text" id="currArea"></div>
+                    <div class="form-group"><label>পোস্ট:</label><input type="text" id="currPost"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>ওয়ার্ড নং:</label><input type="text" id="currWard"></div>
+                    <div class="form-group"><label>থানা:</label><input type="text" id="currThana"></div>
+                    <div class="form-group"><label>জেলা:</label><input type="text" id="currDistrict"></div>
+                </div>
+            </fieldset>
+
+            <!-- স্থায়ী ঠিকানা -->
+            <fieldset>
+                <legend>স্থায়ী ঠিকানা</legend>
+                <div class="form-row">
+                    <div class="form-group"><label>গ্রাম:</label><input type="text" id="permVillage"></div>
+                    <div class="form-group"><label>পোস্ট:</label><input type="text" id="permPost"></div>
+                    <div class="form-group"><label>ইউনিয়ন:</label><input type="text" id="permUnion"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>উপজেলা:</label><input type="text" id="permUpazila"></div>
+                    <div class="form-group"><label>জেলা:</label><input type="text" id="permDistrict"></div>
+                    <div class="form-group"><label>ওয়ার্ড নং:</label><input type="text" id="permWard"></div>
+                </div>
+            </fieldset>
+
+            <!-- নমিনির পরিচিতি -->
+            <fieldset>
+                <legend>নমিনীর পরিচিতি</legend>
+                <div class="form-row">
+                    <div class="form-group"><label>নমিনীর নাম (বাংলায়):</label><input type="text" id="nomineeNameBn" required></div>
+                    <div class="form-group"><label>নমিনীর নাম (English):</label><input type="text" id="nomineeNameEn" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>পিতা/মাতা/স্বামীর নাম:</label><input type="text" id="nomineeGuardian"></div>
+                    <div class="form-group"><label>সম্পর্ক:</label><input type="text" id="nomineeRelation" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>মোবাইল নম্বর:</label><input type="text" id="nomineeMobile"></div>
+                    <div class="form-group"><label>বয়স:</label><input type="number" id="nomineeAge"></div>
+                    <div class="form-group"><label>জাতীয় পরিচয় পত্র (NID):</label><input type="text" id="nomineeNid"></div>
+                </div>
+            </fieldset>
+
+            <!-- অঙ্গীকারনামা -->
+            <div class="declaration-box">
+                <strong>অঙ্গীকারনামা:</strong> "আমি এই মর্মে অঙ্গীকার করছি যে, DewDrop Joint Savings Fund-এর সকল নিয়ম ও নীতিমালা মেনে চলব। প্রতি মাসের নির্ধারিত সময়ের মধ্যে সঞ্চয়ের চাঁদা পরিশোধ করব। ফান্ডের স্বার্থবিরোধী কোনো কাজে লিপ্ত হব না।"
+            </div>
+
+            <!-- সাবমিট বাটন -->
+            <div class="submit-btn-container">
+                <button type="submit" class="submit-btn">ফরম জমা দিন (Submit)</button>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- ডিফল্ট ফুটার -->
+    <div class="common-footer">
+        <p>&copy; 2026 DewDrop Joint Savings Fund. All Rights Reserved.</p>
+    </div>
+
+    <script>
+        document.getElementById('membershipRegistrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // এখানে ফায়ারবেজ ডাটাবেজ সেভ এবং ছবি আপলোডের লজিক যুক্ত হবে
+            alert('আপনার ফরমটি সফলভাবে সাবমিট হয়েছে এবং পেন্ডিং লিস্টে জমা হয়েছে! অ্যাডমিন অ্যাপ্রুভ করার পর আপনাকে মেইলের মাধ্যমে জানিয়ে দেওয়া হবে।');
+            
+            // ফর্ম রিসেট
+            this.reset();
+        });
+    </script>
+
+</body>
+</html>
