@@ -330,15 +330,90 @@
         <p>&copy; 2026 DewDrop Joint Savings Fund. All Rights Reserved.</p>
     </div>
 
+    <!-- ফায়ারবেজ স্ক্রিপ্ট সিডিএন (Firebase SDKs) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
     <script>
-        document.getElementById('membershipRegistrationForm').addEventListener('submit', function(e) {
+        // ফায়ারবেজ কনফিগারেশন
+        const firebaseConfig = {
+            databaseURL: "https://dewdrop-shopping-default-rtdb.firebaseio.com"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        const database = firebase.database();
+
+        document.getElementById('membershipRegistrationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // এখানে ফায়ারবেজ ডাটাবেজ সেভ এবং ছবি আপলোডের লজিক যুক্ত হবে
-            alert('আপনার ফরমটি সফলভাবে সাবমিট হয়েছে এবং পেন্ডিং লিস্টে জমা হয়েছে! অ্যাডমিন অ্যাপ্রুভ করার পর আপনাকে মেইলের মাধ্যমে জানিয়ে দেওয়া হবে।');
-            
-            // ফর্ম রিসেট
-            this.reset();
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'সাবমিট হচ্ছে...';
+
+            try {
+                const photoInput = document.getElementById('photo');
+                let photoFileName = "";
+                if (photoInput.files.length > 0) {
+                    photoFileName = photoInput.files[0].name;
+                }
+
+                const formDataObj = {
+                    nameBn: document.getElementById('nameBn').value,
+                    nameEn: document.getElementById('nameEn').value,
+                    fatherName: document.getElementById('fatherName').value,
+                    motherName: document.getElementById('motherName').value,
+                    mobile: document.getElementById('mobile').value,
+                    email: document.getElementById('email').value,
+                    occupation: document.getElementById('occupation').value,
+                    nid: document.getElementById('nid').value,
+                    age: document.getElementById('age').value,
+                    bloodGroup: document.getElementById('bloodGroup').value,
+                    gender: document.querySelector('input[name="gender"]:checked').value,
+                    maritalStatus: document.querySelector('input[name="maritalStatus"]:checked').value,
+                    photoFileName: photoFileName,
+                    
+                    currHouse: document.getElementById('currHouse').value,
+                    currArea: document.getElementById('currArea').value,
+                    currPost: document.getElementById('currPost').value,
+                    currWard: document.getElementById('currWard').value,
+                    currThana: document.getElementById('currThana').value,
+                    currDistrict: document.getElementById('currDistrict').value,
+                    
+                    permVillage: document.getElementById('permVillage').value,
+                    permPost: document.getElementById('permPost').value,
+                    permUnion: document.getElementById('permUnion').value,
+                    permUpazila: document.getElementById('permUpazila').value,
+                    permDistrict: document.getElementById('permDistrict').value,
+                    permWard: document.getElementById('permWard').value,
+                    
+                    nomineeNameBn: document.getElementById('nomineeNameBn').value,
+                    nomineeNameEn: document.getElementById('nomineeNameEn').value,
+                    nomineeGuardian: document.getElementById('nomineeGuardian').value,
+                    nomineeRelation: document.getElementById('nomineeRelation').value,
+                    nomineeMobile: document.getElementById('nomineeMobile').value,
+                    nomineeAge: document.getElementById('nomineeAge').value,
+                    nomineeNid: document.getElementById('nomineeNid').value,
+                    
+                    status: 'Pending',
+                    submissionDate: new Date().toLocaleString()
+                };
+
+                const newMemberRef = database.ref('pendingMembers').push();
+                await newMemberRef.set(formDataObj);
+
+                alert('আলহামদুলিল্লাহ! আপনার ফরমটি সফলভাবে সাবমিট হয়েছে এবং পেন্ডিং লিস্টে জমা হয়েছে।');
+                this.reset();
+
+            } catch (error) {
+                console.error("Error: ", error);
+                alert('দুঃখিত, কোনো কারিগরি ত্রুটির কারণে ফর্ম জমা হয়নি।');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'ফরম জমা দিন (Submit)';
+            }
         });
     </script>
 
