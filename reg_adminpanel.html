@@ -136,34 +136,47 @@
             });
         }
 
-        // মেম্বার অ্যাপ্রুভ করার লজিক (pendingMembers থেকে সরিয়ে approvedMembers এ পাঠানো)
+      // মেম্বার অ্যাপ্রুভ এবং ইমেইল পাঠানোর লজিক
         async function approveMember(key) {
             const memberIdInput = document.getElementById(`id_${key}`).value.trim();
             if (!memberIdInput) {
-                alert('অনুগ্রহ করে সদস্যের জন্য একটি ইউনিক মেম্বার আইডি দিন (যেমন: 101 বা DDJSF-101)');
+                alert('অনুগ্রহ করে সদস্যের জন্য একটি ইউনিক মেম্বার আইডি দিন (যেমন: 101)');
                 return;
             }
 
-            if (!confirm(` নিশ্চিত করতে চান যে এই মেম্বারকে "${memberIdInput}" আইডি দিয়ে অ্যাপ্রুভ করবেন?`)) {
+            if (!confirm(`নিশ্চিত করতে চান যে এই মেম্বারকে "${memberIdInput}" আইডি দিয়ে অ্যাপ্রুভ করবেন?`)) {
                 return;
             }
 
             try {
-                // ১. পেন্ডিং নোড থেকে ডেটা ফেচ করা
                 const memberRef = database.ref('pendingMembers/' + key);
                 memberRef.once('value', async (snapshot) => {
                     const memberData = snapshot.val();
                     if (memberData) {
-                        // সদস্যের ডাটাতে ইউনিক আইডি এবং স্ট্যাটাস আপডেট যোগ করা
                         memberData.memberId = memberIdInput;
                         memberData.approvedDate = new Date().toLocaleString();
                         memberData.status = 'Approved';
 
-                        // ২. অনুমোদিত মেম্বারদের নোডে (`approvedMembers`) সেভ করা
+                        // ১. অনুমোদিত মেম্বারদের নোডে সেভ করা
                         await database.ref('approvedMembers/' + key).set(memberData);
 
-                        // ৩. পেন্ডিং নোড থেকে ডাটা ডিলিট করা
+                        // ২. পেন্ডিং নোড থেকে ডিলিট করা
                         await memberRef.remove();
+
+                        // ৩. ইমেইল পাঠানোর ফাংশন (EmailJS এর মাধ্যমে)
+                        // (প্রথমে EmailJS অ্যাকাউন্ট সেটআপ করে Service ID, Template ID এবং Public Key এখানে বসাতে হবে)
+                        /*
+                        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+                            to_name: memberData.nameBn,
+                            to_email: memberData.email,
+                            member_id: memberIdInput
+                        }, "YOUR_PUBLIC_KEY")
+                        .then(() => {
+                            console.log('Email sent successfully!');
+                        }, (error) => {
+                            console.log('Email failed...', error);
+                        });
+                        */
 
                         alert('আলহামদুলিল্লাহ! মেম্বার সফলভাবে অ্যাপ্রুভ হয়েছে এবং ডাটাবেজে আপডেট হয়েছে।');
                     }
