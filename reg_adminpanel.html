@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মেম্বারশিপ অ্যাডমিন প্যানেল - DewDrop Joint Savings Fund</title>
+    <!-- ফায়ারবেজ সিডিএন (Firebase SDKs) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    
+    <style>
+        body { font-family: 'SolaimanLipi', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #2c3e50; }
+        
+        /* লগইন সেকশন স্টাইল */
+        #login-section { max-width: 400px; margin: 100px auto; padding: 30px; background: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
+        #login-section input { width: 100%; padding: 10px; margin: 15px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        #login-section button { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; }
+        #login-section button:hover { background: #219653; }
+        
+        /* অ্যাডমিন টেবিল স্টাইল */
+        #admin-panel { display: none; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; font-size: 14px; }
+        th { background-color: #2c3e50; color: white; }
+        .approve-btn { background: #27ae60; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
+        .approve-btn:hover { background: #219653; }
+        .member-id-input { width: 90px; padding: 5px; text-align: center; }
+        .logout-btn { background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; float: right; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <!-- ১. পাসওয়ার্ড লগইন সেকশন -->
+    <div id="login-section">
+        <h3>অ্যাডমিন লগইন</h3>
+        <p style="font-size: 13px; color: #666;">প্রবেশ করতে সিক্রেট পাসওয়ার্ড দিন</p>
+        <input type="password" id="adminPassword" placeholder="পাসওয়ার্ড লিখুন">
+        <button onclick="checkLogin()">লগইন করুন</button>
+    </div>
+
+    <!-- ২. মূল অ্যাডমিন প্যানেল (লগইন সফল হলে দেখাবে) -->
+    <div id="admin-panel" class="container">
+        <button class="logout-btn" onclick="logout()">লগআউট</button>
+        <h2>পেন্ডিং মেম্বারশিপ আবেদনসমূহ</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>আবেদনের তারিখ</th>
+                    <th>নাম (বাংলা ও ইংরেজি)</th>
+                    <th>মোবাইল ও ইমেইল</th>
+                    <th>পেশা ও NID</th>
+                    <th>ফাইলের নাম (ছবি)</th>
+                    <th>নমিনির তথ্য</th>
+                    <th>ইউনিক মেম্বার আইডি</th>
+                    <th>অ্যাকশন</th>
+                </tr>
+            </thead>
+            <tbody id="pendingTableBody">
+                <!-- ফায়ারবেজ থেকে ডেটা এখানে ডায়নামিক্যালি লোড হবে -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // ফায়ারবেজ কনফিগারেশন
+        const firebaseConfig = {
+            databaseURL: "https://dewdrop-shopping-default-rtdb.firebaseio.com"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
+
+        // অ্যাডমিন পাসওয়ার্ড চেক ফাংশন (আপনার পছন্দমতো পাসওয়ার্ড এখানে বদলাতে পারেন)
+        const ADMIN_PASS = "dewdrop2026"; // ডিফল্ট পাসওয়ার্ড, পরে পরিবর্তন করে নিতে পারেন
+
+        function checkLogin() {
+            const passInput = document.getElementById('adminPassword').value;
+            if (passInput === ADMIN_PASS) {
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('admin-panel').style.display = 'block';
+                loadPendingMembers(); // ডেটা লোড ফাংশন কল
+            } else {
+                alert('ভুল পাসওয়ার্ড! সঠিক পাসওয়ার্ড দিয়ে চেষ্টা করুন।');
+            }
+        }
+
+        function logout() {
+            document.getElementById('admin-panel').style.display = 'none';
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('adminPassword').value = '';
+        }
+
+        // ফায়ারবেজ থেকে পেন্ডিং মেম্বারদের ডাটা টেবিলে নিয়ে আসা
+        function loadPendingMembers() {
+            const tableBody = document.getElementById('pendingTableBody');
+            const pendingRef = database.ref('pendingMembers');
+
+            pendingRef.on('value', (snapshot) => {
+                tableBody.innerHTML = '';
+                const data = snapshot.val();
+
+                if (!data) {
+                    tableBody.innerHTML = `<tr><td colspan="8" style="color: #888;">কোনো পেন্ডিং আবেদন নেই।</td></tr>`;
+                    return;
+                }
+
+                Object.keys(data).forEach((key) => {
+                    const member = data[key];
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${member.submissionDate || 'N/A'}</td>
+                        <td><b>${member.nameBn}</b><br><span style="font-size:12px; color:#555;">${member.nameEn}</span></td>
+                        <td>${member.mobile}<br><span style="font-size:12px; color:#555;">${member.email}</span></td>
+                        <td>${member.occupation}<br><span style="font-size:12px; color:#555;">NID: ${member.nid}</span></td>
+                        <td>${member.photoFileName || 'ছবি নাই'}</td>
+                        <td style="font-size:12px; text-align:left;">
+                            নাম: ${member.nomineeNameBn}<br>
+                            সম্পর্ক: ${member.nomineeRelation}<br>
+                            মোবাইল: ${member.nomineeMobile}
+                        </td>
+                        <td>
+                            <input type="text" id="id_${key}" class="member-id-input" placeholder="যেমন: 101">
+                        </td>
+                        <td>
+                            <button class="approve-btn" onclick="approveMember('${key}')">অ্যাপ্রুভ</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            });
+        }
+
+        // মেম্বার অ্যাপ্রুভ করার লজিক (pendingMembers থেকে সরিয়ে approvedMembers এ পাঠানো)
+        async function approveMember(key) {
+            const memberIdInput = document.getElementById(`id_${key}`).value.trim();
+            if (!memberIdInput) {
+                alert('অনুগ্রহ করে সদস্যের জন্য একটি ইউনিক মেম্বার আইডি দিন (যেমন: 101 বা DDJSF-101)');
+                return;
+            }
+
+            if (!confirm(` নিশ্চিত করতে চান যে এই মেম্বারকে "${memberIdInput}" আইডি দিয়ে অ্যাপ্রুভ করবেন?`)) {
+                return;
+            }
+
+            try {
+                // ১. পেন্ডিং নোড থেকে ডেটা ফেচ করা
+                const memberRef = database.ref('pendingMembers/' + key);
+                memberRef.once('value', async (snapshot) => {
+                    const memberData = snapshot.val();
+                    if (memberData) {
+                        // সদস্যের ডাটাতে ইউনিক আইডি এবং স্ট্যাটাস আপডেট যোগ করা
+                        memberData.memberId = memberIdInput;
+                        memberData.approvedDate = new Date().toLocaleString();
+                        memberData.status = 'Approved';
+
+                        // ২. অনুমোদিত মেম্বারদের নোডে (`approvedMembers`) সেভ করা
+                        await database.ref('approvedMembers/' + key).set(memberData);
+
+                        // ৩. পেন্ডিং নোড থেকে ডাটা ডিলিট করা
+                        await memberRef.remove();
+
+                        alert('আলহামদুলিল্লাহ! মেম্বার সফলভাবে অ্যাপ্রুভ হয়েছে এবং ডাটাবেজে আপডেট হয়েছে।');
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error approving member: ", error);
+                alert('ত্রুটি ঘটেছে! আবার চেষ্টা করুন।');
+            }
+        }
+    </script>
+</body>
+</html>
