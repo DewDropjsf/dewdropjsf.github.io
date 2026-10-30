@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>মেম্বারশিপ অ্যাডমিন প্যানেল - DewDrop Joint Savings Fund</title>
-    <!-- ফায়ারবেজ সিডিএন (Firebase SDKs) -->
+    <!-- ফায়ারবেজ ও EmailJS সিডিএন -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <style>
         body { font-family: 'SolaimanLipi', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
@@ -40,7 +41,7 @@
         <button onclick="checkLogin()">লগইন করুন</button>
     </div>
 
-    <!-- ২. মূল অ্যাডমিন প্যানেল (লগইন সফল হলে দেখাবে) -->
+    <!-- ২. মূল অ্যাডমিন প্যানেল -->
     <div id="admin-panel" class="container">
         <button class="logout-btn" onclick="logout()">লগআউট</button>
         <h2>পেন্ডিং মেম্বারশিপ আবেদনসমূহ</h2>
@@ -59,13 +60,13 @@
                 </tr>
             </thead>
             <tbody id="pendingTableBody">
-                <!-- ফায়ারবেজ থেকে ডেটা এখানে ডায়নামিক্যালি লোড হবে -->
+                <!-- ডায়নামিক ডাটা লোড হবে -->
             </tbody>
         </table>
     </div>
 
     <script>
-        // ফায়ারবেজ কনফিগারেশন
+        // ১. ফায়ারবেজ কনফিগারেশন
         const firebaseConfig = {
             databaseURL: "https://dewdrop-shopping-default-rtdb.firebaseio.com"
         };
@@ -75,15 +76,18 @@
         }
         const database = firebase.database();
 
-        // অ্যাডমিন পাসওয়ার্ড চেক ফাংশন (আপনার পছন্দমতো পাসওয়ার্ড এখানে বদলাতে পারেন)
-        const ADMIN_PASS = "dewdrop2026"; // ডিফল্ট পাসওয়ার্ড, পরে পরিবর্তন করে নিতে পারেন
+        // ২. EmailJS ইনিশিয়ালাইজেশন (Public Key সহ)
+        emailjs.init("VsBVbKELxpfLHOxdx");
+
+        // অ্যাডমিন পাসওয়ার্ড
+        const ADMIN_PASS = "dewdrop2026";
 
         function checkLogin() {
             const passInput = document.getElementById('adminPassword').value;
             if (passInput === ADMIN_PASS) {
                 document.getElementById('login-section').style.display = 'none';
                 document.getElementById('admin-panel').style.display = 'block';
-                loadPendingMembers(); // ডেটা লোড ফাংশন কল
+                loadPendingMembers();
             } else {
                 alert('ভুল পাসওয়ার্ড! সঠিক পাসওয়ার্ড দিয়ে চেষ্টা করুন।');
             }
@@ -95,7 +99,7 @@
             document.getElementById('adminPassword').value = '';
         }
 
-        // ফায়ারবেজ থেকে পেন্ডিং মেম্বারদের ডাটা টেবিলে নিয়ে আসা
+        // পেন্ডিং মেম্বারদের ডাটা টেবিলে লোড করা
         function loadPendingMembers() {
             const tableBody = document.getElementById('pendingTableBody');
             const pendingRef = database.ref('pendingMembers');
@@ -136,7 +140,7 @@
             });
         }
 
-      // মেম্বার অ্যাপ্রুভ এবং ইমেইল পাঠানোর লজিক
+        // মেম্বার অ্যাপ্রুভ, ফায়ারবেজ ট্রান্সফার এবং ইমেইল পাঠানোর মূল লজিক
         async function approveMember(key) {
             const memberIdInput = document.getElementById(`id_${key}`).value.trim();
             if (!memberIdInput) {
@@ -163,22 +167,22 @@
                         // ২. পেন্ডিং নোড থেকে ডিলিট করা
                         await memberRef.remove();
 
-                        // ৩. ইমেইল পাঠানোর ফাংশন (EmailJS এর মাধ্যমে)
-                        // (প্রথমে EmailJS অ্যাকাউন্ট সেটআপ করে Service ID, Template ID এবং Public Key এখানে বসাতে হবে)
-                        /*
-                        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+                        // ৩. EmailJS দিয়ে স্বয়ংক্রিয় ইমেইল পাঠানো
+                        const emailParams = {
                             to_name: memberData.nameBn,
-                            to_email: memberData.email,
+                            email: memberData.email,
                             member_id: memberIdInput
-                        }, "YOUR_PUBLIC_KEY")
-                        .then(() => {
-                            console.log('Email sent successfully!');
-                        }, (error) => {
-                            console.log('Email failed...', error);
-                        });
-                        */
+                        };
 
-                        alert('আলহামদুলিল্লাহ! মেম্বার সফলভাবে অ্যাপ্রুভ হয়েছে এবং ডাটাবেজে আপডেট হয়েছে।');
+                        emailjs.send("service_0r5teka", "template_nekfnwd", emailParams)
+                            .then((response) => {
+                                console.log('Email sent successfully!', response.status, response.text);
+                            }, (error) => {
+                                console.error('Email failed...', error);
+                                alert('মেম্বার অ্যাপ্রুভ হয়েছে কিন্তু ইমেইল পাঠানো যায়নি!');
+                            });
+
+                        alert('আলহামদুলিল্লাহ! মেম্বার সফলভাবে অ্যাপ্রুভ হয়েছে এবং তার ইমেইলে আইডি পাঠিয়ে দেওয়া হয়েছে।');
                     }
                 });
 
