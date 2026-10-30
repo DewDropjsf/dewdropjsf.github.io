@@ -3,339 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>সদস্য ফর্ম - DewDrop Joint Savings Fund</title>
+    <title>সদস্য ফরম (Membership Registration) - DewDrop Joint Savings Fund</title>
+    <!-- ফায়ারবেজ সিডিএন -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    
     <style>
-        /* সাধারণ স্টাইল ও কালার থিম */
-        body {
-            font-family: 'SolaimanLipi', Arial, sans-serif;
-            background-color: #f4f7f6;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
+        body { font-family: 'SolaimanLipi', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 750px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; }
+        h2 { text-align: center; color: #2c3e50; margin-bottom: 5px; }
+        .form-desc { text-align: center; font-size: 13px; color: #555; margin-bottom: 25px; line-height: 1.5; }
+        
+        .note-top { text-align: right; font-size: 12px; color: #e74c3c; font-weight: bold; margin-bottom: 15px; }
+        
+        .section-title { background: #e8f4f8; color: #2c3e50; padding: 8px 12px; font-weight: bold; font-size: 15px; margin: 25px 0 15px 0; border-left: 4px solid #2980b9; }
+        .form-row { display: flex; gap: 20px; margin-bottom: 15px; }
+        .form-group { flex: 1; display: flex; flex-direction: column; position: relative; }
+        .form-group label { font-size: 13px; color: #333; margin-bottom: 5px; font-weight: bold; }
+        .required-star { color: #e74c3c; }
+        
+        .form-group input, .form-group select { padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; outline: none; font-family: 'SolaimanLipi', Arial, sans-serif; }
+        .form-group input:focus, .form-group select:focus { border-color: #2980b9; }
+        
+        /* বাংলা ভাষার অ্যালার্ট নোট */
+        .lang-error { font-size: 11px; color: #e74c3c; margin-top: 3px; display: none; font-weight: bold; }
 
-        /* হেডার ও ফুটার প্লেসহোল্ডার স্টাইল */
-        .common-header, .common-footer {
-            background-color: #1b4332;
-            color: white;
-            text-align: center;
-            padding: 15px;
-        }
-
-        .container {
-            max-width: 850px;
-            margin: 30px auto;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-top: 5px solid #2d6a4f;
-        }
-
-        .form-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .form-header h2 {
-            margin: 5px 0;
-            color: #1b4332;
-        }
-
-        .form-header p {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* সেকশন হেডিং */
-        fieldset {
-            border: 1px solid #d8d8d8;
-            border-radius: 6px;
-            padding: 20px;
-            margin-bottom: 20px;
-            background-color: #fafbfc;
-        }
-
-        legend {
-            font-weight: bold;
-            color: #2d6a4f;
-            background: #e9f5ed;
-            padding: 5px 15px;
-            border: 1px solid #c8e6d0;
-            border-radius: 4px;
-        }
-
-        /* ফর্ম গ্রিড ও ইনপুট ফিল্ড */
-        .form-row {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .form-group {
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .form-group.full-width {
-            flex: 100%;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            font-size: 14px;
-            color: #444;
-        }
-
-        input[type="text"], 
-        input[type="email"], 
-        input[type="number"], 
-        select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
-        input:focus, select:focus {
-            border-color: #2d6a4f;
-            outline: none;
-            box-shadow: 0 0 5px rgba(45, 106, 79, 0.2);
-        }
-
-        .checkbox-group {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            margin-top: 8px;
-        }
-
-        /* অঙ্গীকারনামা */
-        .declaration-box {
-            background: #fff3cd;
-            border: 1px solid #ffeeba;
-            padding: 15px;
-            border-radius: 5px;
-            font-size: 13px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            color: #856404;
-        }
-
-        /* সাবমিট বাটন */
-        .submit-btn-container {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .submit-btn {
-            background-color: #2d6a4f;
-            color: white;
-            border: none;
-            padding: 12px 35px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .submit-btn:hover {
-            background-color: #1b4332;
-        }
+        /* অঙ্গীকারনামা ও সাবমিট */
+        .declaration-box { background: #f9f9f9; border: 1px solid #ddd; padding: 15px; border-radius: 4px; margin-top: 20px; font-size: 13px; line-height: 1.6; display: flex; align-items: flex-start; gap: 10px; }
+        .declaration-box input[type="checkbox"] { margin-top: 4px; transform: scale(1.2); cursor: pointer; }
+        
+        .submit-btn { background: #27ae60; color: white; border: none; padding: 12px 30px; font-size: 16px; border-radius: 4px; cursor: pointer; display: block; width: 100%; margin-top: 25px; font-weight: bold; }
+        .submit-btn:hover { background: #219653; }
+        
+        .photo-preview { width: 90px; height: 90px; border: 1px dashed #ccc; border-radius: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-top: 5px; background: #fafafa; }
+        .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
     </style>
 </head>
 <body>
 
-    <!-- ডিফল্ট হেডার -->
-    <div class="common-header">
-        <h3>DewDrop Joint Savings Fund - ড্যাশবোর্ড ও মেম্বারশিপ সিস্টেম</h3>
-    </div>
-
     <div class="container">
-        <div class="form-header">
-            <h2>সদস্য ফর্ম (Membership Registration)</h2>
-            <p>পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা, যা ভবিষ্যতে আমাদের যেকোনো বড় ধরনের লাভজনক খাতে যৌথ বিনিয়োগের পথ সুগম করবে।</p>
+        <div class="note-top">* চিহ্নিত ফিল্ড অবশ্যই পূরণীয়</div>
+        
+        <h2>সদস্য ফরম (Membership Registration)</h2>
+        <div class="form-desc">
+            পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা, যা ভবিষ্যতে আমাদের যেকোনো বড় ধরনের লাভজনক খাতে যৌথ বিনিয়োগের পথ সুগম করবে।
         </div>
 
-        <form id="membershipRegistrationForm">
+        <form id="membershipForm" onsubmit="submitForm(event)">
             
             <!-- ব্যক্তিগত তথ্য -->
-            <fieldset>
-                <legend>ব্যক্তিগত তথ্য</legend>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="nameBn">সদস্যের নাম (বাংলায়) *</label>
-                        <input type="text" id="nameBn" required placeholder="আপনার পুরো নাম বাংলায় লিখুন">
-                    </div>
-                    <div class="form-group">
-                        <label for="nameEn">সদস্যের নাম (English BLOCK LETTER) *</label>
-                        <input type="text" id="nameEn" required placeholder="FULL NAME IN BLOCK LETTERS">
-                    </div>
+            <div class="section-title">ব্যক্তিগত তথ্য</div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>সদস্যের নাম (বাংলা) <span class="required-star">*</span></label>
+                    <input type="text" id="nameBn" placeholder="আপনার পুরো নাম বাংলায় লিখুন" oninput="validateBangla('nameBn', 'errNameBn')" required>
+                    <span id="errNameBn" class="lang-error">অনুগ্রহ করে বাংলায় লিখুন</span>
                 </div>
+                <div class="form-group">
+                    <label>সদস্যের নাম (English BLOCK LETTER) <span class="required-star">*</span></label>
+                    <input type="text" id="nameEn" placeholder="FULL NAME IN BLOCK LETTERS" style="text-transform: uppercase;" required>
+                </div>
+            </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="fatherName">পিতার / স্বামীর নাম *</label>
-                        <input type="text" id="fatherName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="motherName">মাতার নাম *</label>
-                        <input type="text" id="motherName" required>
-                    </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>পিতার / স্বামীর নাম <span class="required-star">*</span></label>
+                    <input type="text" id="fatherOrHusband" placeholder="পিতার বা স্বামীর নাম বাংলায় লিখুন" oninput="validateBangla('fatherOrHusband', 'errFather')" required>
+                    <span id="errFather" class="lang-error">অনুগ্রহ করে বাংলায় লিখুন</span>
                 </div>
+                <div class="form-group">
+                    <label>মাতার নাম <span class="required-star">*</span></label>
+                    <input type="text" id="motherName" placeholder="মাতার নাম বাংলায় লিখুন" oninput="validateBangla('motherName', 'errMother')" required>
+                    <span id="errMother" class="lang-error">অনুগ্রহ করে বাংলায় লিখুন</span>
+                </div>
+            </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="mobile">মোবাইল নম্বর *</label>
-                        <input type="text" id="mobile" required placeholder="01XXXXXXXXX">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">ই-মেইল (যাতে আইডি পাঠানো যায়) *</label>
-                        <input type="email" id="email" required placeholder="example@gmail.com">
-                    </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>মোবাইল নম্বর <span class="required-star">*</span></label>
+                    <input type="tel" id="mobile" placeholder="01XXXXXXXXX" pattern="01[0-9]{9}" required>
                 </div>
+                <div class="form-group">
+                    <label>ই-মেইল (যাতে আইডি পাঠানো যায়) <span class="required-star">*</span></label>
+                    <input type="email" id="email" placeholder="example@gmail.com" required>
+                </div>
+            </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="occupation">পেশা *</label>
-                        <input type="text" id="occupation" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="nid">জাতীয় পরিচয় পত্র (NID) নম্বর *</label>
-                        <input type="text" id="nid" required>
-                    </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>পেশা</label>
+                    <input type="text" id="occupation" placeholder="আপনার পেশা লিখুন">
                 </div>
+                <div class="form-group">
+                    <label>জাতীয় পরিচয় পত্র (NID) নম্বর <span class="required-star">*</span></label>
+                    <input type="text" id="nid" placeholder="NID নম্বর লিখুন" required>
+                </div>
+            </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="age">বয়স *</label>
-                        <input type="number" id="age" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="bloodGroup">রক্তের গ্রুপ</label>
-                        <select id="bloodGroup">
-                            <option value="">সিলেক্ট করুন</option>
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                        </select>
-                    </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>জন্ম তারিখ <span class="required-star">*</span></label>
+                    <input type="date" id="dob" onchange="calculateAge()" required>
                 </div>
+                <div class="form-group">
+                    <label>বয়স (স্বয়ংক্রিয়)</label>
+                    <input type="text" id="age" placeholder="জন্ম তারিখ দিলে বয়স আসবে" readonly style="background-color: #f1f1f1;">
+                </div>
+            </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>লিঙ্গ:</label>
-                        <div class="checkbox-group">
-                            <label><input type="radio" name="gender" value="পুরুষ" required> পুরুষ</label>
-                            <label><input type="radio" name="gender" value="মহিলা"> মহিলা</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>বৈবাহিক অবস্থা:</label>
-                        <div class="checkbox-group">
-                            <label><input type="radio" name="maritalStatus" value="বিবাহিত" required> বিবাহিত</label>
-                            <label><input type="radio" name="maritalStatus" value="অবিবাহিত"> অবিবাহিত</label>
-                        </div>
-                    </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>রক্তের গ্রুপ <span class="required-star">*</span></label>
+                    <select id="bloodGroup" required>
+                        <option value="">সিলেক্ট করুন</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
                 </div>
+                <div class="form-group">
+                    <!-- ফাঁকা গ্রিড সামঞ্জস্য রাখার জন্য -->
+                </div>
+            </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="photo">পাসপোর্ট সাইজ ছবি আপলোড করুন *</label>
-                        <input type="file" id="photo" accept="image/*" required>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>বর্তমান ঠিকানা <span class="required-star">*</span></label>
+                    <input type="text" id="presentAddress" placeholder="বর্তমান ঠিকানা লিখুন" required>
+                </div>
+                <div class="form-group">
+                    <label>স্থায়ী ঠিকানা <span class="required-star">*</span></label>
+                    <input type="text" id="permanentAddress" placeholder="স্থায়ী ঠিকানা লিখুন" required>
+                </div>
+            </div>
+
+            <!-- নমিনির তথ্য -->
+            <div class="section-title">নমিনির তথ্য</div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>নমিনির নাম (বাংলা) <span class="required-star">*</span></label>
+                    <input type="text" id="nomineeNameBn" placeholder="নমিনির নাম বাংলায় লিখুন" oninput="validateBangla('nomineeNameBn', 'errNominee')" required>
+                    <span id="errNominee" class="lang-error">অনুগ্রহ করে বাংলায় লিখুন</span>
+                </div>
+                <div class="form-group">
+                    <label>সদস্যের সাথে সম্পর্ক <span class="required-star">*</span></label>
+                    <input type="text" id="nomineeRelation" placeholder="যেমন: স্ত্রী, পুত্র, পিতা" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>নমিনির মোবাইল নম্বর <span class="required-star">*</span></label>
+                    <input type="tel" id="nomineeMobile" placeholder="01XXXXXXXXX" pattern="01[0-9]{9}" required>
+                </div>
+                <div class="form-group">
+                    <label>নমিনির NID নম্বর (যদি থাকে)</label>
+                    <input type="text" id="nomineeNid" placeholder="NID নম্বর লিখুন">
+                </div>
+            </div>
+
+            <!-- ছবি আপলোড -->
+            <div class="section-title">সদস্যের ছবি</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ছবি আপলোড করুন (পাসপোর্ট সাইজ) <span class="required-star">*</span></label>
+                    <input type="file" id="photoFile" accept="image/*" onchange="previewImage(event)" required>
+                </div>
+                <div class="form-group">
+                    <label>প্রিভিউ</label>
+                    <div class="photo-preview" id="photoPreviewContainer">
+                        <span style="font-size: 11px; color: #888;">ছবি নেই</span>
                     </div>
-                    <div class="form-group">
-                        <label for="membershipFee">সদস্যপদ ফি (টাকা - অফেরতযোগ্য)</label>
-                        <input type="text" id="membershipFee" value="২০০ টাকা" readonly style="background-color: #e9ecef;">
-                    </div>
                 </div>
-            </fieldset>
-
-            <!-- বর্তমান ঠিকানা -->
-            <fieldset>
-                <legend>বর্তমান ঠিকানা</legend>
-                <div class="form-row">
-                    <div class="form-group"><label>বাড়ি নং:</label><input type="text" id="currHouse"></div>
-                    <div class="form-group"><label>এলাকা:</label><input type="text" id="currArea"></div>
-                    <div class="form-group"><label>পোস্ট:</label><input type="text" id="currPost"></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>ওয়ার্ড নং:</label><input type="text" id="currWard"></div>
-                    <div class="form-group"><label>থানা:</label><input type="text" id="currThana"></div>
-                    <div class="form-group"><label>জেলা:</label><input type="text" id="currDistrict"></div>
-                </div>
-            </fieldset>
-
-            <!-- স্থায়ী ঠিকানা -->
-            <fieldset>
-                <legend>স্থায়ী ঠিকানা</legend>
-                <div class="form-row">
-                    <div class="form-group"><label>গ্রাম:</label><input type="text" id="permVillage"></div>
-                    <div class="form-group"><label>পোস্ট:</label><input type="text" id="permPost"></div>
-                    <div class="form-group"><label>ইউনিয়ন:</label><input type="text" id="permUnion"></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>উপজেলা:</label><input type="text" id="permUpazila"></div>
-                    <div class="form-group"><label>জেলা:</label><input type="text" id="permDistrict"></div>
-                    <div class="form-group"><label>ওয়ার্ড নং:</label><input type="text" id="permWard"></div>
-                </div>
-            </fieldset>
-
-            <!-- নমিনির পরিচিতি -->
-            <fieldset>
-                <legend>নমিনীর পরিচিতি</legend>
-                <div class="form-row">
-                    <div class="form-group"><label>নমিনীর নাম (বাংলায়):</label><input type="text" id="nomineeNameBn" required></div>
-                    <div class="form-group"><label>নমিনীর নাম (English):</label><input type="text" id="nomineeNameEn" required></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>পিতা/মাতা/স্বামীর নাম:</label><input type="text" id="nomineeGuardian"></div>
-                    <div class="form-group"><label>সম্পর্ক:</label><input type="text" id="nomineeRelation" required></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label>মোবাইল নম্বর:</label><input type="text" id="nomineeMobile"></div>
-                    <div class="form-group"><label>বয়স:</label><input type="number" id="nomineeAge"></div>
-                    <div class="form-group"><label>জাতীয় পরিচয় পত্র (NID):</label><input type="text" id="nomineeNid"></div>
-                </div>
-            </fieldset>
+            </div>
 
             <!-- অঙ্গীকারনামা -->
             <div class="declaration-box">
-                <strong>অঙ্গীকারনামা:</strong> "আমি এই মর্মে অঙ্গীকার করছি যে, DewDrop Joint Savings Fund-এর সকল নিয়ম ও নীতিমালা মেনে চলব। প্রতি মাসের নির্ধারিত সময়ের মধ্যে সঞ্চয়ের চাঁদা পরিশোধ করব। ফান্ডের স্বার্থবিরোধী কোনো কাজে লিপ্ত হব না।"
+                <input type="checkbox" id="declarationCheck" required>
+                <label for="declarationCheck" style="font-weight: normal; cursor: pointer;">
+                    আমি এই মর্মে অঙ্গীকার করছি যে, DewDrop Joint Savings Fund এর সকল নিয়ম-কানুন ও নীতিমালা মেনে চলব এবং তহবিলের স্বার্থবিরোধী কোনো কার্যকলাপে লিপ্ত হব না। ফর্মে প্রদত্ত সকল তথ্য সত্য ও সঠিক।
+                </label>
             </div>
 
-            <!-- সাবমিট বাটন -->
-            <div class="submit-btn-container">
-                <button type="submit" class="submit-btn">ফরম জমা দিন (Submit)</button>
-            </div>
+            <button type="submit" class="submit-btn">আবেদন সাবমিট করুন</button>
 
         </form>
     </div>
 
-    <!-- ডিফল্ট ফুটার -->
-    <div class="common-footer">
-        <p>&copy; 2026 DewDrop Joint Savings Fund. All Rights Reserved.</p>
-    </div>
-
-    <!-- ফায়ারবেজ স্ক্রিপ্ট সিডিএন (Firebase SDKs) -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
     <script>
-        // ফায়ারবেজ কনফিগারেশন
         const firebaseConfig = {
             databaseURL: "https://dewdrop-shopping-default-rtdb.firebaseio.com"
         };
@@ -343,79 +205,103 @@
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         }
-
         const database = firebase.database();
 
-        document.getElementById('membershipRegistrationForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const submitBtn = document.querySelector('.submit-btn');
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'সাবমিট হচ্ছে...';
+        let base64Image = "";
+
+        // বাংলা লেখা যাচাই করার ফাংশন (ইংরেজি বা অন্য ভাষা লিখলে আটকে দেবে)
+        function validateBangla(inputId, errorId) {
+            const val = document.getElementById(inputId).value;
+            const errSpan = document.getElementById(errorId);
+            // বাংলা ইউনিকোড রেঞ্জ (উইথ স্পেস ও দাড়ি/কমা)
+            const banglaRegex = /^[\u0980-\u09FF\s.,-]+$/;
+
+            if (val.trim() !== "" && !banglaRegex.test(val)) {
+                errSpan.style.display = "block";
+            } else {
+                errSpan.style.display = "none";
+            }
+        }
+
+        // জন্ম তারিখ থেকে অটো বয়স হিসাব করার ফাংশন
+        function calculateAge() {
+            const dobVal = document.getElementById('dob').value;
+            if (!dobVal) return;
+
+            const dob = new Date(dobVal);
+            const today = new Date();
+            let age = today.getFullYear() - dob.getFullYear();
+            const m = today.getMonth() - dob.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+
+            document.getElementById('age').value = age >= 0 ? age + " বছর" : "সঠিক তারিখ দিন";
+        }
+
+        // ছবি প্রিভিউ এবং বেস৬৪ কনভার্ট
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    base64Image = e.target.result;
+                    document.getElementById('photoPreviewContainer').innerHTML = `<img src="${base64Image}" alt="Preview">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // ফর্ম সাবমিট লজিক
+        async function submitForm(event) {
+            event.preventDefault();
+
+            // সাবমিটের সময় বাংলা ফিল্ডগুলো আবার চেক করা
+            const banglaRegex = /^[\u0980-\u09FF\s.,-]+$/;
+            if (!banglaRegex.test(document.getElementById('nameBn').value) ||
+                !banglaRegex.test(document.getElementById('fatherOrHusband').value) ||
+                !banglaRegex.test(document.getElementById('motherName').value) ||
+                !banglaRegex.test(document.getElementById('nomineeNameBn').value)) {
+                alert('দয়া করে বাংলা ফিল্ডগুলোতে শুধুমাত্র বাংলায় লিখুন!');
+                return;
+            }
+
+            const memberData = {
+                submissionDate: new Date().toLocaleString(),
+                nameBn: document.getElementById('nameBn').value.trim(),
+                nameEn: document.getElementById('nameEn').value.trim().toUpperCase(),
+                fatherOrHusband: document.getElementById('fatherOrHusband').value.trim(),
+                motherName: document.getElementById('motherName').value.trim(),
+                mobile: document.getElementById('mobile').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                occupation: document.getElementById('occupation').value.trim() || 'প্রযোজ্য নয়',
+                nid: document.getElementById('nid').value.trim(),
+                dob: document.getElementById('dob').value,
+                age: document.getElementById('age').value,
+                bloodGroup: document.getElementById('bloodGroup').value,
+                presentAddress: document.getElementById('presentAddress').value.trim(),
+                permanentAddress: document.getElementById('permanentAddress').value.trim(),
+                nomineeNameBn: document.getElementById('nomineeNameBn').value.trim(),
+                nomineeRelation: document.getElementById('nomineeRelation').value.trim(),
+                nomineeMobile: document.getElementById('nomineeMobile').value.trim(),
+                nomineeNid: document.getElementById('nomineeNid').value.trim() || 'প্রযোজ্য নয়',
+                photoFileName: document.getElementById('photoFile').files[0]?.name || 'photo.jpg',
+                photoBase64: base64Image,
+                status: 'Pending'
+            };
 
             try {
-                const photoInput = document.getElementById('photo');
-                let photoFileName = "";
-                if (photoInput.files.length > 0) {
-                    photoFileName = photoInput.files[0].name;
-                }
-
-                const formDataObj = {
-                    nameBn: document.getElementById('nameBn').value,
-                    nameEn: document.getElementById('nameEn').value,
-                    fatherName: document.getElementById('fatherName').value,
-                    motherName: document.getElementById('motherName').value,
-                    mobile: document.getElementById('mobile').value,
-                    email: document.getElementById('email').value,
-                    occupation: document.getElementById('occupation').value,
-                    nid: document.getElementById('nid').value,
-                    age: document.getElementById('age').value,
-                    bloodGroup: document.getElementById('bloodGroup').value,
-                    gender: document.querySelector('input[name="gender"]:checked').value,
-                    maritalStatus: document.querySelector('input[name="maritalStatus"]:checked').value,
-                    photoFileName: photoFileName,
-                    
-                    currHouse: document.getElementById('currHouse').value,
-                    currArea: document.getElementById('currArea').value,
-                    currPost: document.getElementById('currPost').value,
-                    currWard: document.getElementById('currWard').value,
-                    currThana: document.getElementById('currThana').value,
-                    currDistrict: document.getElementById('currDistrict').value,
-                    
-                    permVillage: document.getElementById('permVillage').value,
-                    permPost: document.getElementById('permPost').value,
-                    permUnion: document.getElementById('permUnion').value,
-                    permUpazila: document.getElementById('permUpazila').value,
-                    permDistrict: document.getElementById('permDistrict').value,
-                    permWard: document.getElementById('permWard').value,
-                    
-                    nomineeNameBn: document.getElementById('nomineeNameBn').value,
-                    nomineeNameEn: document.getElementById('nomineeNameEn').value,
-                    nomineeGuardian: document.getElementById('nomineeGuardian').value,
-                    nomineeRelation: document.getElementById('nomineeRelation').value,
-                    nomineeMobile: document.getElementById('nomineeMobile').value,
-                    nomineeAge: document.getElementById('nomineeAge').value,
-                    nomineeNid: document.getElementById('nomineeNid').value,
-                    
-                    status: 'Pending',
-                    submissionDate: new Date().toLocaleString()
-                };
-
-                const newMemberRef = database.ref('pendingMembers').push();
-                await newMemberRef.set(formDataObj);
-
-                alert('আলহামদুলিল্লাহ! আপনার ফরমটি সফলভাবে সাবমিট হয়েছে এবং পেন্ডিং লিস্টে জমা হয়েছে।');
-                this.reset();
-
+                // ফায়ারবেজের pendingMembers নোডে সেভ করা
+                await database.ref('pendingMembers').push(memberData);
+                alert('আলহামদুলিল্লাহ! আপনার সদস্যপদের আবেদন সফলভাবে জমা হয়েছে।');
+                document.getElementById('membershipForm').reset();
+                document.getElementById('photoPreviewContainer').innerHTML = '<span style="font-size: 11px; color: #888;">ছবি নেই</span>';
+                base64Image = "";
             } catch (error) {
-                console.error("Error: ", error);
-                alert('দুঃখিত, কোনো কারিগরি ত্রুটির কারণে ফর্ম জমা হয়নি।');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerText = 'ফরম জমা দিন (Submit)';
+                console.error("Error saving data: ", error);
+                alert('দুঃখিত, ডেটা জমা করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
             }
-        });
+        }
     </script>
-
 </body>
 </html>
