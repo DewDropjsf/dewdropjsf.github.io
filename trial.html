@@ -1,47 +1,50 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - DewDrop Joint Savings Fund</title>
-    
+    <title>Fund Account - DewDrop Joint Savings Fund</title>
+    <!-- ব্রাউজার ট্যাব লোগো -->
+    <link rel="icon" type="image/png" href="gldlogo.png">
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body { 
-            font-family: 'Times New Roman', Times, serif; 
-            background-color: #f0f4f8; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Arial; 
+            background-color: #f4f7f6; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            min-height: 100vh; 
             margin: 0; 
             padding: 0; 
         }
-
-         /* --- Header & Navigation --- */
-    header {
-        background-color: #004d40;
-        color: white;
-        padding: 15px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        width: 100%;
-    }
-    .logo-container {
-        display: flex;
-        align-items: center;
-    }
-    .logo-image {
-        height: 45px;
-        width: auto;
-        margin-right: 12px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-      
+        /* --- Header & Navigation --- */
+        header {
+            background-color: #004d40;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo-image {
+            height: 45px;
+            width: auto;
+            margin-right: 12px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
         .nav-container {
             width: 100%;
             padding: 0 15px;
@@ -50,31 +53,28 @@
             justify-content: space-between;
             align-items: center;
         }
-
-            .brand-title {
+        .brand-title {
             font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
             font-size: 22px;
             font-weight: bold;
             margin: 0;
             white-space: nowrap;
         }
-
         .nav-right {
             display: flex;
             align-items: center;
             gap: 15px;
             padding-right: 10px;
         }
-
         .home-logo {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        border: 2px solid #ffffff;
-        object-fit: cover;
-        margin-right: 8px;
-        cursor: pointer;
-    }
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            object-fit: cover;
+            margin-right: 8px;
+            cursor: pointer;
+        }
         .homebtn {
             background: none;
             border: none;
@@ -96,7 +96,6 @@
             position: relative;
             display: inline-block;
         }
-
         .dropbtn {
             background: none;
             border: none;
@@ -108,7 +107,6 @@
             padding: 5px 0;
             white-space: nowrap;
         }
-
         .dropdown-content {
             display: none;
             position: absolute;
@@ -120,7 +118,6 @@
             border-radius: 6px;
             overflow: hidden;
         }
-
         .dropdown-content a {
             color: #333333;
             padding: 10px 14px;
@@ -128,298 +125,46 @@
             display: block;
             font-size: 14px;
         }
-
         .dropdown-content a:hover {
             background-color: #f1f1f1;
             color: #1b4332;
         }
-
         .dropdown:hover .dropdown-content {
             display: block;
         }
-
-        .dashboard-container { 
-            background: #e0fbfc; 
-            max-width: 2000px; 
-            margin: 30px auto; 
-            padding: 30px; 
-            border-radius: 16px; 
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08); 
-            position: relative;
-        }
-
-        .fund-title {
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-            color: #0077b6;
-            text-align: center;
-            font-size: 26px;
-            font-weight: bold;
-            margin-top: 0;
-            margin-bottom: 25px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-        }
-
-        /* Top Banner Section with Polaroid Frame on Left & Notice Board */
-        .top-banner-section {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 35px;
-            position: relative;
-            gap: 20px;
-        }
-
-        .photo-frame {
-            width: 180px; height: 215px; flex-shrink: 0;
-            background: #e0fbfc;
-            border-radius: 30px 0 30px 0;
-            box-shadow: 0 8px 22px rgba(0,0,0,0.22);
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
         
-        .photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
 
-        .hanging-board-wrapper {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            flex-grow: 1;
-            margin-bottom: 25px;
-        }
+      
 
-        .board-pin {
-            position: absolute;
-            top: -16px;
-            width: 16px;
-            height: 16px;
-            background: radial-gradient(circle at 30% 30%, #ffffff, #333333);
-            border-radius: 50%;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.4);
-            z-index: 10;
-        }
-
-        .board-string {
-            position: absolute;
-            top: -6px;
-            width: 2px;
-            height: 22px;
-            background-color: #8c6239;
-            z-index: 5;
-        }
-
-        .notice-board-box {
-            background: linear-gradient(135deg, #f4a261, #e76f51);
-            color: #fff;
+        /* --- Footer --- */
+        .site-footer {
+            background-color: #002b36;
+            color: #ffffff;
             width: 100%;
-            max-width: 380px;
-            padding: 14px 20px;
+            padding-top: 25px;
             text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-            border: 2px dashed #ffb703;
-            position: relative;
-            z-index: 4;
-            margin-top: 16px;
         }
-
-        .notice-board-box h2 {
-            margin: 0;
-            font-size: 22px;
-            font-family: 'Times New Roman', Times, serif;
-            letter-spacing: 0.8px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-        }
-
-        .dashboard-grid {
-            display: flex;
-            gap: 30px;
+        .developer-footer {
+            font-size: 13px;
+            color: #d3d3d3;
             margin-bottom: 20px;
+            line-height: 1.6;
         }
-
-        .column-box {
-            flex: 1;
-            background: #fdfdfd;
-            border: 1.5px solid #dcdcdc;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.02);
-        }
-
-        .section-header {
-            border-bottom: 2.5px solid #0077b6;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .section-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #03045e;
-            text-transform: uppercase;
-            margin: 0;
-            letter-spacing: 0.8px;
-        }
-        
-        .button-group {
-          display: flex;
-          gap: 10px;
-          justify-content: flex-end;
-          align-items: center;
-        }
-
-        .btn-changepass { 
-            background-color: #2a9d8f; 
-            color: white; 
-            border: none; 
-            padding: 6px 14px; 
-            font-size: 13px; 
-            border-radius: 6px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            transition: background 0.2s;
-        }
-
-        .btn-changepass:hover { 
-            background-color: #21867a; 
-        }
-
-        .btn-logout { 
-            background-color: #d90429; 
-            color: white; 
-            border: none; 
-            padding: 6px 14px; 
-            font-size: 13px; 
-            border-radius: 6px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            transition: background 0.2s;
-        }
-
-        .btn-logout:hover { 
-            background-color: #8d0801; 
-        }
-
-        .btn-check { 
-            background-color: #2a9d8f; 
-            color: white; 
-            border: none; 
-            padding: 6px 14px; 
-            font-size: 13px; 
-            border-radius: 6px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            transition: background 0.2s;
-        }
-
-        .btn-check:hover { 
-            background-color: #21867a; 
-        }
-
-        .welcome-msg { 
-            font-size: 16px; 
-            color: #1d3557; 
-            margin-bottom: 14px; 
+        .developer-footer a {
+            color: #4ea8de;
+            text-decoration: none;
             font-weight: bold;
         }
-
-        .info-item { 
-            background: #e0fbfc; 
-            padding: 10px 14px; 
-            margin-bottom: 10px; 
-            border-radius: 6px; 
-            border-left: 4px solid #00b4d8; 
-            font-size: 15px;
-            color: #2b2d42;
-            word-break: break-word;
+        .developer-footer a:hover {
+            text-decoration: underline;
         }
-
-        .info-item strong { 
-            color: #03045e; 
-        }
-
-        #memberId {
-            text-transform: uppercase;
-        }
-
-        /* --- Modal CSS for Change Password --- */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-box {
-            background: #fff;
-            padding: 25px;
-            border-radius: 10px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            position: relative;
-        }
-        .modal-box h3 { margin-top: 0; color: #03045e; text-align: center; margin-bottom: 20px; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; color: #333; }
-        .form-group input { width: 100%; padding: 8px 12px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
-        .modal-buttons { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
-        .btn-save { background: #2a9d8f; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .btn-cancel { background: #6c757d; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-
-      /* --- Footer --- */
-    .site-footer {
-        background-color: #002b36;
-        color: #ffffff;
-        margin-top: 60px;
-        padding-top: 25px;
-        text-align: center;
-    }
-
-    .developer-footer {
-        font-size: 13px;
-        color: #d3d3d3;
-        margin-bottom: 20px;
-        line-height: 1.6;
-    }
-
-    .developer-footer a {
-        color: #4ea8de;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .developer-footer a:hover {
-        text-decoration: underline;
-    }
-
-    .copyright-bar {
-        background-color: #001f28;
-        padding: 12px 20px;
-        font-size: 13px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        color: #b0bec5;
-    }
-        
-        @media (max-width: 768px) {
-            .dashboard-grid {
-                flex-direction: column;
-                gap: 20px;
-            }
-            .dashboard-container {
-                padding: 15px;
-                margin: 15px;
-            }
-            .top-banner-section {
-                flex-direction: column;
-                gap: 15px;
-                align-items: center;
-            }
+        .copyright-bar {
+            background-color: #001f28;
+            padding: 12px 20px;
+            font-size: 13px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b0bec5;
         }
     </style>
 </head>
@@ -434,7 +179,7 @@
             </div>
 
             <div class="nav-right">
-                <a href="index.html" class="homebtn" style="display: inline-flex; align-items: center; text-decoration: none;">
+                <a href="index.html" class="homebtn">
                     <img src="homelogo.png" alt="Home Logo" class="home-logo">
                     <span>Home</span>
                 </a>
@@ -455,258 +200,23 @@
         </div>
     </header>
 
-    <div class="dashboard-container">      
-        <div class="hanging-board-wrapper">
-            <div class="board-pin"></div>
-            <div class="board-string"></div>
-            <div class="notice-board-box">
-                <h2>Welcome to DashBoard</h2>
-            </div>
+   
+
+
+
+
+    <!-- সাইট ফুটার -->
+    <footer class="site-footer">
+        <div class="developer-footer">
+            Website Developed by:<br>
+            <strong>Md Tanjim Islam</strong><br>
+            <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
         </div>
-        <div class="photo-frame">
-            <img src="prflogo.jpeg" alt="Member Photo" id="memberPhoto">
+        <div class="copyright-bar">
+            &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
         </div>
+    </footer>
 
-        <div class="dashboard-grid">
-            
-            <!-- MEMBER DETAILS COLUMN -->
-            <div class="column-box">
-                <div class="section-header">
-                    <h3 class="section-title">MEMBER DETAILS</h3>
-                    
-                    <div class="button-group">
-                        <button class="btn-changepass" id="chnPassBtn">🔑 Change Password</button>
-                        <button class="btn-logout" id="logoutBtn">⚠️Log out</button>
-                    </div>
-                </div>
-
-                <div class="welcome-msg">Welcome, <span id="userName">...</span>!</div>
-                
-                <div class="info-item">
-                    <strong>Member ID:</strong> <span id="memberId">...</span>
-                </div>
-                <div class="info-item">
-                    <strong>E-mail:</strong> <span id="userEmail">...</span>
-                </div>
-                <div class="info-item">
-                    <strong>Mobile No.:</strong> <span id="userMobile">...</span>
-                </div>
-                <div class="info-item">
-                    <strong>Address:</strong> <span id="userAddress">লোড হচ্ছে...</span>
-                </div>
-            </div>
-
-            <!-- ACCOUNT DETAILS COLUMN -->
-            <div class="column-box">
-                <div class="section-header">
-                    <h3 class="section-title">ACCOUNT DETAILS</h3>
-                    <button class="btn-check" id="checkAcBtn">💰 Check A/C</button>
-                </div>
-                
-                <div class="info-item" style="margin-top: 15px;">
-                    <strong>Last Transaction:</strong> <span id="lastTxAmount">বাটনে ক্লিক করুন</span>
-                </div>
-                <div class="info-item">
-                    <strong>Last Transaction Date:</strong> <span id="lastTxDate">বাটনে ক্লিক করুন</span>
-                </div>
-                <div class="info-item">
-                    <strong>Any Due:</strong> <span id="anyDue">বাটনে ক্লিক করুন</span>
-                </div>
-                <div class="info-item">
-                    <strong>Unpaid Lump Sum Amount:</strong> <span id="unpaidLumpSum">বাটনে ক্লিক করুন</span>
-                </div>
-                <div class="info-item">
-                    <strong>Paid Lump Sum Amount:</strong> <span id="paidLumpSum">বাটনে ক্লিক করুন</span>
-                </div>
-                <div class="info-item">
-                    <strong>TotalSavings:</strong> <span id="totalSavings">বাটনে ক্লিক করুন</span>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- সাইট ফুটার -->
-        <footer class="site-footer">
-            <div class="developer-footer">
-                Website Developed by:<br>
-                <strong>Md Tanjim Islam</strong><br>
-                <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
-            </div>
-            <div class="copyright-bar">
-                &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
-            </div>
-        </footer>
-    </div>
-
-   <!-- Password Change Modal -->
-    <div class="modal-overlay" id="passModal">
-        <div class="modal-box">
-            <h3>পাসওয়ার্ড পরিবর্তন করুন</h3>
-            
-            <div class="form-group" style="position: relative;">
-                <label>বর্তমান পাসওয়ার্ড:</label>
-                <input type="password" id="currentPass" placeholder="বর্তমান পাসওয়ার্ড দিন" style="padding-right: 35px;">
-                <span onclick="togglePass('currentPass', this)" style="position: absolute; right: 10px; top: 32px; cursor: pointer; font-size: 16px; user-select: none;">👁️</span>
-            </div>
-            
-            <div class="form-group" style="position: relative;">
-                <label>নতুন পাসওয়ার্ড:</label>
-                <input type="password" id="newPass" placeholder="নতুন পাসওয়ার্ড দিন" style="padding-right: 35px;">
-                <span onclick="togglePass('newPass', this)" style="position: absolute; right: 10px; top: 32px; cursor: pointer; font-size: 16px; user-select: none;">👁️</span>
-            </div>
-            
-            <div class="form-group" style="position: relative;">
-                <label>পুনরায় নতুন পাসওয়ার্ড:</label>
-                <input type="password" id="confirmPass" placeholder="পুনরায় নতুন পাসওয়ার্ড দিন" style="padding-right: 35px;">
-                <span onclick="togglePass('confirmPass', this)" style="position: absolute; right: 10px; top: 32px; cursor: pointer; font-size: 16px; user-select: none;">👁️</span>
-            </div>
-
-            <div class="modal-buttons">
-                <button class="btn-cancel" id="cancelModalBtn">বাতিল</button>
-                <button class="btn-save" id="savePassBtn">সংরক্ষণ করুন</button>
-            </div>
-        </div>
-    </div>
-
-  <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbzDVMV0LwKrKwLCL3M-Ff8s-mKuCOMSHVoBqgs5FiRWHlJRediqL9lzIBPCf9ePGlJh/exec';
     
-const token = localStorage.getItem('sessionToken');
-const $ = id => document.getElementById(id);
-const ACC_IDS = ['lastTxAmount', 'lastTxDate', 'anyDue', 'unpaidLumpSum', 'paidLumpSum', 'totalSavings'];
-let hideTimer = null;
-
-if (!token) { location.replace('login.html'); throw new Error('no session'); }
-
-async function api(action, extraData = {}) {
-    const params = new URLSearchParams({ action, token, ...extraData });
-    const r = await fetch(API_URL, { method: 'POST', body: params });
-    return JSON.parse((await r.text()).trim());
-}
-
-function expired() {
-    localStorage.removeItem('sessionToken');
-    alert('সেশন শেষ হয়েছে, আবার লগইন করুন।');
-    location.replace('login.html');
-}
-
-function resetAccountDetails() {
-    ACC_IDS.forEach(i => $(i).innerText = 'বাটনে ক্লিক করুন');
-}
-
-(async () => {
-    try {
-        const r = await api('get_profile');
-        if (r.status !== 'Success') return expired();
-        const u = r.user;
-        $('userName').innerText = u.name || 'সদস্য';
-        $('memberId').innerText = u.member_id || 'N/A';
-        $('userEmail').innerText = u.email || 'N/A';
-        $('userMobile').innerText = u.mobile || 'N/A';
-        $('userAddress').innerText = u.address || 'তথ্য পাওয়া যায়নি';
-        if (r.photo) $('memberPhoto').src = r.photo;
-    } catch (e) {
-        $('userAddress').innerText = 'লোড করা যায়নি, পেজ রিফ্রেশ করুন';
-    }
-})();
-
-$('checkAcBtn').onclick = async () => {
-    clearTimeout(hideTimer);
-    ACC_IDS.forEach(i => $(i).innerText = 'লোড হচ্ছে...');
-    try {
-        const r = await api('get_account');
-        if (r.status !== 'Success') {
-            if (r.message === 'Session expired') return expired();
-            alert('এই মেম্বার আইডি দিয়ে কোনো ডেটা পাওয়া যায়নি!');
-            return resetAccountDetails();
-        }
-        const a = r.account, t = v => v ? v + ' Taka' : '০.০০ Taka';
-        $('lastTxAmount').innerText = t(a.lastTx);
-        $('lastTxDate').innerText = a.lastTxDate || 'তথ্য নেই';
-        $('anyDue').innerText = t(a.due);
-        $('totalSavings').innerText = t(a.totalSavings);
-        $('unpaidLumpSum').innerText = t(a.unpaidLump);
-        $('paidLumpSum').innerText = t(a.paidLump);
-        hideTimer = setTimeout(resetAccountDetails, 15000);
-    } catch (e) {
-        alert('ডেটা ফেচ করতে সমস্যা হয়েছে। ইন্টারনেট কানেকশন চেক করুন।');
-        resetAccountDetails();
-    }
-};
-
-// Change Password Modal Script Controls
-const passModal = $('passModal');
-$('chnPassBtn').onclick = () => {
-    $('currentPass').value = '';
-    $('newPass').value = '';
-    $('confirmPass').value = '';
-    passModal.style.display = 'flex';
-};
-
-$('cancelModalBtn').onclick = () => {
-    passModal.style.display = 'none';
-};
-
-$('savePassBtn').onclick = async () => {
-    const currentPassword = $('currentPass').value.trim();
-    const newPassword = $('newPass').value.trim();
-    const confirmPassword = $('confirmPass').value.trim();
-
-    if (!currentPassword || !newPassword || !confirmPassword) {
-        alert('সবগুলো ঘর পূরণ করা বাধ্যতামূলক!');
-        return;
-    }
-    // নতুন পাসওয়ার্ড অন্তত ৬ ডিজিট বা ক্যারেক্টার হতে হবে
-    if (newPassword.length < 6) {
-        alert('নতুন পাসওয়ার্ড কমপক্ষে ৬ অক্ষর বা সংখ্যার হতে হবে!');
-        return;
-    }
-    if (newPassword !== confirmPassword) {
-        alert('নতুন পাসওয়ার্ড এবং পুনরায় দেওয়া পাসওয়ার্ড এক হয়নি!');
-        return;
-    }
-
-    $('savePassBtn').innerText = 'পরিবর্তন হচ্ছে...';
-    $('savePassBtn').disabled = true;
-
-    try {
-        const res = await api('change_password', { 
-            current_password: currentPassword, 
-            new_password: newPassword 
-        });
-        if (res.status === 'Success') {
-            alert('সফলভাবে পাসওয়ার্ড পরিবর্তন করা হয়েছে!');
-            passModal.style.display = 'none';
-        } else {
-            alert(res.message || 'পাসওয়ার্ড পরিবর্তন ব্যর্থ হয়েছে!');
-        }
-    } catch (err) {
-        alert('সার্ভারে সংযোগ স্থাপন করা যায়নি। আবার চেষ্টা করুন।');
-    } finally {
-        $('savePassBtn').innerText = 'সংরক্ষণ করুন';
-        $('savePassBtn').disabled = false;
-    }
-};
-
-      function togglePass(fieldId, iconElem) {
-    const field = $(fieldId);
-    if (field.type === 'password') {
-        field.type = 'text';
-        iconElem.innerText = '🙈';
-    } else {
-        field.type = 'password';
-        iconElem.innerText = '👁️';
-    }
-}
-
-$('logoutBtn').onclick = async () => {
-    try { await api('logout'); } catch (e) {}
-    localStorage.removeItem('sessionToken');
-    localStorage.removeItem('loggedInUser');
-    alert('সফলভাবে লগআউট করা হয়েছে।');
-    location.replace('login.html');
-};
-</script>
-
 </body>
 </html>
