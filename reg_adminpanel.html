@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>মেম্বারশিপ অ্যাডমিন প্যানেল - DewDrop Joint Savings Fund</title>
-    <!-- ফায়ারবেজ ও EmailJS সিডিএন -->
+    <!-- ফায়ারবেজ ও EmailJS সিডিএন -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
@@ -15,24 +15,24 @@
         h2 { text-align: center; color: #2c3e50; }
 
         .password-container {
-    position: relative;
-    width: 100%;
-}
-.password-container input {
-    width: 100%;
-    padding-right: 40px; /* চোখের আইকনের জন্য জায়গা খালি রাখা */
-    box-sizing: border-box;
-}
-.toggle-password {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 18px;
-    color: #666;
-    user-select: none;
-}
+            position: relative;
+            width: 100%;
+        }
+        .password-container input {
+            width: 100%;
+            padding-right: 40px; /* চোখের আইকনের জন্য জায়গা খালি রাখা */
+            box-sizing: border-box;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+            user-select: none;
+        }
         
         /* লগইন সেকশন স্টাইল */
         #login-section { max-width: 400px; margin: 100px auto; padding: 30px; background: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
@@ -79,20 +79,19 @@
 </head>
 <body>
 
-    <!-- ১. পাসওয়ার্ড লগইন সেকশন -->
+    <!-- ১. পাসওয়ার্ড লগইন সেকশন -->
     <div id="login-section">
         <h3>অ্যাডমিন লগইন</h3>
         <p style="font-size: 13px; color: #666;">প্রবেশ করতে সিক্রেট পাসওয়ার্ড দিন</p>
-        <input type="password" id="adminPassword" placeholder="পাসওয়ার্ড লিখুন">
-        <button onclick="checkLogin()">লগইন করুন</button>
+        <div class="form-group" style="text-align: left;">
+            <label>পাসওয়ার্ড লিখুন</label>
+            <div class="password-container">
+                <input type="password" id="adminPassword" placeholder="পাসওয়ার্ড লিখুন" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+            </div>
+        </div>
+        <button onclick="checkLogin()" style="margin-top: 15px;">লগইন করুন</button>
     </div>
-<div class="form-group">
-    <label>পাসওয়ার্ড লিখুন</label>
-    <div class="password-container">
-        <input type="password" id="adminPassword" placeholder="পাসওয়ার্ড লিখুন" required>
-        <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
-    </div>
-</div>
     
     <!-- ২. মূল অ্যাডমিন প্যানেল -->
     <div id="admin-panel" class="container" style="max-width: 1100px;">
@@ -113,13 +112,13 @@
                 </tr>
             </thead>
             <tbody id="pendingTableBody">
-                <!-- ডায়নামিক পেন্ডিং ডেটা লোড হবে -->
+                <!-- ডায়নামিক পেন্ডিং ডেটা লোড হবে -->
             </tbody>
         </table>
 
         <h2 style="margin-top: 50px;">অনুমোদিত আবেদনসমূহ</h2>
         <div id="approvedFormsContainer">
-            <!-- ডায়নামিক ফরম ডিজাইনে অনুমোদিত মেম্বাররা এখানে দেখাবে -->
+            <!-- ডায়নামিক ফরম ডিজাইনে অনুমোদিত মেম্বাররা এখানে দেখাবে -->
         </div>
     </div>
 
@@ -144,7 +143,7 @@
                 loadPendingMembers();
                 loadApprovedMembers();
             } else {
-                alert('ভুল পাসওয়ার্ড! সঠিক পাসওয়ার্ড দিয়ে চেষ্টা করুন।');
+                alert('ভুল পাসওয়ার্ড! সঠিক পাসওয়ার্ড দিয়ে চেষ্টা করুন।');
             }
         }
 
@@ -152,6 +151,20 @@
             document.getElementById('admin-panel').style.display = 'none';
             document.getElementById('login-section').style.display = 'block';
             document.getElementById('adminPassword').value = '';
+        }
+
+        // পাসওয়ার্ড দেখার টগল ফাংশন
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('adminPassword');
+            const icon = document.querySelector('.toggle-password');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.textContent = '🙈'; 
+            } else {
+                passwordInput.type = 'password';
+                icon.textContent = '👁️'; 
+            }
         }
 
         // পেন্ডিং মেম্বার টেবিল লোড করা (ছবি সহ)
@@ -196,7 +209,7 @@
             });
         }
 
-        // অনুমোদিত মেম্বারদের মূল ফরম ডিজাইনে লোড করা
+        // অনুমোদিত মেম্বারদের মূল ফরম ডিজাইনে লোড করা (রিভার্স লজিক বা .reverse() ব্যবহার করে লেটেস্ট সবার উপরে)
         function loadApprovedMembers() {
             const container = document.getElementById('approvedFormsContainer');
             const approvedRef = database.ref('approvedMembers');
@@ -210,7 +223,10 @@
                     return;
                 }
 
-                Object.keys(data).forEach((key) => {
+                // রিভার্স লজিক ব্যবহার করে লেটেস্ট আবেদনটি সবার উপরে দেখানো
+                const keys = Object.keys(data).reverse();
+
+                keys.forEach((key) => {
                     const member = data[key];
                     const photoSrc = member.photoBase64 || 'https://via.placeholder.com/100';
 
@@ -220,7 +236,7 @@
                         <button class="print-btn" onclick="window.print()">🖨️ প্রিন্ট ফরম</button>
                         <div class="form-header">
                             <h3>সদস্য ফরম (Membership Registration)</h3>
-                            <p>পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা...</p>
+                            <p>পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা...</p>
                             <div style="margin-top: 10px; display: inline-block; background: #27ae60; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold;">
                                 মেম্বার আইডি: ${member.memberId || 'N/A'}
                             </div>
@@ -263,13 +279,13 @@
                                 <div class="form-value">${member.occupation || ''}</div>
                             </div>
                             <div class="form-group">
-                                <label>জাতীয় পরিচয় পত্র (NID) নম্বর</label>
+                                <label>জাতীয় পরিচয় পত্র (NID) নম্বর</label>
                                 <div class="form-value">${member.nid || ''}</div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label>বয়স</label>
+                                <label>বয়স</label>
                                 <div class="form-value">${member.age || ''}</div>
                             </div>
                             <div class="form-group">
@@ -283,7 +299,7 @@
                                 <div class="form-value">${member.presentAddress || ''}</div>
                             </div>
                             <div class="form-group">
-                                <label>স্থায়ী ঠিকানা</label>
+                                <label>স্থায়ী ঠিকানা</label>
                                 <div class="form-value">${member.permanentAddress || ''}</div>
                             </div>
                         </div>
@@ -330,7 +346,7 @@
                 return;
             }
 
-            if (!confirm(`নিশ্চিত করতে চান যে এই মেম্বারকে "${memberIdInput}" আইডি দিয়ে অ্যাপ্রুভ করবেন?`)) {
+            if (!confirm(`নিশ্চিত করতে চান যে এই মেম্বারকে "${memberIdInput}" আইডি দিয়ে অ্যাপ্রুভ করবেন?`)) {
                 return;
             }
 
@@ -359,7 +375,7 @@
                                 console.error('Email failed...', error);
                             });
 
-                        alert('আলহামদুলিল্লাহ! মেম্বার সফলভাবে অ্যাপ্রুভ হয়েছে এবং ফর্মে যুক্ত হয়েছে।');
+                        alert('আলহামদুলিল্লাহ! মেম্বার সফলভাবে অ্যাপ্রুভ হয়েছে এবং ফর্মে যুক্ত হয়েছে।');
                     }
                 });
 
@@ -367,19 +383,6 @@
                 console.error("Error approving member: ", error);
                 alert('ত্রুটি ঘটেছে! আবার চেষ্টা করুন।');
             }
-
-            function togglePasswordVisibility() {
-    const passwordInput = document.getElementById('adminPassword');
-    const icon = document.querySelector('.toggle-password');
-    
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        icon.textContent = '🙈'; // চোখের পাতা বন্ধ আইকন (চাইলে শুধু 👁️ ও রাখতে পারেন)
-    } else {
-        passwordInput.type = 'password';
-        icon.textContent = '👁️'; // চোখের খোলা আইকন
-    }
-}
         }
     </script>
 </body>
