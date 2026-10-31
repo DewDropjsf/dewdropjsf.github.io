@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>সদস্য ফরম (Membership Registration) - DewDrop Joint Savings Fund</title>
+    <title>Membership Registration- DewDrop Joint Savings Fund</title>
     <!-- ফায়ারবেজ সিডিএন -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
@@ -11,7 +11,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
        (function(){
-          emailjs.init("YOUR_PUBLIC_KEY"); // এখানে আপনার EmailJS Public Key বসাবেন
+          emailjs.init("VsBVbKELxpfLHOxdx"); // এখানে আপনার EmailJS Public Key বসাবেন
        })();
     </script>
     <link rel="icon" type="image/png" href="gldlogo.png">
@@ -309,8 +309,8 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label>রক্তের গ্রুপ <span class="required-star">*</span></label>
-                        <select id="bloodGroup" required>
+                        <label>রক্তের গ্রুপ</label>
+                        <select id="bloodGroup">
                             <option value="">সিলেক্ট করুন</option>
                             <option value="A+">A+</option>
                             <option value="A-">A-</option>
@@ -465,29 +465,29 @@
                 return;
             }
 
-            const memberData = {
-                submissionDate: new Date().toLocaleString(),
-                nameBn: document.getElementById('nameBn').value.trim(),
-                nameEn: document.getElementById('nameEn').value.trim().toUpperCase(),
-                fatherOrHusband: document.getElementById('fatherOrHusband').value.trim(),
-                motherName: document.getElementById('motherName').value.trim(),
-                mobile: document.getElementById('mobile').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                occupation: document.getElementById('occupation').value.trim() || 'প্রযোজ্য নয়',
-                nid: document.getElementById('nid').value.trim(),
-                dob: document.getElementById('dob').value,
-                age: document.getElementById('age').value,
-                bloodGroup: document.getElementById('bloodGroup').value,
-                presentAddress: document.getElementById('presentAddress').value.trim(),
-                permanentAddress: document.getElementById('permanentAddress').value.trim(),
-                nomineeNameBn: document.getElementById('nomineeNameBn').value.trim(),
-                nomineeRelation: document.getElementById('nomineeRelation').value.trim(),
-                nomineeMobile: document.getElementById('nomineeMobile'].value.trim(),
-                nomineeNid: document.getElementById('nomineeNid').value.trim() || 'প্রযোজ্য নয়',
-                photoFileName: document.getElementById('photoFile').files[0]?.name || 'photo.jpg',
-                photoBase64: base64Image,
-                status: 'Pending'
-            };
+           const memberData = {
+    submissionDate: new Date().toLocaleString(),
+    nameBn: document.getElementById('nameBn').value.trim(),
+    nameEn: document.getElementById('nameEn').value.trim().toUpperCase(),
+    fatherOrHusband: document.getElementById('fatherOrHusband').value.trim(),
+    motherName: document.getElementById('motherName').value.trim(),
+    mobile: document.getElementById('mobile').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    occupation: document.getElementById('occupation').value.trim() || 'প্রযোজ্য নয়',
+    bloodGroup: document.getElementById('bloodGroup').value || 'প্রযোজ্য নয়',
+    nid: document.getElementById('nid').value.trim(),
+    dob: document.getElementById('dob').value,
+    age: document.getElementById('age').value,
+    presentAddress: document.getElementById('presentAddress').value.trim(),
+    permanentAddress: document.getElementById('permanentAddress').value.trim(),
+    nomineeNameBn: document.getElementById('nomineeNameBn').value.trim(),
+    nomineeRelation: document.getElementById('nomineeRelation').value.trim(),
+    nomineeMobile: document.getElementById('nomineeMobile').value.trim(),
+    nomineeNid: document.getElementById('nomineeNid').value.trim() || 'প্রযোজ্য নয়',
+    photoFileName: document.getElementById('photoFile').files[0]?.name || 'photo.jpg',
+    photoBase64: base64Image,
+    status: 'Pending'
+};
 
             try {
                 // ১. ফায়ারবেজে ডেটা সেভ করা
@@ -502,7 +502,7 @@
                 };
 
                 // আপনার EmailJS Service ID এবং Template ID এখানে বসাতে হবে
-                await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", emailParams);
+                await emailjs.send("service_0r5teka", " template_nekfnwd", emailParams);
 
                 alert('আলহামদুলিল্লাহ! আপনার সদস্যপদের আবেদন সফলভাবে জমা হয়েছে এবং অ্যাডমিনকে নোটিফিকেশন পাঠানো হয়েছে।');
                 document.getElementById('membershipForm').reset();
