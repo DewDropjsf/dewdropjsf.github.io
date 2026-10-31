@@ -7,17 +7,135 @@
     <!-- ফায়ারবেজ সিডিএন -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-    
+    <link rel="icon" type="image/png" href="gldlogo.png">
     <style>
-        body { font-family: 'SolaimanLipi', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
-        
-        /* কমন হেডার স্টাইল */
-        header { background-color: #1a1a1a; color: white; padding: 12px 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .logo-area { font-size: 18px; font-weight: bold; color: #fff; display: flex; align-items: center; gap: 8px; }
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { color: #fff; text-decoration: none; font-size: 14px; padding: 6px 12px; border-radius: 4px; transition: background 0.3s; }
-        .nav-links a:hover, .nav-links a.active { background-color: #27ae60; }
+        /* কমন হেডার স্টাইল */  
+         * {
+            box-sizing: border-box;
+        }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Arial; 
+            background-color: #f4f7f6; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            padding: 0; 
+        }
+        /* --- Header & Navigation --- */
+        header {
+            background-color: #004d40;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .logo-image {
+            height: 45px;
+            width: auto;
+            margin-right: 12px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .nav-container {
+            width: 100%;
+            padding: 0 15px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand-title {
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0;
+            white-space: nowrap;
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-right: 10px;
+        }
+        .home-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            object-fit: cover;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        .homebtn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 0;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
 
+        /* Dropdown Menu for About Us */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropbtn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 0;
+            white-space: nowrap;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #ffffff;
+            min-width: 170px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .dropdown-content a {
+            color: #333333;
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+            color: #1b4332;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+                
         /* মূল কন্টেন্ট কন্টেইনার */
         .main-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; padding: 40px 20px; }
         .container { max-width: 750px; width: 100%; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; }
@@ -47,23 +165,65 @@
         .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
 
         /* কমন ফুটার ও ডেভেলপার ইনফো স্টাইল */
-        footer { background-color: #1a1a1a; color: #bbb; text-align: center; padding: 20px; font-size: 13px; margin-top: auto; border-top: 3px solid #27ae60; }
-        footer p { margin: 5px 0; }
-        .dev-info { color: #27ae60; font-weight: bold; }
+               .site-footer {
+            background-color: #002b36;
+            color: #ffffff;
+            width: 100%;
+            padding-top: 25px;
+            text-align: center;
+             margin-top: auto;
+        }
+        .developer-footer {
+            font-size: 13px;
+            color: #d3d3d3;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .developer-footer a {
+            color: #4ea8de;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .developer-footer a:hover {
+            text-decoration: underline;
+        }
+        .copyright-bar {
+            background-color: #001f28;
+            padding: 12px 20px;
+            font-size: 13px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b0bec5;
+        }
     </style>
 </head>
 <body>
+    <!-- Header & Navigation Bar -->
+    <header class="site-header">
+        <div class="nav-container">
+           <div class="logo-container" style="cursor: default;">
+                <img src="gldlogo.png" alt="Logo" class="logo-image">                 
+                <span class="brand-title">DewDrop Joint Savings Fund</span>
+            </div>
 
-    <!-- কমন হেডার -->
-    <header>
-        <div class="logo-area">
-            DewDrop Joint Savings Fund
-        </div>
-        <div class="nav-links">
-            <a href="index.html">🏠 Home</a>
-            <a href="shop.html">শপিং মার্ট</a>
-            <a href="signup.html">অ্যাকাউন্ট</a>
-            <a href="#contact">আমাদের সম্পর্কে</a>
+            <div class="nav-right">
+                <a href="index.html" class="homebtn">
+                    <img src="homelogo.png" alt="Home Logo" class="home-logo">
+                    <span>Home</span>
+                </a>
+            
+                <a href="marketplace.html" class="btn-market" style="background: #009a80; color: #fff; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-block; overflow: hidden; width: 120px;">
+                    <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
+                </a>
+                
+                <div class="dropdown">
+                    <button class="dropbtn">আমাদের সম্পর্কে ▾</button>
+                    <div class="dropdown-content">
+                        <a href="index.html#about-section">ডিউড্রপ সম্পর্কে</a>
+                        <a href="board.html">পরিচালনা পর্ষদ</a>
+                        <a href="developer.html">ডেভেলপার সম্পর্কে</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -223,13 +383,18 @@
             </form>
         </div>
     </div>
-
-    <!-- কমন ফুটার ও ডেভেলপার ইনফো -->
-    <footer>
-        <p>&copy; 2026 DewDrop Joint Savings Fund. All rights reserved.</p>
-        <p>Developed with ❤️ by <span class="dev-info">মো: তানযীম ইসলাম</span></p>
+    
+    <!-- সাইট ফুটার -->
+    <footer class="site-footer">
+        <div class="developer-footer">
+            Website Developed by:<br>
+            <strong>Md Tanjim Islam</strong><br>
+            <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
+        </div>
+        <div class="copyright-bar">
+            &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
+        </div>
     </footer>
-
     <script>
         const firebaseConfig = {
             databaseURL: "https://dewdrop-shopping-default-rtdb.firebaseio.com"
