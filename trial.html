@@ -3,420 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Developer - DewDrop Joint Savings Fund</title>
-    <!-- ব্রাউজার ট্যাব লোগো -->
-    <link rel="icon" type="image/png" href="gldlogo.png">
+    <title>সদস্য ফর্ম - DewDrop Joint Savings Fund</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Arial; 
-            background-color: #f4f7f6; 
-            display: flex; 
-            flex-direction: column;
-            align-items: center; 
-            min-height: 100vh; 
-            margin: 0; 
-            padding: 0; 
-        }
-        /* --- Header & Navigation --- */
-        header {
-            background-color: #004d40;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            width: 100%;
-        }
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-        .logo-image {
-            height: 45px;
-            width: auto;
-            margin-right: 12px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        .nav-container {
-            width: 100%;
-            padding: 0 15px;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .brand-title {
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-            font-size: 22px;
-            font-weight: bold;
+        /* সাধারণ স্টাইল ও কালার থিম */
+        body {
+            font-family: 'SolaimanLipi', Arial, sans-serif;
+            background-color: #f4f7f6;
             margin: 0;
-            white-space: nowrap;
-        }
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding-right: 10px;
-        }
-        .home-logo {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 2px solid #ffffff;
-            object-fit: cover;
-            margin-right: 8px;
-            cursor: pointer;
-        }
-        .homebtn {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 5px 0;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
+            padding: 0;
+            color: #333;
         }
 
-        /* Dropdown Menu for About Us */
-        .dropdown {
-            position: relative;
-            display: inline-block;
+        /* হেডার ও ফুটার প্লেসহোল্ডার স্টাইল */
+        .common-header, .common-footer {
+            background-color: #1b4332;
+            color: white;
+            text-align: center;
+            padding: 15px;
         }
-        .dropbtn {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 5px 0;
-            white-space: nowrap;
+
+        .container {
+            max-width: 850px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 5px solid #2d6a4f;
         }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: #ffffff;
-            min-width: 170px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 6px;
-            overflow: hidden;
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 25px;
         }
-        .dropdown-content a {
-            color: #333333;
-            padding: 10px 14px;
-            text-decoration: none;
-            display: block;
-            font-size: 14px;
-        }
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
+
+        .form-header h2 {
+            margin: 5px 0;
             color: #1b4332;
         }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        .dev-container { 
-            background: #ffffff; 
-            max-width: 950px; 
-            margin: 30px auto; 
-            padding: 40px; 
-            border-radius: 16px; 
-            box-shadow: 0 6px 20px rgba(0,0,0,0.08); 
+
+        .form-header p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
         }
 
-        .section-header {
-            border-bottom: 2.5px solid #0077b6;
-            padding-bottom: 8px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #03045e;
-            text-transform: uppercase;
-            margin: 0;
-            letter-spacing: 1px;
-        }
-
-        /* মূল গ্রিড লেআউট */
-        .dev-grid {
-            display: flex;
-            gap: 40px;
-            align-items: flex-start;
-        }
-
-        /* বাম পাশের ছবির বক্স ও আমার সম্পর্কে অংশ */
-        .dev-left-column {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .dev-image-box {
-            text-align: center;
-            background: #fdfdfd;
-            border: 1.5px solid #dcdcdc;
+        /* সেকশন হেডিং */
+        fieldset {
+            border: 1px solid #d8d8d8;
+            border-radius: 6px;
             padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.02);
-        }
-
-        .dev-image-box img {
-            width: 100%;
-            max-width: 280px;
-            height: 330px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 3px solid #00b4d8;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .dev-name {
-            margin-top: 15px;
-            font-family: Edwardian Script ITC
-            font-size: 20px;
-            font-weight: bold;
-            color: #1d3557;
-        }
-
-        .dev-role {
-            font-size: 15px;
-            color: #e76f51;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-
-        /* ডান ও নিচের তথ্যাদির বক্স */
-        .dev-info-box {
-            flex: 1.5;
-            background: #fdfdfd;
-            border: 1.5px solid #dcdcdc;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.02);
-        }
-
-        .info-group {
-            margin-bottom: 22px;
-        }
-
-        .info-group h4 {
-            color: #03045e;
-            margin: 0 0 8px 0;
-            font-size: 17px;
-            border-left: 4px solid #00b4d8;
-            padding-left: 8px;
-        }
-
-        .info-group p {
-            margin: 0;
-            font-size: 15px;
-            color: #2b2d42;
-            line-height: 1.6;
-        }
-
-        /* ক্লিকযোগ্য বা অ্যাক্টিভ লিংক ডিজাইন */
-        .info-group a {
-            color: #0077b6;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .info-group a:hover {
-            text-decoration: underline;
-            color: #03045e;
-        }
-
-     
-
-        @media (max-width: 768px) {
-            .dev-grid {
-                flex-direction: column;
-            }
-            .dev-container {
-                padding: 15px;
-            }
-        }
-        
-        /* --- Footer --- */
-        .site-footer {
-            background-color: #002b36;
-            color: #ffffff;
-            width: 100%;
-            padding-top: 25px;
-            text-align: center;
-        }
-        .developer-footer {
-            font-size: 13px;
-            color: #d3d3d3;
             margin-bottom: 20px;
-            line-height: 1.6;
+            background-color: #fafbfc;
         }
-        .developer-footer a {
-            color: #4ea8de;
-            text-decoration: none;
+
+        legend {
             font-weight: bold;
+            color: #2d6a4f;
+            background: #e9f5ed;
+            padding: 5px 15px;
+            border: 1px solid #c8e6d0;
+            border-radius: 4px;
         }
-        .developer-footer a:hover {
-            text-decoration: underline;
+
+        /* ফর্ম গ্রিড ও ইনপুট ফিল্ড */
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
         }
-        .copyright-bar {
-            background-color: #001f28;
-            padding: 12px 20px;
+
+        .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .form-group.full-width {
+            flex: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #444;
+        }
+
+        input[type="text"], 
+        input[type="email"], 
+        input[type="number"], 
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus {
+            border-color: #2d6a4f;
+            outline: none;
+            box-shadow: 0 0 5px rgba(45, 106, 79, 0.2);
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        /* অঙ্গীকারনামা */
+        .declaration-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 15px;
+            border-radius: 5px;
             font-size: 13px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #b0bec5;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #856404;
+        }
+
+        /* সাবমিট বাটন */
+        .submit-btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .submit-btn {
+            background-color: #2d6a4f;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #1b4332;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header & Navigation Bar -->
-    <header class="site-header">
-        <div class="nav-container">
-           <div class="logo-container" style="cursor: default;">
-                <img src="gldlogo.png" alt="Logo" class="logo-image">                 
-                <span class="brand-title">DewDrop Joint Savings Fund</span>
-            </div>
-
-            <div class="nav-right">
-                <a href="index.html" class="homebtn">
-                    <img src="homelogo.png" alt="Home Logo" class="home-logo">
-                    <span>Home</span>
-                </a>
-            
-                <a href="marketplace.html" class="btn-market" style="background: #009a80; color: #fff; padding: 6px 12px; border-radius: 4px; text-decoration: none; display: inline-block; overflow: hidden; width: 120px;">
-                    <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
-                </a>
-                
-                <div class="dropdown">
-                    <button class="dropbtn">আমাদের সম্পর্কে ▾</button>
-                    <div class="dropdown-content">
-                        <a href="index.html#about-section">ডিউড্রপ সম্পর্কে</a>
-                        <a href="board.html">পরিচালনা পর্ষদ</a>
-                        <a href="reg_adminpanel.html">অ্যাডমিন প্যানেল_রেজি</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-
-    <div class="dev-container">
-            <div class="section-header">
-            <h1 class="section-title">Developer & Founder Autobiography</h1>
-        </div>
-
-        <div class="dev-grid">
-            <!-- বাম পাশের কলাম: ছবি এবং তার নিচে "আমার সম্পর্কে" -->
-            <div class="dev-left-column">
-                <div class="dev-image-box">
-                    <!-- আপনার ছবির ফাইল নেম এখানে ঠিক রাখা হয়েছে -->
-                    <img src="developer.jpg" alt="Md Tanjim Islam">
-                    <div class="dev-name">Md Tanjim Islam</div>
-                    <div class="dev-role">Lead Developer & Founder</div>
-                </div>
-
-                <div class="dev-info-box" style="padding: 20px;">
-                    <div class="info-group" style="margin-bottom: 0;">
-                        <h4>আমার সম্পর্কে (About Me)</h4>
-                        <p>আসসালামু আলাইকুম। আমি মোঃ তানযীম ইসলাম। প্রযুক্তি এবং ক্রিয়েটিভ প্রজেক্ট নিয়ে কাজ করতে আমি সবসময়ই স্বাচ্ছন্দ্যবোধ করি। DewDrop Joint Savings Fund প্রজেক্টটি আমাদের যৌথ সঞ্চয় ও হিসাব ব্যবস্থাপনাকে সহজ ও স্বচ্ছ করার একটি ক্ষুদ্র প্রয়াস।</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ডান পাশের কলাম: প্রজেক্টের ভাবনা ও যোগাযোগ মাধ্যম -->
-            <div class="dev-info-box">
-                <div class="info-group">
-                    <h4>প্রোজেক্টের পেছনের ভাবনা (Vision)</h4>
-                    <p>সদস্যদের জমানো টাকা, লেনদেনের স্বচ্ছতা এবং যেকোনো সময় নিজের অ্যাকাউন্ট নিজে চেক করার আধুনিক সুবিধা নিশ্চিত করতেই এই ওয়েবসাইটের পরিকল্পনা ও বাস্তবায়ন করা হয়েছে।</p>
-                </div>
-
-                <div class="info-group">
-                    <h4>যোগাযোগ ও ঠিকানা (Contact Info)</h4>
-                    <p>
-                        <strong>ইমেইল:</strong> <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a><br>
-                        <strong>মোবাইল:</strong> <a href="tel:+8801977885122">+8801977885122</a><br>
-                        <strong>অবস্থান:</strong> Dhaka, Bangladesh।
-                    </p>
-                </div>
-            </div>
-        </div>
-
-<!-- পাসওয়ার্ড চাওয়ার সুন্দর পপ-আপ বক্স (Modal) -->
-<div id="passwordModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
-    <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); text-align: center; width: 280px;">
-        <h3 style="margin-top: 0; color: #333; font-size: 16px;">Who Are You?</h3>
-        <!-- এখানে type="password" দেওয়ার কারণে অক্ষরগুলো ডট (***) দেখাবে -->
-        <input type="password" id="trialPasswordInput" placeholder="পাসওয়ার্ড লিখুন..." style="width: 85%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
-        <br>
-        <button onclick="verifyPassword()" style="background: #0077b6; color: white; border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-weight: bold;">প্রবেশ করুন</button>
-        <button onclick="closePasswordModal()" style="background: #ccc; color: #333; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; margin-left: 5px;">বাতিল</button>
+    <!-- ডিফল্ট হেডার -->
+    <div class="common-header">
+        <h3>DewDrop Joint Savings Fund - ড্যাশবোর্ড ও মেম্বারশিপ সিস্টেম</h3>
     </div>
-</div>
 
-<script>
-function openPasswordModal() {
-    document.getElementById('passwordModal').style.display = 'flex';
-    document.getElementById('trialPasswordInput').value = '';
-    document.getElementById('trialPasswordInput').focus();
-}
-
-function closePasswordModal() {
-    document.getElementById('passwordModal').style.display = 'none';
-}
-
-function verifyPassword() {
-    let pass = document.getElementById('trialPasswordInput').value;
-    if (pass === "197788") { // এখানে আপনার কাঙ্ক্ষিত পাসওয়ার্ড দিতে পারেন
-        window.location.href = "trial.html";
-    } else {
-        alert("ভুল পাসওয়ার্ড! প্রবেশাধিকার সংরক্ষিত।");
-        document.getElementById('trialPasswordInput').value = '';
-    }
-}
-</script>
-
-             <!-- ট্রায়াল রুম বাটন (এখানে যুক্ত করা হলো) -->
-  
-    <!-- পাসওয়ার্ড প্রটেক্টেড ট্রায়াল রুম লিংক -->
-    <a href="javascript:void(0);" onclick="openPasswordModal()" style="font-size: 15px; color: #94a3b8; text-decoration: none;">
-        ☢️ TrialRoom
-    </a>
-</div>   
-    
-    <!-- সাইট ফুটার -->
-    <footer class="site-footer">
-        <div class="developer-footer">
-            Website Developed by:<br>
-            <strong>Md Tanjim Islam</strong><br>
-            <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
+    <div class="container">
+        <div class="form-header">
+            <h2>সদস্য ফর্ম (Membership Registration)</h2>
+            <p>পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা, যা ভবিষ্যতে আমাদের যেকোনো বড় ধরনের লাভজনক খাতে যৌথ বিনিয়োগের পথ সুগম করবে।</p>
         </div>
-        <div class="copyright-bar">
-            &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
-        </div>
-    </footer>
 
-    
+        <form id="membershipRegistrationForm">
+            
+            <!-- ব্যক্তিগত তথ্য -->
+            <fieldset>
+                <legend>ব্যক্তিগত তথ্য</legend>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nameBn">সদস্যের নাম (বাংলায়) *</label>
+                        <input type="text" id="nameBn" required placeholder="আপনার পুরো নাম বাংলায় লিখুন">
+                    </div>
+                    <div class="form-group">
+                        <label for="nameEn">সদস্যের নাম (English BLOCK LETTER) *</label>
+                        <input type="text" id="nameEn" required placeholder="FULL NAME IN BLOCK LETTERS">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fatherName">পিতার / স্বামীর নাম *</label>
+                        <input type="text" id="fatherName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="motherName">মাতার নাম *</label>
+                        <input type="text" id="motherName" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mobile">মোবাইল নম্বর *</label>
+                        <input type="text" id="mobile" required placeholder="01XXXXXXXXX">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">ই-মেইল (যাতে আইডি পাঠানো যায়) *</label>
+                        <input type="email" id="email" required placeholder="example@gmail.com">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="occupation">পেশা *</label>
+                        <input type="text" id="occupation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nid">জাতীয় পরিচয় পত্র (NID) নম্বর *</label>
+                        <input type="text" id="nid" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="age">বয়স *</label>
+                        <input type="number" id="age" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bloodGroup">রক্তের গ্রুপ</label>
+                        <select id="bloodGroup">
+                            <option value="">সিলেক্ট করুন</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>লিঙ্গ:</label>
+                        <div class="checkbox-group">
+                            <label><input type="radio" name="gender" value="পুরুষ" required> পুরুষ</label>
+                            <label><input type="radio" name="gender" value="মহিলা"> মহিলা</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>বৈবাহিক অবস্থা:</label>
+                        <div class="checkbox-group">
+                            <label><input type="radio" name="maritalStatus" value="বিবাহিত" required> বিবাহিত</label>
+                            <label><input type="radio" name="maritalStatus" value="অবিবাহিত"> অবিবাহিত</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="photo">পাসপোর্ট সাইজ ছবি আপলোড করুন *</label>
+                        <input type="file" id="photo" accept="image/*" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="membershipFee">সদস্যপদ ফি (টাকা - অফেরতযোগ্য)</label>
+                        <input type="text" id="membershipFee" value="৫০০ টাকা" readonly style="background-color: #e9ecef;">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- বর্তমান ঠিকানা -->
+            <fieldset>
+                <legend>বর্তমান ঠিকানা</legend>
+                <div class="form-row">
+                    <div class="form-group"><label>বাড়ি নং:</label><input type="text" id="currHouse"></div>
+                    <div class="form-group"><label>এলাকা:</label><input type="text" id="currArea"></div>
+                    <div class="form-group"><label>পোস্ট:</label><input type="text" id="currPost"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>ওয়ার্ড নং:</label><input type="text" id="currWard"></div>
+                    <div class="form-group"><label>থানা:</label><input type="text" id="currThana"></div>
+                    <div class="form-group"><label>জেলা:</label><input type="text" id="currDistrict"></div>
+                </div>
+            </fieldset>
+
+            <!-- স্থায়ী ঠিকানা -->
+            <fieldset>
+                <legend>স্থায়ী ঠিকানা</legend>
+                <div class="form-row">
+                    <div class="form-group"><label>গ্রাম:</label><input type="text" id="permVillage"></div>
+                    <div class="form-group"><label>পোস্ট:</label><input type="text" id="permPost"></div>
+                    <div class="form-group"><label>ইউনিয়ন:</label><input type="text" id="permUnion"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>উপজেলা:</label><input type="text" id="permUpazila"></div>
+                    <div class="form-group"><label>জেলা:</label><input type="text" id="permDistrict"></div>
+                    <div class="form-group"><label>ওয়ার্ড নং:</label><input type="text" id="permWard"></div>
+                </div>
+            </fieldset>
+
+            <!-- নমিনির পরিচিতি -->
+            <fieldset>
+                <legend>নমিনীর পরিচিতি</legend>
+                <div class="form-row">
+                    <div class="form-group"><label>নমিনীর নাম (বাংলায়):</label><input type="text" id="nomineeNameBn" required></div>
+                    <div class="form-group"><label>নমিনীর নাম (English):</label><input type="text" id="nomineeNameEn" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>পিতা/মাতা/স্বামীর নাম:</label><input type="text" id="nomineeGuardian"></div>
+                    <div class="form-group"><label>সম্পর্ক:</label><input type="text" id="nomineeRelation" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>মোবাইল নম্বর:</label><input type="text" id="nomineeMobile"></div>
+                    <div class="form-group"><label>বয়স:</label><input type="number" id="nomineeAge"></div>
+                    <div class="form-group"><label>জাতীয় পরিচয় পত্র (NID):</label><input type="text" id="nomineeNid"></div>
+                </div>
+            </fieldset>
+
+            <!-- অঙ্গীকারনামা -->
+            <div class="declaration-box">
+                <strong>অঙ্গীকারনামা:</strong> "আমি এই মর্মে অঙ্গীকার করছি যে, DewDrop Joint Savings Fund-এর সকল নিয়ম ও নীতিমালা মেনে চলব। প্রতি মাসের নির্ধারিত সময়ের মধ্যে সঞ্চয়ের চাঁদা পরিশোধ করব। ফান্ডের স্বার্থবিরোধী কোনো কাজে লিপ্ত হব না।"
+            </div>
+
+            <!-- সাবমিট বাটন -->
+            <div class="submit-btn-container">
+                <button type="submit" class="submit-btn">ফরম জমা দিন (Submit)</button>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- ডিফল্ট ফুটার -->
+    <div class="common-footer">
+        <p>&copy; 2026 DewDrop Joint Savings Fund. All Rights Reserved.</p>
+    </div>
+
+    <script>
+        document.getElementById('membershipRegistrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // এখানে ফায়ারবেজ ডাটাবেজ সেভ এবং ছবি আপলোডের লজিক যুক্ত হবে
+            alert('আপনার ফরমটি সফলভাবে সাবমিট হয়েছে এবং পেন্ডিং লিস্টে জমা হয়েছে! অ্যাডমিন অ্যাপ্রুভ করার পর আপনাকে মেইলের মাধ্যমে জানিয়ে দেওয়া হবে।');
+            
+            // ফর্ম রিসেট
+            this.reset();
+        });
+    </script>
+
 </body>
 </html>
