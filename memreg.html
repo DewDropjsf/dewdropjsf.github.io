@@ -3,17 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Membership Registration- DewDrop Joint Savings Fund</title>
-    <!-- ফায়ারবেজ সিডিএন -->
+    <title>সদস্য ফরম (Membership Registration) - DewDrop Joint Savings Fund</title>
+    <!-- ফায়ারবেজ সিডিএন -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-    <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-       (function(){
-          emailjs.init("VsBVbKELxpfLHOxdx"); // এখানে আপনার EmailJS Public Key বসাবেন
-       })();
-    </script>
     <link rel="icon" type="image/png" href="gldlogo.png">
     <style>
         /* কমন হেডার স্টাইল */  
@@ -172,7 +165,7 @@
         .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
 
         /* কমন ফুটার ও ডেভেলপার ইনফো স্টাইল */
-           .site-footer {
+               .site-footer {
             background-color: #002b36;
             color: #ffffff;
             width: 100%;
@@ -237,11 +230,11 @@
     <!-- মূল ফরম কন্টেন্ট -->
     <div class="main-wrapper">
         <div class="container">
-            <div class="note-top">* চিহ্নিত ফিল্ড অবশ্যই পূরণীয়</div>
+            <div class="note-top">* চিহ্নিত ফিল্ড অবশ্যই পূরণীয়</div>
             
             <h2>সদস্য ফরম (Membership Registration)</h2>
             <div class="form-desc">
-                পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা, যা ভবিষ্যতে আমাদের যেকোনো বড় ধরনের লাভজনক খাতে যৌথ বিনিয়োগের পথ সুগম করবে।
+                পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা, যা ভবিষ্যতে আমাদের যেকোনো বড় ধরনের লাভজনক খাতে যৌথ বিনিয়োগের পথ সুগম করবে।
             </div>
 
             <form id="membershipForm" onsubmit="submitForm(event)">
@@ -252,8 +245,8 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>সদস্যের নাম (বাংলা) <span class="required-star">*</span></label>
-                        <input type="text" id="nameBn" placeholder="আপনার পুরো নাম বাংলায় লিখুন" oninput="validateBangla('nameBn', 'errNameBn')" required>
-                        <span id="errNameBn" class="lang-error">অনুগ্রহ করে বাংলায় লিখুন</span>
+                        <input type="text" id="nameBn" placeholder="আপনার পুরো নাম বাংলায় লিখুন" oninput="validateBangla('nameBn', 'errNameBn')" required>
+                        <span id="errNameBn" class="lang-error">অনুগ্রহ করে বাংলায় লিখুন</span>
                     </div>
                     <div class="form-group">
                         <label>সদস্যের নাম (English BLOCK LETTER) <span class="required-star">*</span></label>
@@ -264,13 +257,13 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>পিতার / স্বামীর নাম <span class="required-star">*</span></label>
-                        <input type="text" id="fatherOrHusband" placeholder="পিতার বা স্বামীর নাম বাংলায় লিখুন" oninput="validateBangla('fatherOrHusband', 'errFather')" required>
-                        <span id="errFather" class="lang-error">অনুগ্রহ করে বাংলায় লিখুন</span>
+                        <input type="text" id="fatherOrHusband" placeholder="পিতার বা স্বামীর নাম বাংলায় লিখুন" oninput="validateBangla('fatherOrHusband', 'errFather')" required>
+                        <span id="errFather" class="lang-error">অনুগ্রহ করে বাংলায় লিখুন</span>
                     </div>
                     <div class="form-group">
                         <label>মাতার নাম <span class="required-star">*</span></label>
-                        <input type="text" id="motherName" placeholder="মাতার নাম বাংলায় লিখুন" oninput="validateBangla('motherName', 'errMother')" required>
-                        <span id="errMother" class="lang-error">অনুগ্রহ করে বাংলায় লিখুন</span>
+                        <input type="text" id="motherName" placeholder="মাতার নাম বাংলায় লিখুন" oninput="validateBangla('motherName', 'errMother')" required>
+                        <span id="errMother" class="lang-error">অনুগ্রহ করে বাংলায় লিখুন</span>
                     </div>
                 </div>
 
@@ -280,7 +273,7 @@
                         <input type="tel" id="mobile" placeholder="01XXXXXXXXX" pattern="01[0-9]{9}" required>
                     </div>
                     <div class="form-group">
-                        <label>ই-মেইল (যাতে আইডি পাঠানো যায়) <span class="required-star">*</span></label>
+                        <label>ই-মেইল (যাতে আইডি পাঠানো যায়) <span class="required-star">*</span></label>
                         <input type="email" id="email" placeholder="example@gmail.com" required>
                     </div>
                 </div>
@@ -291,7 +284,7 @@
                         <input type="text" id="occupation" placeholder="আপনার পেশা লিখুন">
                     </div>
                     <div class="form-group">
-                        <label>জাতীয় পরিচয় পত্র (NID) নম্বর <span class="required-star">*</span></label>
+                        <label>জাতীয় পরিচয় পত্র (NID) নম্বর <span class="required-star">*</span></label>
                         <input type="text" id="nid" placeholder="NID নম্বর লিখুন" required>
                     </div>
                 </div>
@@ -302,15 +295,15 @@
                         <input type="date" id="dob" onchange="calculateAge()" required>
                     </div>
                     <div class="form-group">
-                        <label>বয়স (স্বয়ংক্রিয়)</label>
-                        <input type="text" id="age" placeholder="জন্ম তারিখ দিলে বয়স আসবে" readonly style="background-color: #f1f1f1;">
+                        <label>বয়স (স্বয়ংক্রিয়)</label>
+                        <input type="text" id="age" placeholder="জন্ম তারিখ দিলে বয়স আসবে" readonly style="background-color: #f1f1f1;">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label>রক্তের গ্রুপ</label>
-                        <select id="bloodGroup">
+                        <label>রক্তের গ্রুপ <span class="required-star">*</span></label>
+                        <select id="bloodGroup" required>
                             <option value="">সিলেক্ট করুন</option>
                             <option value="A+">A+</option>
                             <option value="A-">A-</option>
@@ -331,8 +324,8 @@
                         <input type="text" id="presentAddress" placeholder="বর্তমান ঠিকানা লিখুন" required>
                     </div>
                     <div class="form-group">
-                        <label>স্থায়ী ঠিকানা <span class="required-star">*</span></label>
-                        <input type="text" id="permanentAddress" placeholder="স্থায়ী ঠিকানা লিখুন" required>
+                        <label>স্থায়ী ঠিকানা <span class="required-star">*</span></label>
+                        <input type="text" id="permanentAddress" placeholder="স্থায়ী ঠিকানা লিখুন" required>
                     </div>
                 </div>
 
@@ -342,8 +335,8 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>নমিনির নাম (বাংলা) <span class="required-star">*</span></label>
-                        <input type="text" id="nomineeNameBn" placeholder="নমিনির নাম বাংলায় লিখুন" oninput="validateBangla('nomineeNameBn', 'errNominee')" required>
-                        <span id="errNominee" class="lang-error">অনুগ্রহ করে বাংলায় লিখুন</span>
+                        <input type="text" id="nomineeNameBn" placeholder="নমিনির নাম বাংলায় লিখুন" oninput="validateBangla('nomineeNameBn', 'errNominee')" required>
+                        <span id="errNominee" class="lang-error">অনুগ্রহ করে বাংলায় লিখুন</span>
                     </div>
                     <div class="form-group">
                         <label>সদস্যের সাথে সম্পর্ক <span class="required-star">*</span></label>
@@ -375,16 +368,25 @@
                             <span style="font-size: 11px; color: #888;">ছবি নেই</span>
                         </div>
                     </div>
-                </div>
-
+                </div>              
+                       
                 <!-- অঙ্গীকারনামা -->
                 <div class="declaration-box">
                     <input type="checkbox" id="declarationCheck" required>
+		<div class="form-group">	
+		<label for="declarationCheck" style="font-weight: normal; cursor: pointer;">
+                      এককালীন অফেরতযোগ্য ২০০/- (দুইশত) টাকা প্রারম্ভিক সদস্যপদ ফি (Initial Membership Fee) প্রদান করতে হবে। 
+                    </label>
+					</div>
+			</div>
+					<div class="declaration-box">
+					 <input type="checkbox" id="declarationCheck" required>
+					<div class="form-group">
                     <label for="declarationCheck" style="font-weight: normal; cursor: pointer;">
-                        আমি এই মর্মে অঙ্গীকার করছি যে, DewDrop Joint Savings Fund এর সকল নিয়ম-কানুন ও নীতিমালা মেনে চলব এবং তহবিলের স্বার্থবিরোধী কোনো কার্যকলাপে লিপ্ত হব না। ফর্মে প্রদত্ত সকল তথ্য সত্য ও সঠিক।
+                        আমি এই মর্মে অঙ্গীকার করছি যে, DewDrop Joint Savings Fund এর সকল নিয়ম-কানুন ও নীতিমালা মেনে চলব এবং তহবিলের স্বার্থবিরোধী কোনো কার্যকলাপে লিপ্ত হব না। ফর্মে প্রদত্ত সকল তথ্য সত্য ও সঠিক।
                     </label>
                 </div>
-
+		 </div>
                 <button type="submit" class="submit-btn">আবেদন সাবমিট করুন</button>
 
             </form>
@@ -461,56 +463,43 @@
                 !banglaRegex.test(document.getElementById('fatherOrHusband').value) ||
                 !banglaRegex.test(document.getElementById('motherName').value) ||
                 !banglaRegex.test(document.getElementById('nomineeNameBn').value)) {
-                alert('দয়া করে বাংলা ফিল্ডগুলোতে শুধুমাত্র বাংলায় লিখুন!');
+                alert('দয়া করে বাংলা ফিল্ডগুলোতে শুধুমাত্র বাংলায় লিখুন!');
                 return;
             }
 
-           const memberData = {
-    submissionDate: new Date().toLocaleString(),
-    nameBn: document.getElementById('nameBn').value.trim(),
-    nameEn: document.getElementById('nameEn').value.trim().toUpperCase(),
-    fatherOrHusband: document.getElementById('fatherOrHusband').value.trim(),
-    motherName: document.getElementById('motherName').value.trim(),
-    mobile: document.getElementById('mobile').value.trim(),
-    email: document.getElementById('email').value.trim(),
-    occupation: document.getElementById('occupation').value.trim() || 'প্রযোজ্য নয়',
-    bloodGroup: document.getElementById('bloodGroup').value || 'প্রযোজ্য নয়',
-    nid: document.getElementById('nid').value.trim(),
-    dob: document.getElementById('dob').value,
-    age: document.getElementById('age').value,
-    presentAddress: document.getElementById('presentAddress').value.trim(),
-    permanentAddress: document.getElementById('permanentAddress').value.trim(),
-    nomineeNameBn: document.getElementById('nomineeNameBn').value.trim(),
-    nomineeRelation: document.getElementById('nomineeRelation').value.trim(),
-    nomineeMobile: document.getElementById('nomineeMobile').value.trim(),
-    nomineeNid: document.getElementById('nomineeNid').value.trim() || 'প্রযোজ্য নয়',
-    photoFileName: document.getElementById('photoFile').files[0]?.name || 'photo.jpg',
-    photoBase64: base64Image,
-    status: 'Pending'
-};
+            const memberData = {
+                submissionDate: new Date().toLocaleString(),
+                nameBn: document.getElementById('nameBn').value.trim(),
+                nameEn: document.getElementById('nameEn').value.trim().toUpperCase(),
+                fatherOrHusband: document.getElementById('fatherOrHusband').value.trim(),
+                motherName: document.getElementById('motherName').value.trim(),
+                mobile: document.getElementById('mobile').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                occupation: document.getElementById('occupation').value.trim() || 'প্রযোজ্য নয়',
+                nid: document.getElementById('nid').value.trim(),
+                dob: document.getElementById('dob').value,
+                age: document.getElementById('age').value,
+                bloodGroup: document.getElementById('bloodGroup').value,
+                presentAddress: document.getElementById('presentAddress').value.trim(),
+                permanentAddress: document.getElementById('permanentAddress').value.trim(),
+                nomineeNameBn: document.getElementById('nomineeNameBn').value.trim(),
+                nomineeRelation: document.getElementById('nomineeRelation').value.trim(),
+                nomineeMobile: document.getElementById('nomineeMobile').value.trim(),
+                nomineeNid: document.getElementById('nomineeNid').value.trim() || 'প্রযোজ্য নয়',
+                photoFileName: document.getElementById('photoFile').files[0]?.name || 'photo.jpg',
+                photoBase64: base64Image,
+                status: 'Pending'
+            };
 
             try {
-                // ১. ফায়ারবেজে ডেটা সেভ করা
                 await database.ref('pendingMembers').push(memberData);
-
-                // ২. EmailJS এর মাধ্যমে অ্যাডমিনের জিমেইলে (tanjimtoru@gmail.com) নোটিফিকেশন পাঠানো
-                const emailParams = {
-                    admin_email: "tanjimtoru@gmail.com",
-                    member_name: memberData.nameBn,
-                    member_mobile: memberData.mobile,
-                    submission_date: memberData.submissionDate
-                };
-
-                // আপনার EmailJS Service ID এবং Template ID এখানে বসাতে হবে
-                await emailjs.send("service_0r5teka", " template_nekfnwd", emailParams);
-
-                alert('আলহামদুলিল্লাহ! আপনার সদস্যপদের আবেদন সফলভাবে জমা হয়েছে এবং অ্যাডমিনকে নোটিফিকেশন পাঠানো হয়েছে।');
+                alert('আলহামদুলিল্লাহ! আপনার সদস্যপদের আবেদন সফলভাবে জমা হয়েছে।');
                 document.getElementById('membershipForm').reset();
                 document.getElementById('photoPreviewContainer').innerHTML = '<span style="font-size: 11px; color: #888;">ছবি নেই</span>';
                 base64Image = "";
             } catch (error) {
-                console.error("Error saving data or sending email: ", error);
-                alert('দুঃখিত, ডেটা জমা করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+                console.error("Error saving data: ", error);
+                alert('দুঃখিত, ডেটা জমা করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
             }
         }
     </script>
