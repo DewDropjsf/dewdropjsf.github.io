@@ -3,1313 +3,542 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DewDrop Joint Savings Fund - Ultimate Advertisement Loop</title>
-    <link rel="icon" type="image/png" href="gldlogo.png">
-
+    <title>মেম্বারশিপ অ্যাডমিন প্যানেল - DewDrop Joint Savings Fund</title>
+    <!-- ফায়ারবেজ ও EmailJS সিডিএন -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <style>
-    /* --- General Reset & Page Setup --- */
-    html {
-        scroll-behavior: smooth;
-    }
-    body, html {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        overflow-x: hidden;
-        font-family: 'Comic Sans MS', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f4f7f6;
-        color: #333;
-    }
-    * {
-        box-sizing: border-box;
-    }
+        body { font-family: 'SolaimanLipi', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #2c3e50; }
 
-    /* --- Header & Navigation --- */
-    header {
-        background-color: #004d40;
-        color: white;
-        padding: 15px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        width: 100%;
-    }
-    .logo-container {
-        display: flex;
-        align-items: center;
-    }
-    .logo-image {
-        height: 45px;
-        width: auto;
-        margin-right: 12px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-    header h1 {
-        margin: 0;
-        font-size: 22px;
-    }
-    nav {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-    nav a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 15px;
-    }
-    nav a:hover {
-        color: #e9d8a6;
-    }
-
-    .user-avatar {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        border: 2px solid #ffffff;
-        object-fit: cover;
-        margin-right: 8px;
-        cursor: pointer;
-    }
-
-    /* --- Hero Section --- */
-    .hero {
-        background-color: #e9d8a6;
-        text-align: center;
-        padding: 60px 20px;
-    }
-    .hero h2 {
-        font-size: 34px;
-        color: #001219;
-        margin-bottom: 10px;
-    }
-    .hero p {
-        font-size: 18px;
-        color: #333;
-        max-width: 650px;
-        margin: 0 auto 20px auto;
-        line-height: 1.6;
-    }
-    .btn {
-        background-color: #0a9396;
-        color: white;
-        padding: 10px 22px;
-        text-decoration: none;
-        font-size: 16px;
-        border-radius: 5px;
-        font-weight: bold;
-        display: inline-block;
-    }
-    .btn:hover {
-        background-color: #005f73;
-    }
-
-    /* --- Features / Cards Container --- */
-    .features-container {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-        max-width: 100%;
-        margin: 40px auto;
-        padding: 0 15px;
-    }
-
-    .feature-box {
-        background: #fdfdfd;
-        border: 1.5px solid #dcdcdc;
-        padding: 25px 20px;
-        border-radius: 12px;
-        text-align: center;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.02);
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .feature-box h3 {
-        color: #03045e;
-        font-size: 18px;
-        margin-top: 0;
-        margin-bottom: 12px;
-    }
-
-    .feature-box p {
-        color: #2b2d42;
-        font-size: 14px;
-        line-height: 1.5;
-        margin-bottom: 20px;
-    }
-
-    .feature-btn, .btn-report {
-        background-color: #0077b6;
-        color: white;
-        text-decoration: none;
-        padding: 8px 16px;
-        font-size: 14px;
-        border-radius: 5px;
-        font-weight: bold;
-        display: inline-block;
-        margin-top: auto;
-        transition: background 0.2s ease;
-    }
-
-    .feature-btn:hover, .btn-report:hover {
-        background-color: #03045e;
-    }
-
-    /* --- Dropdown Menu --- */
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #004d40;
-        min-width: 180px;
-        box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-        z-index: 1000;
-        border-radius: 6px;
-        top: 100%;
-        left: 0;
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.1);
-    }
-    .dropdown-content a {
-        color: #ffffff;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        text-align: left;
-        font-size: 14px;
-        font-weight: bold;
-        margin: 0;
-        transition: background-color 0.2s ease;
-    }
-    .dropdown-content a:hover {
-        background-color: #00332c;
-        color: #ffeb3b;
-    }
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-
-    /* --- About Us Section --- */
-    .about-section {
-        max-width: 100%;
-        margin: 50px auto 30px auto;
-        padding: 0 20px;
-        color: #333333;
-        line-height: 1.8;
-        scroll-margin-top: 100px;
-    }
-
-    .about-section h2 {
-        color: #005f73;
-        font-size: 24px;
-        margin-bottom: 15px;
-        border-bottom: 2px solid #005f73;
-        display: inline-block;
-        padding-bottom: 5px;
-    }
-
-    .about-section p {
-        margin-bottom: 15px;
-        font-size: 15px;
-        text-align: justify;
-    }
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+        .password-container input {
+            width: 100%;
+            padding-right: 40px; /* চোখের আইকনের জন্য জায়গা খালি রাখা */
+            box-sizing: border-box;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+            user-select: none;
+        }
         
-    .contact-info {
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px dashed #cccccc;
-    }
-
-    .contact-info h4 {
-        color: #005f73;
-        margin-bottom: 10px;
-        font-size: 18px;
-    }
-
-    .contact-info p {
-        margin: 6px 0;
-        font-size: 15px;
-    }
-
-    .contact-info a {
-        color: #005f73;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .contact-info a:hover {
-        text-decoration: underline;
-    }
+        /* লগইন সেকশন স্টাইল */
+        #login-section { max-width: 400px; margin: 100px auto; padding: 30px; background: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
+        #login-section input { width: 100%; padding: 10px; margin: 15px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        #login-section button { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; }
+        #login-section button:hover { background: #219653; }
         
-    /* চলমান নোটিশ বোর্ড */
-    .top-marquee-bar {
-        width: 100%;
-        background-color: #d4a373;
-        padding: 16px 0;
-        box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .top-marquee-bar marquee {
-        font-size: 20px;
-        font-weight: bold;
-        color: #000000;
-        line-height: 1.5;
-        display: block;
-    }
-
-    /* --- Footer --- */
-    .site-footer {
-        background-color: #002b36;
-        color: #ffffff;
-        margin-top: 60px;
-        padding-top: 25px;
-        text-align: center;
-    }
-
-    .developer-footer {
-        font-size: 13px;
-        color: #d3d3d3;
-        margin-bottom: 20px;
-        line-height: 1.6;
-    }
-
-    .developer-footer a {
-        color: #4ea8de;
-        text-decoration: none;
-        font-weight: bold;
-    }
-
-    .developer-footer a:hover {
-        text-decoration: underline;
-    }
-
-    .copyright-bar {
-        background-color: #001f28;
-        padding: 12px 20px;
-        font-size: 13px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        color: #b0bec5;
-    }
-
-    /* --- নতুন মেইন লেআউট সেকশন (সম্পূর্ণ স্ক্রিন জুড়ে থাকবে, কোনো ডানে-বামে খালি জায়গা থাকবে না) --- */
-    .main-content-flex {
-        display: flex;
-        gap: 15px;
-        align-items: stretch;
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 30px 0 !important;
-        padding: 0 15px !important;
-        box-sizing: border-box;
-    }
-
-   /* --- বাঁ পাশের নোটিশ বোর্ড --- */
-.notice-board-card {
-    background-color: #012836;
-    border: 2px solid #0077b6;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    color: #ffffff;
-    flex: 1.6; /* বামের বোর্ড বড় করা হয়েছে */
-    height: 520px; /* বোর্ডের নির্দিষ্ট উচ্চতা */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.notice-board-title {
-    font-size: 20px;
-    color: #94DEA5;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 15px;
-    border-bottom: 2px dashed #0077b6;
-    padding-bottom: 8px;
-}
-
-.notice-board-card .notice-list {
-    list-style: none;
-    max-height: 400px; /* লিস্টের সর্বোচ্চ উচ্চতা যাতে অতিরিক্ত নোটিশ আসলে স্ক্রল করা যায় */
-    overflow-y: auto;  /* স্ক্রলবার চালু করার জন্য */
-    padding-right: 5px;
-}
-
-/* স্ক্রলবার স্টাইল */
-.notice-board-card .notice-list::-webkit-scrollbar {
-    width: 6px;
-}
-.notice-board-card .notice-list::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-}
-
-.notice-item {
-    margin-bottom: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 8px;
-}
-
-.read-more-btn {
-    background: none;
-    border: none;
-    color: #4da6ff;
-    cursor: pointer;
-    padding: 0;
-    margin-left: 5px;
-    font-size: 12px;
-    text-decoration: underline;
-}
-
-.full-details {
-    display: none;
-    margin-top: 5px;
-    font-size: 13px;
-    color: #e0e0e0;
-    background: rgba(0, 0, 0, 0.2);
-    padding: 6px;
-    border-radius: 4px;
-}
-
-    .notice-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        font-size: 14px;
-        color: #C0D2E6;
-        line-height: 1.6;
-    }
-
-    .notice-list li {
-        margin-bottom: 12px;
-        position: relative;
-        padding-left: 18px;
-    }
-
-    .notice-list li::before {
-        content: "📌";
-        position: absolute;
-        left: 0;
-        font-size: 12px;
-    }
-
-    /* --- বিজ্ঞাপন কার্ড (মাঝের অংশ সবচেয়ে বেশি প্রশস্ত করা হয়েছে) --- */
-    .ad-card-container {
-        border: 2px solid #0077b6;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-        background: #023D54;
-        transition: opacity 0.8s ease-in-out;
-        flex: 3.8; /* মাঝের বিজ্ঞাপন কার্ড সবচেয়ে চওড়া করা হয়েছে */
-    }
-
-    .ad-card-container.fade-out {
-        opacity: 0;
-    }
-
-    .ad-table-marquee {
-        background-color: #0077b6;
-        color: #ffffff;
-        padding: 8px 10px;
-        font-size: 14px;
-        font-weight: bold;
-        text-align: center;
-        border-bottom: 1px solid #005f73;
-    }
+        /* অ্যাডমিন প্যানেল মেইন */
+        #admin-panel { display: none; }
+        .logout-btn { background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; float: right; margin-bottom: 20px; }
         
-    .ad-main-card {
-        display: flex;
-        position: relative;
-        overflow: hidden;
-        min-height: 420px;
-    }
+        /* টেবিল স্টাইল (পেন্ডিং সেকশন) */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 40px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; font-size: 14px; }
+        th { background-color: #2c3e50; color: white; }
+        .approve-btn { background: #27ae60; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
+        .approve-btn:hover { background: #219653; }
+        .member-id-input { width: 90px; padding: 5px; text-align: center; }
+        .table-photo { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
 
-    .ad-left-section {
-        flex: 1;
-        padding: 20px;
-        border-right: 1px dashed #b0c4de;
-        background-color: #023D54;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .doctor-name {
-        font-size: 22px;
-        color: #94DEA5;
-        font-weight: bold;
-        margin-bottom: 2px;
-        text-align: center;
-    }
-    .doctor-title {
-        color: #ffff66;
-        font-size: 13px;
-        font-weight: bold;
-        margin-bottom: 8px;
-        text-align: center;
-    }
-    .chamber-info, .flat-sale-desc {
-        font-size: 13.5px;
-        color: #C0D2E6;
-        line-height: 1.5;
-        margin-bottom: 10px;
-    }
-
-    .flat-sale-title {
-        font-size: 26px;
-        color: #94DEA5;
-        font-weight: bold;
-        margin-bottom: 10px;
-        text-align: center;
-        display: inline-block;
-        width: 100%;
-        animation: shakeFlat 1.2s infinite ease-in-out;
-    }  
-
-    @keyframes shakeFlat {
-        0% { transform: translate(0, 0) rotate(0deg); }
-        15% { transform: translate(-2px, 2px) rotate(-2deg); }
-        30% { transform: translate(2px, -2px) rotate(2deg); }
-        45% { transform: translate(-2px, -1px) rotate(-1deg); }
-        60% { transform: translate(2px, 2px) rotate(1deg); }
-        75% { transform: translate(0, 0) rotate(0deg); }
-        100% { transform: translate(0, 0) rotate(0deg); }
-    }
+        /* রেজিস্ট্রেশন ফরম স্টাইল (অনুমোদিত আবেদনসমূহের জন্য) */
+        .form-card { background: #fff; border: 2px solid #2c3e50; padding: 30px; border-radius: 8px; margin-bottom: 40px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .form-header { text-align: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+        .form-header h3 { margin: 0; color: #2c3e50; }
+        .form-header p { font-size: 13px; color: #555; margin-top: 5px; }
+        .section-title { background: #e8f4f8; color: #2c3e50; padding: 8px 12px; font-weight: bold; font-size: 15px; margin: 20px 0 15px 0; border-left: 4px solid #2980b9; }
+        .form-row { display: flex; gap: 20px; margin-bottom: 15px; }
+        .form-group { flex: 1; display: flex; flex-direction: column; }
+        .form-group label { font-size: 13px; color: #333; margin-bottom: 5px; font-weight: bold; }
+        .form-value { padding: 8px 10px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; color: #111; min-height: 20px; }
+        .approved-photo { width: 100px; height: 100px; object-fit: cover; border: 1px solid #ccc; border-radius: 4px; }
         
-    .vibrant-phone-icon {
-        color: #ff4d4d !important;
-        display: inline-block;
-        animation: shakePhone 1.2s infinite ease-in-out;
-    }
-        
-    @keyframes shakePhone {
-        0% { transform: translate(0, 0) rotate(0deg); }
-        15% { transform: translate(-2px, 2px) rotate(-10deg); }
-        30% { transform: translate(2px, -2px) rotate(10deg); }
-        45% { transform: translate(-2px, -1px) rotate(-10deg); }
-        60% { transform: translate(2px, 2px) rotate(10deg); }
-        75% { transform: translate(0, 0) rotate(0deg); }
-        100% { transform: translate(0, 0) rotate(0deg); }
-    }
+        /* প্রিন্ট বাটন */
+        .print-btn { background: #2980b9; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; position: absolute; top: 20px; right: 20px; display: flex; align-items: center; gap: 5px; font-size: 14px; }
+        .print-btn:hover { background: #1f618d; }
 
-    .hero .btn {
-        position: relative;
-        overflow: hidden;
-        display: inline-block;
-    }
-
-    .hero .btn::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-        animation: shootingStar 2.5s infinite linear;
-    }
-
-    @keyframes shootingStar {
-        0% { left: -100%; }
-        50% { left: 100%; }
-        100% { left: 100%; }
-    }
-
-    .whatsapp-container {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        margin-top: 6px;
-        text-decoration: none;
-    }
-
-    .whatsapp-logo-img {
-        width: 22px;
-        height: 22px;
-        object-fit: contain;
-        transition: transform 0.2s ease;
-    }
-
-    .whatsapp-container:hover .whatsapp-logo-img {
-        transform: scale(1.15);
-    }
-
-    .whatsapp-text {
-        color: #25d366;
-        font-size: 13px;
-        font-weight: bold;
-    }
-
-    .whatsapp-container:hover .whatsapp-text {
-        text-decoration: underline;
-    }
-
-    .chamber-timing {
-        background-color: #baeafd;
-        border-left: 4px solid #2a9d8f;
-        padding: 8px;
-        font-size: 14px;
-        border-radius: 4px;
-        margin-bottom: 10px;
-        color: #001219;
-    }
-
-    .social-section-title {
-        color: #ffff66;
-        font-size: 13px;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 6px;
-    }
-
-    .social-links {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        margin-bottom: 10px;
-        align-items: center;
-    }
-
-    .social-logo {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        object-fit: cover;
-        transition: transform 0.2s ease;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-
-    .social-logo:hover {
-        transform: scale(1.1);
-    }
-
-    .ad-warning {
-        font-size: 11.5px;
-        color: #e63946;
-        font-weight: bold;
-        background: #baeafd;
-        padding: 5px;
-        border-radius: 4px;
-        text-align: center;
-    }
-
-    .ad-right-section {
-        flex: 1.2;
-        padding: 20px;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        transition: background-color 0.5s ease;
-    }
-        
-    .bg-page-0 { background-color: #57d9c9; }
-    .bg-page-1 { background-color: #a8dadc; }
-    .bg-page-2 { background-color: #f1faee; }
-    .bg-page-3 { background-color: #e2e8f0; }
-
-    .service-page {
-        display: none;
-        opacity: 0;
-    }
-
-    .service-page.active-page {
-        display: block;
-        animation: slideInFromRight 0.8s forwards ease-in-out;
-    }
-
-    @keyframes slideInFromRight {
-        0% {
-            opacity: 0;
-            transform: translateX(60px);
+        @media print {
+            body * { visibility: hidden; }
+            .form-card, .form-card * { visibility: visible; }
+            .form-card { position: absolute; left: 0; top: 0; width: 100%; border: none; box-shadow: none; margin: 0; padding: 10px; }
+            .print-btn, .logout-btn { display: none; }
         }
-        100% {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-
-    .service-title {
-        font-size: 18px;
-        color: #2b2d42;
-        font-weight: bold;
-        border-bottom: 2px solid #0077b6;
-        padding-bottom: 5px;
-        margin-bottom: 10px;
-    }
-
-    .service-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        font-size: 14px;
-        color: #2b2d42;
-        line-height: 1.5;
-    }
-
-    .service-list li {
-        margin-bottom: 6px;
-        position: relative;
-        padding-left: 15px;
-    }
-
-    .service-list li::before {
-        content: "▪";
-        color: #e76f51;
-        position: absolute;
-        left: 0;
-    }
-
-    .property-gallery-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-        margin-top: 10px;
-    }
-    .property-img {
-        width: 100%;
-        max-width: 200px;
-        height: auto;
-        object-fit: cover;
-        border-radius: 6px;
-        border: 2px solid #0077b6;
-        transition: transform 0.3s;
-    }
-    .property-img:hover {
-        transform: scale(1.03);
-    }
-
-    .ad-controls {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 15px;
-        border-top: 1px solid rgba(0,0,0,0.1);
-        padding-top: 10px;
-    }
-
-    .ctrl-btn {
-        background-color: rgba(255, 255, 255, 0.7);
-        border: none;
-        padding: 5px 12px;
-        font-size: 12px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: bold;
-        color: #334155;
-        transition: background 0.2s;
-    }
-
-    .ctrl-btn:hover {
-        background-color: #0077b6;
-        color: white;
-    }
-
-    .page-indicators {
-        font-size: 12px;
-        color: #1e293b;
-        font-weight: bold;
-    }
-
-    /* --- শপিং মার্ট কার্ড (প্রস্থ ঠিক রেখে উচ্চতা বা লম্বা কমানো হয়েছে) --- */
-    .shopping-mart-card {
-        background-color: #1e3d59;
-        color: #ffffff;
-        padding: 15px;
-        border-radius: 12px;
-        position: relative;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        border: 2px solid #0077b6;
-        flex: 1.2; /* প্রস্থ আগের মতো ঠিক রাখা হয়েছে */
-        min-height: auto !important; /* অতিরিক্ত লম্বা হওয়া রোধ করতে এটি অটো করা হলো */
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .shopping-mart-card h3 {
-        font-size: 20px;
-        color: #94DEA5;
-        font-weight: bold;
-        margin-top: 0;
-        margin-bottom: 8px;
-    }
-
-    .shopping-mart-card p {
-        font-size: 13.5px;
-        line-height: 1.5;
-        margin-bottom: 12px;
-        color: #C0D2E6;
-    }
-
-    /* --- Mobile Responsiveness --- */
-    @media (max-width: 1100px) {
-        .features-container {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        .main-content-flex {
-            flex-direction: column;
-        }
-    }
-
-    @media (max-width: 768px) {
-        header {
-            flex-direction: column;
-            gap: 12px;
-            padding: 12px;
-            text-align: center;
-        }
-        nav {
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-        .features-container {
-            grid-template-columns: 1fr;
-        }
-    }
     </style>
 </head>
-
 <body>
 
-    <!-- Header & Navigation -->
-    <header id="top">
-        <div class="logo-container">
-            <img src="gldlogo.png" alt="logo" class="logo-image">
-            <h1>DewDrop Joint Savings Fund</h1>
-        </div>
-        <nav>
-            <img id="headerUserAvatar" src="prflogo.jpeg" alt="User Avatar" class="user-avatar">
-            
-            <a href="#">হোম</a>
-            <a href="marketplace.html" class="btn-market" style="background: #009a80; color: #fff; padding: 10px 15px; border-radius: 4px; text-decoration: none; display: inline-block; overflow: hidden; width: 140px;">
-                <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট</marquee>
-            </a>
-            <div class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">আমাদের সম্পর্কে ▾</a>
-                <div class="dropdown-content">
-                    <a href="#about-section">ডিউড্রপ সম্পর্কে</a>
-                    <a href="board.html">পরিচালনা পর্ষদ</a>
-                    <a href="developer.html">ডেভেলপার সম্পর্কে</a>
-                    <a href="reg_adminpanel.html">অ্যাডমিন প্যানেল_রেজি</a>
-                </div>
+    <!-- ১. পাসওয়ার্ড লগইন সেকশন -->
+    <div id="login-section">
+        <h3>অ্যাডমিন লগইন</h3>
+        <p style="font-size: 13px; color: #666;">প্রবেশ করতে সিক্রেট পাসওয়ার্ড দিন</p>
+        <div class="form-group" style="text-align: left;">
+            <label>পাসওয়ার্ড লিখুন</label>
+            <div class="password-container">
+                <input type="password" id="adminPassword" placeholder="পাসওয়ার্ড লিখুন" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
             </div>
-    <div class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">তহবিল সেবা ▾</a>
-    <div class="dropdown-content">
-    <a href="rules.html">নিয়মাবলি</a> 
-    <a href="savings-plan.html">সঞ্চয় পরিকল্পনা</a>
-    <a href="memreg.html">সদস্য হোন</a>
-    <a href="signup.html">ফান্ড অ্যাকাউন্ট করুন</a>
-    <a href="dashboard.html">মাই ফান্ড ব্যালেন্স</a> 
-    </div>
-    </div>
-
-        <div class="dropdown">
-    <a href="javascript:void(0)" class="dropbtn">ফান্ড অ্যাকাউন্ট ▾</a>
-    <div class="dropdown-content"     
-    <a href="signup.html">ফান্ড অ্যাকাউন্ট করুন</a>    
-    <a href="login.html" id="navAuthBtn">লগইন</a>
-      </div>
-    </div> 
-            
-    </nav>
-</header>
-   
-    <!-- চলমান নোটিশ বোর্ড -->
-    <div class="top-marquee-bar">
-        <marquee behavior="scroll" direction="left" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
-        </marquee>
+        </div>
+        <button onclick="checkLogin()" style="margin-top: 15px;">লগইন করুন</button>
     </div>
     
-    <!-- Hero Section -->
-    <div class="hero">
-        <h2>DewDrop Joint Savings Fund-এ স্বাগতম</h2>
-        <p>সহকর্মীদের সাথে মিলে একটি সুন্দর ভবিষ্যতের জন্য আমাদের এই যৌথ সঞ্চয় উদ্যোগ। স্বচ্ছতা ও পারস্পরিক সহযোগিতার মাধ্যমে আমরা এগিয়ে যেতে চাই।</p>
-        <a href="memreg.html" class="btn">সদস্য হোন</a>
-    </div>
-
-    <!-- মূল লেআউট: নোটিশ বোর্ড, বিজ্ঞাপন কার্ড এবং শপিং মার্ট কার্ড -->
-    <div class="main-content-flex">
+    <!-- ২. মূল অ্যাডমিন প্যানেল -->
+    <div id="admin-panel" class="container" style="max-width: 1100px;">
+        <button class="logout-btn" onclick="logout()">লগআউট</button>
         
-        <!-- ১. বাঁ পাশের নোটিশ বোর্ড -->
-        <div class="notice-board-card">
-            <div>
-                <div class="notice-board-title">Notice Board</div>
-                <ul class="notice-list">
-                    
-                </ul>
-            </div>
-            <div style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 6px; text-align: center; font-size: 13px; color: #94DEA5;">
-               
-            </div>
-        </div>
+        <h2>পেন্ডিং মেম্বারশিপ আবেদনসমূহ</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>আবেদনের তারিখ</th>
+                    <th>ছবি</th>
+                    <th>নাম (বাংলা ও ইংরেজি)</th>
+                    <th>মোবাইল ও ইমেইল</th>
+                    <th>পেশা ও NID</th>
+                    <th>নমিনির তথ্য</th>
+                    <th>ইউনিক মেম্বার আইডি</th>
+                    <th>অ্যাকশন</th>
+                </tr>
+            </thead>
+            <tbody id="pendingTableBody">
+                <!-- ডায়নামিক পেন্ডিং ডেটা লোড হবে -->
+            </tbody>
+        </table>
 
-        <!-- ২. মাঝখানের বিজ্ঞাপন কার্ড -->
-        <div class="ad-card-container" id="adCardWrapper">
-            <div class="ad-table-marquee">
-                <marquee behavior="scroll" direction="left" scrollamount="4">📢 আমাদের স্পন্সর ও সেবামূলক বিজ্ঞাপনসমূহ (বিজ্ঞাপন দিতে যোগাযোগ করুন: 01977885122)</marquee>
-            </div>
-            <div class="ad-main-card" id="mainAdCard">
-                <!-- ডায়নামিক বিজ্ঞাপন কনটেন্ট এখানে স্ক্রিপ্ট দ্বারা লোড হবে -->
-            </div>
-        </div>
-
-        <!-- ৩. ডান পাশের শপিং মার্ট কার্ড -->
-        <div class="shopping-mart-card">
-            <div>
-                <h3>আমাদের নিজস্ব শপিং মার্ট</h3>
-                <p>দৈনন্দিন প্রয়োজনীয় মানসম্মত পণ্য সাশ্রয়ী মূল্যে এক ছাদের নিচে পেতে ভিজিট করুন আমাদের শপিং মার্ট। আমাদের মার্ট থেকে আপনি আপনার প্রয়োজনীয় গৃহস্থালী ও অন্যান্য পণ্য সহজেই সংগ্রহ করতে পারবেন।</p>
-            </div>
-            <div>
-                <a href="marketplace.html" class="btn" style="width: 100%; text-align: center; box-sizing: border-box; padding: 8px 15px;">
-            <marquee behavior="scroll" direction="left" scrollamount="4">শপিং মার্ট ভিজিট করুন</marquee>
-            </a>
-            </div>
-        </div>
-
-    </div>
-          
-    <!-- Features Section -->
-    <div class="features-container">
-        <div class="feature-box">
-            <h3>স্বচ্ছ হিসাব-নিকাশ</h3>
-            <p>ফান্ডের প্রতিটি আয়-ব্যয় এবং সদস্যদের হিসাব রাখা হয় সম্পূর্ণ স্বচ্ছতার সাথে।</p>
-        </div>
-        <div class="feature-box">
-            <h3>নিরাপদ সঞ্চয়</h3>
-            <p>সবার সম্মিলিত প্রচেষ্টায় একটি নির্ভরযোগ্য ও সুরক্ষিত আর্থিক ভিত্তি তৈরি করা।</p>
-        </div>
-        <div class="feature-box">
-            <h3>সঞ্চয় পরিকল্পনা</h3>
-            <p>সদস্যদের আর্থিক সামর্থ্য অনুযায়ী ৪টি ভিন্ন মেয়াদী আকর্ষণীয় সঞ্চয় স্কিম।</p>
-            <a href="savings-plan.html" class="feature-btn">প্ল্যান দেখুন</a>
-        </div>
-        <div class="feature-box">
-            <h3>সহজ পরিচালনা</h3>
-            <p>যেকোনো সময় নিজেদের ফান্ডের বর্তমান অবস্থা ও রিপোর্ট দেখে নেওয়ার সুবিধা।</p>
-            <a href="dashboard.html" class="feature-btn">মাই ফান্ড ব্যালেন্স</a>
+        <h2 style="margin-top: 50px;">অনুমোদিত আবেদনসমূহ</h2>
+        <div id="approvedFormsContainer">
+            <!-- ডায়নামিক ফরম ডিজাইনে অনুমোদিত মেম্বাররা এখানে দেখাবে -->
         </div>
     </div>
+    
+<!-- পেন্ডিং সেকশন কন্টেইনার -->
+<div class="pending-container" style="max-height: 320px; overflow-y: auto; border: 1px solid #ddd; border-radius: 4px;">
+  <table class="admin-table" style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr style="background-color: #f2f2f2; position: sticky; top: 0; z-index: 1;">
+        <th>আবেদনের তারিখ</th>
+        <th>ছবি</th>
+        <th>নাম (বাংলা & English)</th>
+        <th>মোবাইল & ইমেইল</th>
+        <th>পিতা / স্বামীর নাম</th>
+        <th>পেশা & NID</th>
+        <th>মেম্বার আইডি / নোট</th> <!-- এখানে নোট ইনপুট থাকবে -->
+        <th>প্রিভিউ</th> <!-- চোখ আইকন -->
+        <th>অ্যাকশন</th> <!-- সিলেক্ট > অ্যাপ্রুভ > ডিক্লাইন > ডিলিট ড্রপডাউন -->
+      </tr>
+    </thead>
+    <tbody id="pendingTableBody">
+      <!-- জাভাস্ক্রিপ্ট দিয়ে লেটেস্ট ডাটা উপরে এবং সর্বোচ্চ ৫টি রো লোড হবে -->
+    </tbody>
+  </table>
+</div>
 
-    <!-- আমাদের সম্পর্কে ও যোগাযোগের সেকশন -->
-    <div id="about-section" class="about-section">
-        <h2>আমাদের সম্পর্কে</h2>
-        <p>
-            আমরা, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund)-এর প্রতিষ্ঠাতা সদস্যবৃন্দ, পারস্পরিক সহযোগিতা, সুদৃঢ় ঐক্য এবং একটি সঞ্চয়ী মনোভাব গড়ে তোলার লক্ষ্যে সর্বসম্মতিক্রমে এই সমিতি গঠন করছি। আমাদের মূল উদ্দেশ্য- পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা, যা ভবিষ্যতে আমাদের যেকোনো বড় ধরনের লাভজনক খাতে যৌথ বিনিয়োগের পথ সুগম করবে এবং আমাদের আর্থিক ও সামাজিক নিরাপত্তাকে জোরদার করবে।
-        </p>
-        <p>
-            পরিশেষে বলা যায়, 'ডিউ ড্রপ যৌথ সঞ্চয় তহবিল' (DewDrop Joint Savings Fund) কেবল একটি আর্থিক সঞ্চয়ের মাধ্যম নয়; এটি আমাদের পারস্পরিক আস্থা, বিশ্বাস এবং যৌথ সফলতার একটি স্মারক। আমরা দৃঢ়ভাবে বিশ্বাস করি, এই নীতিমালার প্রতিটি ধারা অক্ষরে অক্ষরে পালনের মাধ্যমে আমাদের তহবিলের শৃঙ্খলা বজায় থাকবে। দীর্ঘ ৩ বছরের এই পথচলায় যেকোনো সাময়িক প্রতিকূলতা বা মতপার্থক্য আমরা সকলে মিলে আন্তরিকতা, পারস্পরিক সৌহার্দ্য এবং আলোচনার মাধ্যমে সমাধান করব, ইনশাআল্লাহ। এই যৌথ প্রচেষ্টা আমাদের সকলের জন্য কল্যাণময়, বরকতময় এবং একটি উজ্জ্বল ভবিষ্যৎ বিনির্মাণের হাতিয়ার হোক, আমীন।
-        </p>
+    <!-- অনুমোদিত আবেদন সেকশন কন্টেইনার -->
+<div class="approved-section" style="margin-top: 20px;">
+  <h3>অনুমোদিত আবেদনসমূহ</h3>
+  
+  <!-- কার্ড কন্টেইনার যেখানে ডাইনামিকালি ডাটা লোড হবে -->
+  <div id="approvedCardsContainer">
+    <!-- উদাহরণস্বরূপ একটি কার্ডের স্ট্রাকচার -->
+    <div class="approved-card" style="border: 1px solid #ccc; border-radius: 6px; padding: 15px; margin-bottom: 15px; background: #fff; position: relative;">
+      <div class="card-summary">
+        <p><strong>মেম্বার আইডি:</strong> <span class="app-id">HA2223</span></p>
+        <p><strong>নাম:</strong> <span class="app-name">HOSNA AKTER</span></p>
+        <p><strong>মোবাইল:</strong> <span class="app-mobile">01618552223</span></p>
+      </div>
+      
+      <!-- বিস্তারিত অংশ যা ডিফল্টভাবে লুকানো থাকবে -->
+      <div class="card-details" style="display: none; margin-top: 10px; border-top: 1px dashed #ddd; padding-top: 10px;">
+        <p><strong>পিতা/স্বামীর নাম:</strong> সিয়াম উদ্দিন</p>
+        <p><strong>ই-মেইল:</strong> guddin7548@gmail.com</p>
+        <p><strong>NID নম্বর:</strong> 19931514710000335</p>
+        <p><strong>রক্তের গ্রুপ:</strong> A+</p>
+        <p><strong>স্থায়ী ঠিকানা:</strong> কাশী ঠিকানা...</p>
+        
+        <!-- প্রিন্ট বাটন -->
+        <button type="button" onclick="printApplication(this)" style="background: #333; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; margin-top: 10px;">🖨️ প্রিন্ট করুন</button>
+      </div>
 
-        <!-- যোগাযোগের তথ্য -->
-        <div class="contact-info">
-            <h4>DewDrop Joint Savings Fund</h4>
-            <p>📍 ৬৭ নয়া পল্টন, ঢাকা।</p>
-            <p>📞 মোবাইল: <a href="tel:01977885122">01977885122</a></p>
-            <p>✉️ ইমেইল: <a href="mailto:dewdropjsf@gmail.com">dewdropjsf@gmail.com</a></p>
-        </div>
+      <!-- কার্ডের নিচে বাম কোণায় "বিস্তারিত দেখুন" বাটন -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+        <button type="button" class="toggle-details-btn" onclick="toggleDetails(this)" style="background: #007bff; color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 13px;">বিস্তারিত দেখুন</button>
+      </div>
     </div>
+  </div>
 
-    <!-- সাইট ফুটার -->
-    <footer class="site-footer">
-        <div class="developer-footer">
-            Website Developed by:<br>
-            <strong>Md Tanjim Islam</strong><br>
-            <a href="mailto:tanjimtoru@gmail.com">tanjimtoru@gmail.com</a>
-        </div>
-        <div class="copyright-bar">
-            &copy; ২০২৬ DewDrop Joint Savings Fund. সর্বস্বত্ব সংরক্ষিত।
-        </div>
-    </footer>
-
-   <!-- জাভাস্ক্রিপ্ট লজিক -->
+  <!-- পেজিনেশন কন্ট্রোল (< ১/৫ >) -->
+  <div class="pagination-controls" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 15px;">
+    <button type="button" onclick="changePage(-1)" style="padding: 5px 10px; cursor: pointer;">&lt;</button>
+    <span id="pageIndicator">১ / ৫</span>
+    <button type="button" onclick="changePage(1)" style="padding: 5px 10px; cursor: pointer;">&gt;</button>
+  </div>
+</div>
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const rawData = localStorage.getItem("loggedInUser");
-            const navAuthBtn = document.getElementById("navAuthBtn");
-            const headerUserAvatar = document.getElementById("headerUserAvatar");
+        const firebaseConfig = {
+            databaseURL: "https://dewdrop-shopping-default-rtdb.firebaseio.com"
+        };
 
-            let user = null;
-            let isLoggedIn = false;
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
 
-            if (rawData && rawData !== "null" && rawData !== "undefined") {
-                try {
-                    user = JSON.parse(rawData);
-                    if (user && typeof user === 'object' && Object.keys(user).length > 0) {
-                        isLoggedIn = true;
-                    }
-                } catch (e) {
-                    isLoggedIn = false;
-                }
-            }
+        emailjs.init("VsBVbKELxpfLHOxdx");
+        const ADMIN_PASS = "dewdrop2026";
 
-            if (isLoggedIn && user) {
-                if (headerUserAvatar) {
-                    headerUserAvatar.src = user.photoUrl || user.image || "prflogo.jpeg";
-                    headerUserAvatar.onerror = function() { this.src = "prflogo.jpeg"; };
-                    headerUserAvatar.title = user.name || "প্রোফাইল";
-                }
-                if (navAuthBtn) {
-                    navAuthBtn.innerText = "লগআউট";
-                    navAuthBtn.href = "javascript:void(0)";
-                    navAuthBtn.onclick = function() {
-                        if (confirm("আপনি কি নিশ্চিত যে লগআউট করতে চান?")) {
-                            localStorage.removeItem("loggedInUser");
-                            alert("লগআউট সফল হয়েছে।");
-                            window.location.reload();
-                        }
-                    };
-                }
+        function checkLogin() {
+            const passInput = document.getElementById('adminPassword').value;
+            if (passInput === ADMIN_PASS) {
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('admin-panel').style.display = 'block';
+                loadPendingMembers();
+                loadApprovedMembers();
             } else {
-                if (headerUserAvatar) {
-                    headerUserAvatar.src = "prflogo.jpeg";
-                    headerUserAvatar.title = "গেস্ট প্রোফাইল";
-                }
-                if (navAuthBtn) {
-                    navAuthBtn.innerText = "লগইন";
-                    navAuthBtn.href = "login.html";
-                    navAuthBtn.onclick = null;
-                }
-            }
-        });
-
-        let currentAdIndex = 0;
-        let currentPageIndex = 0;
-        let adTimer = null;
-
-        const advertisements = [
-            {
-                durationPerPage: 15000, 
-                leftHTML: `
-                    <div class="ad-left-section">
-                        <div>
-                            <h2 class="doctor-name">ডা. মতিউর রহমান</h2>
-                            <div class="doctor-title">রেজিস্টার্ড হোমিওপ্যাথ ও ডায়েটিশিয়ান</div>
-                            <div class="doctor-title">MBS, DHMS(BHMC),MPH in Nutrition(NUB)</div>
-                            
-                            <div class="chamber-info">
-                                <strong>চেম্বার : সামস হোমিও হল</strong><br>
-                                বাড়ী নং-৬, ব্লক-এ, রোড নং-০১, দক্ষিণ বনশ্রী, সবুজবাগ, ঢাকা。<br>
-                                <em>(লেগুনা স্ট্যান্ড উত্তরা ব্যাংকের পরের গলি)</em><br>
-                                
-                                <span class="vibrant-phone-icon">📞</span> 
-                                <a href="tel:01913492389" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01913492389</a>
-                                <a href="https://wa.me/8801913492389" target="_blank" class="whatsapp-container">
-                                    <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
-                                    <span class="whatsapp-text">Contact with WhatsApp</span>
-                                </a>
-                            </div>
-                            <div class="chamber-timing">
-                                <strong>🏥 রোগী দেখার সময় :</strong> রবিবার থেকে শুক্রবার<br>
-                                সকাল- ১০টা থেকে দুপুর ১টা এবং বিকাল-বাদ আসর থেকে রাত ১০টা
-                            </div>
-                        </div>
-                        <div>
-                            <div class="social-section-title">Subscribe our channels:</div>
-                            <div class="social-links">
-                                <a href="https://www.facebook.com/share/1Eh8YcZ6cr/" target="_blank"><img src="fblogo.png" alt="Facebook" class="social-logo"></a>
-                                <a href="https://youtube.com/@drmotiurrahmanbd" target="_blank"><img src="utubelogo.png" alt="YouTube" class="social-logo"></a>
-                            </div>
-                            <div class="ad-warning">⚠️ রোগীর দেখানোর জন্য ১ দিন আগে সিরিয়াল নিতে হবে।</div>
-                        </div>
-                    </div>
-                `,
-                pages: [
-                    `
-                    <div class="service-title">(০১) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
-                    <ul class="service-list">
-                        <li><strong>পাকস্থলী ও অন্ত্রের রোগ:</strong> গ্যাস্ট্রিক, আলসার, পিত্তথলির পাথর, পেটব্যথা, মূত্রপাথুরী, আই.বি.স, জন্ডিস, অর্শ/গোজ।</li>
-                        <li><strong>নাক, কান, গলা ও চোখের রোগ:</strong> টাইফয়েড জ্বর, কানপাকা, মাম্পস, টনসিল, চোখউঠা, গ্লুকোমা।</li>
-                        <li><strong>চর্ম ও শ্বাসতন্ত্রের রোগ:</strong> ব্রণ, এলার্জি, হাঁপানি, কাশি, সাইনাস ও মাইগ্রেনের মাথাব্যথা।</li>
-                    </ul>
-                    `,
-                    `
-                    <div class="service-title">(০২) যে সকল জটিল ও বংশগত রোগের চিকিৎসা</div>
-                    <ul class="service-list">
-                        <li><strong>স্ত্রী রোগ ও প্রসূতি:</strong> লিউকোরিয়া, অনিয়মিত ঋতুস্রাব, জরায়ু টিউমার, বিয়ের পর বাচ্চা না হওয়া।</li>
-                        <li><strong>মেটাবলিক ও হাড়ের রোগ:</strong> ডায়াবেটিস, হার্ট ডিজিজ, ফ্যাটি লিভার, লিভার সিরোসিস, কিডনি ডিজিজ, বাতের ব্যথা।</li>
-                        <li><strong>মস্তিষ্ক ও মানসিক রোগ:</strong> ব্রেন স্ট্রোক, বেলস পালসি, স্পাইনাল ডিস্ক ডিজঅর্ডার, মেনিনজাইটিস।</li>
-                    </ul>
-                    `,
-                    `
-                    <div class="service-title">হোমিওপ্যাথি সম্পর্কে ভুল ধারণা ও জবাব</div>
-                    <ul class="service-list">
-                        <li><strong>ভুল ধারণা:</strong> যেকোনো রোগের চিকিৎসায় অনেক দীর্ঘ সময় প্রয়োজন।</li>
-                        <li><strong>জবাব:</strong> উচ্চ তাপমাত্রার জ্বর, ডায়ারিয়া, নিউমোনিয়া ২৪-৭২ ঘণ্টার মধ্যেই নিয়মিত আরোগ্য হয় ইনশাআল্লাহ।</li>
-                        <li><strong>দীর্ঘমেয়াদী রোগ:</strong> ৩ যুগ যাবৎ ডায়াবেটিস ও হার্ট ডিজিজের রোগী কিংবা কেমোথেরাপি নেওয়া রোগীর শরীরেও হোমিওপ্যাথি সমান কাজ করে।</li>
-                    </ul>
-                    `
-                ]
-            },
-            {
-                durationPerPage: 11250,
-                leftHTML: `
-                    <div class="ad-left-section">
-                        <div>
-                            <div class="flat-sale-title">Flat For Sale</div>
-                            <div class="flat-sale-desc">
-                                ফ্ল্যাটটি সরাসরি দেখতে অথবা বিস্তারিত জানতে আজই আমাদের সাথে যোগাযোগ করুন। আপনার স্বপ্নকে বাস্তবে রূপ দিতে আমরা আছি আপনার পাশে।
-                            </div>
-                            <div style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px;">
-                                <div style="font-size: 15px; color: #ffff66; font-weight: bold; margin-bottom: 4px;">মো: তানযীম ইসলাম</div>
-                                <div style="margin: 4px 0;">
-                                    <span class="vibrant-phone-icon">📞</span> 
-                                    <a href="tel:01977885122" style="color: #C0D2E6; text-decoration: none; font-weight: bold;">01977885122</a>
-                                </div>
-                                <a href="https://wa.me/8801977885122" target="_blank" class="whatsapp-container">
-                                    <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
-                                    <span class="whatsapp-text">Contact with WhatsApp</span>
-                                </a>
-                                <div style="margin-top: 5px; font-size: 12px;">✉️ <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a></div>
-                                <div style="margin-top: 4px; font-size: 12px; color: #baeafd;">📍 <strong>অফিস ঠিকানা:</strong> মাদারটেক, বাসাবো, ঢাকা।</div>
-                            </div>
-                        </div>
-                    </div>
-                `,
-                pages: [
-                    `
-                    <div class="service-title">আপনার স্বপ্নের ঠিকানায় স্বাগতম</div>
-                    <p style="font-size: 13px; color: #2b2d42; line-height: 1.4; margin-bottom: 8px;">
-                        আপনার ও আপনার পরিবারের জীবনযাত্রাকে আরও সুন্দর ও নিরাপদ করতে আমরা নিয়ে এসেছি একটি চমৎকার অ্যাপার্টমেন্ট। আধুনিক সুযোগ-সুবিধা এবং চমৎকার লোকেশনে এটি হতে পারে আপনার পরবর্তী স্থায়ী ঠিকানা।
-                    </p>
-                    <ul class="service-list">
-                        <li><strong>আয়তন:</strong> ১২৫০ ও ১২৩০ স্কয়ার ফিট সুপরিসর ফ্ল্যাট।</li>
-                        <li><strong>রুম বিন্যাস:</strong> ৩টি চমৎকার বেডরুম, খোলামেলা ড্রয়িং ও ডাইনিং রুম।</li>
-                    </ul>
-                    `,
-                    `
-                    <div class="service-title">সুবিধাসমূহ ও যাতায়াত</div>
-                    <ul class="service-list">
-                        <li><strong>বারান্দা ও বাথরুম:</strong> ৩টি প্রশস্ত বারান্দা এবং আধুনিক ফিটিংসযুক্ত ৩টি ওয়াশরুম।</li>
-                        <li><strong>পার্কিং ও ইউটিলিটি:</strong> সুরক্ষিত গ্যারেজ, নিরবচ্ছিন্ন পানি, বিদ্যুৎ এবং এলপি গ্যাসের সুব্যবস্থা।</li>
-                        <li><strong>মূল্য ও পেমেন্ট:</strong> অত্যন্ত আকর্ষণীয় ও বাজারবান্ধব মূল্য, সাথে রয়েছে সহজ কিস্তিতে ক্রয়ের সুবিধা!</li>
-                    </ul>
-                    `,
-                    `
-                    <div class="service-title">প্রজেক্টের ভেতরের দৃশ্য (Interior View)</div>
-                    <div class="property-gallery-grid">
-                        <img src="flatsale02.jpeg" alt="Interior 1" class="property-img">
-                        <img src="flatsale03.jpeg" alt="Interior 2" class="property-img">
-                    </div>
-                    <p style="font-size: 13px; color: #555; margin-top: 6px; text-align: center;">ড্রয়িং রুম ও সুপরিসর বেডরুমের আকর্ষণীয় সজ্জা।</p>
-                    `,
-                    `
-                    <div class="service-title">বিল্ডিং ও চারিপাশের পরিবেশ (Exterior View)</div>
-                    <div class="property-gallery-grid">
-                        <img src="flatsale01.jpeg" alt="Exterior 1" class="property-img">
-                        <img src="flatsale04.jpeg" alt="Exterior 2" class="property-img">
-                    </div>
-                    <p style="font-size: 13px; color: #555; margin-top: 6px; text-align: center;">নিরাপদ গেটেড কমিউনিটি ও প্রশস্ত ড্রাইভওয়ে।</p>
-                    `
-                ]
-            },
-            {
-                durationPerPage: 45000,
-                leftHTML: `
-                    <div class="ad-left-section" style="background-color: #012836;">
-                        <div>
-                            <h2 style="color: #94DEA5; font-size: 24px; text-align: center; margin-bottom: 10px;">Call for Ad</h2>
-                            <div style="font-size: 14px; color: #C0D2E6; line-height: 1.6; margin-bottom: 15px;">
-                                আপনার ব্যবসা, প্রতিষ্ঠান বা সেবামূলক প্রচারণার জন্য আমাদের এই ওয়েবসাইটের প্রিমিয়াম স্পেসটি বুক করুন। সাশ্রয়ী মূল্যে আপনার বিজ্ঞাপন পৌঁছে দিন হাজারো মানুষের কাছে।
-                            </div>
-                            <div style="background-color: rgba(255,255,255,0.06); padding: 12px; border-radius: 8px; border: 1px dashed #4ea8de;">
-                                <div style="font-size: 14px; color: #ffff66; font-weight: bold; margin-bottom: 5px;">🤝 যোগাযোগের হটলাইন:</div>
-                                <div style="font-size: 15px; color: #fff; font-weight: bold; margin-bottom: 6px;">
-                                    <span class="vibrant-phone-icon">📞</span> 01977885122
-                                </div>
-                                <a href="https://wa.me/8801977885122" target="_blank" class="whatsapp-container">
-                                    <img src="wapplogo.png" alt="WhatsApp" class="whatsapp-logo-img">
-                                    <span class="whatsapp-text">WhatsApp এ যোগাযোগ করুন</span>
-                                </a>
-                                <div style="margin-top: 5px; font-size: 12px;">✉️ <a href="mailto:tanjimtoru@gmail.com" style="color: #4ea8de; text-decoration: none;">tanjimtoru@gmail.com</a></div>
-                            </div>
-                        </div>
-                    </div>
-                `,
-                pages: [
-                    `
-                    <span class="ad-badge" style="background-color: #e76f51;">প্রমোশনাল অফার</span>
-                    <div style="text-align: center; margin: auto; padding: 25px 10px;">
-                        <h2 style="color: #0077b6; margin-bottom: 15px; font-size: 26px; font-weight: bold;">Make Your Ad Live from Now</h2>
-                        <p style="font-size: 15px; color: #333; margin-bottom: 25px; line-height: 1.6;">
-                            আপনার কোম্পানির পণ্য বা সেবার বিজ্ঞাপন এখন প্রদর্শিত হতে পারে আমাদের ওয়েবসাইটের এই প্রিমিয়াম ব্যানার স্লটে। আজই স্লট বুক করতে নিচের বাটনে ক্লিক করুন!
-                        </p>
-                        <a href="tel:01977885122" style="background: #e76f51; color: white; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 16px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
-                            বুকিং করতে কল করুন
-                        </a>
-                    </div>
-                    `
-                ]
-            }
-        ];
-
-        function renderCurrentAd() {
-            const mainCard = document.getElementById("mainAdCard");
-            const currentAd = advertisements[currentAdIndex];
-
-            if (currentPageIndex >= currentAd.pages.length) {
-                currentPageIndex = 0;
-            }
-
-            mainCard.innerHTML = `
-                ${currentAd.leftHTML}
-                <div class="ad-right-section bg-page-${currentPageIndex % 4}" id="adRightContainer">
-                    <div class="service-page active-page">
-                        ${currentAd.pages[currentPageIndex]}
-                    </div>
-                    <div class="ad-controls">
-                        <button class="ctrl-btn" onclick="prevSubPage()">পূর্ববর্তী</button>
-                        <span class="page-indicators">পেজ ${currentPageIndex + 1} / ${currentAd.pages.length}</span>
-                        <button class="ctrl-btn" onclick="nextSubPage()">পরবর্তী</button>
-                    </div>
-                </div>
-            `;
-        }
-
-        function nextSubPage() {
-            const currentAd = advertisements[currentAdIndex];
-            currentPageIndex++;
-
-            if (currentPageIndex >= currentAd.pages.length) {
-                currentPageIndex = 0;
-                triggerAdSwitch();
-            } else {
-                renderCurrentAd();
-                resetAdTimer();
+                alert('ভুল পাসওয়ার্ড! সঠিক পাসওয়ার্ড দিয়ে চেষ্টা করুন।');
             }
         }
 
-        function prevSubPage() {
-            const currentAd = advertisements[currentAdIndex];
-            currentPageIndex--;
-            if (currentPageIndex < 0) {
-                currentAdIndex = (currentAdIndex - 1 + advertisements.length) % advertisements.length;
-                currentPageIndex = advertisements[currentAdIndex].pages.length - 1;
-            }
-            renderCurrentAd();
-            resetAdTimer();
+        function logout() {
+            document.getElementById('admin-panel').style.display = 'none';
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('adminPassword').value = '';
         }
 
-        function triggerAdSwitch() {
-            const wrapper = document.getElementById("adCardWrapper");
-            if (wrapper) wrapper.classList.add("fade-out");
-
-            setTimeout(() => {
-                currentAdIndex = (currentAdIndex + 1) % advertisements.length;
-                currentPageIndex = 0;
-                
-                renderCurrentAd();
-                
-                if (wrapper) wrapper.classList.remove("fade-out");
-                resetAdTimer();
-            }, 800);
-        }
-
-        function resetAdTimer() {
-            clearInterval(adTimer);
-            const currentAd = advertisements[currentAdIndex];
-            adTimer = setInterval(() => {
-                nextSubPage();
-            }, currentAd.durationPerPage);
-        }
-
-        // গুগল শিট থেকে নোটিশ লোড করার ফাংশনসমূহ
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw4BW6LuFA4vyFQfq9KJxoQlq9QXo9KDv0AgYA-iPMD8cSkwdGfi8bn1ErxkfQgAVOF/exec";
-
-        async function loadNewsroom1() {
-            try {
-                let response = await fetch(`${SCRIPT_URL}?sheet=newsroom1`);
-                let notices = await response.json();
-                
-                if (Array.isArray(notices) && notices.length > 0) {
-                    let marqueeText = notices.join(" *** ");
-                    const topMarquee = document.querySelector(".top-marquee-bar marquee");
-                    if (topMarquee) {
-                        topMarquee.innerText = `*** ${marqueeText} *** DewDrop Joint Savings Fund ***`;
-                    }
-                }
-            } catch (error) {
-                console.error("Error loading newsroom1:", error);
-            }
-        }
-
-        async function loadNewsroom2() {
-            try {
-                let response = await fetch(`${SCRIPT_URL}?sheet=newsroom2`);
-                let notices = await response.json();
-                
-                // এখানে handleNewsroom2 ফাংশনটি কল করা হলো যাতে বড় নোটিশে রিড মোর কাজ করে
-                handleNewsroom2(notices);
-            } catch (error) {
-                console.error("Error loading newsroom2:", error);
-            }
-        }
-
-        function handleNewsroom2(notices) {
-            if (Array.isArray(notices) && notices.length > 0) {
-                const noticeListUl = document.querySelector(".notice-board-card .notice-list");
-                if (noticeListUl) {
-                    noticeListUl.innerHTML = ""; 
-                    
-                    notices.forEach(noticeText => {
-                        let li = document.createElement("li");
-                        li.className = "notice-item";
-                        
-                        // যদি নোটিশের লেখা বড় হয় (যেমন ৮০ অক্ষরের বেশি), তবে ছোট করে দেখিয়ে 'বিস্তারিত' বাটন দেখাবে
-                        let maxLength = 80;
-                        if (noticeText.length > maxLength) {
-                            let shortText = noticeText.substring(0, maxLength) + "...";
-                            let fullText = noticeText;
-                            
-                            li.innerHTML = `
-                                <strong>আপডেট:</strong> 
-                                <span class="notice-text">${shortText}</span>
-                                <button class="read-more-btn" onclick="toggleDetails(this)">বিস্তারিত</button>
-                                <div class="full-details" style="display: none;">${fullText}</div>
-                            `;
-                        } else {
-                            li.innerHTML = `<strong>আপডেট:</strong> ${noticeText}`;
-                        }
-                        
-                        noticeListUl.appendChild(li);
-                    });
-                }
-            }
-        }
-
-        // বিস্তারিত বাটন টগল করার ফাংশন
-        function toggleDetails(btn) {
-            let detailsDiv = btn.nextElementSibling;
+        // পাসওয়ার্ড দেখার টগল ফাংশন
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('adminPassword');
+            const icon = document.querySelector('.toggle-password');
             
-            if (detailsDiv.style.display === "block") {
-                detailsDiv.style.display = "none";
-                btn.innerText = "বিস্তারিত";
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.textContent = '🙈'; 
             } else {
-                detailsDiv.style.display = "block";
-                btn.innerText = "সংক্ষিপ্ত করুন";
+                passwordInput.type = 'password';
+                icon.textContent = '👁️'; 
             }
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            renderCurrentAd();
-            resetAdTimer();
-            loadNewsroom1();
-            loadNewsroom2();
-        });
+        // পেন্ডিং মেম্বার টেবিল লোড করা (ছবি সহ)
+        function loadPendingMembers() {
+            const tableBody = document.getElementById('pendingTableBody');
+            const pendingRef = database.ref('pendingMembers');
+
+            pendingRef.on('value', (snapshot) => {
+                tableBody.innerHTML = '';
+                const data = snapshot.val();
+
+                if (!data) {
+                    tableBody.innerHTML = `<tr><td colspan="8" style="color: #888;">কোনো পেন্ডিং আবেদন নেই।</td></tr>`;
+                    return;
+                }
+
+                Object.keys(data).forEach((key) => {
+                    const member = data[key];
+                    const photoSrc = member.photoBase64 || 'https://via.placeholder.com/50';
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${member.submissionDate || 'N/A'}</td>
+                        <td><img src="${photoSrc}" class="table-photo" alt="ছবি"></td>
+                        <td><b>${member.nameBn}</b><br><span style="font-size:12px; color:#555;">${member.nameEn}</span></td>
+                        <td>${member.mobile}<br><span style="font-size:12px; color:#555;">${member.email}</span></td>
+                        <td>${member.occupation}<br><span style="font-size:12px; color:#555;">NID: ${member.nid}</span></td>
+                        <td style="font-size:12px; text-align:left;">
+                            নাম: ${member.nomineeNameBn}<br>
+                            সম্পর্ক: ${member.nomineeRelation}<br>
+                            মোবাইল: ${member.nomineeMobile}
+                        </td>
+                        <td>
+                            <input type="text" id="id_${key}" class="member-id-input" placeholder="যেমন: 101">
+                        </td>
+                        <td>
+                            <button class="approve-btn" onclick="approveMember('${key}')">অ্যাপ্রুভ</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            });
+        }
+
+        // অনুমোদিত মেম্বারদের মূল ফরম ডিজাইনে লোড করা (রিভার্স লজিক বা .reverse() ব্যবহার করে লেটেস্ট সবার উপরে)
+        function loadApprovedMembers() {
+            const container = document.getElementById('approvedFormsContainer');
+            const approvedRef = database.ref('approvedMembers');
+
+            approvedRef.on('value', (snapshot) => {
+                container.innerHTML = '';
+                const data = snapshot.val();
+
+                if (!data) {
+                    container.innerHTML = `<p style="text-align: center; color: #888;">কোনো অনুমোদিত আবেদন নেই।</p>`;
+                    return;
+                }
+
+                // রিভার্স লজিক ব্যবহার করে লেটেস্ট আবেদনটি সবার উপরে দেখানো
+                const keys = Object.keys(data).reverse();
+
+                keys.forEach((key) => {
+                    const member = data[key];
+                    const photoSrc = member.photoBase64 || 'https://via.placeholder.com/100';
+
+                    const formCard = document.createElement('div');
+                    formCard.className = 'form-card';
+                    formCard.innerHTML = `
+                        <button class="print-btn" onclick="window.print()">🖨️ প্রিন্ট ফরম</button>
+                        <div class="form-header">
+                            <h3>সদস্য ফরম (Membership Registration)</h3>
+                            <p>পেশাগত জীবনের ব্যস্ততার পাশাপাশি নিয়মিত ক্ষুদ্র ক্ষুদ্র সঞ্চয়ের মাধ্যমে একটি শক্তিশালী যৌথ তহবিল গঠন করা...</p>
+                            <div style="margin-top: 10px; display: inline-block; background: #27ae60; color: white; padding: 4px 12px; border-radius: 4px; font-weight: bold;">
+                                মেম্বার আইডি: ${member.memberId || 'N/A'}
+                            </div>
+                        </div>
+
+                        <div class="section-title">ব্যক্তিগত তথ্য</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>সদস্যের নাম (বাংলা)</label>
+                                <div class="form-value">${member.nameBn || ''}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>সদস্যের নাম (English Block Letter)</label>
+                                <div class="form-value">${member.nameEn || ''}</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>পিতার / স্বামীর নাম</label>
+                                <div class="form-value">${member.fatherOrHusband || ''}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>মাতার নাম</label>
+                                <div class="form-value">${member.motherName || ''}</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>মোবাইল নম্বর</label>
+                                <div class="form-value">${member.mobile || ''}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>ই-মেইল</label>
+                                <div class="form-value">${member.email || ''}</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>পেশা</label>
+                                <div class="form-value">${member.occupation || ''}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>জাতীয় পরিচয় পত্র (NID) নম্বর</label>
+                                <div class="form-value">${member.nid || ''}</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>বয়স</label>
+                                <div class="form-value">${member.age || ''}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>রক্তের গ্রুপ</label>
+                                <div class="form-value">${member.bloodGroup || ''}</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>বর্তমান ঠিকানা</label>
+                                <div class="form-value">${member.presentAddress || ''}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>স্থায়ী ঠিকানা</label>
+                                <div class="form-value">${member.permanentAddress || ''}</div>
+                            </div>
+                        </div>
+
+                        <div class="section-title">নমিনির তথ্য</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>নমিনির নাম (বাংলা)</label>
+                                <div class="form-value">${member.nomineeNameBn || ''}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>সদস্যের সাথে সম্পর্ক</label>
+                                <div class="form-value">${member.nomineeRelation || ''}</div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>নমিনির মোবাইল নম্বর</label>
+                                <div class="form-value">${member.nomineeMobile || ''}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>নমিনির NID নম্বর (যদি থাকে)</label>
+                                <div class="form-value">${member.nomineeNid || ''}</div>
+                            </div>
+                        </div>
+
+                        <div class="section-title">সদস্যের ছবি</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <img src="${photoSrc}" class="approved-photo" alt="সদস্যের ছবি">
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(formCard);
+                });
+            });
+        }
+
+        // মেম্বার অ্যাপ্রুভ এবং ইমেইল পাঠানোর লজিক
+        async function approveMember(key) {
+            const memberIdInput = document.getElementById(`id_${key}`).value.trim();
+            if (!memberIdInput) {
+                alert('অনুগ্রহ করে সদস্যের জন্য একটি ইউনিক মেম্বার আইডি দিন (যেমন: 101)');
+                return;
+            }
+
+            if (!confirm(`নিশ্চিত করতে চান যে এই মেম্বারকে "${memberIdInput}" আইডি দিয়ে অ্যাপ্রুভ করবেন?`)) {
+                return;
+            }
+
+            try {
+                const memberRef = database.ref('pendingMembers/' + key);
+                memberRef.once('value', async (snapshot) => {
+                    const memberData = snapshot.val();
+                    if (memberData) {
+                        memberData.memberId = memberIdInput;
+                        memberData.approvedDate = new Date().toLocaleString();
+                        memberData.status = 'Approved';
+
+                        await database.ref('approvedMembers/' + key).set(memberData);
+                        await memberRef.remove();
+
+                        const emailParams = {
+                            to_name: memberData.nameBn,
+                            email: memberData.email,
+                            member_id: memberIdInput
+                        };
+
+                        emailjs.send("service_0r5teka", "template_nekfnwd", emailParams)
+                            .then((response) => {
+                                console.log('Email sent successfully!', response.status, response.text);
+                            }, (error) => {
+                                console.error('Email failed...', error);
+                            });
+
+                        alert('আলহামদুলিল্লাহ! মেম্বার সফলভাবে অ্যাপ্রুভ হয়েছে এবং ফর্মে যুক্ত হয়েছে।');
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error approving member: ", error);
+                alert('ত্রুটি ঘটেছে! আবার চেষ্টা করুন।');
+            }
+        }
+
+        // পেন্ডিং মেম্বারশিপ আবেদন লোড করার ফাংশন
+function loadPendingApplications(data) {
+    const tbody = document.getElementById('pendingTableBody');
+    tbody.innerHTML = '';
+    
+    // যদি ডাটা না থাকে
+    if (!data || data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 15px;">কোনো পেন্ডিং আবেদন নেই</td></tr>';
+        return;
+    }
+
+    // লেটেস্ট আবেদন উপরে দেখানোর জন্য রিভার্স করা
+    const reversedData = [...data].reverse();
+
+    reversedData.forEach((item, index) => {
+        let tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${item.timestamp || ''}</td>
+            <td><img src="${item.photo || ''}" width="40" height="40" style="border-radius: 50%; object-fit: cover;"></td>
+            <td>${item.nameBn || ''}<br><small>${item.nameEn || ''}</small></td>
+            <td>${item.mobile || ''}<br><small>${item.email || ''}</small></td>
+            <td>${item.guardian || ''}</td>
+            <td>${item.occupation || ''}<br><small>NID: ${item.nid || ''}</small></td>
+            <td><input type="text" class="admin-note-input" placeholder="মেম্বার আইডি / নোট" style="width: 110px; padding: 4px;" data-index="${index}"></td>
+            <td style="text-align: center;"><span class="preview-btn" style="cursor: pointer;" title="প্রিভিউ দেখুন" onclick="openPreview('${item.email}')">👁️</span></td>
+            <td>
+                <select class="admin-action-select" style="padding: 4px;" data-index="${index}" onchange="handleAdminAction(this, '${item.email}')">
+                    <option value="">সিলেক্ট</option>
+                    <option value="approve">অ্যাপ্রুভ</option>
+                    <option value="decline">ডিক্লাইন</option>
+                    <option value="delete">ডিলিট</option>
+                </select>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+// ১. কার্ডের বিস্তারিত টগল করার ফাংশন (Show/Hide Details)
+function toggleDetails(button) {
+    const card = button.closest('.approved-card');
+    const detailsDiv = card.querySelector('.card-details');
+    
+    if (detailsDiv.style.display === 'none' || detailsDiv.style.display === '') {
+        detailsDiv.style.display = 'block';
+        button.innerText = 'সংক্ষিপ্ত দেখুন';
+    } else {
+        detailsDiv.style.display = 'none';
+        button.innerText = 'বিস্তারিত দেখুন';
+    }
+}
+
+// ২. নির্দিষ্ট আবেদন প্রিন্ট করার ফাংশন (Specific Card Print)
+function printApplication(button) {
+    const card = button.closest('.approved-card');
+    
+    // কার্ডের ভেতরের তথ্যগুলো প্রিন্ট উইন্ডোতে পাঠানোর ব্যবস্থা
+    const printWindow = window.open('', '', 'height=600,width=800');
+    printWindow.document.write('<html><head><title>মেম্বারশিপ ফরম প্রিন্ট</title>');
+    printWindow.document.write('<style>body { font-family: SolaimanLipi, Arial, sans-serif; padding: 20px; }</style>');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write('<h2>অনুমোদিত সদস্য ফরম</h2>');
+    printWindow.document.write(card.innerHTML); // শুধুমাত্র এই নির্দিষ্ট কার্ডের HTML প্রিন্ট করবে
+    printWindow.document.write('</body></html>');
+    
+    printWindow.document.close();
+    printWindow.focus();
+    
+    // প্রিন্ট কমান্ড কার্যকর করা
+    setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+    }, 500);
+}
+
+// ৩. পেজিনেশন পরিবর্তন ফাংশন (Pagination Control)
+let currentPage = 1;
+const totalPages = 5;
+
+function changePage(direction) {
+    currentPage += direction;
+    if (currentPage < 1) currentPage = 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+    
+    // পেজ ইনডিকেটর আপডেট করা
+    document.getElementById('pageIndicator').innerText = `${currentPage} / ${totalPages}`;
+    
+    // এখানে পেজ অনুযায়ী ডাটা লোড বা ফিল্টার করার ফাংশন কল করতে পারেন
+    // loadApprovedDataByPage(currentPage);
+}
+        
     </script>
 </body>
 </html>
