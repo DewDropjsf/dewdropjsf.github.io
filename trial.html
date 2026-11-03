@@ -49,6 +49,12 @@
             .approved-card { position: absolute; left: 0; top: 0; width: 100%; border: none; box-shadow: none; }
             .toggle-details-btn, .print-btn, .logout-btn, .pagination-controls { display: none !important; }
         }
+        /* মোডাল স্টাইল */
+.modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+.modal-content { background-color: #fff; margin: 10% auto; padding: 20px; border-radius: 8px; width: 500px; max-width: 90%; position: relative; max-height: 80vh; overflow-y: auto; }
+.close-modal { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+.close-modal:hover { color: #000; }
+        
     </style>
 </head>
 <body>
@@ -105,6 +111,17 @@
             <button type="button" onclick="changePage(1)" style="padding: 5px 10px; cursor: pointer;">&gt;</button>
         </div>
     </div>
+
+    <!-- প্রিভিউ মোডাল -->
+<div id="previewModal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closePreviewModal()">&times;</span>
+    <h3 style="text-align: center; color: #2c3e50; margin-top: 0;">আবেদনকারীর পূর্ণাঙ্গ বিবরণ</h3>
+    <div id="modalBodyContent">
+      <!-- ডাইনামিক ডাটা লোড হবে -->
+    </div>
+  </div>
+</div>
     
     <script>
         const firebaseConfig = {
@@ -195,78 +212,82 @@
 
         // ২. অ্যাডমিন অ্যাকশন হ্যান্ডেলার (অ্যাপ্রুভ / ডিক্লাইন / ডিলিট)
         async function handleAdminAction(selectElement, key) {
-            const action = selectElement.value;
-            if (!action) return;
+    const action = selectElement.value;
+    if (!action) return;
 
-            const noteInputVal = document.getElementById(`note_${key}`).value.trim();
-            const memberRef = database.ref('pendingMembers/' + key);
+    const noteInputVal = document.getElementById(`note_${key}`).value.trim();
+    const memberRef = database.ref('pendingMembers/' + key);
 
-            memberRef.once('value', async (snapshot) => {
-                const memberData = snapshot.val();
-                if (!memberData) return;
+    memberRef.once('value', async (snapshot) => {
+        const memberData = snapshot.val();
+        if (!memberData) return;
 
-                if (action === 'approve') {
-                    if (!noteInputVal) {
-                        alert('অ্যাপ্রুভ করার জন্য নোট কলামে একটি ইউনিক মেম্বার আইডি দিন (যেমন: 101)');
-                        selectElement.value = '';
-                        return;
-                    }
+        if (action === 'approve') {
+            if (!noteInputVal) {
+                alert('অ্যাপ্রুভ করার জন্য নোট কলামে একটি ইউনিক মেম্বার আইডি দিন (যেমন: HA2223)');
+                selectElement.value = '';
+                return;
+            }
 
-                    if (!confirm(`নিশ্চিত করতে চান যে এই মেম্বারকে "${noteInputVal}" আইডি দিয়ে অ্যাপ্রুভ করবেন?`)) {
-                        selectElement.value = '';
-                        return;
-                    }
+            if (!confirm(`নিশ্চিত করতে চান যে এই মেম্বারকে "${noteInputVal}" আইডি দিয়ে অ্যাপ্রুভ করবেন?`)) {
+                selectElement.value = '';
+                return;
+            }
 
-                    memberData.memberId = noteInputVal;
-                    memberData.approvedDate = new Date().toLocaleString();
-                    memberData.status = 'Approved';
+            memberData.memberId = noteInputVal;
+            memberData.approvedDate = new Date().toLocaleString();
+            memberData.status = 'Approved';
 
-                    await database.ref('approvedMembers/' + key).set(memberData);
-                    await memberRef.remove();
+            await database.ref('approvedMembers/' + key).set(memberData);
+            await memberRef.remove();
 
-                    // অ্যাপ্রুভালের ইমেইল পাঠানো
-                    emailjs.send("service_0r5teka", "template_nekfnwd", {
-                        to_name: memberData.nameBn,
-                        email: memberData.email,
-                        member_id: noteInputVal
-                    }).then(() => {
-                        alert('মেম্বার সফলভাবে অনুমোদিত হয়েছে এবং ইমেইল পাঠানো হয়েছে।');
-                    }).catch(err => console.error('Email error:', err));
-
-                } else if (action === 'decline') {
-                    if (!noteInputVal) {
-                        alert('আবেদন ডিক্লাইন করার কারণ নোট কলামে লিখে দিন, যা মেইলে যাবে।');
-                        selectElement.value = '';
-                        return;
-                    }
-
-                    if (!confirm('এই আবেদনটি ডিক্লাইন এবং কারণসহ ইমেইল পাঠাতে চান?')) {
-                        selectElement.value = '';
-                        return;
-                    }
-
-                    await memberRef.remove();
-
-                    // ডিক্লাইন বা রিজেকশন ইমেইল পাঠানো
-                    emailjs.send("service_0r5teka", "template_nekfnwd", {
-                        to_name: memberData.nameBn,
-                        email: memberData.email,
-                        message: noteInputVal // টেমপ্লেটে মেসেজ ভ্যারিয়েবল থাকলে কারণ চলে যাবে
-                    }).then(() => {
-                        alert('আবেদন ডিক্লাইন করা হয়েছে এবং কারণসহ ইমেইল পাঠানো হয়েছে।');
-                    }).catch(err => console.error('Email error:', err));
-
-                } else if (action === 'delete') {
-                    if (!confirm('নিশ্চিতভাবে এই আবেদনটি ডিলিট করতে চান?')) {
-                        selectElement.value = '';
-                        return;
-                    }
-                    await memberRef.remove();
-                    alert('আবেদনটি সফলভাবে মুছে ফেলা হয়েছে।');
-                }
+            // অ্যাপ্রুভ ইমেইল টেমপ্লেট কল
+            emailjs.send("service_0r5teka", "template_approve", {
+                to_name: memberData.nameBn,
+                email: memberData.email,
+                member_id: noteInputVal
+            }).then(() => {
+                alert('মেম্বার সফলভাবে অনুমোদিত হয়েছে এবং অভিনন্দন বার্তা পাঠানো হয়েছে।');
             });
-        }
 
+        } else if (action === 'decline') {
+            if (!noteInputVal) {
+                alert('আবেদন ডিক্লাইন করার কারণ নোট কলামে লিখে দিন, যা মেইলে যাবে।');
+                selectElement.value = '';
+                return;
+            }
+
+            if (!confirm('এই আবেদনটি ডিক্লাইন করতে চান? এটি Declined স্ট্যাটাস নিয়ে সংরক্ষিত থাকবে।')) {
+                selectElement.value = '';
+                return;
+            }
+
+            // ডিক্লাইন হলে রিমুভ না করে স্ট্যাটাস আপডেট করে 'declinedMembers' বা পেন্ডিংয়েই স্ট্যাটাস সেভ রাখা
+            memberData.status = 'Declined';
+            memberData.declineReason = noteInputVal;
+
+            await database.ref('declinedMembers/' + key).set(memberData);
+            await memberRef.remove();
+
+            // ডিক্লাইন ইমেইল টেমপ্লেট কল
+            emailjs.send("service_0r5teka", "template_decline", {
+                to_name: memberData.nameBn,
+                email: memberData.email,
+                decline_reason: noteInputVal
+            }).then(() => {
+                alert('আবেদনটি ডিক্লাইন করা হয়েছে এবং কারণসহ ইমেইল পাঠানো হয়েছে।');
+            });
+
+        } else if (action === 'delete') {
+            if (!confirm('নিশ্চিতভাবে এই আবেদনটি স্থায়ীভাবে ডিলিট করতে চান?')) {
+                selectElement.value = '';
+                return;
+            }
+            await memberRef.remove();
+            alert('আবেদনটি সফলভাবে মুছে ফেলা হয়েছে।');
+        }
+    });
+}
         // ৩. অনুমোদিত আবেদনসমূহ কার্ড আকারে লোড করা
         function loadApprovedMembers() {
             const container = document.getElementById('approvedCardsContainer');
@@ -305,6 +326,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group"><label>NID নম্বর</label><div class="form-value">${member.nid || ''}</div></div>
+                                <p><strong>জন্ম তারিখ:</strong> ${member.dob || ''}</p>
                                 <div class="form-group"><label>রক্তের গ্রুপ</label><div class="form-value">${member.bloodGroup || ''}</div></div>
                             </div>
                             <div class="form-row">
@@ -337,27 +359,33 @@
 
         // ৫. নির্দিষ্ট কার্ড প্রিন্ট ফাংশন
         function printApplication(button) {
-            const card = button.closest('.approved-card').cloneNode(true);
-            // প্রিন্টের সময় টগল বাটন ও প্রিন্ট বাটন সরিয়ে নেওয়া
-            card.querySelector('.toggle-details-btn')?.remove();
-            card.querySelector('.print-btn')?.remove();
-            card.querySelector('.card-details').style.display = 'block'; // ডিটেইলস দৃশ্যমান করা
+    const card = button.closest('.approved-card').cloneNode(true);
+    card.querySelector('.toggle-details-btn')?.remove();
+    card.querySelector('.print-btn')?.remove();
+    card.querySelector('.card-details').style.display = 'block';
 
-            const printWindow = window.open('', '', 'height=600,width=800');
-            printWindow.document.write('<html><head><title>মেম্বারশিপ ফরম প্রিন্ট</title>');
-            printWindow.document.write('<style>body { font-family: SolaimanLipi, Arial, sans-serif; padding: 20px; }</style>');
-            printWindow.document.write('</head><body>');
-            printWindow.document.write('<h2>অনুমোদিত সদস্য ফরম</h2>');
-            printWindow.document.write(card.innerHTML);
-            printWindow.document.write('</body></html>');
-            
-            printWindow.document.close();
-            printWindow.focus();
-            setTimeout(() => {
-                printWindow.print();
-                printWindow.close();
-            }, 500);
-        }
+    const printWindow = window.open('', '', 'height=700,width=900');
+    printWindow.document.write('<html><head><title>মেম্বারশিপ ফরম প্রিন্ট</title>');
+    printWindow.document.write('<style>');
+    printWindow.document.write('body { font-family: "SolaimanLipi", Arial, sans-serif; padding: 20px; color: #111; }');
+    printWindow.document.write('.approved-card { border: 2px solid #2c3e50; padding: 25px; border-radius: 8px; background: #fff; }');
+    printWindow.document.write('img { width: 100px; height: 100px; object-fit: cover; border: 1px solid #ccc; border-radius: 4px; }');
+    printWindow.document.write('.form-row { display: flex; gap: 20px; margin-bottom: 12px; }');
+    printWindow.document.write('.form-group { flex: 1; display: flex; flex-direction: column; }');
+    printWindow.document.write('.form-group label { font-size: 12px; color: #555; font-weight: bold; margin-bottom: 3px; }');
+    printWindow.document.write('.form-value { padding: 6px 8px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; }');
+    printWindow.document.write('</style></head><body>');
+    printWindow.document.write('<div style="text-align: center; margin-bottom: 20px;"><h2>DewDrop Joint Savings Fund</h2><h3>অনুমোদিত সদস্য ফরম</h3></div>');
+    printWindow.document.write(card.innerHTML);
+    printWindow.document.write('</body></html>');
+    
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+    }, 600);
+}
 
         // ৬. প্রিভিউ দেখার ডামি ফাংশন
         function openPreview(email) {
@@ -373,6 +401,43 @@
             if (currentPage > totalPages) currentPage = totalPages;
             document.getElementById('pageIndicator').innerText = `${currentPage} / ${totalPages}`;
         }
+
+        function openPreviewModal(email) {
+    database.ref('pendingMembers').orderByChild('email').equalTo(email).once('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            const key = Object.keys(data)[0];
+            const member = data[key];
+            const photoSrc = member.photoBase64 || member.photo || 'https://via.placeholder.com/100';
+
+            document.getElementById('modalBodyContent').innerHTML = `
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <img src="${photoSrc}" style="width: 90px; height: 90px; object-fit: cover; border-radius: 50%; border: 2px solid #ccc;">
+                </div>
+                <p><strong>আবেদনের তারিখ:</strong> ${member.submissionDate || member.timestamp || 'N/A'}</p>
+                <p><strong>নাম (বাংলা):</strong> ${member.nameBn || ''}</p>
+                <p><strong>নাম (English):</strong> ${member.nameEn || ''}</p>
+                <p><strong>জন্ম তারিখ (DOB):</strong> ${member.dob || 'সংরক্ষিত নেই'}</p>
+                <p><strong>জন্ম তারিখ:</strong> ${member.dob || ''}</p>
+                <p><strong>মোবাইল ও ইমেল:</strong> ${member.mobile || ''} | ${member.email || ''}</p>
+                <p><strong>পিতা/স্বামীর নাম:</strong> ${member.fatherOrHusband || member.guardian || ''}</p>
+                <p><strong>মাতার নাম:</strong> ${member.motherName || ''}</p>
+                <p><strong>পেশা ও NID:</strong> ${member.occupation || ''} (NID: ${member.nid || ''})</p>
+                <p><strong>বয়স ও রক্তের গ্রুপ:</strong> ${member.age || ''} | ${member.bloodGroup || ''}</p>
+                <p><strong>বর্তমান ঠিকানা:</strong> ${member.presentAddress || ''}</p>
+                <p><strong>স্থায়ী ঠিকানা:</strong> ${member.permanentAddress || ''}</p>
+                <hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;">
+                <p><strong>নমিনির নাম:</strong> ${member.nomineeNameBn || ''} (সম্পর্ক: ${member.nomineeRelation || ''})</p>
+                <p><strong>নমিনির মোবাইল ও NID:</strong> ${member.nomineeMobile || ''} | NID: ${member.nomineeNid || ''}</p>
+            `;
+            document.getElementById('previewModal').style.display = 'block';
+        }
+    });
+}
+
+function closePreviewModal() {
+    document.getElementById('previewModal').style.display = 'none';
+}
     </script>
 </body>
 </html>
